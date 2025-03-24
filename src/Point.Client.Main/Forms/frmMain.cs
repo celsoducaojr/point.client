@@ -10,15 +10,7 @@ namespace Point.Client.Main
             InitializeComponent();
         }
 
-        private void tsbtnProducts_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new frmProducts());
-        }
 
-        private void tsbtnStocks_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new frmStocks());
-        }
         private void OpenChildForm(Form childForm)
         {
             foreach (Form form in this.MdiChildren)
@@ -34,5 +26,9 @@ namespace Point.Client.Main
             childForm.Show();
         }
 
+        private void btnProducts_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmProducts());
+        }
     }
 }
