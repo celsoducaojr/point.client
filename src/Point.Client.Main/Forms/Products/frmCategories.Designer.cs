@@ -47,11 +47,14 @@
             dgvCategories.Columns.AddRange(new DataGridViewColumn[] { clmCategory });
             dgvCategories.Location = new System.Drawing.Point(23, 23);
             dgvCategories.Margin = new Padding(3, 3, 20, 3);
+            dgvCategories.MultiSelect = false;
             dgvCategories.Name = "dgvCategories";
             dgvCategories.ReadOnly = true;
             dgvCategories.RowHeadersWidth = 51;
+            dgvCategories.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCategories.Size = new Size(366, 492);
             dgvCategories.TabIndex = 1;
+            dgvCategories.SelectionChanged += dgvCategories_SelectionChanged;
             // 
             // clmCategory
             // 
@@ -66,7 +69,7 @@
             btnSave.Location = new System.Drawing.Point(616, 486);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(94, 29);
-            btnSave.TabIndex = 2;
+            btnSave.TabIndex = 5;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Visible = false;
@@ -77,7 +80,7 @@
             btnCancel.Location = new System.Drawing.Point(716, 486);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
-            btnCancel.TabIndex = 3;
+            btnCancel.TabIndex = 6;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Visible = false;
@@ -95,17 +98,18 @@
             // txtCategory
             // 
             txtCategory.Location = new System.Drawing.Point(487, 23);
+            txtCategory.MaxLength = 30;
             txtCategory.Name = "txtCategory";
             txtCategory.ReadOnly = true;
             txtCategory.Size = new Size(323, 27);
-            txtCategory.TabIndex = 5;
+            txtCategory.TabIndex = 2;
             // 
             // btnNew
             // 
             btnNew.Location = new System.Drawing.Point(412, 486);
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(94, 29);
-            btnNew.TabIndex = 6;
+            btnNew.TabIndex = 3;
             btnNew.Text = "New";
             btnNew.UseVisualStyleBackColor = true;
             btnNew.Click += btnNew_Click;
@@ -115,7 +119,7 @@
             btnEdit.Location = new System.Drawing.Point(512, 486);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(94, 29);
-            btnEdit.TabIndex = 7;
+            btnEdit.TabIndex = 4;
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
