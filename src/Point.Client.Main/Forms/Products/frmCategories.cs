@@ -8,6 +8,7 @@ namespace Point.Client.Main.Products
     {
         private bool _isAddingNew;
         private readonly CategoryService _categoryService;
+
         public frmCategories()
         {
             InitializeComponent();
@@ -54,7 +55,7 @@ namespace Point.Client.Main.Products
 
             var category = new CategoryDto
             {
-                Name = txtCategory.Text
+                Name = txtCategory.Text.Trim()
             };
 
             EnableButtons(false);
@@ -112,14 +113,17 @@ namespace Point.Client.Main.Products
 
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    MessageBox.Show("New category has been added.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("New Category has been added.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    dgvCategories.Rows.Add(txtCategory.Text);
+                    dgvCategories.Rows.Add(categoryDto.Name);
                     var rowIndex = dgvCategories.Rows.Count - 1;
                     dgvCategories.Rows[rowIndex].Tag = response?.Id;
+
                     dgvCategories.ClearSelection();
                     dgvCategories.Rows[rowIndex].Selected = true;
                     dgvCategories.FirstDisplayedScrollingRowIndex = rowIndex;
+
+                    txtCategory.Text = categoryDto.Name;
 
                     EnableEditing(false);
                 }));
@@ -147,6 +151,8 @@ namespace Point.Client.Main.Products
 
                     dgvCategories.Rows[dgvCategories.SelectedRows[0].Index].Cells[0].Value = categoryDto.Name;
 
+                    txtCategory.Text = categoryDto.Name;
+
                     EnableEditing(false);
                 }));
             }
@@ -167,7 +173,7 @@ namespace Point.Client.Main.Products
             {
                 EnableButtons(false);
 
-                this.Text = "Loading categories...";
+                this.Text = "Loading Categories...";
             }));
 
             var response = await _categoryService.GetCategories();

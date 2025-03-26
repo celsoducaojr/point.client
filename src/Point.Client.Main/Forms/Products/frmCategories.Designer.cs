@@ -101,7 +101,7 @@
             txtCategory.MaxLength = 30;
             txtCategory.Name = "txtCategory";
             txtCategory.ReadOnly = true;
-            txtCategory.Size = new Size(323, 27);
+            txtCategory.Size = new Size(230, 27);
             txtCategory.TabIndex = 2;
             // 
             // btnNew

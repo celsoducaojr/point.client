@@ -9,6 +9,7 @@ namespace Point.Client.Main.Api.Services
     {
         private const string _endPoint = "categories";
         private ApiClient _pointApiClient;
+
         public void SetClient(ApiClient pointApiClient)
         {
             _pointApiClient = pointApiClient;
@@ -18,10 +19,12 @@ namespace Point.Client.Main.Api.Services
         {
             return await _pointApiClient.ExecuteAsync<ResponseDto>(_endPoint, Method.Post, createCategoryDto);
         }
+
         public async Task UpdateCategory(int id, CategoryDto createCategoryDto)
         {
             await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, createCategoryDto);
         }
+
         public async Task<List<Category>?> GetCategories()
         {
             return await _pointApiClient.ExecuteAsync<List<Category>>(_endPoint, Method.Get);

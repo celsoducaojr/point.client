@@ -1,3 +1,4 @@
+using Point.Client.Main.Forms.Products;
 using Point.Client.Main.Products;
 using Point.Client.Main.Stocks;
 
@@ -28,7 +29,17 @@ namespace Point.Client.Main
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new frmProducts());
+            new frmUnits().ShowDialog();
+        }
+
+        private void tsbtnStocks_Click(object sender, EventArgs e)
+        {
+            new frmCategories().ShowDialog();
+        }
+
+        private void tsbtnOrders_Click(object sender, EventArgs e)
+        {
+            new frmTags().ShowDialog();
         }
     }
 }

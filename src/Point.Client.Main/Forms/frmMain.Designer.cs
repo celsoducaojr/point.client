@@ -156,6 +156,7 @@
             tsbtnStocks.Name = "tsbtnStocks";
             tsbtnStocks.Size = new Size(87, 29);
             tsbtnStocks.Text = "Stocks";
+            tsbtnStocks.Click += tsbtnStocks_Click;
             // 
             // toolStripSeparator1
             // 
@@ -169,6 +170,7 @@
             tsbtnOrders.Name = "tsbtnOrders";
             tsbtnOrders.Size = new Size(90, 29);
             tsbtnOrders.Text = "Orders";
+            tsbtnOrders.Click += tsbtnOrders_Click;
             // 
             // tsbtnSales
             // 
