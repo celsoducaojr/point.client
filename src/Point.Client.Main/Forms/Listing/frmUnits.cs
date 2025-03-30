@@ -37,12 +37,14 @@ namespace Point.Client.Main.Forms.Products
             _isAddingNew = true;
             ClearFields();
             EnableEditing(true);
+            txtUnit.Focus();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             _isAddingNew = false;
             EnableEditing(true);
+            txtUnit.Focus();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -50,6 +52,7 @@ namespace Point.Client.Main.Forms.Products
             if (string.IsNullOrWhiteSpace(txtUnit.Text))
             {
                 MessageBox.Show("Unit is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUnit.Focus();
                 return;
             }
 
@@ -82,7 +85,6 @@ namespace Point.Client.Main.Forms.Products
         private void ClearFields()
         {
             txtUnit.Clear();
-            txtUnit.Focus();
         }
         private void EnableEditing(bool enable)
         {
@@ -180,16 +182,13 @@ namespace Point.Client.Main.Forms.Products
 
             this.Invoke((MethodInvoker)(() =>
             {
-                response?.ForEach(c =>
+                response?.ForEach(unit =>
                 {
-                    dgvUnits.Rows.Add(c.Name);
-                    dgvUnits.Rows[dgvUnits.Rows.Count - 1].Tag = c.Id;
+                    dgvUnits.Rows.Add(unit.Name);
+                    dgvUnits.Rows[dgvUnits.Rows.Count - 1].Tag = unit.Id;
                 });
 
-                dgvUnits.ClearSelection();
-                if (dgvUnits.Rows.Count > 0) dgvUnits.Rows[0].Selected = true;
                 this.Text = frmText;
-
                 EnableButtons(true);
             }));
         }

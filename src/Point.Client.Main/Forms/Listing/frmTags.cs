@@ -46,12 +46,14 @@ namespace Point.Client.Main.Forms.Products
             _isAddingNew = true;
             ClearFields();
             EnableEditing(true);
+            txtTag.Focus();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             _isAddingNew = false;
             EnableEditing(true);
+            txtTag.Focus();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -59,6 +61,7 @@ namespace Point.Client.Main.Forms.Products
             if (string.IsNullOrWhiteSpace(txtTag.Text))
             {
                 MessageBox.Show("Tag is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtTag.Focus();
                 return;
             }
 
@@ -91,7 +94,6 @@ namespace Point.Client.Main.Forms.Products
         private void ClearFields()
         {
             txtTag.Clear();
-            txtTag.Focus();
         }
         private void EnableEditing(bool enable)
         {
@@ -189,16 +191,13 @@ namespace Point.Client.Main.Forms.Products
 
             this.Invoke((MethodInvoker)(() =>
             {
-                response?.ForEach(c =>
+                response?.ForEach(tag =>
                 {
-                    dgvTags.Rows.Add(c.Name);
-                    dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = c.Id;
+                    dgvTags.Rows.Add(tag.Name);
+                    dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = tag.Id;
                 });
 
-                dgvTags.ClearSelection();
-                if (dgvTags.Rows.Count > 0) dgvTags.Rows[0].Selected = true;
                 this.Text = frmText;
-
                 EnableButtons(true);
             }));
         }

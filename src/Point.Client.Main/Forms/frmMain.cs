@@ -1,5 +1,5 @@
 using Point.Client.Main.Forms.Products;
-using Point.Client.Main.Products;
+using Point.Client.Main.Listing;
 using Point.Client.Main.Stocks;
 
 namespace Point.Client.Main
@@ -40,6 +40,11 @@ namespace Point.Client.Main
         private void tsbtnOrders_Click(object sender, EventArgs e)
         {
             new frmTags().ShowDialog();
+        }
+
+        private void tsbtnSales_Click(object sender, EventArgs e)
+        {
+            new frmItems().ShowDialog();
         }
     }
 }

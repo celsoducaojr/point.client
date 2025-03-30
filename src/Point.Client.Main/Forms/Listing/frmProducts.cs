@@ -1,4 +1,4 @@
-﻿namespace Point.Client.Main.Products
+﻿namespace Point.Client.Main.Listing
 {
     public partial class frmProducts : Form
     {

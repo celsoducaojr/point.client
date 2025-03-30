@@ -179,6 +179,7 @@
             tsbtnSales.Name = "tsbtnSales";
             tsbtnSales.Size = new Size(76, 29);
             tsbtnSales.Text = "Sales";
+            tsbtnSales.Click += tsbtnSales_Click;
             // 
             // toolStripDropDownButton2
             // 

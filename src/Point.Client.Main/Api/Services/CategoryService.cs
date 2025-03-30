@@ -15,14 +15,14 @@ namespace Point.Client.Main.Api.Services
             _pointApiClient = pointApiClient;
         }
 
-        public async Task<ResponseDto?> CreateCategory(CategoryDto createCategoryDto)
+        public async Task<ResponseDto?> CreateCategory(CategoryDto categoryDto)
         {
-            return await _pointApiClient.ExecuteAsync<ResponseDto>(_endPoint, Method.Post, createCategoryDto);
+            return await _pointApiClient.ExecuteAsync<ResponseDto>(_endPoint, Method.Post, categoryDto);
         }
 
-        public async Task UpdateCategory(int id, CategoryDto createCategoryDto)
+        public async Task UpdateCategory(int id, CategoryDto categoryDto)
         {
-            await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, createCategoryDto);
+            await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, categoryDto);
         }
 
         public async Task<List<Category>?> GetCategories()

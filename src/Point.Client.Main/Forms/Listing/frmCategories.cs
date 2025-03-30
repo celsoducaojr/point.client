@@ -2,7 +2,7 @@
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Services;
 
-namespace Point.Client.Main.Products
+namespace Point.Client.Main.Listing
 {
     public partial class frmCategories : Form
     {
@@ -37,12 +37,14 @@ namespace Point.Client.Main.Products
             _isAddingNew = true;
             ClearFields();
             EnableEditing(true);
+            txtCategory.Focus();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             _isAddingNew = false;
             EnableEditing(true);
+            txtCategory.Focus();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -50,6 +52,7 @@ namespace Point.Client.Main.Products
             if (string.IsNullOrWhiteSpace(txtCategory.Text))
             {
                 MessageBox.Show("Category is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCategory.Focus();
                 return;
             }
 
@@ -82,7 +85,6 @@ namespace Point.Client.Main.Products
         private void ClearFields()
         {
             txtCategory.Clear();
-            txtCategory.Focus();
         }
         private void EnableEditing(bool enable)
         {
@@ -180,16 +182,13 @@ namespace Point.Client.Main.Products
 
             this.Invoke((MethodInvoker)(() =>
             {
-                response?.ForEach(c =>
+                response?.ForEach(category =>
                 {
-                    dgvCategories.Rows.Add(c.Name);
-                    dgvCategories.Rows[dgvCategories.Rows.Count - 1].Tag = c.Id;
+                    dgvCategories.Rows.Add(category.Name);
+                    dgvCategories.Rows[dgvCategories.Rows.Count - 1].Tag = category.Id;
                 });
 
-                dgvCategories.ClearSelection();
-                if (dgvCategories.Rows.Count > 0) dgvCategories.Rows[0].Selected = true;
                 this.Text = frmText;
-
                 EnableButtons(true);
             }));
         }

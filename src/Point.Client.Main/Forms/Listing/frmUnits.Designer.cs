@@ -28,41 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvUnits = new DataGridView();
-            clmUnit = new DataGridViewTextBoxColumn();
             btnEdit = new Button();
             btnNew = new Button();
             txtUnit = new TextBox();
             label1 = new Label();
             btnCancel = new Button();
             btnSave = new Button();
+            dgvUnits = new DataGridView();
+            clmUnit = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvUnits).BeginInit();
             SuspendLayout();
-            // 
-            // dgvUnits
-            // 
-            dgvUnits.AllowUserToAddRows = false;
-            dgvUnits.AllowUserToDeleteRows = false;
-            dgvUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvUnits.Columns.AddRange(new DataGridViewColumn[] { clmUnit });
-            dgvUnits.Location = new System.Drawing.Point(23, 23);
-            dgvUnits.Margin = new Padding(3, 3, 20, 3);
-            dgvUnits.MultiSelect = false;
-            dgvUnits.Name = "dgvUnits";
-            dgvUnits.ReadOnly = true;
-            dgvUnits.RowHeadersWidth = 51;
-            dgvUnits.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvUnits.Size = new Size(366, 492);
-            dgvUnits.TabIndex = 1;
-            dgvUnits.SelectionChanged += dgvUnits_SelectionChanged;
-            // 
-            // clmUnit
-            // 
-            clmUnit.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmUnit.HeaderText = "Unit";
-            clmUnit.MinimumWidth = 6;
-            clmUnit.Name = "clmUnit";
-            clmUnit.ReadOnly = true;
             // 
             // btnEdit
             // 
@@ -124,6 +99,31 @@
             btnSave.Visible = false;
             btnSave.Click += btnSave_Click;
             // 
+            // dgvUnits
+            // 
+            dgvUnits.AllowUserToAddRows = false;
+            dgvUnits.AllowUserToDeleteRows = false;
+            dgvUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvUnits.Columns.AddRange(new DataGridViewColumn[] { clmUnit });
+            dgvUnits.Location = new System.Drawing.Point(23, 23);
+            dgvUnits.Margin = new Padding(3, 3, 20, 3);
+            dgvUnits.MultiSelect = false;
+            dgvUnits.Name = "dgvUnits";
+            dgvUnits.ReadOnly = true;
+            dgvUnits.RowHeadersWidth = 51;
+            dgvUnits.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvUnits.Size = new Size(366, 492);
+            dgvUnits.TabIndex = 12;
+            dgvUnits.SelectionChanged += dgvUnits_SelectionChanged;
+            // 
+            // clmUnit
+            // 
+            clmUnit.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmUnit.HeaderText = "Unit";
+            clmUnit.MinimumWidth = 6;
+            clmUnit.Name = "clmUnit";
+            clmUnit.ReadOnly = true;
+            // 
             // frmUnits
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -149,14 +149,13 @@
         }
 
         #endregion
-
-        private DataGridView dgvUnits;
         private Button btnEdit;
         private Button btnNew;
         private TextBox txtUnit;
         private Label label1;
         private Button btnCancel;
         private Button btnSave;
+        private DataGridView dgvUnits;
         private DataGridViewTextBoxColumn clmUnit;
     }
 }
