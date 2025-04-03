@@ -39,7 +39,9 @@
             clmCategory = new DataGridViewTextBoxColumn();
             clmDescription = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
-            lnkAddTag = new LinkLabel();
+            txtTag = new TextBox();
+            lblTag = new Label();
+            lnkManageTags = new LinkLabel();
             dgvTags = new DataGridView();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
             clmRemove = new DataGridViewButtonColumn();
@@ -168,7 +170,9 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(lnkAddTag);
+            panel3.Controls.Add(txtTag);
+            panel3.Controls.Add(lblTag);
+            panel3.Controls.Add(lnkManageTags);
             panel3.Controls.Add(dgvTags);
             panel3.Controls.Add(txtCategory);
             panel3.Controls.Add(btnEdit);
@@ -190,17 +194,38 @@
             panel3.Size = new Size(508, 611);
             panel3.TabIndex = 2;
             // 
-            // lnkAddTag
+            // txtTag
             // 
-            lnkAddTag.AutoSize = true;
-            lnkAddTag.Location = new System.Drawing.Point(421, 176);
-            lnkAddTag.Name = "lnkAddTag";
-            lnkAddTag.Size = new Size(64, 20);
-            lnkAddTag.TabIndex = 21;
-            lnkAddTag.TabStop = true;
-            lnkAddTag.Text = "Add Tag";
-            lnkAddTag.Visible = false;
-            lnkAddTag.LinkClicked += lnkAddTag_LinkClicked;
+            txtTag.Location = new System.Drawing.Point(23, 354);
+            txtTag.Name = "txtTag";
+            txtTag.Size = new Size(360, 27);
+            txtTag.TabIndex = 25;
+            txtTag.Visible = false;
+            txtTag.KeyDown += txtTag_KeyDown;
+            // 
+            // lblTag
+            // 
+            lblTag.AutoSize = true;
+            lblTag.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTag.ForeColor = SystemColors.ControlDarkDark;
+            lblTag.Location = new System.Drawing.Point(23, 385);
+            lblTag.Name = "lblTag";
+            lblTag.Size = new Size(74, 17);
+            lblTag.TabIndex = 23;
+            lblTag.Text = "Select tag...";
+            lblTag.Visible = false;
+            // 
+            // lnkManageTags
+            // 
+            lnkManageTags.AutoSize = true;
+            lnkManageTags.Location = new System.Drawing.Point(389, 357);
+            lnkManageTags.Name = "lnkManageTags";
+            lnkManageTags.Size = new Size(96, 20);
+            lnkManageTags.TabIndex = 21;
+            lnkManageTags.TabStop = true;
+            lnkManageTags.Text = "Manage Tags";
+            lnkManageTags.Visible = false;
+            lnkManageTags.LinkClicked += lnkManageTags_LinkClicked;
             // 
             // dgvTags
             // 
@@ -208,13 +233,14 @@
             dgvTags.AllowUserToDeleteRows = false;
             dgvTags.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTags.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, clmRemove });
-            dgvTags.Location = new System.Drawing.Point(23, 199);
+            dgvTags.Location = new System.Drawing.Point(23, 165);
             dgvTags.MultiSelect = false;
             dgvTags.Name = "dgvTags";
             dgvTags.ReadOnly = true;
             dgvTags.RowHeadersWidth = 51;
-            dgvTags.Size = new Size(462, 203);
+            dgvTags.Size = new Size(462, 183);
             dgvTags.TabIndex = 20;
+            dgvTags.CellClick += dgvTags_CellClick;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -400,9 +426,12 @@
         private Button btnCancel;
         private Button btnSave;
         private TextBox txtCategory;
-        private LinkLabel lnkAddTag;
+        private LinkLabel lnkManageTags;
         private DataGridView dgvTags;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewButtonColumn clmRemove;
+        private Label lblTag;
+        private ComboBox cmbTag;
+        private TextBox txtTag;
     }
 }

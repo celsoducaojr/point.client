@@ -25,9 +25,9 @@ namespace Point.Client.Main.Api.Services
             await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, tagDto);
         }
 
-        public async Task<List<Category>?> GetTags()
+        public async Task<List<Tag>?> GetTags()
         {
-            return await _pointApiClient.ExecuteAsync<List<Category>>(_endPoint, Method.Get);
+            return await _pointApiClient.ExecuteAsync<List<Tag>>(_endPoint, Method.Get);
         }
     }
 }

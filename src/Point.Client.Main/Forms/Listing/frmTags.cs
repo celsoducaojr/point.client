@@ -1,26 +1,21 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Point.Client.Main.Forms.Products
 {
     public partial class frmTags : Form
     {
+        public static bool HasUpdates { get; private set; }
+
         private bool _isAddingNew;
         private readonly TagService _tagService;
 
         public frmTags()
         {
             InitializeComponent();
+
+            HasUpdates = false;
 
             _isAddingNew = false;
             _tagService = ServiceLocator.GetService<TagService>();
@@ -138,6 +133,8 @@ namespace Point.Client.Main.Forms.Products
 
                     EnableEditing(false);
                 }));
+
+                HasUpdates = true;
             }
             catch (HttpRequestException ex)
             {
@@ -166,6 +163,8 @@ namespace Point.Client.Main.Forms.Products
 
                     EnableEditing(false);
                 }));
+
+                HasUpdates = true;
             }
             catch (HttpRequestException ex)
             {
@@ -191,10 +190,14 @@ namespace Point.Client.Main.Forms.Products
 
             this.Invoke((MethodInvoker)(() =>
             {
-                response?.ForEach(tag =>
+                DataGridViewRow row;
+                response?.ForEach(item =>
                 {
-                    dgvTags.Rows.Add(tag.Name);
-                    dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = tag.Id;
+                    row = new DataGridViewRow();
+                    row.CreateCells(dgvTags);
+                    row.Cells[0].Value = item.Name;
+                    row.Tag = item.Id;
+                    dgvTags.Rows.Add(row);
                 });
 
                 this.Text = frmText;

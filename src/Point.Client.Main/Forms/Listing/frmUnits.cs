@@ -182,10 +182,14 @@ namespace Point.Client.Main.Forms.Products
 
             this.Invoke((MethodInvoker)(() =>
             {
+                DataGridViewRow row;
                 response?.ForEach(unit =>
                 {
-                    dgvUnits.Rows.Add(unit.Name);
-                    dgvUnits.Rows[dgvUnits.Rows.Count - 1].Tag = unit.Id;
+                    row = new DataGridViewRow();
+                    row.CreateCells(dgvUnits);
+                    row.Cells[0].Value = unit.Name;
+                    row.Tag = unit.Id;
+                    dgvUnits.Rows.Add(row);
                 });
 
                 this.Text = frmText;

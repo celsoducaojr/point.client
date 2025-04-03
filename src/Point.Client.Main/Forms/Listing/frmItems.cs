@@ -1,26 +1,35 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
+using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
+using Point.Client.Main.Forms.Products;
 
 namespace Point.Client.Main.Listing
 {
     public partial class frmItems : Form
     {
-        private bool _isAddingNew;
+        private static bool _isAddingNew;
         private readonly ItemService _itemService;
         private readonly CategoryService _categoryService;
+        private readonly TagService _tagService;
 
         public frmItems()
         {
             InitializeComponent();
             _itemService = ServiceLocator.GetService<ItemService>();
             _categoryService = ServiceLocator.GetService<CategoryService>();
+            _tagService = ServiceLocator.GetService<TagService>();
         }
 
-        private void frmItems_Load(object sender, EventArgs e)
+        private async void frmItems_Load(object sender, EventArgs e)
         {
-            Task.Run(() => SearchItems());
+            await Task.Run(async () =>
+            {
+                await SearchItems();
+                await LoadCategories();
+                await LoadTags();
+            });
         }
 
         private void dgvItems_SelectionChanged(object sender, EventArgs e)
@@ -45,14 +54,74 @@ namespace Point.Client.Main.Listing
             }
         }
 
+        private void lnkManageCategories_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new frmCategories().ShowDialog();
+            LoadCategories(frmCategories.HasUpdates);
+        }
+
+        private void dgvTags_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0
+                && dgvTags.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                dgvTags.Rows.RemoveAt(e.RowIndex);
+            }
+        }
+
+        private void cmbTag_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbTag.SelectedItem != null)
+            {
+                dgvTags.Rows.Add(cmbTag.Text, "Remove");
+                dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = cmbTag.SelectedValue;
+            }
+        }
+
+        private void txtTag_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(txtTag.Text))
+            {
+                var tags = (List<Tag>)txtTag.Tag;
+                var tagId = tags.FirstOrDefault(tag => tag.Name == txtTag.Text)?.Id;
+                if (tagId != null)
+                {
+                    if (dgvTags.Rows.Cast<DataGridViewRow>().ToList()
+                        .FirstOrDefault(row => (int)row.Tag == tagId) == null)
+                    {
+                        dgvTags.Rows.Add(txtTag.Text, "Remove");
+                        dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = tagId;
+
+                        txtTag.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tag already added.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                else 
+                {
+                    MessageBox.Show("Tag not found.", "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void lnkManageTags_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new frmTags().ShowDialog();
+            if (frmTags.HasUpdates)
+            {
+                LoadTags(true);
+            }
+        }
+
         private void btnNew_Click(object sender, EventArgs e)
         {
             _isAddingNew = true;
             ClearFields();
             EnableEditing(true);
             txtItem.Focus();
-
-            if (cmbCategory.DataSource == null) Task.Run(() => LoadCategories());
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -60,18 +129,6 @@ namespace Point.Client.Main.Listing
             _isAddingNew = false;
             EnableEditing(true);
             txtItem.Focus();
-
-            if (cmbCategory.DataSource == null) Task.Run(() => LoadCategories());
-        }
-
-        private void lnkManageCategories_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void lnkAddTag_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -82,30 +139,47 @@ namespace Point.Client.Main.Listing
                 txtItem.Focus();
                 return;
             }
-            // Add category validation
 
-            var itemDto = new ItemDto
+            if (!string.IsNullOrWhiteSpace(cmbCategory.Text) && cmbCategory.SelectedItem == null)
             {
+                MessageBox.Show("Selected Category is invalid.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmbCategory.Focus();
+                return;
+            }
+
+            var item = new Item
+            {
+                Id = _isAddingNew ? 0 : (int)txtItem.Tag,
                 Name = txtItem.Text.Trim(),
-                CategoryId = cmbCategory.SelectedItem != null ? (int)cmbCategory.SelectedValue : null,
-                Description = !string.IsNullOrWhiteSpace(txtDescription.Text.Trim()) 
-                    ? txtDescription.Text.Trim() 
+                Category = cmbCategory.SelectedItem != null 
+                    ? new Category
+                    {
+                        Id = (int)cmbCategory.SelectedValue,
+                        Name = cmbCategory.SelectedText
+                    }
+                    : null,
+                Description = !string.IsNullOrWhiteSpace(txtDescription.Text.Trim())
+                    ? txtDescription.Text.Trim()
                     : null,
                 Tags = dgvTags.Rows.Count > 0
-                    ? dgvTags.Rows.Cast<DataGridViewRow>().Select(row => (int)row.Tag).ToList() 
+                    ? dgvTags.Rows.Cast<DataGridViewRow>().Select(row => new Tag
+                    {
+                        Id = (int)row.Tag,
+                        Name = row.Cells[0].Value.ToString()
+                    } ).ToList()
                     : null
             };
 
-            //EnableButtons(false);
+            EnableButtons(false);
 
-            //if (_isAddingNew)
-            //{
-            //    Task.Run(() => CreateItem(itemDto));
-            //}
-            //else
-            //{
-            //    Task.Run(() => UpdateItem((int)txtCategory.Tag, itemDto));
-            //}
+            if (_isAddingNew)
+            {
+                Task.Run(() => CreateItem(item));
+            }
+            else
+            {
+                Task.Run(() => UpdateItem(item));
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -121,10 +195,10 @@ namespace Point.Client.Main.Listing
         {
             txtItem.Clear();
             txtCategory.Clear();
-            cmbCategory.Text = string.Empty;
-            cmbCategory.SelectedIndex = -1;
+            cmbCategory.SelectedItem = null;
             txtDescription.Clear();
             dgvTags.Rows.Clear();
+            txtTag.Clear();
         }
 
         private void EnableEditing(bool enable)
@@ -136,8 +210,10 @@ namespace Point.Client.Main.Listing
             cmbCategory.Visible = enable;
             lnkManageCategories.Visible = enable;
             txtDescription.ReadOnly = !enable;
-            lnkAddTag.Visible = enable;
             clmRemove.Visible = enable;
+            txtTag.Visible = enable;
+            lblTag.Visible = enable;
+            lnkManageTags.Visible = enable;
 
             btnNew.Visible = !enable;
             btnEdit.Visible = !enable;
@@ -156,27 +232,28 @@ namespace Point.Client.Main.Listing
 
         #region Services
 
-        private async void CreateItem(ItemDto itemDto)
+        private async void CreateItem(Item item)
         {
             try
             {
-                var response = await _itemService.CreateItem(itemDto);
+                var response = await _itemService.CreateItem(item.ToItemDto());
 
                 this.Invoke((MethodInvoker)(() =>
                 {
                     MessageBox.Show("New Item has been added.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    dgvItems.Rows.Add(itemDto.Name, cmbCategory.Text, itemDto.Description);
-                    var rowIndex = dgvItems.Rows.Count - 1;
-                    dgvItems.Rows[rowIndex].Tag = response?.Id;
+                    var row = new DataGridViewRow();
+                    row.CreateCells(dgvItems);
+                    row.Cells[0].Value = item.Name;
+                    row.Cells[1].Value = item.Category?.Name;
+                    row.Cells[2].Value = item.Description;
+                    row.Tag = item;
+                    dgvItems.Rows.Add(row);
 
+                    var rowIndex = dgvItems.Rows.Count - 1;
                     dgvItems.ClearSelection();
                     dgvItems.Rows[rowIndex].Selected = true;
                     dgvItems.FirstDisplayedScrollingRowIndex = rowIndex;
-
-                    txtItem.Text = itemDto.Name;
-                    txtCategory.Text = cmbCategory.Text;
-                    txtDescription.Text = itemDto.Description;
 
                     EnableEditing(false);
                 }));
@@ -192,23 +269,25 @@ namespace Point.Client.Main.Listing
             }
         }
 
-        private async void UpdateItem(int id, ItemDto itemDto)
+        private async void UpdateItem(Item item)
         {
             try
             {
-                await _itemService.UpdateItem(id, itemDto);
+                await _itemService.UpdateItem(item.Id, item.ToItemDto());
 
                 this.Invoke((MethodInvoker)(() =>
                 {
                     MessageBox.Show("Item has been updated.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    dgvItems.Rows[dgvItems.SelectedRows[0].Index].Cells[0].Value = itemDto.Name;
-                    dgvItems.Rows[dgvItems.SelectedRows[0].Index].Cells[1].Value = cmbCategory.Text;
-                    dgvItems.Rows[dgvItems.SelectedRows[0].Index].Cells[2].Value = itemDto.Description;
+                    var row = dgvItems.SelectedRows[0];
+                    row.Cells[0].Value = item.Name;
+                    row.Cells[1].Value = item.Category?.Name;
+                    row.Cells[2].Value = item.Description;
+                    row.Tag = item;
 
-                    txtItem.Text = itemDto.Name;
-                    txtCategory.Text = cmbCategory.Text;
-                    txtDescription.Text = itemDto.Description;
+                    txtItem.Text = item.Name;
+                    txtCategory.Text = item.Category?.Name;
+                    txtDescription.Text = item.Description;
 
                     EnableEditing(false);
                 }));
@@ -223,7 +302,8 @@ namespace Point.Client.Main.Listing
                 }));
             }
         }
-        private async void SearchItems()
+
+        private async Task SearchItems()
         {
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
@@ -254,7 +334,7 @@ namespace Point.Client.Main.Listing
             }));
         }
 
-        private async void LoadCategories()
+        private async Task LoadCategories(bool clearSelection = false)
         {
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
@@ -271,6 +351,39 @@ namespace Point.Client.Main.Listing
                 cmbCategory.DataSource = response;
                 cmbCategory.DisplayMember = "Name";
                 cmbCategory.ValueMember = "Id";
+
+                if (clearSelection)
+                {
+                    cmbCategory.SelectedItem = null;
+                }
+
+                this.Text = frmText;
+                EnableButtons(true);
+            }));
+        }
+
+        private async Task LoadTags(bool clearSelection = false)
+        {
+            var frmText = this.Text;
+            this.Invoke((MethodInvoker)(() =>
+            {
+                EnableButtons(false);
+
+                this.Text = "Loading Tags...";
+            }));
+
+            var response = await _tagService.GetTags();
+
+            this.Invoke((MethodInvoker)(() =>
+            {
+                var collection = new AutoCompleteStringCollection { };
+                collection.AddRange(response.Select(x => x.Name).ToArray());
+
+                txtTag.Clear();
+                txtTag.AutoCompleteCustomSource = collection;
+                txtTag.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                txtTag.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                txtTag.Tag = response;
 
                 this.Text = frmText;
                 EnableButtons(true);

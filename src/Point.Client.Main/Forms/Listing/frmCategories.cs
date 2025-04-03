@@ -6,12 +6,16 @@ namespace Point.Client.Main.Listing
 {
     public partial class frmCategories : Form
     {
+        public static bool HasUpdates { get; private set; }
+
         private bool _isAddingNew;
         private readonly CategoryService _categoryService;
 
         public frmCategories()
         {
             InitializeComponent();
+
+            HasUpdates = false;
 
             _isAddingNew = false;
             _categoryService = ServiceLocator.GetService<CategoryService>();
@@ -129,6 +133,8 @@ namespace Point.Client.Main.Listing
 
                     EnableEditing(false);
                 }));
+
+                HasUpdates = true;
             }
             catch(HttpRequestException ex)
             {
@@ -157,6 +163,8 @@ namespace Point.Client.Main.Listing
 
                     EnableEditing(false);
                 }));
+
+                HasUpdates = true;
             }
             catch (HttpRequestException ex)
             {
@@ -182,10 +190,14 @@ namespace Point.Client.Main.Listing
 
             this.Invoke((MethodInvoker)(() =>
             {
+                DataGridViewRow row;
                 response?.ForEach(category =>
                 {
-                    dgvCategories.Rows.Add(category.Name);
-                    dgvCategories.Rows[dgvCategories.Rows.Count - 1].Tag = category.Id;
+                    row = new DataGridViewRow();
+                    row.CreateCells(dgvCategories);
+                    row.Cells[0].Value = category.Name;
+                    row.Tag = category.Id;
+                    dgvCategories.Rows.Add(row);
                 });
 
                 this.Text = frmText;
