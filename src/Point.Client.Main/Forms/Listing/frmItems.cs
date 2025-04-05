@@ -170,7 +170,7 @@ namespace Point.Client.Main.Listing
                     : null
             };
 
-            EnableButtons(false);
+            EnableControls(false);
 
             if (_isAddingNew)
             {
@@ -220,12 +220,12 @@ namespace Point.Client.Main.Listing
             btnSave.Visible = enable;
             btnCancel.Visible = enable;
 
-            EnableButtons();
+            EnableControls();
         }
 
-        private void EnableButtons(bool enable = true)
+        private void EnableControls(bool enable = true)
         {
-            this.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
         }
 
         #endregion
@@ -308,7 +308,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
+                EnableControls(false);
 
                 this.Text = "Loading Items...";
             }));
@@ -330,7 +330,7 @@ namespace Point.Client.Main.Listing
                 });
 
                 this.Text = frmText;
-                EnableButtons(true);
+                EnableControls(true);
             }));
         }
 
@@ -339,7 +339,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
+                EnableControls(false);
 
                 this.Text = "Loading Categories...";
             }));
@@ -358,7 +358,7 @@ namespace Point.Client.Main.Listing
                 }
 
                 this.Text = frmText;
-                EnableButtons(true);
+                EnableControls(true);
             }));
         }
 
@@ -367,7 +367,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
+                EnableControls(false);
 
                 this.Text = "Loading Tags...";
             }));
@@ -386,7 +386,7 @@ namespace Point.Client.Main.Listing
                 txtTag.Tag = response;
 
                 this.Text = frmText;
-                EnableButtons(true);
+                EnableControls(true);
             }));
         }
 

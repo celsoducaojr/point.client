@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tableLayoutPanel1 = new TableLayoutPanel();
+            tlpMain = new TableLayoutPanel();
             panel1 = new Panel();
             textBox2 = new TextBox();
             label4 = new Label();
@@ -57,30 +57,30 @@
             label2 = new Label();
             txtDescription = new RichTextBox();
             label3 = new Label();
-            tableLayoutPanel1.SuspendLayout();
+            tlpMain.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTags).BeginInit();
             SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // tlpMain
             // 
-            tableLayoutPanel1.ColumnCount = 2;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 58.7479935F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41.2520065F));
-            tableLayoutPanel1.Controls.Add(panel1, 0, 1);
-            tableLayoutPanel1.Controls.Add(dgvItems, 0, 0);
-            tableLayoutPanel1.Controls.Add(panel3, 1, 0);
-            tableLayoutPanel1.Dock = DockStyle.Bottom;
-            tableLayoutPanel1.Location = new System.Drawing.Point(20, 23);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 60.2349F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 39.7651F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(1246, 617);
-            tableLayoutPanel1.TabIndex = 17;
+            tlpMain.ColumnCount = 2;
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 58.7479935F));
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41.2520065F));
+            tlpMain.Controls.Add(panel1, 0, 1);
+            tlpMain.Controls.Add(dgvItems, 0, 0);
+            tlpMain.Controls.Add(panel3, 1, 0);
+            tlpMain.Dock = DockStyle.Bottom;
+            tlpMain.Location = new System.Drawing.Point(20, 23);
+            tlpMain.Name = "tlpMain";
+            tlpMain.RowCount = 2;
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 60.2349F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 39.7651F));
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tlpMain.Size = new Size(1246, 617);
+            tlpMain.TabIndex = 17;
             // 
             // panel1
             // 
@@ -190,7 +190,7 @@
             panel3.Location = new System.Drawing.Point(735, 3);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(20);
-            tableLayoutPanel1.SetRowSpan(panel3, 2);
+            tlpMain.SetRowSpan(panel3, 2);
             panel3.Size = new Size(508, 611);
             panel3.TabIndex = 2;
             // 
@@ -384,7 +384,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1286, 660);
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(tlpMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -392,7 +392,7 @@
             Padding = new Padding(20);
             Text = "Manage Items";
             Load += frmItems_Load;
-            tableLayoutPanel1.ResumeLayout(false);
+            tlpMain.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
@@ -403,7 +403,7 @@
         }
 
         #endregion
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tlpMain;
         private Panel panel1;
         private DataGridView dgvItems;
         private TextBox textBox2;
