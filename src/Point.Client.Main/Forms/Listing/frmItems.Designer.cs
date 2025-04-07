@@ -28,16 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmItems));
             tlpMain = new TableLayoutPanel();
-            panel1 = new Panel();
-            textBox2 = new TextBox();
-            label4 = new Label();
-            comboBox1 = new ComboBox();
-            label5 = new Label();
-            dgvItems = new DataGridView();
-            clmItem = new DataGridViewTextBoxColumn();
-            clmCategory = new DataGridViewTextBoxColumn();
-            clmDescription = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             txtTag = new TextBox();
             lblTag = new Label();
@@ -57,116 +49,44 @@
             label2 = new Label();
             txtDescription = new RichTextBox();
             label3 = new Label();
+            panel1 = new Panel();
+            dgvItems = new DataGridView();
+            clmItem = new DataGridViewTextBoxColumn();
+            clmCategory = new DataGridViewTextBoxColumn();
+            clmDescription = new DataGridViewTextBoxColumn();
+            toolStrip1 = new ToolStrip();
+            toolStripButton2 = new ToolStripButton();
+            toolStripButton3 = new ToolStripButton();
+            toolStripTextBox1 = new ToolStripTextBox();
+            toolStripLabel1 = new ToolStripLabel();
+            toolStripButton4 = new ToolStripButton();
+            toolStripButton1 = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            toolStripComboBox1 = new ToolStripComboBox();
+            toolStripLabel2 = new ToolStripLabel();
             tlpMain.SuspendLayout();
-            panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTags).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
+            toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // tlpMain
             // 
             tlpMain.ColumnCount = 2;
-            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 58.7479935F));
+            tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 58.74799F));
             tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41.2520065F));
-            tlpMain.Controls.Add(panel1, 0, 1);
-            tlpMain.Controls.Add(dgvItems, 0, 0);
             tlpMain.Controls.Add(panel3, 1, 0);
+            tlpMain.Controls.Add(panel1, 0, 0);
             tlpMain.Dock = DockStyle.Bottom;
-            tlpMain.Location = new System.Drawing.Point(20, 23);
+            tlpMain.Location = new System.Drawing.Point(20, 154);
             tlpMain.Name = "tlpMain";
-            tlpMain.RowCount = 2;
-            tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 60.2349F));
-            tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 39.7651F));
+            tlpMain.RowCount = 1;
+            tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tlpMain.Size = new Size(1246, 617);
+            tlpMain.Size = new Size(1246, 486);
             tlpMain.TabIndex = 17;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(textBox2);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(comboBox1);
-            panel1.Controls.Add(label5);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(3, 374);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(726, 240);
-            panel1.TabIndex = 0;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new System.Drawing.Point(148, 69);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(446, 27);
-            textBox2.TabIndex = 17;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(103, 72);
-            label4.Name = "label4";
-            label4.Size = new Size(39, 20);
-            label4.TabIndex = 15;
-            label4.Text = "Item";
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new System.Drawing.Point(148, 102);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(282, 28);
-            comboBox1.TabIndex = 18;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(73, 105);
-            label5.Name = "label5";
-            label5.Size = new Size(69, 20);
-            label5.TabIndex = 16;
-            label5.Text = "Category";
-            // 
-            // dgvItems
-            // 
-            dgvItems.AllowUserToAddRows = false;
-            dgvItems.AllowUserToDeleteRows = false;
-            dgvItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvItems.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmDescription });
-            dgvItems.Dock = DockStyle.Fill;
-            dgvItems.Location = new System.Drawing.Point(3, 3);
-            dgvItems.MultiSelect = false;
-            dgvItems.Name = "dgvItems";
-            dgvItems.ReadOnly = true;
-            dgvItems.RowHeadersWidth = 51;
-            dgvItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvItems.Size = new Size(726, 365);
-            dgvItems.TabIndex = 0;
-            dgvItems.SelectionChanged += dgvItems_SelectionChanged;
-            // 
-            // clmItem
-            // 
-            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmItem.HeaderText = "Item";
-            clmItem.MinimumWidth = 6;
-            clmItem.Name = "clmItem";
-            clmItem.ReadOnly = true;
-            // 
-            // clmCategory
-            // 
-            clmCategory.HeaderText = "Category";
-            clmCategory.MinimumWidth = 6;
-            clmCategory.Name = "clmCategory";
-            clmCategory.ReadOnly = true;
-            clmCategory.Width = 130;
-            // 
-            // clmDescription
-            // 
-            clmDescription.HeaderText = "Description";
-            clmDescription.MinimumWidth = 6;
-            clmDescription.Name = "clmDescription";
-            clmDescription.ReadOnly = true;
-            clmDescription.Width = 200;
             // 
             // panel3
             // 
@@ -187,11 +107,10 @@
             panel3.Controls.Add(txtDescription);
             panel3.Controls.Add(label3);
             panel3.Dock = DockStyle.Fill;
-            panel3.Location = new System.Drawing.Point(735, 3);
+            panel3.Location = new System.Drawing.Point(734, 3);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(20);
-            tlpMain.SetRowSpan(panel3, 2);
-            panel3.Size = new Size(508, 611);
+            panel3.Size = new Size(509, 480);
             panel3.TabIndex = 2;
             // 
             // txtTag
@@ -270,7 +189,7 @@
             // 
             // btnEdit
             // 
-            btnEdit.Location = new System.Drawing.Point(123, 559);
+            btnEdit.Location = new System.Drawing.Point(124, 430);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(94, 29);
             btnEdit.TabIndex = 16;
@@ -280,7 +199,7 @@
             // 
             // btnNew
             // 
-            btnNew.Location = new System.Drawing.Point(23, 559);
+            btnNew.Location = new System.Drawing.Point(24, 430);
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(94, 29);
             btnNew.TabIndex = 15;
@@ -290,7 +209,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new System.Drawing.Point(391, 559);
+            btnCancel.Location = new System.Drawing.Point(392, 430);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 18;
@@ -301,7 +220,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new System.Drawing.Point(291, 559);
+            btnSave.Location = new System.Drawing.Point(292, 430);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(94, 29);
             btnSave.TabIndex = 17;
@@ -379,6 +298,137 @@
             label3.TabIndex = 12;
             label3.Text = "Description";
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(dgvItems);
+            panel1.Controls.Add(toolStrip1);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(3, 3);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(725, 480);
+            panel1.TabIndex = 3;
+            // 
+            // dgvItems
+            // 
+            dgvItems.AllowUserToAddRows = false;
+            dgvItems.AllowUserToDeleteRows = false;
+            dgvItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvItems.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmDescription });
+            dgvItems.Dock = DockStyle.Fill;
+            dgvItems.Location = new System.Drawing.Point(0, 0);
+            dgvItems.MultiSelect = false;
+            dgvItems.Name = "dgvItems";
+            dgvItems.ReadOnly = true;
+            dgvItems.RowHeadersWidth = 51;
+            dgvItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvItems.Size = new Size(725, 451);
+            dgvItems.TabIndex = 0;
+            dgvItems.SelectionChanged += dgvItems_SelectionChanged;
+            // 
+            // clmItem
+            // 
+            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmItem.HeaderText = "Item";
+            clmItem.MinimumWidth = 6;
+            clmItem.Name = "clmItem";
+            clmItem.ReadOnly = true;
+            // 
+            // clmCategory
+            // 
+            clmCategory.HeaderText = "Category";
+            clmCategory.MinimumWidth = 6;
+            clmCategory.Name = "clmCategory";
+            clmCategory.ReadOnly = true;
+            clmCategory.Width = 130;
+            // 
+            // clmDescription
+            // 
+            clmDescription.HeaderText = "Description";
+            clmDescription.MinimumWidth = 6;
+            clmDescription.Name = "clmDescription";
+            clmDescription.ReadOnly = true;
+            clmDescription.Width = 200;
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.Dock = DockStyle.Bottom;
+            toolStrip1.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
+            toolStrip1.ImageScalingSize = new Size(20, 20);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripButton3, toolStripTextBox1, toolStripLabel1, toolStripSeparator1, toolStripComboBox1, toolStripLabel2, toolStripButton4, toolStripButton1 });
+            toolStrip1.Location = new System.Drawing.Point(0, 451);
+            toolStrip1.Name = "toolStrip1";
+            toolStrip1.Size = new Size(725, 29);
+            toolStrip1.TabIndex = 19;
+            toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton2
+            // 
+            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
+            toolStripButton2.ImageTransparentColor = Color.Magenta;
+            toolStripButton2.Name = "toolStripButton2";
+            toolStripButton2.Size = new Size(40, 26);
+            toolStripButton2.Text = "<<";
+            // 
+            // toolStripButton3
+            // 
+            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
+            toolStripButton3.ImageTransparentColor = Color.Magenta;
+            toolStripButton3.Name = "toolStripButton3";
+            toolStripButton3.Size = new Size(29, 26);
+            toolStripButton3.Text = "<";
+            // 
+            // toolStripTextBox1
+            // 
+            toolStripTextBox1.Name = "toolStripTextBox1";
+            toolStripTextBox1.Size = new Size(50, 29);
+            toolStripTextBox1.Text = "0";
+            toolStripTextBox1.TextBoxTextAlign = HorizontalAlignment.Center;
+            // 
+            // toolStripLabel1
+            // 
+            toolStripLabel1.Name = "toolStripLabel1";
+            toolStripLabel1.Size = new Size(86, 26);
+            toolStripLabel1.Text = "of page 0";
+            // 
+            // toolStripButton4
+            // 
+            toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
+            toolStripButton4.ImageTransparentColor = Color.Magenta;
+            toolStripButton4.Name = "toolStripButton4";
+            toolStripButton4.Size = new Size(29, 26);
+            toolStripButton4.Text = ">";
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(40, 26);
+            toolStripButton1.Text = ">>";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 29);
+            // 
+            // toolStripComboBox1
+            // 
+            toolStripComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            toolStripComboBox1.Items.AddRange(new object[] { "25", "50", "100" });
+            toolStripComboBox1.Name = "toolStripComboBox1";
+            toolStripComboBox1.Size = new Size(75, 29);
+            // 
+            // toolStripLabel2
+            // 
+            toolStripLabel2.Name = "toolStripLabel2";
+            toolStripLabel2.Size = new Size(122, 26);
+            toolStripLabel2.Text = "rows per page";
+            // 
             // frmItems
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -393,23 +443,20 @@
             Text = "Manage Items";
             Load += frmItems_Load;
             tlpMain.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTags).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
         private TableLayoutPanel tlpMain;
-        private Panel panel1;
         private DataGridView dgvItems;
-        private TextBox textBox2;
-        private Label label4;
-        private ComboBox comboBox1;
-        private Label label5;
         private Panel panel3;
         private TextBox txtItem;
         private Label label1;
@@ -433,5 +480,16 @@
         private Label lblTag;
         private ComboBox cmbTag;
         private TextBox txtTag;
+        private Panel panel1;
+        private ToolStrip toolStrip1;
+        private ToolStripButton toolStripButton2;
+        private ToolStripButton toolStripButton3;
+        private ToolStripButton toolStripButton4;
+        private ToolStripButton toolStripButton1;
+        private ToolStripTextBox toolStripTextBox1;
+        private ToolStripLabel toolStripLabel1;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripComboBox toolStripComboBox1;
+        private ToolStripLabel toolStripLabel2;
     }
 }

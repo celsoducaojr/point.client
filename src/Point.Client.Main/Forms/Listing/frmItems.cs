@@ -155,7 +155,7 @@ namespace Point.Client.Main.Listing
                     ? new Category
                     {
                         Id = (int)cmbCategory.SelectedValue,
-                        Name = cmbCategory.SelectedText
+                        Name = cmbCategory.Text
                     }
                     : null,
                 Description = !string.IsNullOrWhiteSpace(txtDescription.Text.Trim())
@@ -170,7 +170,7 @@ namespace Point.Client.Main.Listing
                     : null
             };
 
-            EnableControls(false);
+            EnableButtons(false);
 
             if (_isAddingNew)
             {
@@ -220,12 +220,12 @@ namespace Point.Client.Main.Listing
             btnSave.Visible = enable;
             btnCancel.Visible = enable;
 
-            EnableControls();
+            EnableButtons();
         }
 
-        private void EnableControls(bool enable = true)
+        private void EnableButtons(bool enable = true)
         {
-            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
+            this.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
         }
 
         #endregion
@@ -308,7 +308,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
+                EnableButtons(false);
 
                 this.Text = "Loading Items...";
             }));
@@ -330,7 +330,7 @@ namespace Point.Client.Main.Listing
                 });
 
                 this.Text = frmText;
-                EnableControls(true);
+                EnableButtons(true);
             }));
         }
 
@@ -339,12 +339,12 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
+                EnableButtons(false);
 
                 this.Text = "Loading Categories...";
             }));
 
-            var response = await _categoryService.GetCategories();
+            var response = await _categoryService.SearchCategories();
 
             this.Invoke((MethodInvoker)(() =>
             {
@@ -358,7 +358,7 @@ namespace Point.Client.Main.Listing
                 }
 
                 this.Text = frmText;
-                EnableControls(true);
+                EnableButtons(true);
             }));
         }
 
@@ -367,7 +367,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
+                EnableButtons(false);
 
                 this.Text = "Loading Tags...";
             }));
@@ -386,7 +386,7 @@ namespace Point.Client.Main.Listing
                 txtTag.Tag = response;
 
                 this.Text = frmText;
-                EnableControls(true);
+                EnableButtons(true);
             }));
         }
 
