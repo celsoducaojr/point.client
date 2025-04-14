@@ -1,5 +1,6 @@
 ﻿using Point.Client.Main.Api.Contracts;
 using Point.Client.Main.Api.Dtos;
+using Point.Client.Main.Api.Dtos.Response;
 using Point.Client.Main.Api.Entities;
 using RestSharp;
 

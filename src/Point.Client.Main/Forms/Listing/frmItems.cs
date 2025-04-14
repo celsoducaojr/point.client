@@ -1,15 +1,21 @@
 ﻿using Point.Client.Main.Api;
-using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
+using Point.Client.Main.Constants;
 using Point.Client.Main.Forms.Products;
 
 namespace Point.Client.Main.Listing
 {
     public partial class frmItems : Form
     {
-        private static bool _isAddingNew;
+        private bool _isAddingNew;
+
+        private bool _isFirstLoad;
+        private int _currentPage;
+        private int _currentTotalPages;
+        private int _currentPageSize;
+
         private readonly ItemService _itemService;
         private readonly CategoryService _categoryService;
         private readonly TagService _tagService;
@@ -17,26 +23,41 @@ namespace Point.Client.Main.Listing
         public frmItems()
         {
             InitializeComponent();
+
+            _isAddingNew = false;
+
+            _isFirstLoad = true;
+            _currentPage = 1;
+            _currentTotalPages = 0;
+
             _itemService = ServiceLocator.GetService<ItemService>();
             _categoryService = ServiceLocator.GetService<CategoryService>();
             _tagService = ServiceLocator.GetService<TagService>();
         }
 
+        #region Main
+
         private async void frmItems_Load(object sender, EventArgs e)
         {
             await Task.Run(async () =>
             {
-                await SearchItems();
+                EnableMain(false);
+
                 await LoadCategories();
                 await LoadTags();
+
+                EnableMain(true);
             });
+
+            cmbPageSize.Items.AddRange(FormConstants.PageSizes.Cast<object>().ToArray());
+            cmbPageSize.SelectedIndex = 0; // Trigger to load Items
         }
 
         private void dgvItems_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvItems.SelectedRows.Count > 0)
             {
-                ClearFields();
+                ClearEditingFields();
 
                 var item = (Item)dgvItems.SelectedRows[0]?.Tag;
 
@@ -53,6 +74,46 @@ namespace Point.Client.Main.Listing
                 });
             }
         }
+
+        #endregion
+
+        #region Pagination
+
+        private void txtPage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                _currentPage = 1;
+                if (int.TryParse(txtPage.Text, out var page) && page <= _currentTotalPages)
+                {
+                    _currentPage = page;
+                }
+
+                Task.Run(() => SearchItems());
+            }
+        }
+
+        private async void cmbPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            await Task.Run(async () =>
+            {
+                EnableMain(false);
+
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    _currentPage = 1;
+                    _currentPageSize = FormConstants.PageSizes[cmbPageSize.SelectedIndex];
+                }));
+
+                await SearchItems();
+
+                EnableMain(true);
+            });
+        }
+
+        #endregion
+
+        #region Edit
 
         private void lnkManageCategories_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -100,7 +161,7 @@ namespace Point.Client.Main.Listing
                     }
 
                 }
-                else 
+                else
                 {
                     MessageBox.Show("Tag not found.", "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -119,7 +180,7 @@ namespace Point.Client.Main.Listing
         private void btnNew_Click(object sender, EventArgs e)
         {
             _isAddingNew = true;
-            ClearFields();
+            ClearEditingFields();
             EnableEditing(true);
             txtItem.Focus();
         }
@@ -151,7 +212,7 @@ namespace Point.Client.Main.Listing
             {
                 Id = _isAddingNew ? 0 : (int)txtItem.Tag,
                 Name = txtItem.Text.Trim(),
-                Category = cmbCategory.SelectedItem != null 
+                Category = cmbCategory.SelectedItem != null
                     ? new Category
                     {
                         Id = (int)cmbCategory.SelectedValue,
@@ -166,7 +227,7 @@ namespace Point.Client.Main.Listing
                     {
                         Id = (int)row.Tag,
                         Name = row.Cells[0].Value.ToString()
-                    } ).ToList()
+                    }).ToList()
                     : null
             };
 
@@ -189,9 +250,11 @@ namespace Point.Client.Main.Listing
             EnableEditing(false);
         }
 
+        #endregion
+
         #region Helpers
 
-        private void ClearFields()
+        private void ClearEditingFields()
         {
             txtItem.Clear();
             txtCategory.Clear();
@@ -223,9 +286,18 @@ namespace Point.Client.Main.Listing
             EnableButtons();
         }
 
+        private void EnableMain(bool enable = true)
+        {
+            this.Invoke((MethodInvoker)(() =>
+            {
+                // TODO: Add other controls
+                tlpMain.Enabled = enable;
+            }));
+        }
+
         private void EnableButtons(bool enable = true)
         {
-            this.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
+            pnlEdit.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
         }
 
         #endregion
@@ -313,21 +385,33 @@ namespace Point.Client.Main.Listing
                 this.Text = "Loading Items...";
             }));
 
-            var response = await _itemService.SearchItems();
+            var response = await _itemService.SearchItems(_currentPage, _currentPageSize);
 
             this.Invoke((MethodInvoker)(() =>
             {
-                DataGridViewRow row;
-                response?.ForEach(item =>
+                dgvItems.Rows.Clear();
+                txtPage.Clear();
+                lblTotalPage.Text = FormConstants.TotalPagesDefaultLabel;
+                ClearEditingFields();
+
+                if (response?.TotalCount > 0)
                 {
-                    row = new DataGridViewRow();
-                    row.CreateCells(dgvItems);
-                    row.Cells[0].Value = item.Name;
-                    row.Cells[1].Value = item.Category?.Name;
-                    row.Cells[2].Value = item.Description;
-                    row.Tag = item;
-                    dgvItems.Rows.Add(row);
-                });
+                    txtPage.Text = _currentPage.ToString();
+                    _currentTotalPages = (int)Math.Ceiling((decimal)response?.TotalCount / _currentPageSize);
+                    lblTotalPage.Text = string.Format(FormConstants.TotalPagesCountLabel, _currentTotalPages);
+
+                    DataGridViewRow row;
+                    response?.Data?.ForEach(item =>
+                    {
+                        row = new DataGridViewRow();
+                        row.CreateCells(dgvItems);
+                        row.Cells[0].Value = item.Name;
+                        row.Cells[1].Value = item.Category?.Name;
+                        row.Cells[2].Value = item.Description;
+                        row.Tag = item;
+                        dgvItems.Rows.Add(row);
+                    });
+                }
 
                 this.Text = frmText;
                 EnableButtons(true);
@@ -344,7 +428,7 @@ namespace Point.Client.Main.Listing
                 this.Text = "Loading Categories...";
             }));
 
-            var response = await _categoryService.SearchCategories();
+            var response = await _categoryService.GetCategories();
 
             this.Invoke((MethodInvoker)(() =>
             {

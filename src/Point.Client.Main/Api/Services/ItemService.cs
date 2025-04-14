@@ -1,5 +1,6 @@
 ﻿using Point.Client.Main.Api.Contracts;
 using Point.Client.Main.Api.Dtos;
+using Point.Client.Main.Api.Dtos.Response;
 using Point.Client.Main.Api.Entities;
 using RestSharp;
 
@@ -25,10 +26,12 @@ namespace Point.Client.Main.Api.Services
             await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, itemDto);
         }
 
-        public async Task<List<Item>?> SearchItems()
+        public async Task<SearchItemResponseDto?> SearchItems(int page, int pageSize, string? name = null, int? categoryId = null)
         {
-            var endPoint = $"{_endPoint}/search?fields=category&fields=description&fields=tags";
-            return await _pointApiClient.ExecuteAsync<List<Item>>(endPoint, Method.Get);
+            var endPoint = $"{_endPoint}/search?page={page}&pageSize={pageSize}&fields=category&fields=description&fields=tags";
+            if (!string.IsNullOrEmpty(name)) endPoint += $"&name={name}";
+            if (categoryId.HasValue) endPoint += $"categoryId={categoryId}";
+            return await _pointApiClient.ExecuteAsync<SearchItemResponseDto>(endPoint, Method.Get);
         }
     }
 }

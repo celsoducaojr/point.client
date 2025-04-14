@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Point.Client.Main.Api.Contracts;
 using RestSharp;
-using System.Net;
 
 namespace Point.Client.Main.Api
 {

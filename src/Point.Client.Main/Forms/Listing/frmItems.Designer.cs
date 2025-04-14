@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmItems));
             tlpMain = new TableLayoutPanel();
-            panel3 = new Panel();
+            pnlEdit = new Panel();
             txtTag = new TextBox();
             lblTag = new Label();
             lnkManageTags = new LinkLabel();
@@ -57,15 +57,23 @@
             toolStrip1 = new ToolStrip();
             toolStripButton2 = new ToolStripButton();
             toolStripButton3 = new ToolStripButton();
-            toolStripTextBox1 = new ToolStripTextBox();
             toolStripLabel1 = new ToolStripLabel();
+            txtPage = new ToolStripTextBox();
+            lblTotalPage = new ToolStripLabel();
+            toolStripSeparator1 = new ToolStripSeparator();
             toolStripButton4 = new ToolStripButton();
             toolStripButton1 = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
-            toolStripComboBox1 = new ToolStripComboBox();
+            toolStripSeparator2 = new ToolStripSeparator();
+            cmbPageSize = new ToolStripComboBox();
             toolStripLabel2 = new ToolStripLabel();
+            panel2 = new Panel();
+            textBox2 = new TextBox();
+            label4 = new Label();
+            label5 = new Label();
+            button1 = new Button();
+            comboBox1 = new ComboBox();
             tlpMain.SuspendLayout();
-            panel3.SuspendLayout();
+            pnlEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTags).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
@@ -77,7 +85,7 @@
             tlpMain.ColumnCount = 2;
             tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 58.74799F));
             tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41.2520065F));
-            tlpMain.Controls.Add(panel3, 1, 0);
+            tlpMain.Controls.Add(pnlEdit, 1, 0);
             tlpMain.Controls.Add(panel1, 0, 0);
             tlpMain.Dock = DockStyle.Bottom;
             tlpMain.Location = new System.Drawing.Point(20, 154);
@@ -86,39 +94,39 @@
             tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tlpMain.Size = new Size(1246, 486);
-            tlpMain.TabIndex = 17;
+            tlpMain.TabIndex = 4;
             // 
-            // panel3
+            // pnlEdit
             // 
-            panel3.Controls.Add(txtTag);
-            panel3.Controls.Add(lblTag);
-            panel3.Controls.Add(lnkManageTags);
-            panel3.Controls.Add(dgvTags);
-            panel3.Controls.Add(txtCategory);
-            panel3.Controls.Add(btnEdit);
-            panel3.Controls.Add(btnNew);
-            panel3.Controls.Add(btnCancel);
-            panel3.Controls.Add(btnSave);
-            panel3.Controls.Add(txtItem);
-            panel3.Controls.Add(label1);
-            panel3.Controls.Add(lnkManageCategories);
-            panel3.Controls.Add(cmbCategory);
-            panel3.Controls.Add(label2);
-            panel3.Controls.Add(txtDescription);
-            panel3.Controls.Add(label3);
-            panel3.Dock = DockStyle.Fill;
-            panel3.Location = new System.Drawing.Point(734, 3);
-            panel3.Name = "panel3";
-            panel3.Padding = new Padding(20);
-            panel3.Size = new Size(509, 480);
-            panel3.TabIndex = 2;
+            pnlEdit.Controls.Add(txtTag);
+            pnlEdit.Controls.Add(lblTag);
+            pnlEdit.Controls.Add(lnkManageTags);
+            pnlEdit.Controls.Add(dgvTags);
+            pnlEdit.Controls.Add(txtCategory);
+            pnlEdit.Controls.Add(btnEdit);
+            pnlEdit.Controls.Add(btnNew);
+            pnlEdit.Controls.Add(btnCancel);
+            pnlEdit.Controls.Add(btnSave);
+            pnlEdit.Controls.Add(txtItem);
+            pnlEdit.Controls.Add(label1);
+            pnlEdit.Controls.Add(lnkManageCategories);
+            pnlEdit.Controls.Add(cmbCategory);
+            pnlEdit.Controls.Add(label2);
+            pnlEdit.Controls.Add(txtDescription);
+            pnlEdit.Controls.Add(label3);
+            pnlEdit.Dock = DockStyle.Fill;
+            pnlEdit.Location = new System.Drawing.Point(734, 3);
+            pnlEdit.Name = "pnlEdit";
+            pnlEdit.Padding = new Padding(20, 20, 20, 2);
+            pnlEdit.Size = new Size(509, 480);
+            pnlEdit.TabIndex = 2;
             // 
             // txtTag
             // 
             txtTag.Location = new System.Drawing.Point(23, 354);
             txtTag.Name = "txtTag";
             txtTag.Size = new Size(360, 27);
-            txtTag.TabIndex = 25;
+            txtTag.TabIndex = 6;
             txtTag.Visible = false;
             txtTag.KeyDown += txtTag_KeyDown;
             // 
@@ -140,7 +148,7 @@
             lnkManageTags.Location = new System.Drawing.Point(389, 357);
             lnkManageTags.Name = "lnkManageTags";
             lnkManageTags.Size = new Size(96, 20);
-            lnkManageTags.TabIndex = 21;
+            lnkManageTags.TabIndex = 7;
             lnkManageTags.TabStop = true;
             lnkManageTags.Text = "Manage Tags";
             lnkManageTags.Visible = false;
@@ -158,7 +166,7 @@
             dgvTags.ReadOnly = true;
             dgvTags.RowHeadersWidth = 51;
             dgvTags.Size = new Size(462, 183);
-            dgvTags.TabIndex = 20;
+            dgvTags.TabIndex = 5;
             dgvTags.CellClick += dgvTags_CellClick;
             // 
             // dataGridViewTextBoxColumn2
@@ -185,34 +193,34 @@
             txtCategory.Name = "txtCategory";
             txtCategory.ReadOnly = true;
             txtCategory.Size = new Size(217, 27);
-            txtCategory.TabIndex = 19;
+            txtCategory.TabIndex = 2;
             // 
             // btnEdit
             // 
-            btnEdit.Location = new System.Drawing.Point(124, 430);
+            btnEdit.Location = new System.Drawing.Point(124, 446);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(94, 29);
-            btnEdit.TabIndex = 16;
+            btnEdit.TabIndex = 9;
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
             // 
             // btnNew
             // 
-            btnNew.Location = new System.Drawing.Point(24, 430);
+            btnNew.Location = new System.Drawing.Point(24, 446);
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(94, 29);
-            btnNew.TabIndex = 15;
+            btnNew.TabIndex = 8;
             btnNew.Text = "New";
             btnNew.UseVisualStyleBackColor = true;
             btnNew.Click += btnNew_Click;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new System.Drawing.Point(392, 430);
+            btnCancel.Location = new System.Drawing.Point(392, 446);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
-            btnCancel.TabIndex = 18;
+            btnCancel.TabIndex = 11;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Visible = false;
@@ -220,10 +228,10 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new System.Drawing.Point(292, 430);
+            btnSave.Location = new System.Drawing.Point(292, 446);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(94, 29);
-            btnSave.TabIndex = 17;
+            btnSave.TabIndex = 10;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Visible = false;
@@ -236,7 +244,7 @@
             txtItem.Name = "txtItem";
             txtItem.ReadOnly = true;
             txtItem.Size = new Size(304, 27);
-            txtItem.TabIndex = 11;
+            txtItem.TabIndex = 1;
             // 
             // label1
             // 
@@ -253,7 +261,7 @@
             lnkManageCategories.Location = new System.Drawing.Point(347, 59);
             lnkManageCategories.Name = "lnkManageCategories";
             lnkManageCategories.Size = new Size(138, 20);
-            lnkManageCategories.TabIndex = 9;
+            lnkManageCategories.TabIndex = 3;
             lnkManageCategories.TabStop = true;
             lnkManageCategories.Text = "Manage Categories";
             lnkManageCategories.Visible = false;
@@ -267,7 +275,7 @@
             cmbCategory.Location = new System.Drawing.Point(114, 56);
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(227, 28);
-            cmbCategory.TabIndex = 14;
+            cmbCategory.TabIndex = 2;
             cmbCategory.Visible = false;
             // 
             // label2
@@ -286,7 +294,7 @@
             txtDescription.Name = "txtDescription";
             txtDescription.ReadOnly = true;
             txtDescription.Size = new Size(371, 69);
-            txtDescription.TabIndex = 13;
+            txtDescription.TabIndex = 4;
             txtDescription.Text = "";
             // 
             // label3
@@ -306,7 +314,7 @@
             panel1.Location = new System.Drawing.Point(3, 3);
             panel1.Name = "panel1";
             panel1.Size = new Size(725, 480);
-            panel1.TabIndex = 3;
+            panel1.TabIndex = 1;
             // 
             // dgvItems
             // 
@@ -322,7 +330,7 @@
             dgvItems.RowHeadersWidth = 51;
             dgvItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvItems.Size = new Size(725, 451);
-            dgvItems.TabIndex = 0;
+            dgvItems.TabIndex = 1;
             dgvItems.SelectionChanged += dgvItems_SelectionChanged;
             // 
             // clmItem
@@ -355,11 +363,11 @@
             toolStrip1.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripButton3, toolStripTextBox1, toolStripLabel1, toolStripSeparator1, toolStripComboBox1, toolStripLabel2, toolStripButton4, toolStripButton1 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripButton3, toolStripLabel1, txtPage, lblTotalPage, toolStripSeparator1, toolStripButton4, toolStripButton1, toolStripSeparator2, cmbPageSize, toolStripLabel2 });
             toolStrip1.Location = new System.Drawing.Point(0, 451);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(725, 29);
-            toolStrip1.TabIndex = 19;
+            toolStrip1.TabIndex = 2;
             toolStrip1.Text = "toolStrip1";
             // 
             // toolStripButton2
@@ -370,6 +378,7 @@
             toolStripButton2.Name = "toolStripButton2";
             toolStripButton2.Size = new Size(40, 26);
             toolStripButton2.Text = "<<";
+            toolStripButton2.ToolTipText = "first page";
             // 
             // toolStripButton3
             // 
@@ -379,19 +388,31 @@
             toolStripButton3.Name = "toolStripButton3";
             toolStripButton3.Size = new Size(29, 26);
             toolStripButton3.Text = "<";
-            // 
-            // toolStripTextBox1
-            // 
-            toolStripTextBox1.Name = "toolStripTextBox1";
-            toolStripTextBox1.Size = new Size(50, 29);
-            toolStripTextBox1.Text = "0";
-            toolStripTextBox1.TextBoxTextAlign = HorizontalAlignment.Center;
+            toolStripButton3.ToolTipText = "previous page";
             // 
             // toolStripLabel1
             // 
             toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(86, 26);
-            toolStripLabel1.Text = "of page 0";
+            toolStripLabel1.Size = new Size(48, 26);
+            toolStripLabel1.Text = "page";
+            // 
+            // txtPage
+            // 
+            txtPage.Name = "txtPage";
+            txtPage.Size = new Size(50, 29);
+            txtPage.TextBoxTextAlign = HorizontalAlignment.Center;
+            txtPage.KeyDown += txtPage_KeyDown;
+            // 
+            // lblTotalPage
+            // 
+            lblTotalPage.Name = "lblTotalPage";
+            lblTotalPage.Size = new Size(42, 26);
+            lblTotalPage.Text = "of 0";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 29);
             // 
             // toolStripButton4
             // 
@@ -401,6 +422,7 @@
             toolStripButton4.Name = "toolStripButton4";
             toolStripButton4.Size = new Size(29, 26);
             toolStripButton4.Text = ">";
+            toolStripButton4.ToolTipText = "next page";
             // 
             // toolStripButton1
             // 
@@ -410,18 +432,19 @@
             toolStripButton1.Name = "toolStripButton1";
             toolStripButton1.Size = new Size(40, 26);
             toolStripButton1.Text = ">>";
+            toolStripButton1.ToolTipText = "last page";
             // 
-            // toolStripSeparator1
+            // toolStripSeparator2
             // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 29);
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 29);
             // 
-            // toolStripComboBox1
+            // cmbPageSize
             // 
-            toolStripComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            toolStripComboBox1.Items.AddRange(new object[] { "25", "50", "100" });
-            toolStripComboBox1.Name = "toolStripComboBox1";
-            toolStripComboBox1.Size = new Size(75, 29);
+            cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbPageSize.Name = "cmbPageSize";
+            cmbPageSize.Size = new Size(75, 29);
+            cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
             // 
             // toolStripLabel2
             // 
@@ -429,11 +452,71 @@
             toolStripLabel2.Size = new Size(122, 26);
             toolStripLabel2.Text = "rows per page";
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.Black;
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Location = new System.Drawing.Point(23, 146);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1240, 2);
+            panel2.TabIndex = 18;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new System.Drawing.Point(98, 23);
+            textBox2.MaxLength = 100;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(304, 27);
+            textBox2.TabIndex = 1;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(53, 26);
+            label4.Name = "label4";
+            label4.Size = new Size(39, 20);
+            label4.TabIndex = 20;
+            label4.Text = "Item";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new System.Drawing.Point(23, 59);
+            label5.Name = "label5";
+            label5.Size = new Size(69, 20);
+            label5.TabIndex = 21;
+            label5.Text = "Category";
+            // 
+            // button1
+            // 
+            button1.Location = new System.Drawing.Point(23, 111);
+            button1.Name = "button1";
+            button1.Size = new Size(151, 29);
+            button1.TabIndex = 3;
+            button1.Text = "Search Items";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new System.Drawing.Point(98, 56);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(227, 28);
+            comboBox1.TabIndex = 2;
+            // 
             // frmItems
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1286, 660);
+            Controls.Add(comboBox1);
+            Controls.Add(button1);
+            Controls.Add(textBox2);
+            Controls.Add(label4);
+            Controls.Add(label5);
+            Controls.Add(panel2);
             Controls.Add(tlpMain);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -443,8 +526,8 @@
             Text = "Manage Items";
             Load += frmItems_Load;
             tlpMain.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
+            pnlEdit.ResumeLayout(false);
+            pnlEdit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTags).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -452,12 +535,13 @@
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
         private TableLayoutPanel tlpMain;
         private DataGridView dgvItems;
-        private Panel panel3;
+        private Panel pnlEdit;
         private TextBox txtItem;
         private Label label1;
         private LinkLabel lnkManageCategories;
@@ -486,10 +570,18 @@
         private ToolStripButton toolStripButton3;
         private ToolStripButton toolStripButton4;
         private ToolStripButton toolStripButton1;
-        private ToolStripTextBox toolStripTextBox1;
-        private ToolStripLabel toolStripLabel1;
+        private ToolStripTextBox txtPage;
+        private ToolStripLabel lblTotalPage;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripComboBox toolStripComboBox1;
+        private ToolStripComboBox cmbPageSize;
         private ToolStripLabel toolStripLabel2;
+        private ToolStripLabel toolStripLabel1;
+        private ToolStripSeparator toolStripSeparator2;
+        private Panel panel2;
+        private TextBox textBox2;
+        private Label label4;
+        private Label label5;
+        private Button button1;
+        private ComboBox comboBox1;
     }
 }
