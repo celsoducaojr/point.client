@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             menuStrip1 = new MenuStrip();
             productsToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
@@ -43,9 +42,10 @@
             btnTags = new ToolStripMenuItem();
             tsbtnStocks = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
-            tsbtnOrders = new ToolStripButton();
-            tsbtnSales = new ToolStripButton();
-            toolStripDropDownButton2 = new ToolStripDropDownButton();
+            toolStripButton3 = new ToolStripButton();
+            toolStripSeparator3 = new ToolStripSeparator();
+            toolStripButton1 = new ToolStripButton();
+            toolStripButton2 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
             dgvOrders = new DataGridView();
             clmOrderNumber = new DataGridViewTextBoxColumn();
@@ -87,25 +87,28 @@
             // 
             // toolStrip1
             // 
+            toolStrip1.BackColor = SystemColors.Control;
             toolStrip1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, tsbtnStocks, toolStripSeparator1, tsbtnOrders, tsbtnSales, toolStripDropDownButton2 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, tsbtnStocks, toolStripSeparator1, toolStripButton3, toolStripSeparator3, toolStripButton1, toolStripButton2 });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new System.Drawing.Point(0, 28);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1226, 103);
+            toolStrip1.Size = new Size(1226, 102);
             toolStrip1.TabIndex = 6;
             toolStrip1.Text = "toolStrip1";
             // 
             // toolStripDropDownButton1
             // 
-            toolStripDropDownButton1.AutoSize = false;
             toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnProducts, toolStripSeparator4, btnItems, btnCategories, btnUnits, btnTags });
+            toolStripDropDownButton1.Image = Properties.Resources.Products;
             toolStripDropDownButton1.ImageScaling = ToolStripItemImageScaling.None;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton1.Margin = new Padding(0);
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            toolStripDropDownButton1.Size = new Size(96, 100);
+            toolStripDropDownButton1.Padding = new Padding(10);
+            toolStripDropDownButton1.Size = new Size(116, 102);
             toolStripDropDownButton1.Text = "Products";
             toolStripDropDownButton1.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
@@ -114,6 +117,7 @@
             btnProducts.Name = "btnProducts";
             btnProducts.Size = new Size(237, 30);
             btnProducts.Text = "Manage Products";
+            btnProducts.Click += btnProducts_Click;
             // 
             // toolStripSeparator4
             // 
@@ -125,62 +129,82 @@
             btnItems.Name = "btnItems";
             btnItems.Size = new Size(237, 30);
             btnItems.Text = "Items";
+            btnItems.Click += btnItems_Click;
             // 
             // btnCategories
             // 
             btnCategories.Name = "btnCategories";
             btnCategories.Size = new Size(237, 30);
             btnCategories.Text = "Categories";
+            btnCategories.Click += btnCategories_Click;
             // 
             // btnUnits
             // 
             btnUnits.Name = "btnUnits";
             btnUnits.Size = new Size(237, 30);
             btnUnits.Text = "Units";
+            btnUnits.Click += btnUnits_Click;
             // 
             // btnTags
             // 
             btnTags.Name = "btnTags";
             btnTags.Size = new Size(237, 30);
             btnTags.Text = "Tags";
+            btnTags.Click += btnTags_Click;
             // 
             // tsbtnStocks
             // 
-            tsbtnStocks.Image = (Image)resources.GetObject("tsbtnStocks.Image");
+            tsbtnStocks.Image = Properties.Resources.Stocks;
+            tsbtnStocks.ImageScaling = ToolStripItemImageScaling.None;
             tsbtnStocks.ImageTransparentColor = Color.Magenta;
             tsbtnStocks.Name = "tsbtnStocks";
-            tsbtnStocks.Size = new Size(87, 100);
+            tsbtnStocks.Padding = new Padding(10);
+            tsbtnStocks.Size = new Size(87, 99);
             tsbtnStocks.Text = "Stocks";
+            tsbtnStocks.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 103);
+            toolStripSeparator1.Size = new Size(6, 102);
             // 
-            // tsbtnOrders
+            // toolStripButton3
             // 
-            tsbtnOrders.Image = (Image)resources.GetObject("tsbtnOrders.Image");
-            tsbtnOrders.ImageTransparentColor = Color.Magenta;
-            tsbtnOrders.Name = "tsbtnOrders";
-            tsbtnOrders.Size = new Size(90, 100);
-            tsbtnOrders.Text = "Orders";
+            toolStripButton3.Image = Properties.Resources.Orders;
+            toolStripButton3.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripButton3.ImageTransparentColor = Color.Magenta;
+            toolStripButton3.Name = "toolStripButton3";
+            toolStripButton3.Padding = new Padding(10);
+            toolStripButton3.Size = new Size(90, 99);
+            toolStripButton3.Text = "Orders";
+            toolStripButton3.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
-            // tsbtnSales
+            // toolStripSeparator3
             // 
-            tsbtnSales.Image = (Image)resources.GetObject("tsbtnSales.Image");
-            tsbtnSales.ImageTransparentColor = Color.Magenta;
-            tsbtnSales.Name = "tsbtnSales";
-            tsbtnSales.Size = new Size(76, 100);
-            tsbtnSales.Text = "Sales";
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 102);
             // 
-            // toolStripDropDownButton2
+            // toolStripButton1
             // 
-            toolStripDropDownButton2.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripDropDownButton2.Image = (Image)resources.GetObject("toolStripDropDownButton2.Image");
-            toolStripDropDownButton2.ImageTransparentColor = Color.Magenta;
-            toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            toolStripDropDownButton2.Size = new Size(34, 100);
-            toolStripDropDownButton2.Text = "toolStripDropDownButton2";
+            toolStripButton1.Image = Properties.Resources.Sales;
+            toolStripButton1.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Padding = new Padding(10);
+            toolStripButton1.Size = new Size(76, 99);
+            toolStripButton1.Text = "Sales";
+            toolStripButton1.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // toolStripButton2
+            // 
+            toolStripButton2.Image = Properties.Resources.Reports;
+            toolStripButton2.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripButton2.ImageTransparentColor = Color.Magenta;
+            toolStripButton2.Name = "toolStripButton2";
+            toolStripButton2.Padding = new Padding(10);
+            toolStripButton2.Size = new Size(97, 99);
+            toolStripButton2.Text = "Reports";
+            toolStripButton2.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // contextMenuStrip1
             // 
@@ -199,7 +223,7 @@
             dgvOrders.Name = "dgvOrders";
             dgvOrders.ReadOnly = true;
             dgvOrders.RowHeadersWidth = 51;
-            dgvOrders.Size = new Size(250, 439);
+            dgvOrders.Size = new Size(250, 440);
             dgvOrders.TabIndex = 1;
             // 
             // clmOrderNumber
@@ -249,9 +273,9 @@
             pnOrders.Controls.Add(dgvOrders);
             pnOrders.Controls.Add(lblOrders);
             pnOrders.Dock = DockStyle.Right;
-            pnOrders.Location = new System.Drawing.Point(976, 131);
+            pnOrders.Location = new System.Drawing.Point(976, 130);
             pnOrders.Name = "pnOrders";
-            pnOrders.Size = new Size(250, 462);
+            pnOrders.Size = new Size(250, 463);
             pnOrders.TabIndex = 11;
             // 
             // lblOrders
@@ -298,8 +322,6 @@
         private ToolStrip toolStrip1;
         private ToolStripButton tsbtnStocks;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton tsbtnOrders;
-        private ToolStripButton tsbtnSales;
         private ContextMenuStrip contextMenuStrip1;
         private Panel panel1;
         private Label lblNewOrders;
@@ -315,9 +337,12 @@
         private ToolStripMenuItem btnCategories;
         private ToolStripMenuItem btnUnits;
         private ToolStripMenuItem btnTags;
-        private ToolStripDropDownButton toolStripDropDownButton2;
         private ToolStripMenuItem btnProducts;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem btnItems;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripButton toolStripButton3;
+        private ToolStripButton toolStripButton1;
+        private ToolStripButton toolStripButton2;
     }
 }
