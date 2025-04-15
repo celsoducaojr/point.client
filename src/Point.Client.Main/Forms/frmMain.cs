@@ -26,25 +26,5 @@ namespace Point.Client.Main
             childForm.MdiParent = this;
             childForm.Show();
         }
-
-        private void btnProducts_Click(object sender, EventArgs e)
-        {
-            new frmUnits().ShowDialog();
-        }
-
-        private void tsbtnStocks_Click(object sender, EventArgs e)
-        {
-            new frmCategories().ShowDialog();
-        }
-
-        private void tsbtnOrders_Click(object sender, EventArgs e)
-        {
-            new frmTags().ShowDialog();
-        }
-
-        private void tsbtnSales_Click(object sender, EventArgs e)
-        {
-            new frmItems().ShowDialog();
-        }
     }
 }

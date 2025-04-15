@@ -55,23 +55,23 @@
             clmCategory = new DataGridViewTextBoxColumn();
             clmDescription = new DataGridViewTextBoxColumn();
             toolStrip1 = new ToolStrip();
-            toolStripButton2 = new ToolStripButton();
-            toolStripButton3 = new ToolStripButton();
+            btnFirst = new ToolStripButton();
+            btnPrev = new ToolStripButton();
             toolStripLabel1 = new ToolStripLabel();
             txtPage = new ToolStripTextBox();
             lblTotalPage = new ToolStripLabel();
             toolStripSeparator1 = new ToolStripSeparator();
-            toolStripButton4 = new ToolStripButton();
-            toolStripButton1 = new ToolStripButton();
+            btnNext = new ToolStripButton();
+            btnLast = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
             cmbPageSize = new ToolStripComboBox();
             toolStripLabel2 = new ToolStripLabel();
             panel2 = new Panel();
-            textBox2 = new TextBox();
+            txtItemSearch = new TextBox();
             label4 = new Label();
             label5 = new Label();
-            button1 = new Button();
-            comboBox1 = new ComboBox();
+            btnSearch = new Button();
+            cmbCategorySearch = new ComboBox();
             tlpMain.SuspendLayout();
             pnlEdit.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTags).BeginInit();
@@ -363,32 +363,34 @@
             toolStrip1.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton2, toolStripButton3, toolStripLabel1, txtPage, lblTotalPage, toolStripSeparator1, toolStripButton4, toolStripButton1, toolStripSeparator2, cmbPageSize, toolStripLabel2 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnFirst, btnPrev, toolStripLabel1, txtPage, lblTotalPage, toolStripSeparator1, btnNext, btnLast, toolStripSeparator2, cmbPageSize, toolStripLabel2 });
             toolStrip1.Location = new System.Drawing.Point(0, 451);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(725, 29);
             toolStrip1.TabIndex = 2;
             toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton2
+            // btnFirst
             // 
-            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
-            toolStripButton2.ImageTransparentColor = Color.Magenta;
-            toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new Size(40, 26);
-            toolStripButton2.Text = "<<";
-            toolStripButton2.ToolTipText = "first page";
+            btnFirst.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
+            btnFirst.ImageTransparentColor = Color.Magenta;
+            btnFirst.Name = "btnFirst";
+            btnFirst.Size = new Size(40, 26);
+            btnFirst.Text = "<<";
+            btnFirst.ToolTipText = "first page";
+            btnFirst.Click += btnFirst_Click;
             // 
-            // toolStripButton3
+            // btnPrev
             // 
-            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
-            toolStripButton3.ImageTransparentColor = Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(29, 26);
-            toolStripButton3.Text = "<";
-            toolStripButton3.ToolTipText = "previous page";
+            btnPrev.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
+            btnPrev.ImageTransparentColor = Color.Magenta;
+            btnPrev.Name = "btnPrev";
+            btnPrev.Size = new Size(29, 26);
+            btnPrev.Text = "<";
+            btnPrev.ToolTipText = "previous page";
+            btnPrev.Click += btnPrev_Click;
             // 
             // toolStripLabel1
             // 
@@ -414,25 +416,27 @@
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 29);
             // 
-            // toolStripButton4
+            // btnNext
             // 
-            toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
-            toolStripButton4.ImageTransparentColor = Color.Magenta;
-            toolStripButton4.Name = "toolStripButton4";
-            toolStripButton4.Size = new Size(29, 26);
-            toolStripButton4.Text = ">";
-            toolStripButton4.ToolTipText = "next page";
+            btnNext.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnNext.Image = (Image)resources.GetObject("btnNext.Image");
+            btnNext.ImageTransparentColor = Color.Magenta;
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(29, 26);
+            btnNext.Text = ">";
+            btnNext.ToolTipText = "next page";
+            btnNext.Click += btnNext_Click;
             // 
-            // toolStripButton1
+            // btnLast
             // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(40, 26);
-            toolStripButton1.Text = ">>";
-            toolStripButton1.ToolTipText = "last page";
+            btnLast.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnLast.Image = (Image)resources.GetObject("btnLast.Image");
+            btnLast.ImageTransparentColor = Color.Magenta;
+            btnLast.Name = "btnLast";
+            btnLast.Size = new Size(40, 26);
+            btnLast.Text = ">>";
+            btnLast.ToolTipText = "last page";
+            btnLast.Click += btnLast_Click;
             // 
             // toolStripSeparator2
             // 
@@ -461,13 +465,13 @@
             panel2.Size = new Size(1240, 2);
             panel2.TabIndex = 18;
             // 
-            // textBox2
+            // txtItemSearch
             // 
-            textBox2.Location = new System.Drawing.Point(98, 23);
-            textBox2.MaxLength = 100;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(304, 27);
-            textBox2.TabIndex = 1;
+            txtItemSearch.Location = new System.Drawing.Point(98, 23);
+            txtItemSearch.MaxLength = 100;
+            txtItemSearch.Name = "txtItemSearch";
+            txtItemSearch.Size = new Size(304, 27);
+            txtItemSearch.TabIndex = 1;
             // 
             // label4
             // 
@@ -487,33 +491,34 @@
             label5.TabIndex = 21;
             label5.Text = "Category";
             // 
-            // button1
+            // btnSearch
             // 
-            button1.Location = new System.Drawing.Point(23, 111);
-            button1.Name = "button1";
-            button1.Size = new Size(151, 29);
-            button1.TabIndex = 3;
-            button1.Text = "Search Items";
-            button1.UseVisualStyleBackColor = true;
+            btnSearch.Location = new System.Drawing.Point(23, 111);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(151, 29);
+            btnSearch.TabIndex = 3;
+            btnSearch.Text = "Search Items";
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
-            // comboBox1
+            // cmbCategorySearch
             // 
-            comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new System.Drawing.Point(98, 56);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(227, 28);
-            comboBox1.TabIndex = 2;
+            cmbCategorySearch.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbCategorySearch.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbCategorySearch.FormattingEnabled = true;
+            cmbCategorySearch.Location = new System.Drawing.Point(98, 56);
+            cmbCategorySearch.Name = "cmbCategorySearch";
+            cmbCategorySearch.Size = new Size(227, 28);
+            cmbCategorySearch.TabIndex = 2;
             // 
             // frmItems
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1286, 660);
-            Controls.Add(comboBox1);
-            Controls.Add(button1);
-            Controls.Add(textBox2);
+            Controls.Add(cmbCategorySearch);
+            Controls.Add(btnSearch);
+            Controls.Add(txtItemSearch);
             Controls.Add(label4);
             Controls.Add(label5);
             Controls.Add(panel2);
@@ -566,10 +571,10 @@
         private TextBox txtTag;
         private Panel panel1;
         private ToolStrip toolStrip1;
-        private ToolStripButton toolStripButton2;
-        private ToolStripButton toolStripButton3;
-        private ToolStripButton toolStripButton4;
-        private ToolStripButton toolStripButton1;
+        private ToolStripButton btnFirst;
+        private ToolStripButton btnPrev;
+        private ToolStripButton btnNext;
+        private ToolStripButton btnLast;
         private ToolStripTextBox txtPage;
         private ToolStripLabel lblTotalPage;
         private ToolStripSeparator toolStripSeparator1;
@@ -578,10 +583,10 @@
         private ToolStripLabel toolStripLabel1;
         private ToolStripSeparator toolStripSeparator2;
         private Panel panel2;
-        private TextBox textBox2;
+        private TextBox txtItemSearch;
         private Label label4;
         private Label label5;
-        private Button button1;
-        private ComboBox comboBox1;
+        private Button btnSearch;
+        private ComboBox cmbCategorySearch;
     }
 }

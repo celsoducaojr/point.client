@@ -11,7 +11,6 @@ namespace Point.Client.Main.Listing
     {
         private bool _isAddingNew;
 
-        private bool _isFirstLoad;
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
@@ -26,9 +25,9 @@ namespace Point.Client.Main.Listing
 
             _isAddingNew = false;
 
-            _isFirstLoad = true;
             _currentPage = 1;
             _currentTotalPages = 0;
+            _currentPageSize = FormConstants.PageSizes.ElementAtOrDefault(0);
 
             _itemService = ServiceLocator.GetService<ItemService>();
             _categoryService = ServiceLocator.GetService<CategoryService>();
@@ -77,16 +76,73 @@ namespace Point.Client.Main.Listing
 
         #endregion
 
-        #region Pagination
+        #region Search and Pagination
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            Task.Run(() => SearchItems());
+        }
+
+        private void btnFirst_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0)
+            {
+                _currentPage = 1;
+
+                Task.Run(() => SearchItems());
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0)
+            {
+                _currentPage = 1;
+                if (int.TryParse(txtPage.Text, out var selectedPage)
+                    && selectedPage > 1)
+                {
+                    _currentPage = selectedPage - 1;
+                }
+
+                Task.Run(() => SearchItems());
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0)
+            {
+                _currentPage = _currentTotalPages;
+                if (int.TryParse(txtPage.Text, out var selectedPage)
+                    && selectedPage < _currentTotalPages)
+                {
+                    _currentPage = selectedPage + 1;
+                }
+
+                Task.Run(() => SearchItems());
+            }
+        }
+
+        private void btnLast_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0)
+            {
+                _currentPage = _currentTotalPages;
+
+                Task.Run(() => SearchItems());
+            }
+
+        }
 
         private void txtPage_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && _currentTotalPages > 0)
             {
                 _currentPage = 1;
-                if (int.TryParse(txtPage.Text, out var page) && page <= _currentTotalPages)
+                if (int.TryParse(txtPage.Text, out var selectedPage)
+                    && selectedPage <= _currentTotalPages && selectedPage > 0)
                 {
-                    _currentPage = page;
+                    _currentPage = selectedPage;
                 }
 
                 Task.Run(() => SearchItems());
@@ -389,6 +445,8 @@ namespace Point.Client.Main.Listing
 
             this.Invoke((MethodInvoker)(() =>
             {
+                _currentTotalPages = 0;
+
                 dgvItems.Rows.Clear();
                 txtPage.Clear();
                 lblTotalPage.Text = FormConstants.TotalPagesDefaultLabel;
@@ -432,12 +490,17 @@ namespace Point.Client.Main.Listing
 
             this.Invoke((MethodInvoker)(() =>
             {
+                cmbCategorySearch.DataSource = response;
+                cmbCategorySearch.DisplayMember = "Name";
+                cmbCategorySearch.ValueMember = "Id";
+
                 cmbCategory.DataSource = response;
                 cmbCategory.DisplayMember = "Name";
                 cmbCategory.ValueMember = "Id";
 
                 if (clearSelection)
                 {
+                    cmbCategorySearch.SelectedItem = null;
                     cmbCategory.SelectedItem = null;
                 }
 

@@ -37,11 +37,10 @@
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             btnProducts = new ToolStripMenuItem();
             toolStripSeparator4 = new ToolStripSeparator();
-            categoriesToolStripMenuItem = new ToolStripMenuItem();
-            unitsToolStripMenuItem = new ToolStripMenuItem();
-            tagsToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator3 = new ToolStripSeparator();
-            deletedItemsToolStripMenuItem = new ToolStripMenuItem();
+            btnItems = new ToolStripMenuItem();
+            btnCategories = new ToolStripMenuItem();
+            btnUnits = new ToolStripMenuItem();
+            btnTags = new ToolStripMenuItem();
             tsbtnStocks = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             tsbtnOrders = new ToolStripButton();
@@ -95,91 +94,84 @@
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new System.Drawing.Point(0, 28);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1226, 32);
+            toolStrip1.Size = new Size(1226, 103);
             toolStrip1.TabIndex = 6;
             toolStrip1.Text = "toolStrip1";
             // 
             // toolStripDropDownButton1
             // 
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnProducts, toolStripSeparator4, categoriesToolStripMenuItem, unitsToolStripMenuItem, tagsToolStripMenuItem, toolStripSeparator3, deletedItemsToolStripMenuItem });
-            toolStripDropDownButton1.Image = (Image)resources.GetObject("toolStripDropDownButton1.Image");
+            toolStripDropDownButton1.AutoSize = false;
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnProducts, toolStripSeparator4, btnItems, btnCategories, btnUnits, btnTags });
+            toolStripDropDownButton1.ImageScaling = ToolStripItemImageScaling.None;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            toolStripDropDownButton1.Size = new Size(116, 29);
+            toolStripDropDownButton1.Size = new Size(96, 100);
             toolStripDropDownButton1.Text = "Products";
+            toolStripDropDownButton1.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // btnProducts
             // 
             btnProducts.Name = "btnProducts";
             btnProducts.Size = new Size(237, 30);
             btnProducts.Text = "Manage Products";
-            btnProducts.Click += btnProducts_Click;
             // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
             toolStripSeparator4.Size = new Size(234, 6);
             // 
-            // categoriesToolStripMenuItem
+            // btnItems
             // 
-            categoriesToolStripMenuItem.Name = "categoriesToolStripMenuItem";
-            categoriesToolStripMenuItem.Size = new Size(237, 30);
-            categoriesToolStripMenuItem.Text = "Categories";
+            btnItems.Name = "btnItems";
+            btnItems.Size = new Size(237, 30);
+            btnItems.Text = "Items";
             // 
-            // unitsToolStripMenuItem
+            // btnCategories
             // 
-            unitsToolStripMenuItem.Name = "unitsToolStripMenuItem";
-            unitsToolStripMenuItem.Size = new Size(237, 30);
-            unitsToolStripMenuItem.Text = "Units";
+            btnCategories.Name = "btnCategories";
+            btnCategories.Size = new Size(237, 30);
+            btnCategories.Text = "Categories";
             // 
-            // tagsToolStripMenuItem
+            // btnUnits
             // 
-            tagsToolStripMenuItem.Name = "tagsToolStripMenuItem";
-            tagsToolStripMenuItem.Size = new Size(237, 30);
-            tagsToolStripMenuItem.Text = "Tags";
+            btnUnits.Name = "btnUnits";
+            btnUnits.Size = new Size(237, 30);
+            btnUnits.Text = "Units";
             // 
-            // toolStripSeparator3
+            // btnTags
             // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(234, 6);
-            // 
-            // deletedItemsToolStripMenuItem
-            // 
-            deletedItemsToolStripMenuItem.Name = "deletedItemsToolStripMenuItem";
-            deletedItemsToolStripMenuItem.Size = new Size(237, 30);
-            deletedItemsToolStripMenuItem.Text = "Deleted Items";
+            btnTags.Name = "btnTags";
+            btnTags.Size = new Size(237, 30);
+            btnTags.Text = "Tags";
             // 
             // tsbtnStocks
             // 
             tsbtnStocks.Image = (Image)resources.GetObject("tsbtnStocks.Image");
             tsbtnStocks.ImageTransparentColor = Color.Magenta;
             tsbtnStocks.Name = "tsbtnStocks";
-            tsbtnStocks.Size = new Size(87, 29);
+            tsbtnStocks.Size = new Size(87, 100);
             tsbtnStocks.Text = "Stocks";
-            tsbtnStocks.Click += tsbtnStocks_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 32);
+            toolStripSeparator1.Size = new Size(6, 103);
             // 
             // tsbtnOrders
             // 
             tsbtnOrders.Image = (Image)resources.GetObject("tsbtnOrders.Image");
             tsbtnOrders.ImageTransparentColor = Color.Magenta;
             tsbtnOrders.Name = "tsbtnOrders";
-            tsbtnOrders.Size = new Size(90, 29);
+            tsbtnOrders.Size = new Size(90, 100);
             tsbtnOrders.Text = "Orders";
-            tsbtnOrders.Click += tsbtnOrders_Click;
             // 
             // tsbtnSales
             // 
             tsbtnSales.Image = (Image)resources.GetObject("tsbtnSales.Image");
             tsbtnSales.ImageTransparentColor = Color.Magenta;
             tsbtnSales.Name = "tsbtnSales";
-            tsbtnSales.Size = new Size(76, 29);
+            tsbtnSales.Size = new Size(76, 100);
             tsbtnSales.Text = "Sales";
-            tsbtnSales.Click += tsbtnSales_Click;
             // 
             // toolStripDropDownButton2
             // 
@@ -187,7 +179,7 @@
             toolStripDropDownButton2.Image = (Image)resources.GetObject("toolStripDropDownButton2.Image");
             toolStripDropDownButton2.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton2.Name = "toolStripDropDownButton2";
-            toolStripDropDownButton2.Size = new Size(34, 29);
+            toolStripDropDownButton2.Size = new Size(34, 100);
             toolStripDropDownButton2.Text = "toolStripDropDownButton2";
             // 
             // contextMenuStrip1
@@ -207,7 +199,7 @@
             dgvOrders.Name = "dgvOrders";
             dgvOrders.ReadOnly = true;
             dgvOrders.RowHeadersWidth = 51;
-            dgvOrders.Size = new Size(250, 510);
+            dgvOrders.Size = new Size(250, 439);
             dgvOrders.TabIndex = 1;
             // 
             // clmOrderNumber
@@ -257,9 +249,9 @@
             pnOrders.Controls.Add(dgvOrders);
             pnOrders.Controls.Add(lblOrders);
             pnOrders.Dock = DockStyle.Right;
-            pnOrders.Location = new System.Drawing.Point(976, 60);
+            pnOrders.Location = new System.Drawing.Point(976, 131);
             pnOrders.Name = "pnOrders";
-            pnOrders.Size = new Size(250, 533);
+            pnOrders.Size = new Size(250, 462);
             pnOrders.TabIndex = 11;
             // 
             // lblOrders
@@ -320,13 +312,12 @@
         private ToolStripLabel toolStripLabel2;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripDropDownButton toolStripDropDownButton1;
-        private ToolStripMenuItem categoriesToolStripMenuItem;
-        private ToolStripMenuItem unitsToolStripMenuItem;
-        private ToolStripMenuItem tagsToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator3;
-        private ToolStripMenuItem deletedItemsToolStripMenuItem;
+        private ToolStripMenuItem btnCategories;
+        private ToolStripMenuItem btnUnits;
+        private ToolStripMenuItem btnTags;
         private ToolStripDropDownButton toolStripDropDownButton2;
         private ToolStripMenuItem btnProducts;
         private ToolStripSeparator toolStripSeparator4;
+        private ToolStripMenuItem btnItems;
     }
 }
