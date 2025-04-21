@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Forms\Sales\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

@@ -466,6 +466,7 @@ namespace Point.Client.Main.Listing
                         row.Cells[0].Value = item.Name;
                         row.Cells[1].Value = item.Category?.Name;
                         row.Cells[2].Value = item.Description;
+                        row.Cells[3].Value = string.Join(", ", item.Tags?.Select(tag => tag.Name).ToList() ?? []);
                         row.Tag = item;
                         dgvItems.Rows.Add(row);
                     });
@@ -490,17 +491,12 @@ namespace Point.Client.Main.Listing
 
             this.Invoke((MethodInvoker)(() =>
             {
-                cmbCategorySearch.DataSource = response;
-                cmbCategorySearch.DisplayMember = "Name";
-                cmbCategorySearch.ValueMember = "Id";
-
                 cmbCategory.DataSource = response;
                 cmbCategory.DisplayMember = "Name";
                 cmbCategory.ValueMember = "Id";
 
                 if (clearSelection)
                 {
-                    cmbCategorySearch.SelectedItem = null;
                     cmbCategory.SelectedItem = null;
                 }
 

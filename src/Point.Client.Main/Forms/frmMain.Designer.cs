@@ -68,7 +68,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { productsToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1226, 28);
+            menuStrip1.Size = new Size(1569, 28);
             menuStrip1.TabIndex = 5;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -82,7 +82,7 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(116, 26);
+            exitToolStripMenuItem.Size = new Size(224, 26);
             exitToolStripMenuItem.Text = "Exit";
             // 
             // toolStrip1
@@ -95,7 +95,7 @@
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new System.Drawing.Point(0, 28);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1226, 102);
+            toolStrip1.Size = new Size(1569, 102);
             toolStrip1.TabIndex = 6;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -223,7 +223,7 @@
             dgvOrders.Name = "dgvOrders";
             dgvOrders.ReadOnly = true;
             dgvOrders.RowHeadersWidth = 51;
-            dgvOrders.Size = new Size(250, 440);
+            dgvOrders.Size = new Size(250, 644);
             dgvOrders.TabIndex = 1;
             // 
             // clmOrderNumber
@@ -240,9 +240,9 @@
             toolStrip2.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip2.ImageScalingSize = new Size(20, 20);
             toolStrip2.Items.AddRange(new ToolStripItem[] { toolStripLabel1, toolStripSeparator2, toolStripLabel2 });
-            toolStrip2.Location = new System.Drawing.Point(0, 593);
+            toolStrip2.Location = new System.Drawing.Point(0, 797);
             toolStrip2.Name = "toolStrip2";
-            toolStrip2.Size = new Size(1226, 25);
+            toolStrip2.Size = new Size(1569, 25);
             toolStrip2.TabIndex = 10;
             toolStrip2.Text = "toolStrip2";
             // 
@@ -273,9 +273,9 @@
             pnOrders.Controls.Add(dgvOrders);
             pnOrders.Controls.Add(lblOrders);
             pnOrders.Dock = DockStyle.Right;
-            pnOrders.Location = new System.Drawing.Point(976, 130);
+            pnOrders.Location = new System.Drawing.Point(1319, 130);
             pnOrders.Name = "pnOrders";
-            pnOrders.Size = new Size(250, 463);
+            pnOrders.Size = new Size(250, 667);
             pnOrders.TabIndex = 11;
             // 
             // lblOrders
@@ -293,7 +293,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1226, 618);
+            ClientSize = new Size(1569, 822);
             Controls.Add(pnOrders);
             Controls.Add(toolStrip2);
             Controls.Add(toolStrip1);
