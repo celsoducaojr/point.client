@@ -6,29 +6,52 @@ namespace Point.Client.Main.Listing
 {
     public partial class frmCategories : Form
     {
-        public static bool HasUpdates { get; private set; }
-
+        private bool _isFirstLoad;
         private bool _isAddingNew;
+        private bool _hasUpdates;
+
         private readonly CategoryService _categoryService;
 
         public frmCategories()
         {
             InitializeComponent();
 
-            HasUpdates = false;
-
+            _isFirstLoad = true;
             _isAddingNew = false;
+            _hasUpdates = false;
+
             _categoryService = ServiceLocator.GetService<CategoryService>();
         }
 
         private void frmCategories_Load(object sender, EventArgs e)
         {
-            Task.Run(() => LoadCategories());
+            if (_isFirstLoad)
+            {
+                Task.Run(() => LoadCategories());
+                _isFirstLoad= false;
+            }
+        }
+
+        private void frmCategories_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (btnCancel.Visible)
+            {
+                btnCancel_Click(sender, e);
+            }
+
+            e.Cancel = true;
+            this.Hide();
+
+            if (_hasUpdates)
+            {
+                _hasUpdates = false;
+                OnRecordUpdated();
+            }
         }
 
         private void dgvCategories_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvCategories.SelectedRows.Count > 0) 
+            if (dgvCategories.SelectedRows.Count > 0)
             {
                 var row = dgvCategories.SelectedRows[0];
                 txtCategory.Tag = row.Tag;
@@ -84,6 +107,20 @@ namespace Point.Client.Main.Listing
             EnableEditing(false);
         }
 
+        #region Update Event
+
+        public event EventHandler RecordUpdated;
+
+        private async void OnRecordUpdated()
+        {
+            await Task.Run(() =>
+            {
+                RecordUpdated?.Invoke(this, EventArgs.Empty);
+            });
+        }
+
+        #endregion
+
         #region Helpers
 
         private void ClearFields()
@@ -95,7 +132,7 @@ namespace Point.Client.Main.Listing
             btnNew.Visible = !enable;
             btnEdit.Visible = !enable;
             btnSave.Visible = enable;
-            btnCancel.Visible = enable; 
+            btnCancel.Visible = enable;
 
             dgvCategories.Enabled = !enable;
             txtCategory.ReadOnly = !enable;
@@ -134,14 +171,14 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                HasUpdates = true;
+                _hasUpdates = true;
             }
-            catch(HttpRequestException ex)
+            catch (HttpRequestException ex)
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
                     MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
+
                     EnableEditing(true);
                 }));
             }
@@ -164,7 +201,7 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                HasUpdates = true;
+                _hasUpdates = true;
             }
             catch (HttpRequestException ex)
             {

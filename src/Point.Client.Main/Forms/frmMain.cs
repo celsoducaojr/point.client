@@ -1,6 +1,5 @@
 using Point.Client.Main.Forms.Products;
 using Point.Client.Main.Listing;
-using Point.Client.Main.Stocks;
 
 namespace Point.Client.Main
 {

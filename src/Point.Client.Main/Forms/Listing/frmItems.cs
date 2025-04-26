@@ -3,6 +3,8 @@ using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
+using Point.Client.Main.Forms;
+using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Forms.Products;
 
 namespace Point.Client.Main.Listing
@@ -19,6 +21,8 @@ namespace Point.Client.Main.Listing
         private readonly CategoryService _categoryService;
         private readonly TagService _tagService;
 
+        private frmItemSearch _frmItemSearch;
+
         public frmItems()
         {
             InitializeComponent();
@@ -32,6 +36,8 @@ namespace Point.Client.Main.Listing
             _itemService = ServiceLocator.GetService<ItemService>();
             _categoryService = ServiceLocator.GetService<CategoryService>();
             _tagService = ServiceLocator.GetService<TagService>();
+
+            _frmItemSearch = new frmItemSearch();
         }
 
         #region Main
@@ -78,9 +84,21 @@ namespace Point.Client.Main.Listing
 
         #region Search and Pagination
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void btnSearch_Click_1(object sender, EventArgs e)
         {
-            Task.Run(() => SearchItems());
+            var categories = FormFactory.GetForm<frmCategories>();
+            var itemSearch = FormFactory.GetForm<frmItemSearch>();
+            categories.RecordUpdated += async (s, e) =>
+            {
+                await itemSearch.LoadCategories(true);
+            };
+
+            itemSearch.ShowDialog();
+        }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void btnFirst_Click(object sender, EventArgs e)
@@ -173,8 +191,13 @@ namespace Point.Client.Main.Listing
 
         private void lnkManageCategories_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new frmCategories().ShowDialog();
-            LoadCategories(frmCategories.HasUpdates);
+            var categories = FormFactory.GetForm<frmCategories>();
+            categories.RecordUpdated += async (s, e) =>
+            {
+                await LoadCategories(true);
+            };
+
+            categories.ShowDialog();
         }
 
         private void dgvTags_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -313,7 +336,6 @@ namespace Point.Client.Main.Listing
         private void ClearEditingFields()
         {
             txtItem.Clear();
-            txtCategory.Clear();
             cmbCategory.SelectedItem = null;
             txtDescription.Clear();
             dgvTags.Rows.Clear();
@@ -436,7 +458,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
+                tlpMain.Enabled = false;
 
                 this.Text = "Loading Items...";
             }));
@@ -473,7 +495,7 @@ namespace Point.Client.Main.Listing
                 }
 
                 this.Text = frmText;
-                EnableButtons(true);
+                tlpMain.Enabled = true;
             }));
         }
 
@@ -482,7 +504,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
+                tlpMain.Enabled = false;
 
                 this.Text = "Loading Categories...";
             }));
@@ -501,7 +523,7 @@ namespace Point.Client.Main.Listing
                 }
 
                 this.Text = frmText;
-                EnableButtons(true);
+                tlpMain.Enabled = true;
             }));
         }
 
@@ -510,7 +532,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
+                tlpMain.Enabled = false;
 
                 this.Text = "Loading Tags...";
             }));
@@ -529,7 +551,7 @@ namespace Point.Client.Main.Listing
                 txtTag.Tag = response;
 
                 this.Text = frmText;
-                EnableButtons(true);
+                tlpMain.Enabled = true;
             }));
         }
 

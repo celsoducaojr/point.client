@@ -45,14 +45,14 @@
             dgvCategories.AllowUserToDeleteRows = false;
             dgvCategories.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCategories.Columns.AddRange(new DataGridViewColumn[] { clmCategory });
-            dgvCategories.Location = new System.Drawing.Point(23, 23);
-            dgvCategories.Margin = new Padding(3, 3, 20, 3);
+            dgvCategories.Location = new System.Drawing.Point(29, 29);
+            dgvCategories.Margin = new Padding(4, 4, 25, 4);
             dgvCategories.MultiSelect = false;
             dgvCategories.Name = "dgvCategories";
             dgvCategories.ReadOnly = true;
             dgvCategories.RowHeadersWidth = 51;
             dgvCategories.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCategories.Size = new Size(366, 492);
+            dgvCategories.Size = new Size(458, 473);
             dgvCategories.TabIndex = 1;
             dgvCategories.SelectionChanged += dgvCategories_SelectionChanged;
             // 
@@ -66,20 +66,22 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new System.Drawing.Point(616, 486);
+            btnSave.Location = new System.Drawing.Point(583, 466);
+            btnSave.Margin = new Padding(4);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(94, 29);
+            btnSave.Size = new Size(180, 36);
             btnSave.TabIndex = 5;
-            btnSave.Text = "Save";
+            btnSave.Text = "Save Category";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Visible = false;
             btnSave.Click += btnSave_Click;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new System.Drawing.Point(716, 486);
+            btnCancel.Location = new System.Drawing.Point(771, 466);
+            btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(94, 29);
+            btnCancel.Size = new Size(118, 36);
             btnCancel.TabIndex = 6;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
@@ -89,26 +91,29 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(412, 26);
+            label1.Location = new System.Drawing.Point(516, 32);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(69, 20);
+            label1.Size = new Size(84, 25);
             label1.TabIndex = 4;
             label1.Text = "Category";
             // 
             // txtCategory
             // 
-            txtCategory.Location = new System.Drawing.Point(487, 23);
+            txtCategory.Location = new System.Drawing.Point(608, 29);
+            txtCategory.Margin = new Padding(4);
             txtCategory.MaxLength = 30;
             txtCategory.Name = "txtCategory";
             txtCategory.ReadOnly = true;
-            txtCategory.Size = new Size(230, 27);
+            txtCategory.Size = new Size(281, 31);
             txtCategory.TabIndex = 2;
             // 
             // btnNew
             // 
-            btnNew.Location = new System.Drawing.Point(412, 486);
+            btnNew.Location = new System.Drawing.Point(646, 466);
+            btnNew.Margin = new Padding(4);
             btnNew.Name = "btnNew";
-            btnNew.Size = new Size(94, 29);
+            btnNew.Size = new Size(118, 36);
             btnNew.TabIndex = 3;
             btnNew.Text = "New";
             btnNew.UseVisualStyleBackColor = true;
@@ -116,9 +121,10 @@
             // 
             // btnEdit
             // 
-            btnEdit.Location = new System.Drawing.Point(512, 486);
+            btnEdit.Location = new System.Drawing.Point(771, 466);
+            btnEdit.Margin = new Padding(4);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(94, 29);
+            btnEdit.Size = new Size(118, 36);
             btnEdit.TabIndex = 4;
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
@@ -126,9 +132,9 @@
             // 
             // frmCategories
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(833, 538);
+            ClientSize = new Size(918, 531);
             Controls.Add(btnEdit);
             Controls.Add(btnNew);
             Controls.Add(txtCategory);
@@ -136,12 +142,16 @@
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(dgvCategories);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmCategories";
-            Padding = new Padding(20);
+            Padding = new Padding(25);
+            StartPosition = FormStartPosition.Manual;
             Text = "Categories";
+            FormClosing += frmCategories_FormClosing;
             Load += frmCategories_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCategories).EndInit();
             ResumeLayout(false);

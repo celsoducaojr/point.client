@@ -93,7 +93,7 @@
             tlpMain.RowCount = 1;
             tlpMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tlpMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 608F));
-            tlpMain.Size = new Size(1568, 643);
+            tlpMain.Size = new Size(1322, 643);
             tlpMain.TabIndex = 4;
             // 
             // panel1
@@ -104,7 +104,7 @@
             panel1.Location = new System.Drawing.Point(4, 4);
             panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(999, 635);
+            panel1.Size = new Size(841, 635);
             panel1.TabIndex = 1;
             // 
             // dgvItems
@@ -121,7 +121,7 @@
             dgvItems.ReadOnly = true;
             dgvItems.RowHeadersWidth = 51;
             dgvItems.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvItems.Size = new Size(999, 604);
+            dgvItems.Size = new Size(841, 604);
             dgvItems.TabIndex = 1;
             dgvItems.SelectionChanged += dgvItems_SelectionChanged;
             // 
@@ -155,7 +155,7 @@
             clmTags.MinimumWidth = 6;
             clmTags.Name = "clmTags";
             clmTags.ReadOnly = true;
-            clmTags.Width = 250;
+            clmTags.Width = 150;
             // 
             // toolStrip1
             // 
@@ -166,7 +166,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator1, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, btnSearch, btnClearFilter });
             toolStrip1.Location = new System.Drawing.Point(0, 604);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(999, 31);
+            toolStrip1.Size = new Size(841, 31);
             toolStrip1.TabIndex = 2;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -270,6 +270,7 @@
             btnSearch.RightToLeft = RightToLeft.No;
             btnSearch.Size = new Size(94, 28);
             btnSearch.Text = "Search";
+            btnSearch.Click += btnSearch_Click_1;
             // 
             // btnClearFilter
             // 
@@ -279,6 +280,7 @@
             btnClearFilter.Size = new Size(131, 28);
             btnClearFilter.Text = "Clear Filter";
             btnClearFilter.ToolTipText = "Clear Filter";
+            btnClearFilter.Click += btnClearFilter_Click;
             // 
             // pnlEdit
             // 
@@ -301,11 +303,11 @@
             pnlEdit.Controls.Add(txtDescription);
             pnlEdit.Controls.Add(label3);
             pnlEdit.Dock = DockStyle.Fill;
-            pnlEdit.Location = new System.Drawing.Point(1011, 4);
+            pnlEdit.Location = new System.Drawing.Point(853, 4);
             pnlEdit.Margin = new Padding(4);
             pnlEdit.Name = "pnlEdit";
             pnlEdit.Padding = new Padding(25, 25, 25, 2);
-            pnlEdit.Size = new Size(553, 635);
+            pnlEdit.Size = new Size(465, 635);
             pnlEdit.TabIndex = 2;
             // 
             // label4
@@ -359,10 +361,10 @@
             lnkManageTags.Location = new System.Drawing.Point(287, 416);
             lnkManageTags.Margin = new Padding(4, 0, 4, 0);
             lnkManageTags.Name = "lnkManageTags";
-            lnkManageTags.Size = new Size(116, 25);
+            lnkManageTags.Size = new Size(59, 25);
             lnkManageTags.TabIndex = 7;
             lnkManageTags.TabStop = true;
-            lnkManageTags.Text = "Manage Tags";
+            lnkManageTags.Text = "Tags...";
             lnkManageTags.Visible = false;
             lnkManageTags.LinkClicked += lnkManageTags_LinkClicked;
             // 
@@ -378,7 +380,7 @@
             dgvTags.Name = "dgvTags";
             dgvTags.ReadOnly = true;
             dgvTags.RowHeadersWidth = 51;
-            dgvTags.Size = new Size(524, 177);
+            dgvTags.Size = new Size(437, 177);
             dgvTags.TabIndex = 5;
             dgvTags.CellClick += dgvTags_CellClick;
             // 
@@ -406,12 +408,12 @@
             txtCategory.Margin = new Padding(4);
             txtCategory.Name = "txtCategory";
             txtCategory.ReadOnly = true;
-            txtCategory.Size = new Size(160, 31);
+            txtCategory.Size = new Size(200, 31);
             txtCategory.TabIndex = 2;
             // 
             // btnEdit
             // 
-            btnEdit.Location = new System.Drawing.Point(154, 599);
+            btnEdit.Location = new System.Drawing.Point(347, 599);
             btnEdit.Margin = new Padding(4);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(118, 36);
@@ -437,12 +439,12 @@
             txtItem.MaxLength = 100;
             txtItem.Name = "txtItem";
             txtItem.ReadOnly = true;
-            txtItem.Size = new Size(414, 31);
+            txtItem.Size = new Size(326, 31);
             txtItem.TabIndex = 1;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new System.Drawing.Point(435, 599);
+            btnCancel.Location = new System.Drawing.Point(347, 599);
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 36);
@@ -454,7 +456,7 @@
             // 
             // btnNew
             // 
-            btnNew.Location = new System.Drawing.Point(29, 599);
+            btnNew.Location = new System.Drawing.Point(222, 599);
             btnNew.Margin = new Padding(4);
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(118, 36);
@@ -475,12 +477,12 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new System.Drawing.Point(310, 599);
+            btnSave.Location = new System.Drawing.Point(159, 599);
             btnSave.Margin = new Padding(4);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(118, 36);
+            btnSave.Size = new Size(180, 36);
             btnSave.TabIndex = 10;
-            btnSave.Text = "Save";
+            btnSave.Text = "Save Item";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Visible = false;
             btnSave.Click += btnSave_Click;
@@ -488,13 +490,13 @@
             // lnkManageCategories
             // 
             lnkManageCategories.AutoSize = true;
-            lnkManageCategories.Location = new System.Drawing.Point(325, 73);
+            lnkManageCategories.Location = new System.Drawing.Point(357, 73);
             lnkManageCategories.Margin = new Padding(4, 0, 4, 0);
             lnkManageCategories.Name = "lnkManageCategories";
-            lnkManageCategories.Size = new Size(165, 25);
+            lnkManageCategories.Size = new Size(108, 25);
             lnkManageCategories.TabIndex = 3;
             lnkManageCategories.TabStop = true;
-            lnkManageCategories.Text = "Manage Categories";
+            lnkManageCategories.Text = "Categories...";
             lnkManageCategories.Visible = false;
             lnkManageCategories.LinkClicked += lnkManageCategories_LinkClicked;
             // 
@@ -506,7 +508,7 @@
             cmbCategory.Location = new System.Drawing.Point(139, 70);
             cmbCategory.Margin = new Padding(4);
             cmbCategory.Name = "cmbCategory";
-            cmbCategory.Size = new Size(170, 33);
+            cmbCategory.Size = new Size(210, 33);
             cmbCategory.TabIndex = 2;
             cmbCategory.Visible = false;
             // 
@@ -517,9 +519,9 @@
             txtDescription.MaxLength = 250;
             txtDescription.Name = "txtDescription";
             txtDescription.ReadOnly = true;
-            txtDescription.Size = new Size(414, 86);
+            txtDescription.Size = new Size(326, 86);
             txtDescription.TabIndex = 4;
-            txtDescription.Text = "a\na\ng";
+            txtDescription.Text = "";
             // 
             // label3
             // 
@@ -535,7 +537,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1618, 697);
+            ClientSize = new Size(1372, 697);
             Controls.Add(tlpMain);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
