@@ -3,9 +3,9 @@ using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
-using Point.Client.Main.Forms;
 using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Forms.Products;
+using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Listing
 {
@@ -16,6 +16,8 @@ namespace Point.Client.Main.Listing
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
+
+        private DateTime? _CategoryLastUpdate;
 
         private readonly ItemService _itemService;
         private readonly CategoryService _categoryService;
@@ -32,6 +34,8 @@ namespace Point.Client.Main.Listing
             _currentPage = 1;
             _currentTotalPages = 0;
             _currentPageSize = FormConstants.PageSizes.ElementAtOrDefault(0);
+
+            _CategoryLastUpdate = RecordStatus.Category.LastUpdate;
 
             _itemService = ServiceLocator.GetService<ItemService>();
             _categoryService = ServiceLocator.GetService<CategoryService>();
@@ -86,14 +90,10 @@ namespace Point.Client.Main.Listing
 
         private void btnSearch_Click_1(object sender, EventArgs e)
         {
-            var categories = FormFactory.GetForm<frmCategories>();
-            var itemSearch = FormFactory.GetForm<frmItemSearch>();
-            categories.RecordUpdated += async (s, e) =>
+            if (FormFactory.GetForm<frmItemSearch>().ShowDialog() == DialogResult.OK)
             {
-                await itemSearch.LoadCategories(true);
-            };
-
-            itemSearch.ShowDialog();
+                MessageBox.Show("Ok");
+            }
         }
 
         private void btnClearFilter_Click(object sender, EventArgs e)
@@ -189,15 +189,11 @@ namespace Point.Client.Main.Listing
 
         #region Edit
 
-        private void lnkManageCategories_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private async void lnkManageCategories_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var categories = FormFactory.GetForm<frmCategories>();
-            categories.RecordUpdated += async (s, e) =>
-            {
-                await LoadCategories(true);
-            };
+            FormFactory.GetForm<frmCategories>().ShowDialog();
 
-            categories.ShowDialog();
+            await LoadCategories(true);
         }
 
         private void dgvTags_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -209,28 +205,18 @@ namespace Point.Client.Main.Listing
             }
         }
 
-        private void cmbTag_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbTag.SelectedItem != null)
-            {
-                dgvTags.Rows.Add(cmbTag.Text, "Remove");
-                dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = cmbTag.SelectedValue;
-            }
-        }
-
         private void txtTag_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(txtTag.Text))
             {
-                var tags = (List<Tag>)txtTag.Tag;
-                var tagId = tags.FirstOrDefault(tag => tag.Name == txtTag.Text)?.Id;
-                if (tagId != null)
+                var selectedTag = ((List<Tag>)txtTag.Tag).FirstOrDefault(tag => tag.Name == txtTag.Text);
+                if (selectedTag != null)
                 {
                     if (dgvTags.Rows.Cast<DataGridViewRow>().ToList()
-                        .FirstOrDefault(row => (int)row.Tag == tagId) == null)
+                        .FirstOrDefault(row => ((Tag)row.Tag).Id == selectedTag.Id) == null)
                     {
                         dgvTags.Rows.Add(txtTag.Text, "Remove");
-                        dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = tagId;
+                        dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = selectedTag;
 
                         txtTag.Clear();
                     }
@@ -501,6 +487,9 @@ namespace Point.Client.Main.Listing
 
         private async Task LoadCategories(bool clearSelection = false)
         {
+            if (_CategoryLastUpdate == RecordStatus.Category.LastUpdate) return;
+            _CategoryLastUpdate = RecordStatus.Category.LastUpdate;
+
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {

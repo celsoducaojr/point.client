@@ -1,4 +1,4 @@
-﻿namespace Point.Client.Main.Forms
+﻿namespace Point.Client.Main.Globals
 {
     public static class FormFactory
     {

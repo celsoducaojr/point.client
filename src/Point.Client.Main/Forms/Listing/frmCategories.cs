@@ -1,6 +1,7 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Services;
+using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Listing
 {
@@ -8,7 +9,6 @@ namespace Point.Client.Main.Listing
     {
         private bool _isFirstLoad;
         private bool _isAddingNew;
-        private bool _hasUpdates;
 
         private readonly CategoryService _categoryService;
 
@@ -18,7 +18,6 @@ namespace Point.Client.Main.Listing
 
             _isFirstLoad = true;
             _isAddingNew = false;
-            _hasUpdates = false;
 
             _categoryService = ServiceLocator.GetService<CategoryService>();
         }
@@ -37,15 +36,6 @@ namespace Point.Client.Main.Listing
             if (btnCancel.Visible)
             {
                 btnCancel_Click(sender, e);
-            }
-
-            e.Cancel = true;
-            this.Hide();
-
-            if (_hasUpdates)
-            {
-                _hasUpdates = false;
-                OnRecordUpdated();
             }
         }
 
@@ -107,20 +97,6 @@ namespace Point.Client.Main.Listing
             EnableEditing(false);
         }
 
-        #region Update Event
-
-        public event EventHandler RecordUpdated;
-
-        private async void OnRecordUpdated()
-        {
-            await Task.Run(() =>
-            {
-                RecordUpdated?.Invoke(this, EventArgs.Empty);
-            });
-        }
-
-        #endregion
-
         #region Helpers
 
         private void ClearFields()
@@ -171,7 +147,7 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                _hasUpdates = true;
+                RecordStatus.Category.Updated();
             }
             catch (HttpRequestException ex)
             {
@@ -201,7 +177,7 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                _hasUpdates = true;
+                RecordStatus.Category.Updated();
             }
             catch (HttpRequestException ex)
             {

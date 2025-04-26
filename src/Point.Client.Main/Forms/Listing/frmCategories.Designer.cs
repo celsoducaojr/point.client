@@ -149,7 +149,7 @@
             MinimizeBox = false;
             Name = "frmCategories";
             Padding = new Padding(25);
-            StartPosition = FormStartPosition.Manual;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Categories";
             FormClosing += frmCategories_FormClosing;
             Load += frmCategories_Load;
