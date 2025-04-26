@@ -32,6 +32,8 @@
             btnCancel = new Button();
             txtTag = new TextBox();
             dgvTags = new DataGridView();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            clmRemove = new DataGridViewButtonColumn();
             label1 = new Label();
             txtItem = new TextBox();
             label2 = new Label();
@@ -39,8 +41,6 @@
             lblTag = new Label();
             btnClear = new Button();
             cmbCategory = new ComboBox();
-            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
-            clmRemove = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)dgvTags).BeginInit();
             SuspendLayout();
             // 
@@ -90,6 +90,23 @@
             dgvTags.Size = new Size(531, 177);
             dgvTags.TabIndex = 3;
             dgvTags.CellClick += dgvTags_CellClick;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumn2.HeaderText = "Tag";
+            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // clmRemove
+            // 
+            clmRemove.HeaderText = "";
+            clmRemove.MinimumWidth = 6;
+            clmRemove.Name = "clmRemove";
+            clmRemove.ReadOnly = true;
+            clmRemove.Text = "Remove";
+            clmRemove.Width = 125;
             // 
             // label1
             // 
@@ -165,23 +182,6 @@
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(269, 33);
             cmbCategory.TabIndex = 27;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            dataGridViewTextBoxColumn2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewTextBoxColumn2.HeaderText = "Tag";
-            dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // clmRemove
-            // 
-            clmRemove.HeaderText = "";
-            clmRemove.MinimumWidth = 6;
-            clmRemove.Name = "clmRemove";
-            clmRemove.ReadOnly = true;
-            clmRemove.Text = "Remove";
-            clmRemove.Width = 125;
             // 
             // frmItemSearch
             // 

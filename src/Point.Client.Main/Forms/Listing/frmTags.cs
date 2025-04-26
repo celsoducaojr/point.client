@@ -1,29 +1,42 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Services;
+using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Forms.Products
 {
     public partial class frmTags : Form
     {
-        public static bool HasUpdates { get; private set; }
-
+        private bool _isFirstLoad;
         private bool _isAddingNew;
+
         private readonly TagService _tagService;
 
         public frmTags()
         {
             InitializeComponent();
 
-            HasUpdates = false;
-
+            _isFirstLoad = true;
             _isAddingNew = false;
+
             _tagService = ServiceLocator.GetService<TagService>();
         }
 
         private void frmTags_Load(object sender, EventArgs e)
         {
-            Task.Run(() => LoadTags());
+            if (_isFirstLoad)
+            {
+                Task.Run(() => LoadTags());
+                _isFirstLoad = false;
+            }
+        }
+
+        private void frmTags_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (btnCancel.Visible)
+            {
+                btnCancel_Click(sender, e);
+            }
         }
 
         private void dgvTags_SelectionChanged(object sender, EventArgs e)
@@ -134,7 +147,7 @@ namespace Point.Client.Main.Forms.Products
                     EnableEditing(false);
                 }));
 
-                HasUpdates = true;
+                RecordStatus.Tag.Updated();
             }
             catch (HttpRequestException ex)
             {
@@ -164,7 +177,7 @@ namespace Point.Client.Main.Forms.Products
                     EnableEditing(false);
                 }));
 
-                HasUpdates = true;
+                RecordStatus.Tag.Updated();
             }
             catch (HttpRequestException ex)
             {
@@ -206,5 +219,7 @@ namespace Point.Client.Main.Forms.Products
         }
 
         #endregion
+
+        
     }
 }

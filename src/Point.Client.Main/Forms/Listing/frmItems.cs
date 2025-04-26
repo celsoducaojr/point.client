@@ -11,55 +11,79 @@ namespace Point.Client.Main.Listing
 {
     public partial class frmItems : Form
     {
+        private bool _isFirstLoad;
         private bool _isAddingNew;
 
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
 
-        private DateTime? _CategoryLastUpdate;
+        private DateTime? _categoryLastUpdate;
+        private DateTime? _tagLastUpdate;
 
         private readonly ItemService _itemService;
         private readonly CategoryService _categoryService;
         private readonly TagService _tagService;
 
-        private frmItemSearch _frmItemSearch;
-
         public frmItems()
         {
             InitializeComponent();
 
+            _isFirstLoad = true;
             _isAddingNew = false;
 
             _currentPage = 1;
             _currentTotalPages = 0;
             _currentPageSize = FormConstants.PageSizes.ElementAtOrDefault(0);
 
-            _CategoryLastUpdate = RecordStatus.Category.LastUpdate;
+            _categoryLastUpdate = null;
+            _tagLastUpdate = null;
 
             _itemService = ServiceLocator.GetService<ItemService>();
             _categoryService = ServiceLocator.GetService<CategoryService>();
             _tagService = ServiceLocator.GetService<TagService>();
 
-            _frmItemSearch = new frmItemSearch();
+            cmbPageSize.Items.AddRange(FormConstants.PageSizes.Cast<object>().ToArray());
         }
 
         #region Main
 
         private async void frmItems_Load(object sender, EventArgs e)
         {
-            await Task.Run(async () =>
+            if (_isFirstLoad
+                || _categoryLastUpdate != RecordStatus.Category.LastUpdate
+                || _tagLastUpdate != RecordStatus.Tag.LastUpdate)
             {
-                EnableMain(false);
+                await Task.Run(async () =>
+                {
+                    EnableMain(false);
 
-                await LoadCategories();
-                await LoadTags();
+                    await LoadCategories();
+                    await LoadTags();
 
-                EnableMain(true);
-            });
+                    EnableMain(true);
+                });
 
-            cmbPageSize.Items.AddRange(FormConstants.PageSizes.Cast<object>().ToArray());
-            cmbPageSize.SelectedIndex = 0; // Trigger to load Items
+                // Trigger to load Items
+                if (cmbPageSize.SelectedItem == null)
+                {
+                    cmbPageSize.SelectedIndex = 0;
+                }
+                else
+                {
+                    cmbPageSize_SelectedIndexChanged(sender, e);
+                }
+
+                _isFirstLoad = false;
+            }
+        }
+
+        private void frmItems_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (btnCancel.Visible)
+            {
+                btnCancel_Click(sender, e);
+            }
         }
 
         private void dgvItems_SelectionChanged(object sender, EventArgs e)
@@ -76,10 +100,10 @@ namespace Point.Client.Main.Listing
                 cmbCategory.Text = item.Category?.Name;
                 txtCategory.Text = item.Category?.Name;
                 txtDescription.Text = item.Description;
-                item.Tags?.ToList().ForEach(t =>
+                item.Tags?.ToList().ForEach(tag =>
                 {
-                    dgvTags.Rows.Add(t.Name, "Remove");
-                    dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = t.Id;
+                    dgvTags.Rows.Add(tag.Name, "Remove");
+                    dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = tag;
                 });
             }
         }
@@ -87,14 +111,6 @@ namespace Point.Client.Main.Listing
         #endregion
 
         #region Search and Pagination
-
-        private void btnSearch_Click_1(object sender, EventArgs e)
-        {
-            if (FormFactory.GetForm<frmItemSearch>().ShowDialog() == DialogResult.OK)
-            {
-                MessageBox.Show("Ok");
-            }
-        }
 
         private void btnClearFilter_Click(object sender, EventArgs e)
         {
@@ -233,13 +249,11 @@ namespace Point.Client.Main.Listing
             }
         }
 
-        private void lnkManageTags_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private async void lnkManageTags_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            new frmTags().ShowDialog();
-            if (frmTags.HasUpdates)
-            {
-                LoadTags(true);
-            }
+            FormFactory.GetForm<frmTags>().ShowDialog();
+
+            await LoadTags();
         }
 
         private void btnNew_Click(object sender, EventArgs e)
@@ -288,11 +302,8 @@ namespace Point.Client.Main.Listing
                     ? txtDescription.Text.Trim()
                     : null,
                 Tags = dgvTags.Rows.Count > 0
-                    ? dgvTags.Rows.Cast<DataGridViewRow>().Select(row => new Tag
-                    {
-                        Id = (int)row.Tag,
-                        Name = row.Cells[0].Value.ToString()
-                    }).ToList()
+                    ? dgvTags.Rows.Cast<DataGridViewRow>()
+                    .Select(row => row.Tag as Tag).ToList() as List<Tag>
                     : null
             };
 
@@ -487,8 +498,8 @@ namespace Point.Client.Main.Listing
 
         private async Task LoadCategories(bool clearSelection = false)
         {
-            if (_CategoryLastUpdate == RecordStatus.Category.LastUpdate) return;
-            _CategoryLastUpdate = RecordStatus.Category.LastUpdate;
+            if (_categoryLastUpdate == RecordStatus.Category.LastUpdate) return;
+            _categoryLastUpdate = RecordStatus.Category.LastUpdate;
 
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
@@ -516,8 +527,11 @@ namespace Point.Client.Main.Listing
             }));
         }
 
-        private async Task LoadTags(bool clearSelection = false)
+        private async Task LoadTags()
         {
+            if (_tagLastUpdate == RecordStatus.Tag.LastUpdate) return;
+            _tagLastUpdate = RecordStatus.Tag.LastUpdate;
+
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {

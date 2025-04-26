@@ -27,7 +27,7 @@ namespace Point.Client.Main.Listing
             if (_isFirstLoad)
             {
                 Task.Run(() => LoadCategories());
-                _isFirstLoad= false;
+                _isFirstLoad = false;
             }
         }
 

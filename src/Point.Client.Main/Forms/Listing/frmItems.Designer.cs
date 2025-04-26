@@ -270,7 +270,6 @@
             btnSearch.RightToLeft = RightToLeft.No;
             btnSearch.Size = new Size(94, 28);
             btnSearch.Text = "Search";
-            btnSearch.Click += btnSearch_Click_1;
             // 
             // btnClearFilter
             // 
@@ -548,6 +547,7 @@
             Padding = new Padding(25);
             StartPosition = FormStartPosition.CenterParent;
             Text = "Manage Items";
+            FormClosing += frmItems_FormClosing;
             Load += frmItems_Load;
             tlpMain.ResumeLayout(false);
             panel1.ResumeLayout(false);

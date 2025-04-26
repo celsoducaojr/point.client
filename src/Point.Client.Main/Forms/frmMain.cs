@@ -1,4 +1,5 @@
 using Point.Client.Main.Forms.Products;
+using Point.Client.Main.Globals;
 using Point.Client.Main.Listing;
 
 namespace Point.Client.Main
@@ -17,22 +18,22 @@ namespace Point.Client.Main
 
         private void btnItems_Click(object sender, EventArgs e)
         {
-            new frmItems().ShowDialog();
+            FormFactory.GetForm<frmItems>().ShowDialog();
         }
 
         private void btnCategories_Click(object sender, EventArgs e)
         {
-            new frmCategories().ShowDialog();
+            FormFactory.GetForm<frmCategories>().ShowDialog();
         }
 
         private void btnUnits_Click(object sender, EventArgs e)
         {
-            new frmUnits().ShowDialog();
+            //FormFactory.GetForm<frmItems>().ShowDialog();
         }
 
         private void btnTags_Click(object sender, EventArgs e)
         {
-            new frmTags().ShowDialog();
+            FormFactory.GetForm<frmTags>().ShowDialog();
         }
 
         #region Helpers

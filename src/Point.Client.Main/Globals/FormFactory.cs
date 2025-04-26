@@ -11,6 +11,7 @@
 
             if (existingForm != null && !existingForm.IsDisposed)
             {
+                existingForm.StartPosition = FormStartPosition.Manual;
                 return existingForm;
             }
 

@@ -2,6 +2,7 @@
 using Point.Client.Main.Api;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
+using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Forms.Listing
 {
@@ -10,9 +11,9 @@ namespace Point.Client.Main.Forms.Listing
         public sealed record ItemSearchDto(
             string? Name,
             Category? Category,
-            List<Tag>? TagIds);
+            List<Tag>? Tags);
 
-        public ItemSearchDto? SearchDto;
+        public ItemSearchDto? SearchCriteria;
 
         private bool _isFirstLoad;
 
@@ -23,7 +24,7 @@ namespace Point.Client.Main.Forms.Listing
         {
             InitializeComponent();
 
-            SearchDto = null;
+            SearchCriteria = null;
 
             _isFirstLoad = true;
 
@@ -42,6 +43,8 @@ namespace Point.Client.Main.Forms.Listing
                 });
                 _isFirstLoad = false;
             }
+
+            //if (RecordStatus.Category.LastUpdate.HasValue && RecordStatus)
         }
 
         private void frmItemSearch_FormClosing(object sender, FormClosingEventArgs e)
@@ -89,17 +92,15 @@ namespace Point.Client.Main.Forms.Listing
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            txtItem.Clear();
-            cmbCategory.SelectedItem = null;
-            dgvTags.Rows.Clear();
-            txtTag.Clear();
-
-            txtItem.Focus();
+            ClearFields();
+            SearchCriteria = null;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            SearchDto = new ItemSearchDto(
+            this.DialogResult = DialogResult.OK;
+
+            SearchCriteria = new ItemSearchDto(
                 txtItem.Text,
                 cmbCategory.SelectedItem != null ?
                     (Category)cmbCategory.SelectedItem
@@ -108,17 +109,37 @@ namespace Point.Client.Main.Forms.Listing
                     ? dgvTags.Rows.Cast<DataGridViewRow>()
                     .Select(row => row.Tag as Tag).ToList() as List<Tag>
                     : null);
-
-            this.DialogResult = DialogResult.OK;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
             this.DialogResult = DialogResult.Cancel;
+
+            ClearFields();
+
+            if (SearchCriteria != null)
+            {
+                txtItem.Text = SearchCriteria.Name;
+                cmbCategory.SelectedItem = SearchCriteria.Category;
+                SearchCriteria?.Tags?.ForEach(tag =>
+                {
+                    dgvTags.Rows.Add(tag.Name, "Remove");
+                    dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = tag;
+                });
+            }
         }
 
         #region Helpers
+
+        private void ClearFields()
+        {
+            txtItem.Clear();
+            cmbCategory.SelectedItem = null;
+            dgvTags.Rows.Clear();
+            txtTag.Clear();
+
+            txtItem.Focus();
+        }
 
         private void EnableEditing(bool enable)
         {
