@@ -4,7 +4,7 @@ namespace Point.Client.Main.Globals
 {
     public static class RecordStatus
     {
-        public static class Category
+        public static class Categories
         {
             public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
 
@@ -14,7 +14,7 @@ namespace Point.Client.Main.Globals
             }
         }
 
-        public static class Tag
+        public static class Tags
         {
             public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
 

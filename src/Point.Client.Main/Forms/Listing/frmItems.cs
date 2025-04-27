@@ -1,4 +1,6 @@
-﻿using Point.Client.Main.Api;
+﻿using System.Threading.Tasks;
+using Point.Client.Main.Api;
+using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
@@ -14,6 +16,7 @@ namespace Point.Client.Main.Listing
         private bool _isFirstLoad;
         private bool _isAddingNew;
 
+        private SearchItemDto? _searchItemDto;
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
@@ -32,6 +35,7 @@ namespace Point.Client.Main.Listing
             _isFirstLoad = true;
             _isAddingNew = false;
 
+            _searchItemDto = null;
             _currentPage = 1;
             _currentTotalPages = 0;
             _currentPageSize = FormConstants.PageSizes.ElementAtOrDefault(0);
@@ -50,31 +54,24 @@ namespace Point.Client.Main.Listing
 
         private async void frmItems_Load(object sender, EventArgs e)
         {
-            if (_isFirstLoad
-                || _categoryLastUpdate != RecordStatus.Category.LastUpdate
-                || _tagLastUpdate != RecordStatus.Tag.LastUpdate)
+            await Task.Run(async () =>
             {
-                await Task.Run(async () =>
-                {
-                    EnableMain(false);
+                var tasks = new List<Task>();
+                if (_categoryLastUpdate != RecordStatus.Categories.LastUpdate) tasks.Add(LoadCategories());
+                if (_tagLastUpdate != RecordStatus.Tags.LastUpdate) tasks.Add(LoadTags());
 
-                    await LoadCategories();
-                    await LoadTags();
+                await Task.WhenAll(tasks);
+                
+                // Reload
+                if (tasks.Count > 0 && !_isFirstLoad) cmbPageSize_SelectedIndexChanged(sender, e);
+            });
 
-                    EnableMain(true);
-                });
-
-                // Trigger to load Items
-                if (cmbPageSize.SelectedItem == null)
-                {
-                    cmbPageSize.SelectedIndex = 0;
-                }
-                else
-                {
-                    cmbPageSize_SelectedIndexChanged(sender, e);
-                }
-
+            if (_isFirstLoad)
+            {
                 _isFirstLoad = false;
+
+                cmbPageSize.SelectedIndex = 0;
+                lblSearchCriteria.Text = null;
             }
         }
 
@@ -112,9 +109,35 @@ namespace Point.Client.Main.Listing
 
         #region Search and Pagination
 
-        private void btnClearFilter_Click(object sender, EventArgs e)
+        private async void btnSearch_Click(object sender, EventArgs e)
         {
+            var itemSearchForm = FormFactory.GetForm<frmItemSearch>();
+            if (itemSearchForm.ShowDialog() == DialogResult.OK)
+            {
+                _searchItemDto = itemSearchForm.SearchItemDto;
+                lblSearchCriteria.Text = null;
 
+                if (_searchItemDto != null)
+                {
+                    var criteria = new List<string>
+                    {
+                        _searchItemDto?.Name ?? string.Empty,
+                        _searchItemDto?.Category?.Name ?? string.Empty,
+                        string.Join(", ", _searchItemDto?.Tags?.Select(tag => tag.Name)?.ToList() ?? [])
+                    };
+                    lblSearchCriteria.Text = criteria.ToSearchResultLabel();
+                }
+
+                await SearchItems();
+            }
+        }
+
+        private async void btnClearFilter_Click(object sender, EventArgs e)
+        {
+            _searchItemDto = null;
+            lblSearchCriteria.Text = null;
+
+            await SearchItems();
         }
 
         private void btnFirst_Click(object sender, EventArgs e)
@@ -187,8 +210,6 @@ namespace Point.Client.Main.Listing
         {
             await Task.Run(async () =>
             {
-                EnableMain(false);
-
                 this.Invoke((MethodInvoker)(() =>
                 {
                     _currentPage = 1;
@@ -196,8 +217,6 @@ namespace Point.Client.Main.Listing
                 }));
 
                 await SearchItems();
-
-                EnableMain(true);
             });
         }
 
@@ -341,7 +360,7 @@ namespace Point.Client.Main.Listing
 
         private void EnableEditing(bool enable)
         {
-            dgvItems.Enabled = !enable;
+            pnlList.Enabled = !enable;
 
             txtItem.ReadOnly = !enable;
             txtCategory.Visible = !enable;
@@ -359,15 +378,6 @@ namespace Point.Client.Main.Listing
             btnCancel.Visible = enable;
 
             EnableButtons();
-        }
-
-        private void EnableMain(bool enable = true)
-        {
-            this.Invoke((MethodInvoker)(() =>
-            {
-                // TODO: Add other controls
-                tlpMain.Enabled = enable;
-            }));
         }
 
         private void EnableButtons(bool enable = true)
@@ -460,7 +470,8 @@ namespace Point.Client.Main.Listing
                 this.Text = "Loading Items...";
             }));
 
-            var response = await _itemService.SearchItems(_currentPage, _currentPageSize);
+            var response = await _itemService.SearchItems(_currentPage, _currentPageSize,
+                _searchItemDto?.Name, _searchItemDto?.Category?.Id, _searchItemDto?.Tags?.Select(tag => tag.Id).ToList());
 
             this.Invoke((MethodInvoker)(() =>
             {
@@ -468,7 +479,7 @@ namespace Point.Client.Main.Listing
 
                 dgvItems.Rows.Clear();
                 txtPage.Clear();
-                lblTotalPage.Text = FormConstants.TotalPagesDefaultLabel;
+                lblTotalPage.Text = string.Format(FormConstants.TotalPagesCountLabel, 0);
                 ClearEditingFields();
 
                 if (response?.TotalCount > 0)
@@ -498,8 +509,8 @@ namespace Point.Client.Main.Listing
 
         private async Task LoadCategories(bool clearSelection = false)
         {
-            if (_categoryLastUpdate == RecordStatus.Category.LastUpdate) return;
-            _categoryLastUpdate = RecordStatus.Category.LastUpdate;
+            if (_categoryLastUpdate == RecordStatus.Categories.LastUpdate) return;
+            _categoryLastUpdate = RecordStatus.Categories.LastUpdate;
 
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
@@ -529,8 +540,8 @@ namespace Point.Client.Main.Listing
 
         private async Task LoadTags()
         {
-            if (_tagLastUpdate == RecordStatus.Tag.LastUpdate) return;
-            _tagLastUpdate = RecordStatus.Tag.LastUpdate;
+            if (_tagLastUpdate == RecordStatus.Tags.LastUpdate) return;
+            _tagLastUpdate = RecordStatus.Tags.LastUpdate;
 
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>

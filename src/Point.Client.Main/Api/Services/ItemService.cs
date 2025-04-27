@@ -26,11 +26,12 @@ namespace Point.Client.Main.Api.Services
             await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, itemDto);
         }
 
-        public async Task<SearchItemResponseDto?> SearchItems(int page, int pageSize, string? name = null, int? categoryId = null)
+        public async Task<SearchItemResponseDto?> SearchItems(int page, int pageSize, string? name = null, int? categoryId = null, List<int>? tagIds = null)
         {
             var endPoint = $"{_endPoint}/search?page={page}&pageSize={pageSize}&fields=category&fields=description&fields=tags";
-            if (!string.IsNullOrEmpty(name)) endPoint += $"&name={name}";
-            if (categoryId.HasValue) endPoint += $"categoryId={categoryId}";
+            if (!string.IsNullOrWhiteSpace(name)) endPoint += $"&name={name}";
+            if (categoryId.HasValue) endPoint += $"&categoryId={categoryId}";
+            if (tagIds?.Count > 0) endPoint += $"&{string.Join("&", tagIds.Select(id => $"tagIds={id}"))}";
             return await _pointApiClient.ExecuteAsync<SearchItemResponseDto>(endPoint, Method.Get);
         }
     }

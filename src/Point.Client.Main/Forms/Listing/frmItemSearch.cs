@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Point.Client.Main.Api;
+using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Globals;
@@ -8,43 +9,38 @@ namespace Point.Client.Main.Forms.Listing
 {
     public partial class frmItemSearch : Form
     {
-        public sealed record ItemSearchDto(
-            string? Name,
-            Category? Category,
-            List<Tag>? Tags);
-
-        public ItemSearchDto? SearchCriteria;
-
-        private bool _isFirstLoad;
+        private DateTime? _categoryLastUpdate;
+        private DateTime? _tagLastUpdate;
 
         private readonly CategoryService _categoryService;
         private readonly TagService _tagService;
+
+        public SearchItemDto? SearchItemDto { get; set; }
 
         public frmItemSearch()
         {
             InitializeComponent();
 
-            SearchCriteria = null;
-
-            _isFirstLoad = true;
+            _categoryLastUpdate = null;
+            _tagLastUpdate = null;
 
             _categoryService = ServiceLocator.GetService<CategoryService>();
             _tagService = ServiceLocator.GetService<TagService>();
+
+            SearchItemDto = null;
         }
 
-        private void frmItemSearch_Load(object sender, EventArgs e)
+        private async void frmItemSearch_Load(object sender, EventArgs e)
         {
-            if (_isFirstLoad)
-            {
-                Task.Run(async () => 
-                {
-                    await LoadCategories();
-                    await LoadTags();
-                });
-                _isFirstLoad = false;
-            }
+            EnableEditing(false);
 
-            //if (RecordStatus.Category.LastUpdate.HasValue && RecordStatus)
+            await Task.Run(async () =>
+            {
+                if (_categoryLastUpdate != RecordStatus.Categories.LastUpdate) await LoadCategories();
+                if (_tagLastUpdate != RecordStatus.Tags.LastUpdate) await LoadTags();
+            });
+
+            EnableEditing(true);
         }
 
         private void frmItemSearch_FormClosing(object sender, FormClosingEventArgs e)
@@ -93,40 +89,34 @@ namespace Point.Client.Main.Forms.Listing
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearFields();
-            SearchCriteria = null;
+            SearchItemDto = null;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
 
-            SearchCriteria = new ItemSearchDto(
-                txtItem.Text,
-                cmbCategory.SelectedItem != null ?
+            SearchItemDto = new SearchItemDto
+            {
+                Name = !string.IsNullOrWhiteSpace(txtItem.Text) 
+                    ? txtItem.Text 
+                    : null,
+                Category = cmbCategory.SelectedItem != null ?
                     (Category)cmbCategory.SelectedItem
                     : null,
-                dgvTags.Rows.Count > 0
+                Tags = dgvTags.Rows.Count > 0
                     ? dgvTags.Rows.Cast<DataGridViewRow>()
                     .Select(row => row.Tag as Tag).ToList() as List<Tag>
-                    : null);
+                    : null
+            };
+
+            var properties = SearchItemDto.GetType().GetProperties();
+            if (properties.All(prop => prop.GetValue(SearchItemDto) == null)) SearchItemDto = null;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
-
-            ClearFields();
-
-            if (SearchCriteria != null)
-            {
-                txtItem.Text = SearchCriteria.Name;
-                cmbCategory.SelectedItem = SearchCriteria.Category;
-                SearchCriteria?.Tags?.ForEach(tag =>
-                {
-                    dgvTags.Rows.Add(tag.Name, "Remove");
-                    dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = tag;
-                });
-            }
         }
 
         #region Helpers
@@ -152,11 +142,12 @@ namespace Point.Client.Main.Forms.Listing
 
         private async Task LoadCategories()
         {
+            if (_categoryLastUpdate == RecordStatus.Categories.LastUpdate) return;
+            _categoryLastUpdate = RecordStatus.Categories.LastUpdate;
+
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableEditing(false);
-
                 this.Text = "Loading Categories...";
             }));
 
@@ -170,17 +161,17 @@ namespace Point.Client.Main.Forms.Listing
                 cmbCategory.SelectedItem = null;
 
                 this.Text = frmText;
-                EnableEditing(true);
             }));
         }
 
         private async Task LoadTags()
         {
+            if (_tagLastUpdate == RecordStatus.Tags.LastUpdate) return;
+            _tagLastUpdate = RecordStatus.Tags.LastUpdate;
+
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableEditing(false);
-
                 this.Text = "Loading Tags...";
             }));
 
@@ -198,7 +189,6 @@ namespace Point.Client.Main.Forms.Listing
                 txtTag.Tag = response;
 
                 this.Text = frmText;
-                EnableEditing(true);
             }));
         }
 

@@ -26,8 +26,9 @@ namespace Point.Client.Main.Forms.Products
         {
             if (_isFirstLoad)
             {
-                Task.Run(() => LoadTags());
                 _isFirstLoad = false;
+
+                Task.Run(() => LoadTags());
             }
         }
 
@@ -147,7 +148,7 @@ namespace Point.Client.Main.Forms.Products
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Tag.Updated();
+                RecordStatus.Tags.Updated();
             }
             catch (HttpRequestException ex)
             {
@@ -177,7 +178,7 @@ namespace Point.Client.Main.Forms.Products
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Tag.Updated();
+                RecordStatus.Tags.Updated();
             }
             catch (HttpRequestException ex)
             {

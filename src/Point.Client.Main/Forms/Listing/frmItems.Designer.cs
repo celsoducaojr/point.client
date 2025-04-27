@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmItems));
             tlpMain = new TableLayoutPanel();
-            panel1 = new Panel();
+            pnlList = new Panel();
             dgvItems = new DataGridView();
             clmItem = new DataGridViewTextBoxColumn();
             clmCategory = new DataGridViewTextBoxColumn();
@@ -70,8 +70,9 @@
             cmbCategory = new ComboBox();
             txtDescription = new RichTextBox();
             label3 = new Label();
+            lblSearchCriteria = new Label();
             tlpMain.SuspendLayout();
-            panel1.SuspendLayout();
+            pnlList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItems).BeginInit();
             toolStrip1.SuspendLayout();
             pnlEdit.SuspendLayout();
@@ -84,7 +85,7 @@
             tlpMain.ColumnCount = 2;
             tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 64.22194F));
             tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.77806F));
-            tlpMain.Controls.Add(panel1, 0, 0);
+            tlpMain.Controls.Add(pnlList, 0, 0);
             tlpMain.Controls.Add(pnlEdit, 1, 0);
             tlpMain.Dock = DockStyle.Bottom;
             tlpMain.Location = new System.Drawing.Point(25, 29);
@@ -96,16 +97,16 @@
             tlpMain.Size = new Size(1322, 643);
             tlpMain.TabIndex = 4;
             // 
-            // panel1
+            // pnlList
             // 
-            panel1.Controls.Add(dgvItems);
-            panel1.Controls.Add(toolStrip1);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new System.Drawing.Point(4, 4);
-            panel1.Margin = new Padding(4);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(841, 635);
-            panel1.TabIndex = 1;
+            pnlList.Controls.Add(dgvItems);
+            pnlList.Controls.Add(toolStrip1);
+            pnlList.Dock = DockStyle.Fill;
+            pnlList.Location = new System.Drawing.Point(4, 4);
+            pnlList.Margin = new Padding(4);
+            pnlList.Name = "pnlList";
+            pnlList.Size = new Size(841, 635);
+            pnlList.TabIndex = 1;
             // 
             // dgvItems
             // 
@@ -270,6 +271,7 @@
             btnSearch.RightToLeft = RightToLeft.No;
             btnSearch.Size = new Size(94, 28);
             btnSearch.Text = "Search";
+            btnSearch.Click += btnSearch_Click;
             // 
             // btnClearFilter
             // 
@@ -532,12 +534,25 @@
             label3.TabIndex = 12;
             label3.Text = "Description";
             // 
+            // lblSearchCriteria
+            // 
+            lblSearchCriteria.AutoSize = true;
+            lblSearchCriteria.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblSearchCriteria.ForeColor = SystemColors.ControlDarkDark;
+            lblSearchCriteria.Location = new System.Drawing.Point(25, 668);
+            lblSearchCriteria.Margin = new Padding(4, 0, 4, 0);
+            lblSearchCriteria.Name = "lblSearchCriteria";
+            lblSearchCriteria.Size = new Size(163, 20);
+            lblSearchCriteria.TabIndex = 24;
+            lblSearchCriteria.Text = "Loading search criteria...";
+            // 
             // frmItems
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1372, 697);
             Controls.Add(tlpMain);
+            Controls.Add(lblSearchCriteria);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(4);
@@ -550,8 +565,8 @@
             FormClosing += frmItems_FormClosing;
             Load += frmItems_Load;
             tlpMain.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            pnlList.ResumeLayout(false);
+            pnlList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
@@ -559,6 +574,7 @@
             pnlEdit.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvTags).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -584,7 +600,7 @@
         private Label lblTag;
         private ComboBox cmbTag;
         private TextBox txtTag;
-        private Panel panel1;
+        private Panel pnlList;
         private ToolStrip toolStrip1;
         private ToolStripButton btnFirst;
         private ToolStripButton btnPrev;
@@ -607,5 +623,6 @@
         private DataGridViewTextBoxColumn clmCategory;
         private DataGridViewTextBoxColumn clmDescription;
         private DataGridViewTextBoxColumn clmTags;
+        private Label lblSearchCriteria;
     }
 }

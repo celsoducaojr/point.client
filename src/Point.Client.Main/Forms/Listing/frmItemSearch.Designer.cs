@@ -159,7 +159,6 @@
             lblTag.Size = new Size(98, 23);
             lblTag.TabIndex = 26;
             lblTag.Text = "Select Tag...";
-            lblTag.Visible = false;
             // 
             // btnClear
             // 
@@ -167,7 +166,7 @@
             btnClear.Margin = new Padding(4);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(118, 36);
-            btnClear.TabIndex = 5;
+            btnClear.TabIndex = 8;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += btnClear_Click;
@@ -181,7 +180,7 @@
             cmbCategory.Margin = new Padding(4);
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(269, 33);
-            cmbCategory.TabIndex = 27;
+            cmbCategory.TabIndex = 2;
             // 
             // frmItemSearch
             // 

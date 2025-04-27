@@ -26,8 +26,9 @@ namespace Point.Client.Main.Listing
         {
             if (_isFirstLoad)
             {
-                Task.Run(() => LoadCategories());
                 _isFirstLoad = false;
+
+                Task.Run(() => LoadCategories());
             }
         }
 
@@ -147,7 +148,7 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Category.Updated();
+                RecordStatus.Categories.Updated();
             }
             catch (HttpRequestException ex)
             {
@@ -177,7 +178,7 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Category.Updated();
+                RecordStatus.Categories.Updated();
             }
             catch (HttpRequestException ex)
             {
