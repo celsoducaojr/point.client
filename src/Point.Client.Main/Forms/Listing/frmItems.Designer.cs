@@ -560,7 +560,6 @@
             MinimizeBox = false;
             Name = "frmItems";
             Padding = new Padding(25);
-            StartPosition = FormStartPosition.CenterParent;
             Text = "Manage Items";
             FormClosing += frmItems_FormClosing;
             Load += frmItems_Load;

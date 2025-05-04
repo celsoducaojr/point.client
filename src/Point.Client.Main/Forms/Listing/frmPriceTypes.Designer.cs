@@ -185,7 +185,6 @@
             MinimizeBox = false;
             Name = "frmPriceTypes";
             Padding = new Padding(20);
-            StartPosition = FormStartPosition.CenterParent;
             Text = "Price Types";
             FormClosing += frmPriceTypes_FormClosing;
             Load += frmPriceTypes_Load;

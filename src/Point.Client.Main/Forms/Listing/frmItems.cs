@@ -385,6 +385,15 @@ namespace Point.Client.Main.Listing
             pnlEdit.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
         }
 
+        private void UpdateRowValues(Item item, DataGridViewRow row)
+        {
+            row.Cells[0].Value = item.Name;
+            row.Cells[1].Value = item.Category?.Name;
+            row.Cells[2].Value = item.Description;
+            row.Cells[3].Value = string.Join(", ", item.Tags?.Select(tag => tag.Name).ToList() ?? []);
+            row.Tag = item;
+        }
+
         #endregion
 
         #region Services
@@ -401,10 +410,7 @@ namespace Point.Client.Main.Listing
 
                     var row = new DataGridViewRow();
                     row.CreateCells(dgvItems);
-                    row.Cells[0].Value = item.Name;
-                    row.Cells[1].Value = item.Category?.Name;
-                    row.Cells[2].Value = item.Description;
-                    row.Tag = item;
+                    UpdateRowValues(item, row);
                     dgvItems.Rows.Add(row);
 
                     var rowIndex = dgvItems.Rows.Count - 1;
@@ -436,11 +442,7 @@ namespace Point.Client.Main.Listing
                 {
                     MessageBox.Show("Item has been updated.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    var row = dgvItems.SelectedRows[0];
-                    row.Cells[0].Value = item.Name;
-                    row.Cells[1].Value = item.Category?.Name;
-                    row.Cells[2].Value = item.Description;
-                    row.Tag = item;
+                    UpdateRowValues(item, dgvItems.SelectedRows[0]);
 
                     txtItem.Text = item.Name;
                     txtCategory.Text = item.Category?.Name;
@@ -493,11 +495,7 @@ namespace Point.Client.Main.Listing
                     {
                         row = new DataGridViewRow();
                         row.CreateCells(dgvItems);
-                        row.Cells[0].Value = item.Name;
-                        row.Cells[1].Value = item.Category?.Name;
-                        row.Cells[2].Value = item.Description;
-                        row.Cells[3].Value = string.Join(", ", item.Tags?.Select(tag => tag.Name).ToList() ?? []);
-                        row.Tag = item;
+                        UpdateRowValues(item, row);
                         dgvItems.Rows.Add(row);
                     });
                 }

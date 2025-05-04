@@ -205,7 +205,7 @@
             Margin = new Padding(4);
             Name = "frmItemSearch";
             Padding = new Padding(20);
-            StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Search Item";
             Load += frmItemSearch_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTags).EndInit();

@@ -300,7 +300,6 @@
             MinimizeBox = false;
             Name = "frmItemUnit";
             Padding = new Padding(20);
-            StartPosition = FormStartPosition.CenterParent;
             Text = "Manage Item Unit";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
