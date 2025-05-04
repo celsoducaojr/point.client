@@ -241,24 +241,24 @@
             // 
             // clmName
             // 
+            clmName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             clmName.HeaderText = "Name";
             clmName.MinimumWidth = 6;
             clmName.Name = "clmName";
-            clmName.Width = 250;
             // 
             // clmCategory
             // 
             clmCategory.HeaderText = "Category";
             clmCategory.MinimumWidth = 6;
             clmCategory.Name = "clmCategory";
-            clmCategory.Width = 125;
+            clmCategory.Width = 150;
             // 
             // clmUnit
             // 
             clmUnit.HeaderText = "Unit";
             clmUnit.MinimumWidth = 6;
             clmUnit.Name = "clmUnit";
-            clmUnit.Width = 90;
+            clmUnit.Width = 125;
             // 
             // clmItemCode
             // 
@@ -288,6 +288,7 @@
             Name = "frmProducts";
             Text = "Products";
             WindowState = FormWindowState.Maximized;
+            Load += frmProducts_Load;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();

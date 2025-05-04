@@ -248,6 +248,8 @@ namespace Point.Client.Main.Forms.Listing
 
             await _priceTypeService.UpdatePriceTypeDisplayIndexes(priceTypeIndex);
 
+            RecordStatus.PriceTypes.IndexUpdated();
+
             this.Invoke((MethodInvoker)(() =>
             {
                 this.Text = frmText;
@@ -270,12 +272,12 @@ namespace Point.Client.Main.Forms.Listing
             this.Invoke((MethodInvoker)(() =>
             {
                 DataGridViewRow row;
-                response?.ForEach(category =>
+                response?.ForEach(priceType =>
                 {
                     row = new DataGridViewRow();
                     row.CreateCells(dgvTypes);
-                    row.Cells[0].Value = category.Name;
-                    row.Tag = category.Id;
+                    row.Cells[0].Value = priceType.Name;
+                    row.Tag = priceType.Id;
                     dgvTypes.Rows.Add(row);
                 });
 

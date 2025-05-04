@@ -58,7 +58,7 @@
             dgvTypes.RowHeadersWidth = 51;
             dgvTypes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvTypes.Size = new Size(369, 483);
-            dgvTypes.TabIndex = 7;
+            dgvTypes.TabIndex = 1;
             dgvTypes.SelectionChanged += dgvTypes_SelectionChanged;
             // 
             // clmType
@@ -75,7 +75,7 @@
             btnEdit.Margin = new Padding(4);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(118, 36);
-            btnEdit.TabIndex = 10;
+            btnEdit.TabIndex = 6;
             btnEdit.Text = "Edit";
             btnEdit.UseVisualStyleBackColor = true;
             btnEdit.Click += btnEdit_Click;
@@ -86,7 +86,7 @@
             btnNew.Margin = new Padding(4);
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(118, 36);
-            btnNew.TabIndex = 9;
+            btnNew.TabIndex = 5;
             btnNew.Text = "New";
             btnNew.UseVisualStyleBackColor = true;
             btnNew.Click += btnNew_Click;
@@ -99,7 +99,7 @@
             txtType.Name = "txtType";
             txtType.ReadOnly = true;
             txtType.Size = new Size(326, 31);
-            txtType.TabIndex = 8;
+            txtType.TabIndex = 4;
             // 
             // label1
             // 
@@ -117,7 +117,7 @@
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 36);
-            btnCancel.TabIndex = 13;
+            btnCancel.TabIndex = 8;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Visible = false;
@@ -129,7 +129,7 @@
             btnSave.Margin = new Padding(4);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(180, 36);
-            btnSave.TabIndex = 12;
+            btnSave.TabIndex = 7;
             btnSave.Text = "Save Type";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Visible = false;
@@ -142,7 +142,7 @@
             btnUp.Margin = new Padding(0);
             btnUp.Name = "btnUp";
             btnUp.Size = new Size(52, 59);
-            btnUp.TabIndex = 14;
+            btnUp.TabIndex = 2;
             toolTipType.SetToolTip(btnUp, "Move up");
             btnUp.UseVisualStyleBackColor = true;
             btnUp.Click += btnUp_Click;
@@ -154,7 +154,7 @@
             btnDown.Margin = new Padding(0);
             btnDown.Name = "btnDown";
             btnDown.Size = new Size(52, 59);
-            btnDown.TabIndex = 15;
+            btnDown.TabIndex = 3;
             toolTipType.SetToolTip(btnDown, "Move down");
             btnDown.UseVisualStyleBackColor = true;
             btnDown.Click += btnDown_Click;
