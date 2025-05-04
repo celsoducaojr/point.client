@@ -93,7 +93,7 @@
             txtTag.MaxLength = 30;
             txtTag.Name = "txtTag";
             txtTag.ReadOnly = true;
-            txtTag.Size = new Size(251, 31);
+            txtTag.Size = new Size(326, 31);
             txtTag.TabIndex = 2;
             // 
             // label1

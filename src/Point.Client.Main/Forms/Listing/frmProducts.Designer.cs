@@ -34,12 +34,6 @@
             toolStripButton3 = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             dgvProducts = new DataGridView();
-            clmName = new DataGridViewTextBoxColumn();
-            clmCategory = new DataGridViewTextBoxColumn();
-            clmUnit = new DataGridViewTextBoxColumn();
-            clmItemCode = new DataGridViewTextBoxColumn();
-            clmPriceCode = new DataGridViewTextBoxColumn();
-            clmRemarks = new DataGridViewTextBoxColumn();
             lblTitle = new Label();
             toolStrip2 = new ToolStrip();
             toolStripLabel2 = new ToolStripLabel();
@@ -54,6 +48,11 @@
             btnFirst = new ToolStripButton();
             btnSearch = new ToolStripButton();
             btnClearFilter = new ToolStripButton();
+            clmName = new DataGridViewTextBoxColumn();
+            clmCategory = new DataGridViewTextBoxColumn();
+            clmUnit = new DataGridViewTextBoxColumn();
+            clmItemCode = new DataGridViewTextBoxColumn();
+            clmPriceCode = new DataGridViewTextBoxColumn();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProducts).BeginInit();
             toolStrip2.SuspendLayout();
@@ -101,7 +100,7 @@
             dgvProducts.AllowUserToAddRows = false;
             dgvProducts.AllowUserToDeleteRows = false;
             dgvProducts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProducts.Columns.AddRange(new DataGridViewColumn[] { clmName, clmCategory, clmUnit, clmItemCode, clmPriceCode, clmRemarks });
+            dgvProducts.Columns.AddRange(new DataGridViewColumn[] { clmName, clmCategory, clmUnit, clmItemCode, clmPriceCode });
             dgvProducts.Dock = DockStyle.Fill;
             dgvProducts.Location = new System.Drawing.Point(0, 101);
             dgvProducts.Margin = new Padding(4);
@@ -109,48 +108,6 @@
             dgvProducts.RowHeadersWidth = 51;
             dgvProducts.Size = new Size(1130, 484);
             dgvProducts.TabIndex = 1;
-            // 
-            // clmName
-            // 
-            clmName.HeaderText = "Name";
-            clmName.MinimumWidth = 6;
-            clmName.Name = "clmName";
-            clmName.Width = 250;
-            // 
-            // clmCategory
-            // 
-            clmCategory.HeaderText = "Category";
-            clmCategory.MinimumWidth = 6;
-            clmCategory.Name = "clmCategory";
-            clmCategory.Width = 125;
-            // 
-            // clmUnit
-            // 
-            clmUnit.HeaderText = "Unit";
-            clmUnit.MinimumWidth = 6;
-            clmUnit.Name = "clmUnit";
-            clmUnit.Width = 90;
-            // 
-            // clmItemCode
-            // 
-            clmItemCode.HeaderText = "Item Code";
-            clmItemCode.MinimumWidth = 6;
-            clmItemCode.Name = "clmItemCode";
-            clmItemCode.Width = 125;
-            // 
-            // clmPriceCode
-            // 
-            clmPriceCode.HeaderText = "Price Code";
-            clmPriceCode.MinimumWidth = 6;
-            clmPriceCode.Name = "clmPriceCode";
-            clmPriceCode.Width = 125;
-            // 
-            // clmRemarks
-            // 
-            clmRemarks.HeaderText = "Remarks";
-            clmRemarks.MinimumWidth = 6;
-            clmRemarks.Name = "clmRemarks";
-            clmRemarks.Width = 200;
             // 
             // lblTitle
             // 
@@ -182,8 +139,8 @@
             // 
             toolStripLabel2.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel2.Name = "toolStripLabel2";
-            toolStripLabel2.Size = new Size(137, 28);
-            toolStripLabel2.Text = "rows per page";
+            toolStripLabel2.Size = new Size(144, 28);
+            toolStripLabel2.Text = "items per page";
             // 
             // cmbPageSize
             // 
@@ -282,6 +239,41 @@
             btnClearFilter.Text = "Clear Filter";
             btnClearFilter.ToolTipText = "Clear Filter";
             // 
+            // clmName
+            // 
+            clmName.HeaderText = "Name";
+            clmName.MinimumWidth = 6;
+            clmName.Name = "clmName";
+            clmName.Width = 250;
+            // 
+            // clmCategory
+            // 
+            clmCategory.HeaderText = "Category";
+            clmCategory.MinimumWidth = 6;
+            clmCategory.Name = "clmCategory";
+            clmCategory.Width = 125;
+            // 
+            // clmUnit
+            // 
+            clmUnit.HeaderText = "Unit";
+            clmUnit.MinimumWidth = 6;
+            clmUnit.Name = "clmUnit";
+            clmUnit.Width = 90;
+            // 
+            // clmItemCode
+            // 
+            clmItemCode.HeaderText = "Item Code";
+            clmItemCode.MinimumWidth = 6;
+            clmItemCode.Name = "clmItemCode";
+            clmItemCode.Width = 125;
+            // 
+            // clmPriceCode
+            // 
+            clmPriceCode.HeaderText = "Price Code";
+            clmPriceCode.MinimumWidth = 6;
+            clmPriceCode.Name = "clmPriceCode";
+            clmPriceCode.Width = 125;
+            // 
             // frmProducts
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -331,6 +323,5 @@
         private DataGridViewTextBoxColumn clmUnit;
         private DataGridViewTextBoxColumn clmItemCode;
         private DataGridViewTextBoxColumn clmPriceCode;
-        private DataGridViewTextBoxColumn clmRemarks;
     }
 }

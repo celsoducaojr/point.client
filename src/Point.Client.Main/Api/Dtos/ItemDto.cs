@@ -2,9 +2,9 @@
 {
     public sealed class ItemDto
     {
-        public string Name { get; set; }
-        public int? CategoryId { get; set; }
-        public string? Description { get; set; }
-        public List<int>? Tags { get; set; }
+        public string Name { get; init; }
+        public int? CategoryId { get; init; }
+        public string? Description { get; init; }
+        public List<int>? Tags { get; init; }
     }
 }

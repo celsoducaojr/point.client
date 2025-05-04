@@ -2,6 +2,6 @@
 {
     public sealed class UnitDto
     {
-        public string Name { get; set; }
+        public string Name { get; init; }
     }
 }

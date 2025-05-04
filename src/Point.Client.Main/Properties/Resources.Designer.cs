@@ -73,6 +73,16 @@ namespace Point.Client.Main.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap down_icon {
+            get {
+                object obj = ResourceManager.GetObject("down_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Orders {
             get {
                 object obj = ResourceManager.GetObject("Orders", resourceCulture);
@@ -126,6 +136,16 @@ namespace Point.Client.Main.Properties {
         internal static System.Drawing.Bitmap Stocks {
             get {
                 object obj = ResourceManager.GetObject("Stocks", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap up_icon {
+            get {
+                object obj = ResourceManager.GetObject("up_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

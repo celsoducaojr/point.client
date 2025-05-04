@@ -2,10 +2,10 @@
 {
     public class Item
     {
-        public int Id { get; set; }
-        public string Name { get; set; } 
-        public Category? Category { get; set; }
-        public string? Description { get; set; }
-        public List<Tag>? Tags { get; set; }
+        public int Id { get; init; }
+        public string Name { get; init; } 
+        public Category? Category { get; init; }
+        public string? Description { get; init; }
+        public List<Tag>? Tags { get; init; }
     }
 }

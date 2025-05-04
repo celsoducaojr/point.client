@@ -1,6 +1,4 @@
-﻿using Point.Client.Main.Api.Entities;
-
-namespace Point.Client.Main.Globals
+﻿namespace Point.Client.Main.Globals
 {
     public static class RecordStatus
     {
@@ -15,6 +13,26 @@ namespace Point.Client.Main.Globals
         }
 
         public static class Tags
+        {
+            public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
+
+            public static void Updated()
+            {
+                LastUpdate = DateTime.Now;
+            }
+        }
+
+        public static class Units
+        {
+            public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
+
+            public static void Updated()
+            {
+                LastUpdate = DateTime.Now;
+            }
+        }
+
+        public static class PriceTypes
         {
             public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
 

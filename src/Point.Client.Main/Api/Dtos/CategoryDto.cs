@@ -2,6 +2,6 @@
 {
     public sealed record CategoryDto
     {
-        public string Name { get; set; }
+        public string Name { get; init; }
     }
 }

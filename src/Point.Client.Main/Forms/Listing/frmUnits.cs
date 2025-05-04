@@ -1,11 +1,13 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Services;
+using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Forms.Products
 {
     public partial class frmUnits : Form
     {
+        private bool _isFirstLoad;
         private bool _isAddingNew;
         private readonly UnitService _unitService;
 
@@ -13,13 +15,19 @@ namespace Point.Client.Main.Forms.Products
         {
             InitializeComponent();
 
+            _isFirstLoad  = true;
             _isAddingNew = false;
             _unitService = ServiceLocator.GetService<UnitService>();
         }
 
         private void frmUnits_Load(object sender, EventArgs e)
         {
-            Task.Run(() => LoadUnits());
+            if (_isFirstLoad)
+            {
+                _isFirstLoad = false;
+
+                Task.Run(() => LoadUnits());
+            }
         }
 
         private void dgvUnits_SelectionChanged(object sender, EventArgs e)
@@ -129,6 +137,8 @@ namespace Point.Client.Main.Forms.Products
 
                     EnableEditing(false);
                 }));
+
+                RecordStatus.Units.Updated();
             }
             catch (HttpRequestException ex)
             {
@@ -157,6 +167,8 @@ namespace Point.Client.Main.Forms.Products
 
                     EnableEditing(false);
                 }));
+
+                RecordStatus.Units.Updated();
             }
             catch (HttpRequestException ex)
             {

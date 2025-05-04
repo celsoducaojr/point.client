@@ -1,3 +1,4 @@
+using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Forms.Products;
 using Point.Client.Main.Globals;
 using Point.Client.Main.Listing;
@@ -9,6 +10,11 @@ namespace Point.Client.Main
         public frmMain()
         {
             InitializeComponent();
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+
         }
 
         private void btnProducts_Click(object sender, EventArgs e)
@@ -28,12 +34,17 @@ namespace Point.Client.Main
 
         private void btnUnits_Click(object sender, EventArgs e)
         {
-            //FormFactory.GetForm<frmItems>().ShowDialog();
+            FormFactory.GetForm<frmUnits>().ShowDialog();
         }
 
         private void btnTags_Click(object sender, EventArgs e)
         {
             FormFactory.GetForm<frmTags>().ShowDialog();
+        }
+
+        private void btnPriceTypes_Click(object sender, EventArgs e)
+        {
+            FormFactory.GetForm<frmPriceTypes>().ShowDialog();
         }
 
         #region Helpers

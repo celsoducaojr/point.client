@@ -4,8 +4,8 @@ namespace Point.Client.Main.Api.Dtos
 {
     public class SearchItemDto
     {
-        public string? Name { get; set; }
-        public Category? Category { get; set; }
-        public List<Tag>? Tags { get; set; }
+        public string? Name { get; init; }
+        public Category? Category { get; init; }
+        public List<Tag>? Tags { get; init; }
     }
 }

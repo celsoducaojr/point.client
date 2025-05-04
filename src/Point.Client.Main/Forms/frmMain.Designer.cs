@@ -35,8 +35,11 @@
             toolStrip1 = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             btnProducts = new ToolStripMenuItem();
+            columnsToolStripMenuItem = new ToolStripMenuItem();
+            btnPriceTypes = new ToolStripMenuItem();
             toolStripSeparator4 = new ToolStripSeparator();
             btnItems = new ToolStripMenuItem();
+            toolStripSeparator5 = new ToolStripSeparator();
             btnCategories = new ToolStripMenuItem();
             btnUnits = new ToolStripMenuItem();
             btnTags = new ToolStripMenuItem();
@@ -48,12 +51,12 @@
             toolStripButton2 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
             dgvOrders = new DataGridView();
+            clmOrderNumber = new DataGridViewTextBoxColumn();
             toolStrip2 = new ToolStrip();
             toolStripLabel1 = new ToolStripLabel();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripLabel2 = new ToolStripLabel();
             pnOrders = new Panel();
-            clmOrderNumber = new DataGridViewTextBoxColumn();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
@@ -101,7 +104,7 @@
             // 
             // toolStripDropDownButton1
             // 
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnProducts, toolStripSeparator4, btnItems, btnCategories, btnUnits, btnTags });
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnProducts, columnsToolStripMenuItem, toolStripSeparator4, btnItems, toolStripSeparator5, btnCategories, btnUnits, btnTags });
             toolStripDropDownButton1.Image = Properties.Resources.Products;
             toolStripDropDownButton1.ImageScaling = ToolStripItemImageScaling.None;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
@@ -119,6 +122,20 @@
             btnProducts.Text = "Manage Products";
             btnProducts.Click += btnProducts_Click;
             // 
+            // columnsToolStripMenuItem
+            // 
+            columnsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnPriceTypes });
+            columnsToolStripMenuItem.Name = "columnsToolStripMenuItem";
+            columnsToolStripMenuItem.Size = new Size(237, 30);
+            columnsToolStripMenuItem.Text = "Columns";
+            // 
+            // btnPriceTypes
+            // 
+            btnPriceTypes.Name = "btnPriceTypes";
+            btnPriceTypes.Size = new Size(224, 30);
+            btnPriceTypes.Text = "Price Types";
+            btnPriceTypes.Click += btnPriceTypes_Click;
+            // 
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
@@ -130,6 +147,11 @@
             btnItems.Size = new Size(237, 30);
             btnItems.Text = "Items";
             btnItems.Click += btnItems_Click;
+            // 
+            // toolStripSeparator5
+            // 
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(234, 6);
             // 
             // btnCategories
             // 
@@ -226,6 +248,14 @@
             dgvOrders.Size = new Size(281, 696);
             dgvOrders.TabIndex = 1;
             // 
+            // clmOrderNumber
+            // 
+            clmOrderNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmOrderNumber.HeaderText = "New Order";
+            clmOrderNumber.MinimumWidth = 6;
+            clmOrderNumber.Name = "clmOrderNumber";
+            clmOrderNumber.ReadOnly = true;
+            // 
             // toolStrip2
             // 
             toolStrip2.Dock = DockStyle.Bottom;
@@ -269,14 +299,6 @@
             pnOrders.Size = new Size(281, 696);
             pnOrders.TabIndex = 11;
             // 
-            // clmOrderNumber
-            // 
-            clmOrderNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmOrderNumber.HeaderText = "New Order";
-            clmOrderNumber.MinimumWidth = 6;
-            clmOrderNumber.Name = "clmOrderNumber";
-            clmOrderNumber.ReadOnly = true;
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(9F, 23F);
@@ -291,6 +313,7 @@
             Name = "frmMain";
             Text = "Point Client";
             WindowState = FormWindowState.Maximized;
+            Load += frmMain_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             toolStrip1.ResumeLayout(false);
@@ -332,5 +355,9 @@
         private ToolStripButton toolStripButton1;
         private ToolStripButton toolStripButton2;
         private DataGridViewTextBoxColumn clmOrderNumber;
+        private ToolStripMenuItem btnPriceTypes;
+        private ToolStripSeparator toolStripSeparator5;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem columnsToolStripMenuItem;
     }
 }
