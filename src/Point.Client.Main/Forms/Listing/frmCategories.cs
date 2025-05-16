@@ -19,7 +19,7 @@ namespace Point.Client.Main.Listing
             _isFirstLoad = true;
             _isAddingNew = false;
 
-            _categoryService = ServiceLocator.GetService<CategoryService>();
+            _categoryService = ServiceFactory.GetService<CategoryService>();
         }
 
         private void frmCategories_Load(object sender, EventArgs e)

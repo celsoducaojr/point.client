@@ -63,6 +63,16 @@ namespace Point.Client.Main.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_new_icon {
+            get {
+                object obj = ResourceManager.GetObject("add_new_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clear_search {
             get {
                 object obj = ResourceManager.GetObject("clear_search", resourceCulture);

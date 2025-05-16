@@ -19,7 +19,7 @@ namespace Point.Client.Main
 
         private void btnProducts_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new frmProducts());
+            OpenChildForm(new frmItemUnits());
         }
 
         private void btnItems_Click(object sender, EventArgs e)

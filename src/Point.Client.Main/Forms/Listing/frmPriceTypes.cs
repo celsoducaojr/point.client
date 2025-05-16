@@ -20,7 +20,7 @@ namespace Point.Client.Main.Forms.Listing
             _isFirstLoad = true;
             _isAddingNew = false;
 
-            _priceTypeService = ServiceLocator.GetService<PriceTypeService>();
+            _priceTypeService = ServiceFactory.GetService<PriceTypeService>();
         }
 
         private void frmPriceTypes_Load(object sender, EventArgs e)

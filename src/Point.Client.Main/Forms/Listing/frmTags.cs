@@ -19,7 +19,7 @@ namespace Point.Client.Main.Forms.Products
             _isFirstLoad = true;
             _isAddingNew = false;
 
-            _tagService = ServiceLocator.GetService<TagService>();
+            _tagService = ServiceFactory.GetService<TagService>();
         }
 
         private void frmTags_Load(object sender, EventArgs e)

@@ -13,6 +13,8 @@ namespace Point.Client.Main.Listing
 {
     public partial class frmItems : Form
     {
+        private bool _showForSelection;
+
         private bool _isFirstLoad;
         private bool _isAddingNew;
 
@@ -32,6 +34,8 @@ namespace Point.Client.Main.Listing
         {
             InitializeComponent();
 
+            _showForSelection = false;
+
             _isFirstLoad = true;
             _isAddingNew = false;
 
@@ -43,9 +47,9 @@ namespace Point.Client.Main.Listing
             _categoryLastUpdate = null;
             _tagLastUpdate = null;
 
-            _itemService = ServiceLocator.GetService<ItemService>();
-            _categoryService = ServiceLocator.GetService<CategoryService>();
-            _tagService = ServiceLocator.GetService<TagService>();
+            _itemService = ServiceFactory.GetService<ItemService>();
+            _categoryService = ServiceFactory.GetService<CategoryService>();
+            _tagService = ServiceFactory.GetService<TagService>();
 
             cmbPageSize.Items.AddRange(FormConstants.PageSizes.Cast<object>().ToArray());
         }
@@ -56,14 +60,20 @@ namespace Point.Client.Main.Listing
         {
             await Task.Run(async () =>
             {
-                var tasks = new List<Task>();
-                if (_categoryLastUpdate != RecordStatus.Categories.LastUpdate) tasks.Add(LoadCategories());
-                if (_tagLastUpdate != RecordStatus.Tags.LastUpdate) tasks.Add(LoadTags());
+                var reloadRequired = false;
+                if (_categoryLastUpdate != RecordStatus.Categories.LastUpdate)
+                {
+                    reloadRequired = true;
+                    await LoadCategories();
+                }
+                if (_tagLastUpdate != RecordStatus.Tags.LastUpdate)
+                {
+                    reloadRequired = true;
+                    await LoadTags();
+                }
 
-                await Task.WhenAll(tasks);
-                
                 // Reload
-                if (tasks.Count > 0 && !_isFirstLoad) cmbPageSize_SelectedIndexChanged(sender, e);
+                if (!_isFirstLoad && reloadRequired) cmbPageSize_SelectedIndexChanged(sender, e);
             });
 
             if (_isFirstLoad)
@@ -73,10 +83,16 @@ namespace Point.Client.Main.Listing
                 cmbPageSize.SelectedIndex = 0;
                 lblSearchCriteria.Text = null;
             }
+
+            // Show Add-button
+            if (_showForSelection) dgvItems_SelectionChanged(sender, e);
         }
 
         private void frmItems_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _showForSelection = false;
+            btnAddItemUnit.Visible = false;
+
             if (btnCancel.Visible)
             {
                 btnCancel_Click(sender, e);
@@ -102,7 +118,20 @@ namespace Point.Client.Main.Listing
                     dgvTags.Rows.Add(tag.Name, "Remove");
                     dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = tag;
                 });
+
+                btnAddItemUnit.Visible = _showForSelection;
             }
+        }
+
+        private void btnAddItemUnit_Click(object sender, EventArgs e)
+        {
+            FormFactory.GetForm<frmItemUnit>().ShowForSelection((Item)dgvItems.SelectedRows[0]?.Tag);
+        }
+
+        public void ShowForSelection()
+        {
+            _showForSelection = true;
+            this.ShowDialog();
         }
 
         #endregion
@@ -352,10 +381,13 @@ namespace Point.Client.Main.Listing
         private void ClearEditingFields()
         {
             txtItem.Clear();
+            txtCategory.Clear();
             cmbCategory.SelectedItem = null;
             txtDescription.Clear();
             dgvTags.Rows.Clear();
             txtTag.Clear();
+
+            btnAddItemUnit.Visible = false;
         }
 
         private void EnableEditing(bool enable)

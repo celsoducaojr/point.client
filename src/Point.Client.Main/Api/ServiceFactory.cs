@@ -3,7 +3,7 @@ using System;
 
 namespace Point.Client.Main.Api
 {
-    public static class ServiceLocator
+    public static class ServiceFactory
     {
         private static ApiClient _apiClient;
         public static void ConfigureServices(string baseUrl)

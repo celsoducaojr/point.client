@@ -118,15 +118,15 @@
             // btnProducts
             // 
             btnProducts.Name = "btnProducts";
-            btnProducts.Size = new Size(237, 30);
-            btnProducts.Text = "Manage Products";
+            btnProducts.Size = new Size(250, 30);
+            btnProducts.Text = "Manage Item-Units";
             btnProducts.Click += btnProducts_Click;
             // 
             // columnsToolStripMenuItem
             // 
             columnsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnPriceTypes });
             columnsToolStripMenuItem.Name = "columnsToolStripMenuItem";
-            columnsToolStripMenuItem.Size = new Size(237, 30);
+            columnsToolStripMenuItem.Size = new Size(250, 30);
             columnsToolStripMenuItem.Text = "Columns";
             // 
             // btnPriceTypes
@@ -139,38 +139,38 @@
             // toolStripSeparator4
             // 
             toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(234, 6);
+            toolStripSeparator4.Size = new Size(247, 6);
             // 
             // btnItems
             // 
             btnItems.Name = "btnItems";
-            btnItems.Size = new Size(237, 30);
+            btnItems.Size = new Size(250, 30);
             btnItems.Text = "Items";
             btnItems.Click += btnItems_Click;
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(234, 6);
+            toolStripSeparator5.Size = new Size(247, 6);
             // 
             // btnCategories
             // 
             btnCategories.Name = "btnCategories";
-            btnCategories.Size = new Size(237, 30);
+            btnCategories.Size = new Size(250, 30);
             btnCategories.Text = "Categories";
             btnCategories.Click += btnCategories_Click;
             // 
             // btnUnits
             // 
             btnUnits.Name = "btnUnits";
-            btnUnits.Size = new Size(237, 30);
+            btnUnits.Size = new Size(250, 30);
             btnUnits.Text = "Units";
             btnUnits.Click += btnUnits_Click;
             // 
             // btnTags
             // 
             btnTags.Name = "btnTags";
-            btnTags.Size = new Size(237, 30);
+            btnTags.Size = new Size(250, 30);
             btnTags.Text = "Tags";
             btnTags.Click += btnTags_Click;
             // 

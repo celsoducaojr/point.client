@@ -50,6 +50,7 @@
             btnSearch = new ToolStripButton();
             btnClearFilter = new ToolStripButton();
             pnlEdit = new Panel();
+            btnAddItemUnit = new Button();
             label4 = new Label();
             label6 = new Label();
             txtTag = new TextBox();
@@ -87,7 +88,6 @@
             tlpMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.77806F));
             tlpMain.Controls.Add(pnlList, 0, 0);
             tlpMain.Controls.Add(pnlEdit, 1, 0);
-            tlpMain.Dock = DockStyle.Bottom;
             tlpMain.Location = new System.Drawing.Point(25, 29);
             tlpMain.Margin = new Padding(4);
             tlpMain.Name = "tlpMain";
@@ -285,6 +285,7 @@
             // 
             // pnlEdit
             // 
+            pnlEdit.Controls.Add(btnAddItemUnit);
             pnlEdit.Controls.Add(label4);
             pnlEdit.Controls.Add(label6);
             pnlEdit.Controls.Add(txtTag);
@@ -311,11 +312,27 @@
             pnlEdit.Size = new Size(465, 635);
             pnlEdit.TabIndex = 2;
             // 
+            // btnAddItemUnit
+            // 
+            btnAddItemUnit.BackColor = Color.FromArgb(192, 255, 255);
+            btnAddItemUnit.Image = Properties.Resources.add_new_icon;
+            btnAddItemUnit.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAddItemUnit.Location = new System.Drawing.Point(159, 0);
+            btnAddItemUnit.Margin = new Padding(4);
+            btnAddItemUnit.Name = "btnAddItemUnit";
+            btnAddItemUnit.Size = new Size(306, 36);
+            btnAddItemUnit.TabIndex = 25;
+            btnAddItemUnit.Text = "Add New Unit for this Item...";
+            btnAddItemUnit.TextImageRelation = TextImageRelation.TextBeforeImage;
+            btnAddItemUnit.UseVisualStyleBackColor = false;
+            btnAddItemUnit.Visible = false;
+            btnAddItemUnit.Click += btnAddItemUnit_Click;
+            // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new System.Drawing.Point(28, 199);
+            label4.Location = new System.Drawing.Point(29, 212);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(50, 25);
@@ -326,7 +343,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new System.Drawing.Point(0, 0);
+            label6.Location = new System.Drawing.Point(0, 6);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(132, 25);
@@ -335,7 +352,7 @@
             // 
             // txtTag
             // 
-            txtTag.Location = new System.Drawing.Point(29, 413);
+            txtTag.Location = new System.Drawing.Point(30, 426);
             txtTag.Margin = new Padding(4);
             txtTag.Name = "txtTag";
             txtTag.Size = new Size(250, 31);
@@ -348,7 +365,7 @@
             lblTag.AutoSize = true;
             lblTag.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTag.ForeColor = SystemColors.ControlDarkDark;
-            lblTag.Location = new System.Drawing.Point(29, 448);
+            lblTag.Location = new System.Drawing.Point(30, 461);
             lblTag.Margin = new Padding(4, 0, 4, 0);
             lblTag.Name = "lblTag";
             lblTag.Size = new Size(98, 23);
@@ -359,7 +376,7 @@
             // lnkManageTags
             // 
             lnkManageTags.AutoSize = true;
-            lnkManageTags.Location = new System.Drawing.Point(287, 416);
+            lnkManageTags.Location = new System.Drawing.Point(288, 429);
             lnkManageTags.Margin = new Padding(4, 0, 4, 0);
             lnkManageTags.Name = "lnkManageTags";
             lnkManageTags.Size = new Size(59, 25);
@@ -375,7 +392,7 @@
             dgvTags.AllowUserToDeleteRows = false;
             dgvTags.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTags.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, clmRemove });
-            dgvTags.Location = new System.Drawing.Point(28, 228);
+            dgvTags.Location = new System.Drawing.Point(29, 241);
             dgvTags.Margin = new Padding(4);
             dgvTags.MultiSelect = false;
             dgvTags.Name = "dgvTags";
@@ -405,7 +422,7 @@
             // 
             // txtCategory
             // 
-            txtCategory.Location = new System.Drawing.Point(139, 70);
+            txtCategory.Location = new System.Drawing.Point(140, 83);
             txtCategory.Margin = new Padding(4);
             txtCategory.Name = "txtCategory";
             txtCategory.ReadOnly = true;
@@ -426,7 +443,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(83, 34);
+            label1.Location = new System.Drawing.Point(83, 47);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(48, 25);
@@ -435,7 +452,7 @@
             // 
             // txtItem
             // 
-            txtItem.Location = new System.Drawing.Point(139, 31);
+            txtItem.Location = new System.Drawing.Point(139, 44);
             txtItem.Margin = new Padding(4);
             txtItem.MaxLength = 100;
             txtItem.Name = "txtItem";
@@ -469,7 +486,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(47, 73);
+            label2.Location = new System.Drawing.Point(48, 86);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(84, 25);
@@ -491,7 +508,7 @@
             // lnkManageCategories
             // 
             lnkManageCategories.AutoSize = true;
-            lnkManageCategories.Location = new System.Drawing.Point(357, 73);
+            lnkManageCategories.Location = new System.Drawing.Point(358, 86);
             lnkManageCategories.Margin = new Padding(4, 0, 4, 0);
             lnkManageCategories.Name = "lnkManageCategories";
             lnkManageCategories.Size = new Size(108, 25);
@@ -506,7 +523,7 @@
             cmbCategory.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbCategory.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmbCategory.FormattingEnabled = true;
-            cmbCategory.Location = new System.Drawing.Point(139, 70);
+            cmbCategory.Location = new System.Drawing.Point(140, 83);
             cmbCategory.Margin = new Padding(4);
             cmbCategory.Name = "cmbCategory";
             cmbCategory.Size = new Size(210, 33);
@@ -515,7 +532,7 @@
             // 
             // txtDescription
             // 
-            txtDescription.Location = new System.Drawing.Point(139, 109);
+            txtDescription.Location = new System.Drawing.Point(140, 122);
             txtDescription.Margin = new Padding(4);
             txtDescription.MaxLength = 250;
             txtDescription.Name = "txtDescription";
@@ -527,7 +544,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(29, 112);
+            label3.Location = new System.Drawing.Point(30, 125);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(102, 25);
@@ -560,7 +577,7 @@
             MinimizeBox = false;
             Name = "frmItems";
             Padding = new Padding(25);
-            Text = "Manage Items";
+            Text = "Items";
             FormClosing += frmItems_FormClosing;
             Load += frmItems_Load;
             tlpMain.ResumeLayout(false);
@@ -623,5 +640,6 @@
         private DataGridViewTextBoxColumn clmDescription;
         private DataGridViewTextBoxColumn clmTags;
         private Label lblSearchCriteria;
+        private Button btnAddItemUnit;
     }
 }

@@ -9,6 +9,7 @@ namespace Point.Client.Main.Forms.Products
     {
         private bool _isFirstLoad;
         private bool _isAddingNew;
+
         private readonly UnitService _unitService;
 
         public frmUnits()
@@ -17,7 +18,8 @@ namespace Point.Client.Main.Forms.Products
 
             _isFirstLoad  = true;
             _isAddingNew = false;
-            _unitService = ServiceLocator.GetService<UnitService>();
+
+            _unitService = ServiceFactory.GetService<UnitService>();
         }
 
         private void frmUnits_Load(object sender, EventArgs e)
@@ -44,14 +46,14 @@ namespace Point.Client.Main.Forms.Products
         {
             _isAddingNew = true;
             ClearFields();
-            EnableEditing(true);
+            EnableEditing();
             txtUnit.Focus();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             _isAddingNew = false;
-            EnableEditing(true);
+            EnableEditing();
             txtUnit.Focus();
         }
 
@@ -94,7 +96,8 @@ namespace Point.Client.Main.Forms.Products
         {
             txtUnit.Clear();
         }
-        private void EnableEditing(bool enable)
+
+        private void EnableEditing(bool enable = true)
         {
             btnNew.Visible = !enable;
             btnEdit.Visible = !enable;
@@ -106,6 +109,7 @@ namespace Point.Client.Main.Forms.Products
 
             EnableButtons();
         }
+
         private void EnableButtons(bool enable = true)
         {
             this.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
@@ -146,7 +150,7 @@ namespace Point.Client.Main.Forms.Products
                 {
                     MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    EnableEditing(true);
+                    EnableEditing();
                 }));
             }
         }
@@ -176,7 +180,7 @@ namespace Point.Client.Main.Forms.Products
                 {
                     MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    EnableEditing(true);
+                    EnableEditing();
                 }));
             }
         }

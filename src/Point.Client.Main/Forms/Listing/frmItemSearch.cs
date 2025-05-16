@@ -24,8 +24,8 @@ namespace Point.Client.Main.Forms.Listing
             _categoryLastUpdate = null;
             _tagLastUpdate = null;
 
-            _categoryService = ServiceLocator.GetService<CategoryService>();
-            _tagService = ServiceLocator.GetService<TagService>();
+            _categoryService = ServiceFactory.GetService<CategoryService>();
+            _tagService = ServiceFactory.GetService<TagService>();
 
             SearchItemDto = null;
         }

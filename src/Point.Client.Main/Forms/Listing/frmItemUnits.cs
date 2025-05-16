@@ -1,31 +1,46 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Services;
+using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Listing
 {
-    public partial class frmProducts : Form
+    public partial class frmItemUnits : Form
     {
         private bool _isFirstLoad;
 
         private readonly PriceTypeService _priceTypeService;
 
-        public frmProducts()
+        public frmItemUnits()
         {
             InitializeComponent();
 
             _isFirstLoad = true;
 
-            _priceTypeService = ServiceLocator.GetService<PriceTypeService>();
+            _priceTypeService = ServiceFactory.GetService<PriceTypeService>();
         }
 
-        private void frmProducts_Load(object sender, EventArgs e)
+        private void frmItemUnits_Load(object sender, EventArgs e)
         {
+            EnableControls(false);
+
             if (_isFirstLoad)
             {
                 _isFirstLoad = false;
 
                 Task.Run(() => LoadPriceTypes());
             }
+
+            EnableControls();
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            FormFactory.GetForm<frmItems>().ShowForSelection();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+
         }
 
         #region Helpers
@@ -61,7 +76,7 @@ namespace Point.Client.Main.Listing
                         Name = priceType.Id.ToString(),
                         HeaderText = priceType.Name
                     };
-                    dgvProducts.Columns.Add(column);
+                    dgvItemUnits.Columns.Add(column);
                 });
 
                 this.Text = frmText;
