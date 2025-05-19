@@ -308,14 +308,14 @@ namespace Point.Client.Main.Listing
         {
             _isAddingNew = true;
             ClearEditingFields();
-            EnableEditing(true);
+            EnableEditing();
             txtItem.Focus();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             _isAddingNew = false;
-            EnableEditing(true);
+            EnableEditing();
             txtItem.Focus();
         }
 
@@ -390,7 +390,7 @@ namespace Point.Client.Main.Listing
             btnAddItemUnit.Visible = false;
         }
 
-        private void EnableEditing(bool enable)
+        private void EnableEditing(bool enable = true)
         {
             pnlList.Enabled = !enable;
 
@@ -461,7 +461,7 @@ namespace Point.Client.Main.Listing
                 {
                     MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    EnableEditing(true);
+                    EnableEditing();
                 }));
             }
         }
@@ -493,7 +493,7 @@ namespace Point.Client.Main.Listing
                 {
                     MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    EnableEditing(true);
+                    EnableEditing();
                 }));
             }
         }

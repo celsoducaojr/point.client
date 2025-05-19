@@ -4,6 +4,8 @@ using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
 using Point.Client.Main.Globals;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using static Point.Client.Main.Globals.RecordStatus;
 
 namespace Point.Client.Main.Listing
 {
@@ -104,12 +106,22 @@ namespace Point.Client.Main.Listing
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-
+            EnableEditing(false);
         }
 
         #endregion
 
         #region Helpers
+
+        private void EnableEditing(bool enable = true)
+        {
+            tsMain.Enabled = enable;
+            tsPages.Enabled = enable;
+
+            dgvItemUnits.ReadOnly = enable;
+            dgvItemUnits.Columns["clmName"].ReadOnly = !enable;
+            dgvItemUnits.Columns["clmUnit"].ReadOnly = !enable;
+        }
 
         private void EnableControls(bool enable = true)
         {
