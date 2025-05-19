@@ -452,6 +452,8 @@ namespace Point.Client.Main.Listing
 
                     EnableEditing(false);
                 }));
+
+                RecordStatus.Items.Updated();
             }
             catch (HttpRequestException ex)
             {
@@ -482,6 +484,8 @@ namespace Point.Client.Main.Listing
 
                     EnableEditing(false);
                 }));
+
+                RecordStatus.Items.Updated();
             }
             catch (HttpRequestException ex)
             {

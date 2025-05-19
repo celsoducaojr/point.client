@@ -28,7 +28,18 @@ namespace Point.Client.Main.Api.Services
 
         public async Task<SearchItemResponseDto?> SearchItems(int page, int pageSize, string? name = null, int? categoryId = null, List<int>? tagIds = null)
         {
+            return await Search(false, page, pageSize, name, categoryId, tagIds);
+        }
+
+        public async Task<SearchItemResponseDto?> SearchItemsWithUnits(int page, int pageSize, string? name = null, int? categoryId = null, List<int>? tagIds = null)
+        {
+            return await Search(true, page, pageSize, name, categoryId, tagIds);
+        }
+
+        private async Task<SearchItemResponseDto?> Search(bool includeUnits, int page, int pageSize, string? name = null, int? categoryId = null, List<int>? tagIds = null)
+        {
             var endPoint = $"{_endPoint}/search?page={page}&pageSize={pageSize}&fields=category&fields=description&fields=tags";
+            if (includeUnits) endPoint += "&fields=units";
             if (!string.IsNullOrWhiteSpace(name)) endPoint += $"&name={name}";
             if (categoryId.HasValue) endPoint += $"&categoryId={categoryId}";
             if (tagIds?.Count > 0) endPoint += $"&{string.Join("&", tagIds.Select(id => $"tagIds={id}"))}";

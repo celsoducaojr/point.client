@@ -6,7 +6,7 @@
 
         public static readonly int[] PageSizes =
         [
-            1, 3, 5, 10
+            25, 50, 100
         ];
     }
 }

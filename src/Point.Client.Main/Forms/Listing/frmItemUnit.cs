@@ -2,6 +2,7 @@
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
+using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Listing
 {
@@ -10,6 +11,8 @@ namespace Point.Client.Main.Listing
         private Item _item;
 
         private bool _isFirstLoad;
+
+        private DateTime? _unitLastUpdate;
 
         private readonly UnitService _unitService;
         private readonly ItemUnitService _itemUnitService;
@@ -20,14 +23,21 @@ namespace Point.Client.Main.Listing
 
             _isFirstLoad = true;
 
+            _unitLastUpdate = null;
+
             _unitService = ServiceFactory.GetService<UnitService>();
             _itemUnitService = ServiceFactory.GetService<ItemUnitService>();
         }
 
         #region Main
 
-        private void frmItemUnit_Load(object sender, EventArgs e)
+        private async void frmItemUnit_Load(object sender, EventArgs e)
         {
+            await Task.Run(async () =>
+            {
+                if (_unitLastUpdate != RecordStatus.Categories.LastUpdate) await LoadUnits();
+            });
+
             if (_isFirstLoad)
             {
                 _isFirstLoad = false;
@@ -106,6 +116,8 @@ namespace Point.Client.Main.Listing
 
                     this.Close();
                 }));
+
+                RecordStatus.ItemUnits.Updated();
             }
             catch (HttpRequestException ex)
             {
@@ -118,8 +130,11 @@ namespace Point.Client.Main.Listing
             }
         }
 
-        private async void LoadUnits()
+        private async Task LoadUnits()
         {
+            if (_unitLastUpdate == RecordStatus.Units.LastUpdate) return;
+            _unitLastUpdate = RecordStatus.Units.LastUpdate;
+
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {

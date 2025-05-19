@@ -2,6 +2,26 @@
 {
     public static class RecordStatus
     {
+        public static class ItemUnits
+        {
+            public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
+
+            public static void Updated()
+            {
+                LastUpdate = DateTime.Now;
+            }
+        }
+
+        public static class Items
+        {
+            public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
+
+            public static void Updated()
+            {
+                LastUpdate = DateTime.Now;
+            }
+        }
+
         public static class Categories
         {
             public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
