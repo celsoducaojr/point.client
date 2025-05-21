@@ -1,4 +1,6 @@
-﻿using Point.Client.Main.Api;
+﻿using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
@@ -33,7 +35,7 @@ namespace Point.Client.Main.Listing
             _searchItemDto = null;
             _currentPage = 1;
             _currentTotalPages = 0;
-            _currentPageSize = FormConstants.PageSizes.ElementAtOrDefault(0);
+            _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
 
             _itemLastUpdate = null;
             _itemUnitLastUpdate = null;
@@ -41,14 +43,14 @@ namespace Point.Client.Main.Listing
             _itemService = ServiceFactory.GetService<ItemService>();
             _priceTypeService = ServiceFactory.GetService<PriceTypeService>();
 
-            cmbPageSize.Items.AddRange(FormConstants.PageSizes.Cast<object>().ToArray());
+            cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
         }
 
-        private void frmItemUnits_Load(object sender, EventArgs e)
+        private async void frmItemUnits_Load(object sender, EventArgs e)
         {
             EnableControls(false);
 
-            Task.Run(() =>
+            await Task.Run(() =>
             {
                 var reloadRequired = false;
                 if (_itemLastUpdate != RecordStatus.Categories.LastUpdate)
@@ -70,7 +72,7 @@ namespace Point.Client.Main.Listing
             {
                 _isFirstLoad = false;
 
-                Task.Run(LoadPriceTypes);
+                await Task.Run(LoadPriceTypes);
 
                 cmbPageSize.SelectedIndex = 0;
                 //lblSearchCriteria.Text = null;
@@ -81,6 +83,75 @@ namespace Point.Client.Main.Listing
 
         #region Search and Pagination
 
+        private void btnFirst_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0 && _currentPage != 1)
+            {
+                _currentPage = 1;
+
+                Task.Run(() => SearchItemsWithUnits());
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0 && _currentPage > 1)
+            {
+                _currentPage = 1;
+
+                if (int.TryParse(txtPage.Text, out var selectedPage)
+                    && selectedPage > 1)
+                {
+                    _currentPage = selectedPage - 1;
+                }
+
+                Task.Run(() => SearchItemsWithUnits());
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0 && _currentPage < _currentTotalPages)
+            {
+                _currentPage = _currentTotalPages;
+                if (int.TryParse(txtPage.Text, out var selectedPage)
+                    && selectedPage < _currentTotalPages)
+                {
+                    _currentPage = selectedPage + 1;
+                }
+
+                Task.Run(() => SearchItemsWithUnits());
+            }
+        }
+
+        private void btnLast_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0 && _currentPage != _currentTotalPages)
+            {
+                _currentPage = _currentTotalPages;
+
+                Task.Run(() => SearchItemsWithUnits());
+            }
+
+        }
+
+        private void txtPage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && _currentTotalPages > 0)
+            {
+                if (int.TryParse(txtPage.Text, out var selectedPage)
+                    && selectedPage > 0 && selectedPage != _currentPage && selectedPage <= _currentTotalPages)
+                {
+                    _currentPage = selectedPage;
+                    Task.Run(() => SearchItemsWithUnits());
+                }
+                else
+                {
+                    txtPage.Text = _currentPage.ToString();
+                }   
+            }
+        }
+
         private async void cmbPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
             await Task.Run(async () =>
@@ -88,7 +159,7 @@ namespace Point.Client.Main.Listing
                 this.Invoke((MethodInvoker)(() =>
                 {
                     _currentPage = 1;
-                    _currentPageSize = FormConstants.PageSizes[cmbPageSize.SelectedIndex];
+                    _currentPageSize = FormConstants.Pagination.PageSizes[cmbPageSize.SelectedIndex];
                 }));
 
                 await SearchItemsWithUnits();
@@ -108,6 +179,37 @@ namespace Point.Client.Main.Listing
         {
             EnableEditing(false);
         }
+
+        private void dgvItemUnits_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            var columnTag = dgvItemUnits.Columns[e.ColumnIndex].Tag;
+
+            if (columnTag != null && columnTag.ToString() == FormConstants.DataGridViewColumn.PriceTag)
+            {
+                var value = e.FormattedValue?.ToString() ?? string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(value) && !decimal.TryParse(value, out _))
+                {
+                    MessageBox.Show("Invalid Amount value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    e.Cancel = true;
+                }
+            }
+        }
+        private void dgvItemUnits_CellValidated(object sender, DataGridViewCellEventArgs e)
+        {
+            var columnTag = dgvItemUnits.Columns[e.ColumnIndex].Tag;
+
+            if (columnTag != null && columnTag.ToString() == FormConstants.DataGridViewColumn.PriceTag)
+            {
+                var cell = dgvItemUnits.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                if (decimal.TryParse(cell.Value?.ToString(), out decimal value))
+                {
+                    cell.Value = value.ToString(FormConstants.AmountFormat);
+                }
+            }
+        }
+
 
         #endregion
 
@@ -134,7 +236,10 @@ namespace Point.Client.Main.Listing
             row.Cells["clmUnit"].Value = unit.Unit?.Name;
             row.Cells["clmItemCode"].Value = unit.ItemCode;
             row.Cells["clmPriceCode"].Value = unit.PriceCode;
-            unit.Prices?.ForEach(price => row.Cells[price.PriceType.Id.ToString()].Value = price.Amount);
+            unit.Prices?.ForEach(price =>
+            {
+                row.Cells[price.PriceType.Id.ToString()].Value = price.Amount;
+            });
             row.Tag = unit;
         }
 
@@ -161,13 +266,13 @@ namespace Point.Client.Main.Listing
 
                 dgvItemUnits.Rows.Clear();
                 txtPage.Clear();
-                lblTotalPage.Text = string.Format(FormConstants.TotalPagesCountLabel, 0);
+                lblTotalPage.Text = string.Format(FormConstants.Pagination.TotalPagesCountLabel, 0);
 
                 if (response?.TotalCount > 0)
                 {
                     txtPage.Text = _currentPage.ToString();
                     _currentTotalPages = (int)Math.Ceiling((decimal)response?.TotalCount / _currentPageSize);
-                    lblTotalPage.Text = string.Format(FormConstants.TotalPagesCountLabel, _currentTotalPages);
+                    lblTotalPage.Text = string.Format(FormConstants.Pagination.TotalPagesCountLabel, _currentTotalPages);
 
                     response?.Data?.ForEach(item =>
                     {
@@ -198,16 +303,16 @@ namespace Point.Client.Main.Listing
 
             this.Invoke((MethodInvoker)(() =>
             {
-                DataGridViewColumn column;
                 response?.ForEach(priceType =>
                 {
-                    column = new DataGridViewTextBoxColumn()
+                    var column = new DataGridViewTextBoxColumn()
                     {
                         Name = priceType.Id.ToString(),
-                        HeaderText = priceType.Name, 
+                        HeaderText = priceType.Name,
                     };
+                    column.Tag = FormConstants.DataGridViewColumn.PriceTag;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    column.DefaultCellStyle.Format = "C2";
+                    column.DefaultCellStyle.Format = FormConstants.AmountFormat;
                     dgvItemUnits.Columns.Add(column);
                 });
 

@@ -42,7 +42,7 @@ namespace Point.Client.Main.Listing
             _searchItemDto = null;
             _currentPage = 1;
             _currentTotalPages = 0;
-            _currentPageSize = FormConstants.PageSizes.ElementAtOrDefault(0);
+            _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
 
             _categoryLastUpdate = null;
             _tagLastUpdate = null;
@@ -51,7 +51,7 @@ namespace Point.Client.Main.Listing
             _categoryService = ServiceFactory.GetService<CategoryService>();
             _tagService = ServiceFactory.GetService<TagService>();
 
-            cmbPageSize.Items.AddRange(FormConstants.PageSizes.Cast<object>().ToArray());
+            cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
         }
 
         #region Main
@@ -171,7 +171,7 @@ namespace Point.Client.Main.Listing
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
-            if (_currentTotalPages > 0)
+            if (_currentTotalPages > 0 && _currentPage != 1)
             {
                 _currentPage = 1;
 
@@ -181,7 +181,7 @@ namespace Point.Client.Main.Listing
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
-            if (_currentTotalPages > 0)
+            if (_currentTotalPages > 0 && _currentPage > 1)
             {
                 _currentPage = 1;
                 if (int.TryParse(txtPage.Text, out var selectedPage)
@@ -196,7 +196,7 @@ namespace Point.Client.Main.Listing
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (_currentTotalPages > 0)
+            if (_currentTotalPages > 0 && _currentPage < _currentTotalPages)
             {
                 _currentPage = _currentTotalPages;
                 if (int.TryParse(txtPage.Text, out var selectedPage)
@@ -211,7 +211,7 @@ namespace Point.Client.Main.Listing
 
         private void btnLast_Click(object sender, EventArgs e)
         {
-            if (_currentTotalPages > 0)
+            if (_currentTotalPages > 0 && _currentPage != _currentTotalPages)
             {
                 _currentPage = _currentTotalPages;
 
@@ -224,14 +224,16 @@ namespace Point.Client.Main.Listing
         {
             if (e.KeyCode == Keys.Enter && _currentTotalPages > 0)
             {
-                _currentPage = 1;
                 if (int.TryParse(txtPage.Text, out var selectedPage)
-                    && selectedPage <= _currentTotalPages && selectedPage > 0)
+                    && selectedPage > 0 && selectedPage != _currentPage && selectedPage <= _currentTotalPages)
                 {
                     _currentPage = selectedPage;
+                    Task.Run(() => SearchItems());
                 }
-
-                Task.Run(() => SearchItems());
+                else
+                {
+                    txtPage.Text = _currentPage.ToString();
+                }
             }
         }
 
@@ -242,7 +244,7 @@ namespace Point.Client.Main.Listing
                 this.Invoke((MethodInvoker)(() =>
                 {
                     _currentPage = 1;
-                    _currentPageSize = FormConstants.PageSizes[cmbPageSize.SelectedIndex];
+                    _currentPageSize = FormConstants.Pagination.PageSizes[cmbPageSize.SelectedIndex];
                 }));
 
                 await SearchItems();
@@ -517,14 +519,14 @@ namespace Point.Client.Main.Listing
 
                 dgvItems.Rows.Clear();
                 txtPage.Clear();
-                lblTotalPage.Text = string.Format(FormConstants.TotalPagesCountLabel, 0);
+                lblTotalPage.Text = string.Format(FormConstants.Pagination.TotalPagesCountLabel, 0);
                 ClearEditingFields();
 
                 if (response?.TotalCount > 0)
                 {
                     txtPage.Text = _currentPage.ToString();
                     _currentTotalPages = (int)Math.Ceiling((decimal)response?.TotalCount / _currentPageSize);
-                    lblTotalPage.Text = string.Format(FormConstants.TotalPagesCountLabel, _currentTotalPages);
+                    lblTotalPage.Text = string.Format(FormConstants.Pagination.TotalPagesCountLabel, _currentTotalPages);
 
                     DataGridViewRow row;
                     response?.Data?.ForEach(item =>

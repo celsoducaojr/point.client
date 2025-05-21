@@ -52,6 +52,8 @@
             btnFirst = new ToolStripButton();
             btnSearch = new ToolStripButton();
             btnClearFilter = new ToolStripButton();
+            toolStripButton1 = new ToolStripButton();
+            toolStripButton2 = new ToolStripButton();
             tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             tsPages.SuspendLayout();
@@ -62,7 +64,7 @@
             tsMain.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsMain.GripStyle = ToolStripGripStyle.Hidden;
             tsMain.ImageScalingSize = new Size(20, 20);
-            tsMain.Items.AddRange(new ToolStripItem[] { btnNew, toolStripSeparator1, btnEdit });
+            tsMain.Items.AddRange(new ToolStripItem[] { btnNew, toolStripSeparator1, btnEdit, toolStripButton1, toolStripButton2 });
             tsMain.Location = new System.Drawing.Point(0, 70);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(1130, 31);
@@ -110,6 +112,8 @@
             dgvItemUnits.RowHeadersWidth = 51;
             dgvItemUnits.Size = new Size(1130, 484);
             dgvItemUnits.TabIndex = 1;
+            dgvItemUnits.CellValidated += dgvItemUnits_CellValidated;
+            dgvItemUnits.CellValidating += dgvItemUnits_CellValidating;
             // 
             // clmName
             // 
@@ -201,6 +205,7 @@
             btnLast.Size = new Size(44, 28);
             btnLast.Text = ">>";
             btnLast.ToolTipText = "last page";
+            btnLast.Click += btnLast_Click;
             // 
             // btnNext
             // 
@@ -212,6 +217,7 @@
             btnNext.Size = new Size(29, 28);
             btnNext.Text = ">";
             btnNext.ToolTipText = "next page";
+            btnNext.Click += btnNext_Click;
             // 
             // lblTotalPage
             // 
@@ -226,6 +232,7 @@
             txtPage.Name = "txtPage";
             txtPage.Size = new Size(55, 31);
             txtPage.TextBoxTextAlign = HorizontalAlignment.Center;
+            txtPage.KeyDown += txtPage_KeyDown;
             // 
             // toolStripLabel1
             // 
@@ -244,6 +251,7 @@
             btnPrev.Size = new Size(29, 28);
             btnPrev.Text = "<";
             btnPrev.ToolTipText = "previous page";
+            btnPrev.Click += btnPrev_Click;
             // 
             // btnFirst
             // 
@@ -255,6 +263,7 @@
             btnFirst.Size = new Size(44, 28);
             btnFirst.Text = "<<";
             btnFirst.ToolTipText = "first page";
+            btnFirst.Click += btnFirst_Click;
             // 
             // btnSearch
             // 
@@ -273,6 +282,28 @@
             btnClearFilter.Size = new Size(131, 28);
             btnClearFilter.Text = "Clear Filter";
             btnClearFilter.ToolTipText = "Clear Filter";
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.Alignment = ToolStripItemAlignment.Right;
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(73, 28);
+            toolStripButton1.Text = "Cancel";
+            toolStripButton1.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // toolStripButton2
+            // 
+            toolStripButton2.Alignment = ToolStripItemAlignment.Right;
+            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
+            toolStripButton2.ImageTransparentColor = Color.Magenta;
+            toolStripButton2.Name = "toolStripButton2";
+            toolStripButton2.Size = new Size(139, 28);
+            toolStripButton2.Text = "Save Changes";
+            toolStripButton2.TextAlign = ContentAlignment.MiddleRight;
             // 
             // frmItemUnits
             // 
@@ -323,5 +354,7 @@
         private DataGridViewTextBoxColumn clmUnit;
         private DataGridViewTextBoxColumn clmItemCode;
         private DataGridViewTextBoxColumn clmPriceCode;
+        private ToolStripButton toolStripButton2;
+        private ToolStripButton toolStripButton1;
     }
 }

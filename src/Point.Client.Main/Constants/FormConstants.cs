@@ -2,11 +2,21 @@
 {
     public static class FormConstants
     {
-        public const string TotalPagesCountLabel = "of {0}";
+        public const string AmountFormat = "N2";
 
-        public static readonly int[] PageSizes =
-        [
-            25, 50, 100
-        ];
+        public static class Pagination
+        {
+            public const string TotalPagesCountLabel = "of {0}";
+
+            public static readonly int[] PageSizes =
+            [
+                1,2
+            ];
+        }
+
+        public static class DataGridViewColumn
+        {
+            public const string PriceTag = "PRICETAG";
+        }
     }
 }
