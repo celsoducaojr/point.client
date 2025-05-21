@@ -315,7 +315,7 @@
             // btnAddItemUnit
             // 
             btnAddItemUnit.BackColor = Color.FromArgb(192, 255, 255);
-            btnAddItemUnit.Image = Properties.Resources.add_new_icon;
+            btnAddItemUnit.Image = Properties.Resources.add_item_icon;
             btnAddItemUnit.ImageAlign = ContentAlignment.MiddleLeft;
             btnAddItemUnit.Location = new System.Drawing.Point(159, 0);
             btnAddItemUnit.Margin = new Padding(4);

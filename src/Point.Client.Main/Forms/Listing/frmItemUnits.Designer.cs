@@ -33,11 +33,9 @@
             btnNew = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             btnEdit = new ToolStripButton();
+            btnCancel = new ToolStripButton();
+            btnSave = new ToolStripButton();
             dgvItemUnits = new DataGridView();
-            clmName = new DataGridViewTextBoxColumn();
-            clmUnit = new DataGridViewTextBoxColumn();
-            clmItemCode = new DataGridViewTextBoxColumn();
-            clmPriceCode = new DataGridViewTextBoxColumn();
             lblTitle = new Label();
             tsPages = new ToolStrip();
             toolStripLabel2 = new ToolStripLabel();
@@ -52,8 +50,10 @@
             btnFirst = new ToolStripButton();
             btnSearch = new ToolStripButton();
             btnClearFilter = new ToolStripButton();
-            toolStripButton1 = new ToolStripButton();
-            toolStripButton2 = new ToolStripButton();
+            clmName = new DataGridViewTextBoxColumn();
+            clmUnit = new DataGridViewTextBoxColumn();
+            clmItemCode = new DataGridViewTextBoxColumn();
+            clmPriceCode = new DataGridViewTextBoxColumn();
             tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             tsPages.SuspendLayout();
@@ -64,7 +64,7 @@
             tsMain.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsMain.GripStyle = ToolStripGripStyle.Hidden;
             tsMain.ImageScalingSize = new Size(20, 20);
-            tsMain.Items.AddRange(new ToolStripItem[] { btnNew, toolStripSeparator1, btnEdit, toolStripButton1, toolStripButton2 });
+            tsMain.Items.AddRange(new ToolStripItem[] { btnNew, toolStripSeparator1, btnEdit, btnCancel, btnSave });
             tsMain.Location = new System.Drawing.Point(0, 70);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(1130, 31);
@@ -73,12 +73,11 @@
             // 
             // btnNew
             // 
-            btnNew.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnNew.Image = (Image)resources.GetObject("btnNew.Image");
+            btnNew.Image = Properties.Resources.save_icon;
             btnNew.ImageTransparentColor = Color.Magenta;
             btnNew.Name = "btnNew";
-            btnNew.Size = new Size(143, 28);
-            btnNew.Text = "New Item Unit";
+            btnNew.Size = new Size(172, 28);
+            btnNew.Text = "New Item Units";
             btnNew.TextAlign = ContentAlignment.MiddleRight;
             btnNew.Click += btnNew_Click;
             // 
@@ -89,14 +88,37 @@
             // 
             // btnEdit
             // 
-            btnEdit.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnEdit.Image = (Image)resources.GetObject("btnEdit.Image");
+            btnEdit.Image = Properties.Resources.edit_icon;
             btnEdit.ImageTransparentColor = Color.Magenta;
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(48, 28);
+            btnEdit.Size = new Size(68, 28);
             btnEdit.Text = "Edit";
             btnEdit.TextAlign = ContentAlignment.MiddleRight;
             btnEdit.Click += btnEdit_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Alignment = ToolStripItemAlignment.Right;
+            btnCancel.Image = Properties.Resources.cancel_icon;
+            btnCancel.ImageTransparentColor = Color.Magenta;
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(93, 28);
+            btnCancel.Text = "Cancel";
+            btnCancel.TextAlign = ContentAlignment.MiddleRight;
+            btnCancel.Visible = false;
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // btnSave
+            // 
+            btnSave.Alignment = ToolStripItemAlignment.Right;
+            btnSave.Image = Properties.Resources.save_icon;
+            btnSave.ImageTransparentColor = Color.Magenta;
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(159, 28);
+            btnSave.Text = "Save Changes";
+            btnSave.TextAlign = ContentAlignment.MiddleRight;
+            btnSave.Visible = false;
+            btnSave.Click += btnSave_Click;
             // 
             // dgvItemUnits
             // 
@@ -114,38 +136,6 @@
             dgvItemUnits.TabIndex = 1;
             dgvItemUnits.CellValidated += dgvItemUnits_CellValidated;
             dgvItemUnits.CellValidating += dgvItemUnits_CellValidating;
-            // 
-            // clmName
-            // 
-            clmName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmName.HeaderText = "Name";
-            clmName.MinimumWidth = 6;
-            clmName.Name = "clmName";
-            clmName.ReadOnly = true;
-            // 
-            // clmUnit
-            // 
-            clmUnit.HeaderText = "Unit";
-            clmUnit.MinimumWidth = 6;
-            clmUnit.Name = "clmUnit";
-            clmUnit.ReadOnly = true;
-            clmUnit.Width = 125;
-            // 
-            // clmItemCode
-            // 
-            clmItemCode.HeaderText = "Item Code";
-            clmItemCode.MinimumWidth = 6;
-            clmItemCode.Name = "clmItemCode";
-            clmItemCode.ReadOnly = true;
-            clmItemCode.Width = 175;
-            // 
-            // clmPriceCode
-            // 
-            clmPriceCode.HeaderText = "Price Code";
-            clmPriceCode.MinimumWidth = 6;
-            clmPriceCode.Name = "clmPriceCode";
-            clmPriceCode.ReadOnly = true;
-            clmPriceCode.Width = 125;
             // 
             // lblTitle
             // 
@@ -283,27 +273,39 @@
             btnClearFilter.Text = "Clear Filter";
             btnClearFilter.ToolTipText = "Clear Filter";
             // 
-            // toolStripButton1
+            // clmName
             // 
-            toolStripButton1.Alignment = ToolStripItemAlignment.Right;
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(73, 28);
-            toolStripButton1.Text = "Cancel";
-            toolStripButton1.TextAlign = ContentAlignment.MiddleRight;
+            clmName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmName.HeaderText = "Name";
+            clmName.MinimumWidth = 6;
+            clmName.Name = "clmName";
+            clmName.ReadOnly = true;
             // 
-            // toolStripButton2
+            // clmUnit
             // 
-            toolStripButton2.Alignment = ToolStripItemAlignment.Right;
-            toolStripButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton2.Image = (Image)resources.GetObject("toolStripButton2.Image");
-            toolStripButton2.ImageTransparentColor = Color.Magenta;
-            toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new Size(139, 28);
-            toolStripButton2.Text = "Save Changes";
-            toolStripButton2.TextAlign = ContentAlignment.MiddleRight;
+            clmUnit.HeaderText = "Unit";
+            clmUnit.MinimumWidth = 6;
+            clmUnit.Name = "clmUnit";
+            clmUnit.ReadOnly = true;
+            clmUnit.Width = 125;
+            // 
+            // clmItemCode
+            // 
+            clmItemCode.HeaderText = "Item Code";
+            clmItemCode.MaxInputLength = 50;
+            clmItemCode.MinimumWidth = 6;
+            clmItemCode.Name = "clmItemCode";
+            clmItemCode.ReadOnly = true;
+            clmItemCode.Width = 175;
+            // 
+            // clmPriceCode
+            // 
+            clmPriceCode.HeaderText = "Price Code";
+            clmPriceCode.MaxInputLength = 50;
+            clmPriceCode.MinimumWidth = 6;
+            clmPriceCode.Name = "clmPriceCode";
+            clmPriceCode.ReadOnly = true;
+            clmPriceCode.Width = 125;
             // 
             // frmItemUnits
             // 
@@ -350,11 +352,11 @@
         private ToolStripButton btnFirst;
         private ToolStripButton btnSearch;
         private ToolStripButton btnClearFilter;
+        private ToolStripButton btnSave;
+        private ToolStripButton btnCancel;
         private DataGridViewTextBoxColumn clmName;
         private DataGridViewTextBoxColumn clmUnit;
         private DataGridViewTextBoxColumn clmItemCode;
         private DataGridViewTextBoxColumn clmPriceCode;
-        private ToolStripButton toolStripButton2;
-        private ToolStripButton toolStripButton1;
     }
 }

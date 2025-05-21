@@ -105,7 +105,7 @@
             // toolStripDropDownButton1
             // 
             toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnProducts, columnsToolStripMenuItem, toolStripSeparator4, btnItems, toolStripSeparator5, btnCategories, btnUnits, btnTags });
-            toolStripDropDownButton1.Image = Properties.Resources.Products;
+            toolStripDropDownButton1.Image = Properties.Resources.products;
             toolStripDropDownButton1.ImageScaling = ToolStripItemImageScaling.None;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Margin = new Padding(0);
@@ -176,7 +176,7 @@
             // 
             // tsbtnStocks
             // 
-            tsbtnStocks.Image = Properties.Resources.Stocks;
+            tsbtnStocks.Image = Properties.Resources.stocks;
             tsbtnStocks.ImageScaling = ToolStripItemImageScaling.None;
             tsbtnStocks.ImageTransparentColor = Color.Magenta;
             tsbtnStocks.Name = "tsbtnStocks";
@@ -192,7 +192,7 @@
             // 
             // toolStripButton3
             // 
-            toolStripButton3.Image = Properties.Resources.Orders;
+            toolStripButton3.Image = Properties.Resources.orders;
             toolStripButton3.ImageScaling = ToolStripItemImageScaling.None;
             toolStripButton3.ImageTransparentColor = Color.Magenta;
             toolStripButton3.Name = "toolStripButton3";
@@ -208,7 +208,7 @@
             // 
             // toolStripButton1
             // 
-            toolStripButton1.Image = Properties.Resources.Sales;
+            toolStripButton1.Image = Properties.Resources.sales;
             toolStripButton1.ImageScaling = ToolStripItemImageScaling.None;
             toolStripButton1.ImageTransparentColor = Color.Magenta;
             toolStripButton1.Name = "toolStripButton1";
@@ -219,7 +219,7 @@
             // 
             // toolStripButton2
             // 
-            toolStripButton2.Image = Properties.Resources.Reports;
+            toolStripButton2.Image = Properties.Resources.reports;
             toolStripButton2.ImageScaling = ToolStripItemImageScaling.None;
             toolStripButton2.ImageTransparentColor = Color.Magenta;
             toolStripButton2.Name = "toolStripButton2";

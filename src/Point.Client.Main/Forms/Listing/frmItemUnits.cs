@@ -148,7 +148,7 @@ namespace Point.Client.Main.Listing
                 else
                 {
                     txtPage.Text = _currentPage.ToString();
-                }   
+                }
             }
         }
 
@@ -177,7 +177,18 @@ namespace Point.Client.Main.Listing
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+            EnableEditing();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
             EnableEditing(false);
+            Task.Run(() => SearchItemsWithUnits());
         }
 
         private void dgvItemUnits_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -210,19 +221,22 @@ namespace Point.Client.Main.Listing
             }
         }
 
-
         #endregion
 
         #region Helpers
 
         private void EnableEditing(bool enable = true)
         {
-            tsMain.Enabled = enable;
-            tsPages.Enabled = enable;
+            btnNew.Visible = !enable;
+            btnEdit.Visible = !enable;
+            btnSave.Visible = enable;
+            btnCancel.Visible = enable;
 
-            dgvItemUnits.ReadOnly = enable;
-            dgvItemUnits.Columns["clmName"].ReadOnly = !enable;
-            dgvItemUnits.Columns["clmUnit"].ReadOnly = !enable;
+            dgvItemUnits.ReadOnly = !enable;
+            dgvItemUnits.Columns["clmName"].ReadOnly = enable;
+            dgvItemUnits.Columns["clmUnit"].ReadOnly = enable;
+
+            tsPages.Enabled = !enable;
         }
 
         private void EnableControls(bool enable = true)
