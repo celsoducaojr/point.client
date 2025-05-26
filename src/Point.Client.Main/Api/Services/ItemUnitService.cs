@@ -24,5 +24,10 @@ namespace Point.Client.Main.Api.Services
         {
             await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, itemDto);
         }
+
+        public async Task PatchItemUnits(List<ItemUnitPatchDto> itemUnits)
+        {
+            await _pointApiClient.ExecuteAsync($"{_endPoint}", Method.Patch, new { data = itemUnits });
+        }
     }
 }

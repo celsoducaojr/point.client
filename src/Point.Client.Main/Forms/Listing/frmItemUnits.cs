@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
@@ -20,11 +21,14 @@ namespace Point.Client.Main.Listing
         private int _currentTotalPages;
         private int _currentPageSize;
 
+        private List<PriceType>? _currentPriceTypes;
+
         private DateTime? _itemLastUpdate;
         private DateTime? _itemUnitLastUpdate;
 
         private readonly ItemService _itemService;
-        private readonly PriceTypeService _priceTypeService;
+        private readonly ItemUnitService _itemUnitService;
+        private readonly PriceTypeService _priceTypeService; 
 
         public frmItemUnits()
         {
@@ -41,6 +45,7 @@ namespace Point.Client.Main.Listing
             _itemUnitLastUpdate = null;
 
             _itemService = ServiceFactory.GetService<ItemService>();
+            _itemUnitService = ServiceFactory.GetService<ItemUnitService>();
             _priceTypeService = ServiceFactory.GetService<PriceTypeService>();
 
             cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
@@ -182,7 +187,34 @@ namespace Point.Client.Main.Listing
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            EnableControls(false);
 
+            var itemUnits = new List<ItemUnitPatchDto>();
+
+            foreach (DataGridViewRow row in dgvItemUnits.Rows)
+            {
+                var prices = new List<PriceDto>();
+
+                _currentPriceTypes?.ForEach(type =>
+                {
+                    decimal.TryParse(row.Cells[type.Id.ToString()].Value?.ToString(), out decimal amount);
+                    prices.Add(new PriceDto
+                    {
+                        PriceTypeId = type.Id,
+                        Amount =  amount
+                    });
+                });
+
+                itemUnits.Add(new ItemUnitPatchDto
+                {
+                    Id = (int)row.Tag,
+                    ItemCode = row.Cells["clmItemCode"].Value?.ToString(),
+                    PriceCode = row.Cells["clmPriceCode"].Value?.ToString(),
+                    Prices = prices.Count > 0 ? prices : null
+                }); 
+            }
+
+            Task.Run(() => PatchItemUnits(itemUnits));
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -237,10 +269,14 @@ namespace Point.Client.Main.Listing
             dgvItemUnits.Columns["clmUnit"].ReadOnly = enable;
 
             tsPages.Enabled = !enable;
+
+            EnableControls();
         }
 
         private void EnableControls(bool enable = true)
         {
+            dgvItemUnits.EndEdit();
+
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
         }
 
@@ -250,16 +286,48 @@ namespace Point.Client.Main.Listing
             row.Cells["clmUnit"].Value = unit.Unit?.Name;
             row.Cells["clmItemCode"].Value = unit.ItemCode;
             row.Cells["clmPriceCode"].Value = unit.PriceCode;
-            unit.Prices?.ForEach(price =>
+
+            _currentPriceTypes?.ForEach(type => 
             {
-                row.Cells[price.PriceType.Id.ToString()].Value = price.Amount;
+                var amount = unit.Prices?
+                .Where(price => price.PriceType.Id == type.Id)
+                .Select(price => price.Amount).FirstOrDefault() ?? 0;
+
+                row.Cells[type.Id.ToString()].Value = amount;
             });
-            row.Tag = unit;
+
+            row.Tag = unit.Id;
         }
 
         #endregion
 
         #region Services
+
+        private async void PatchItemUnits(List<ItemUnitPatchDto> itemUnits)
+        {
+            try
+            {
+                await _itemUnitService.PatchItemUnits(itemUnits);
+
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    MessageBox.Show("Item-units has been updated.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    EnableEditing(false);
+                }));
+
+                ItemUnits.Updated();
+            }
+            catch (HttpRequestException ex)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    EnableEditing(true);
+                }));
+            }
+        }
 
         private async Task SearchItemsWithUnits()
         {
@@ -313,11 +381,11 @@ namespace Point.Client.Main.Listing
                 this.Text = "Loading Price Types Columns...";
             }));
 
-            var response = await _priceTypeService.GetPricesTypes();
+            _currentPriceTypes = await _priceTypeService.GetPricesTypes();
 
             this.Invoke((MethodInvoker)(() =>
             {
-                response?.ForEach(priceType =>
+                _currentPriceTypes?.ForEach(priceType =>
                 {
                     var column = new DataGridViewTextBoxColumn()
                     {

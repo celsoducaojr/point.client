@@ -36,6 +36,10 @@
             btnCancel = new ToolStripButton();
             btnSave = new ToolStripButton();
             dgvItemUnits = new DataGridView();
+            clmName = new DataGridViewTextBoxColumn();
+            clmUnit = new DataGridViewTextBoxColumn();
+            clmItemCode = new DataGridViewTextBoxColumn();
+            clmPriceCode = new DataGridViewTextBoxColumn();
             lblTitle = new Label();
             tsPages = new ToolStrip();
             toolStripLabel2 = new ToolStripLabel();
@@ -50,10 +54,6 @@
             btnFirst = new ToolStripButton();
             btnSearch = new ToolStripButton();
             btnClearFilter = new ToolStripButton();
-            clmName = new DataGridViewTextBoxColumn();
-            clmUnit = new DataGridViewTextBoxColumn();
-            clmItemCode = new DataGridViewTextBoxColumn();
-            clmPriceCode = new DataGridViewTextBoxColumn();
             tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             tsPages.SuspendLayout();
@@ -76,8 +76,8 @@
             btnNew.Image = Properties.Resources.save_icon;
             btnNew.ImageTransparentColor = Color.Magenta;
             btnNew.Name = "btnNew";
-            btnNew.Size = new Size(172, 28);
-            btnNew.Text = "New Item Units";
+            btnNew.Size = new Size(211, 28);
+            btnNew.Text = "Add New Item-units";
             btnNew.TextAlign = ContentAlignment.MiddleRight;
             btnNew.Click += btnNew_Click;
             // 
@@ -91,8 +91,8 @@
             btnEdit.Image = Properties.Resources.edit_icon;
             btnEdit.ImageTransparentColor = Color.Magenta;
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(68, 28);
-            btnEdit.Text = "Edit";
+            btnEdit.Size = new Size(166, 28);
+            btnEdit.Text = "Edit Item-units";
             btnEdit.TextAlign = ContentAlignment.MiddleRight;
             btnEdit.Click += btnEdit_Click;
             // 
@@ -137,6 +137,40 @@
             dgvItemUnits.CellValidated += dgvItemUnits_CellValidated;
             dgvItemUnits.CellValidating += dgvItemUnits_CellValidating;
             // 
+            // clmName
+            // 
+            clmName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmName.HeaderText = "Name";
+            clmName.MinimumWidth = 6;
+            clmName.Name = "clmName";
+            clmName.ReadOnly = true;
+            // 
+            // clmUnit
+            // 
+            clmUnit.HeaderText = "Unit";
+            clmUnit.MinimumWidth = 6;
+            clmUnit.Name = "clmUnit";
+            clmUnit.ReadOnly = true;
+            clmUnit.Width = 125;
+            // 
+            // clmItemCode
+            // 
+            clmItemCode.HeaderText = "Item Code";
+            clmItemCode.MaxInputLength = 50;
+            clmItemCode.MinimumWidth = 6;
+            clmItemCode.Name = "clmItemCode";
+            clmItemCode.ReadOnly = true;
+            clmItemCode.Width = 175;
+            // 
+            // clmPriceCode
+            // 
+            clmPriceCode.HeaderText = "Price Code";
+            clmPriceCode.MaxInputLength = 50;
+            clmPriceCode.MinimumWidth = 6;
+            clmPriceCode.Name = "clmPriceCode";
+            clmPriceCode.ReadOnly = true;
+            clmPriceCode.Width = 125;
+            // 
             // lblTitle
             // 
             lblTitle.BackColor = Color.DeepSkyBlue;
@@ -147,7 +181,7 @@
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(1130, 70);
             lblTitle.TabIndex = 2;
-            lblTitle.Text = "Manage Item-Units";
+            lblTitle.Text = "Manage Item-units";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tsPages
@@ -272,40 +306,6 @@
             btnClearFilter.Size = new Size(131, 28);
             btnClearFilter.Text = "Clear Filter";
             btnClearFilter.ToolTipText = "Clear Filter";
-            // 
-            // clmName
-            // 
-            clmName.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmName.HeaderText = "Name";
-            clmName.MinimumWidth = 6;
-            clmName.Name = "clmName";
-            clmName.ReadOnly = true;
-            // 
-            // clmUnit
-            // 
-            clmUnit.HeaderText = "Unit";
-            clmUnit.MinimumWidth = 6;
-            clmUnit.Name = "clmUnit";
-            clmUnit.ReadOnly = true;
-            clmUnit.Width = 125;
-            // 
-            // clmItemCode
-            // 
-            clmItemCode.HeaderText = "Item Code";
-            clmItemCode.MaxInputLength = 50;
-            clmItemCode.MinimumWidth = 6;
-            clmItemCode.Name = "clmItemCode";
-            clmItemCode.ReadOnly = true;
-            clmItemCode.Width = 175;
-            // 
-            // clmPriceCode
-            // 
-            clmPriceCode.HeaderText = "Price Code";
-            clmPriceCode.MaxInputLength = 50;
-            clmPriceCode.MinimumWidth = 6;
-            clmPriceCode.Name = "clmPriceCode";
-            clmPriceCode.ReadOnly = true;
-            clmPriceCode.Width = 125;
             // 
             // frmItemUnits
             // 
