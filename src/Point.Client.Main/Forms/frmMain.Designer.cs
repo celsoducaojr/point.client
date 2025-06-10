@@ -45,23 +45,18 @@
             btnTags = new ToolStripMenuItem();
             tsbtnStocks = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
-            toolStripButton3 = new ToolStripButton();
+            btnOrders = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             toolStripButton2 = new ToolStripButton();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            dgvOrders = new DataGridView();
-            clmOrderNumber = new DataGridViewTextBoxColumn();
             toolStrip2 = new ToolStrip();
             toolStripLabel1 = new ToolStripLabel();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripLabel2 = new ToolStripLabel();
-            pnOrders = new Panel();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
             toolStrip2.SuspendLayout();
-            pnOrders.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -94,7 +89,7 @@
             toolStrip1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, tsbtnStocks, toolStripSeparator1, toolStripButton3, toolStripSeparator3, toolStripButton1, toolStripButton2 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, tsbtnStocks, toolStripSeparator1, btnOrders, toolStripSeparator3, toolStripButton1, toolStripButton2 });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new System.Drawing.Point(0, 28);
             toolStrip1.Name = "toolStrip1";
@@ -111,8 +106,8 @@
             toolStripDropDownButton1.Margin = new Padding(0);
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             toolStripDropDownButton1.Padding = new Padding(10);
-            toolStripDropDownButton1.Size = new Size(116, 102);
-            toolStripDropDownButton1.Text = "Products";
+            toolStripDropDownButton1.Size = new Size(105, 102);
+            toolStripDropDownButton1.Text = "Listings";
             toolStripDropDownButton1.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
             // btnProducts
@@ -132,7 +127,7 @@
             // btnPriceTypes
             // 
             btnPriceTypes.Name = "btnPriceTypes";
-            btnPriceTypes.Size = new Size(224, 30);
+            btnPriceTypes.Size = new Size(185, 30);
             btnPriceTypes.Text = "Price Types";
             btnPriceTypes.Click += btnPriceTypes_Click;
             // 
@@ -190,16 +185,17 @@
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 102);
             // 
-            // toolStripButton3
+            // btnOrders
             // 
-            toolStripButton3.Image = Properties.Resources.orders;
-            toolStripButton3.ImageScaling = ToolStripItemImageScaling.None;
-            toolStripButton3.ImageTransparentColor = Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Padding = new Padding(10);
-            toolStripButton3.Size = new Size(90, 99);
-            toolStripButton3.Text = "Orders";
-            toolStripButton3.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnOrders.Image = Properties.Resources.orders;
+            btnOrders.ImageScaling = ToolStripItemImageScaling.None;
+            btnOrders.ImageTransparentColor = Color.Magenta;
+            btnOrders.Name = "btnOrders";
+            btnOrders.Padding = new Padding(10);
+            btnOrders.Size = new Size(90, 99);
+            btnOrders.Text = "Orders";
+            btnOrders.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnOrders.Click += btnOrders_Click;
             // 
             // toolStripSeparator3
             // 
@@ -216,6 +212,7 @@
             toolStripButton1.Size = new Size(76, 99);
             toolStripButton1.Text = "Sales";
             toolStripButton1.TextImageRelation = TextImageRelation.ImageAboveText;
+            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // toolStripButton2
             // 
@@ -233,28 +230,6 @@
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
-            // 
-            // dgvOrders
-            // 
-            dgvOrders.AllowUserToAddRows = false;
-            dgvOrders.AllowUserToDeleteRows = false;
-            dgvOrders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvOrders.Columns.AddRange(new DataGridViewColumn[] { clmOrderNumber });
-            dgvOrders.Dock = DockStyle.Fill;
-            dgvOrders.Location = new System.Drawing.Point(0, 0);
-            dgvOrders.Name = "dgvOrders";
-            dgvOrders.ReadOnly = true;
-            dgvOrders.RowHeadersWidth = 51;
-            dgvOrders.Size = new Size(281, 696);
-            dgvOrders.TabIndex = 1;
-            // 
-            // clmOrderNumber
-            // 
-            clmOrderNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmOrderNumber.HeaderText = "New Order";
-            clmOrderNumber.MinimumWidth = 6;
-            clmOrderNumber.Name = "clmOrderNumber";
-            clmOrderNumber.ReadOnly = true;
             // 
             // toolStrip2
             // 
@@ -290,21 +265,11 @@
             toolStripLabel2.Size = new Size(83, 22);
             toolStripLabel2.Text = "Connected";
             // 
-            // pnOrders
-            // 
-            pnOrders.Controls.Add(dgvOrders);
-            pnOrders.Dock = DockStyle.Right;
-            pnOrders.Location = new System.Drawing.Point(1145, 130);
-            pnOrders.Name = "pnOrders";
-            pnOrders.Size = new Size(281, 696);
-            pnOrders.TabIndex = 11;
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(9F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1426, 851);
-            Controls.Add(pnOrders);
             Controls.Add(toolStrip2);
             Controls.Add(toolStrip1);
             Controls.Add(menuStrip1);
@@ -318,10 +283,8 @@
             menuStrip1.PerformLayout();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
             toolStrip2.ResumeLayout(false);
             toolStrip2.PerformLayout();
-            pnOrders.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -337,9 +300,7 @@
         private ContextMenuStrip contextMenuStrip1;
         private Panel panel1;
         private Label lblNewOrders;
-        private DataGridView dgvOrders;
         private ToolStrip toolStrip2;
-        private Panel pnOrders;
         private ToolStripLabel toolStripLabel1;
         private ToolStripLabel toolStripLabel2;
         private ToolStripSeparator toolStripSeparator2;
@@ -351,10 +312,9 @@
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem btnItems;
         private ToolStripSeparator toolStripSeparator3;
-        private ToolStripButton toolStripButton3;
+        private ToolStripButton btnOrders;
         private ToolStripButton toolStripButton1;
         private ToolStripButton toolStripButton2;
-        private DataGridViewTextBoxColumn clmOrderNumber;
         private ToolStripMenuItem btnPriceTypes;
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripMenuItem toolStripMenuItem1;

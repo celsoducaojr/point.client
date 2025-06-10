@@ -125,7 +125,7 @@ namespace Point.Client.Main.Listing
 
         private void btnAddItemUnit_Click(object sender, EventArgs e)
         {
-            FormFactory.GetForm<frmItemUnit>().ShowForSelection((Item)dgvItems.SelectedRows[0]?.Tag);
+            FormFactory.GetFormDialog<frmItemUnit>().ShowForSelection((Item)dgvItems.SelectedRows[0]?.Tag);
         }
 
         public void ShowForSelection()
@@ -140,7 +140,7 @@ namespace Point.Client.Main.Listing
 
         private async void btnSearch_Click(object sender, EventArgs e)
         {
-            var itemSearchForm = FormFactory.GetForm<frmItemSearch>();
+            var itemSearchForm = FormFactory.GetFormDialog<frmItemSearch>();
             if (itemSearchForm.ShowDialog() == DialogResult.OK)
             {
                 _searchItemDto = itemSearchForm.SearchItemDto;
@@ -257,7 +257,7 @@ namespace Point.Client.Main.Listing
 
         private async void lnkManageCategories_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormFactory.GetForm<frmCategories>().ShowDialog();
+            FormFactory.GetFormDialog<frmCategories>().ShowDialog();
 
             await LoadCategories(true);
         }
@@ -301,7 +301,7 @@ namespace Point.Client.Main.Listing
 
         private async void lnkManageTags_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FormFactory.GetForm<frmTags>().ShowDialog();
+            FormFactory.GetFormDialog<frmTags>().ShowDialog();
 
             await LoadTags();
         }

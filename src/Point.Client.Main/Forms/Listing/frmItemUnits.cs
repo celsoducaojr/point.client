@@ -177,7 +177,7 @@ namespace Point.Client.Main.Listing
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            FormFactory.GetForm<frmItems>().ShowForSelection();
+            FormFactory.GetFormDialog<frmItems>().ShowForSelection();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -248,7 +248,7 @@ namespace Point.Client.Main.Listing
 
                 if (decimal.TryParse(cell.Value?.ToString(), out decimal value))
                 {
-                    cell.Value = value.ToString(FormConstants.AmountFormat);
+                    cell.Value = value.ToString(FormConstants.Formats.Amount);
                 }
             }
         }
@@ -394,7 +394,7 @@ namespace Point.Client.Main.Listing
                     };
                     column.Tag = FormConstants.DataGridViewColumn.PriceTag;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    column.DefaultCellStyle.Format = FormConstants.AmountFormat;
+                    column.DefaultCellStyle.Format = FormConstants.Formats.Amount;
                     dgvItemUnits.Columns.Add(column);
                 });
 

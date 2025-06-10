@@ -319,7 +319,7 @@
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
             Name = "frmItemUnits";
-            Text = "Manage Item-Units";
+            Text = "Item-Units";
             WindowState = FormWindowState.Maximized;
             Load += frmItemUnits_Load;
             tsMain.ResumeLayout(false);

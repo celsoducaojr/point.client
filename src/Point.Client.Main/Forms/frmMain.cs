@@ -1,4 +1,5 @@
 using Point.Client.Main.Forms.Listing;
+using Point.Client.Main.Forms.Orders;
 using Point.Client.Main.Forms.Products;
 using Point.Client.Main.Globals;
 using Point.Client.Main.Listing;
@@ -17,6 +18,8 @@ namespace Point.Client.Main
 
         }
 
+        #region Products
+
         private void btnProducts_Click(object sender, EventArgs e)
         {
             OpenChildForm(new frmItemUnits());
@@ -24,28 +27,43 @@ namespace Point.Client.Main
 
         private void btnItems_Click(object sender, EventArgs e)
         {
-            FormFactory.GetForm<frmItems>().ShowDialog();
+            FormFactory.GetFormDialog<frmItems>().ShowDialog();
         }
 
         private void btnCategories_Click(object sender, EventArgs e)
         {
-            FormFactory.GetForm<frmCategories>().ShowDialog();
+            FormFactory.GetFormDialog<frmCategories>().ShowDialog();
         }
 
         private void btnUnits_Click(object sender, EventArgs e)
         {
-            FormFactory.GetForm<frmUnits>().ShowDialog();
+            FormFactory.GetFormDialog<frmUnits>().ShowDialog();
         }
 
         private void btnTags_Click(object sender, EventArgs e)
         {
-            FormFactory.GetForm<frmTags>().ShowDialog();
+            FormFactory.GetFormDialog<frmTags>().ShowDialog();
         }
 
         private void btnPriceTypes_Click(object sender, EventArgs e)
         {
-            FormFactory.GetForm<frmPriceTypes>().ShowDialog();
+            FormFactory.GetFormDialog<frmPriceTypes>().ShowDialog();
         }
+
+        #endregion
+
+        #region Stocks
+
+        #endregion
+
+        #region Orders
+
+        private void btnOrders_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmOrders());
+        }
+
+        #endregion
 
         #region Helpers
 
@@ -65,5 +83,10 @@ namespace Point.Client.Main
         }
 
         #endregion
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            FormFactory.GetFormWindow<frmOrder>().Show();
+        }
     }
 }
