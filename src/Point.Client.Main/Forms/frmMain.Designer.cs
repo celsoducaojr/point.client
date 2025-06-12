@@ -28,28 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
             productsToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1 = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
-            btnProducts = new ToolStripMenuItem();
-            columnsToolStripMenuItem = new ToolStripMenuItem();
-            btnPriceTypes = new ToolStripMenuItem();
+            btnItemUnits = new ToolStripMenuItem();
             toolStripSeparator4 = new ToolStripSeparator();
             btnItems = new ToolStripMenuItem();
             toolStripSeparator5 = new ToolStripSeparator();
+            btnPriceTypes = new ToolStripMenuItem();
             btnCategories = new ToolStripMenuItem();
             btnUnits = new ToolStripMenuItem();
             btnTags = new ToolStripMenuItem();
             tsbtnStocks = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
-            btnOrders = new ToolStripButton();
+            toolStripDropDownButton2 = new ToolStripDropDownButton();
+            btnOrders = new ToolStripMenuItem();
+            btnOrderForm = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             toolStripButton2 = new ToolStripButton();
-            contextMenuStrip1 = new ContextMenuStrip(components);
             toolStrip2 = new ToolStrip();
             toolStripLabel1 = new ToolStripLabel();
             toolStripSeparator2 = new ToolStripSeparator();
@@ -89,7 +88,7 @@
             toolStrip1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, tsbtnStocks, toolStripSeparator1, btnOrders, toolStripSeparator3, toolStripButton1, toolStripButton2 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, tsbtnStocks, toolStripSeparator1, toolStripDropDownButton2, toolStripSeparator3, toolStripButton1, toolStripButton2 });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new System.Drawing.Point(0, 28);
             toolStrip1.Name = "toolStrip1";
@@ -99,7 +98,7 @@
             // 
             // toolStripDropDownButton1
             // 
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnProducts, columnsToolStripMenuItem, toolStripSeparator4, btnItems, toolStripSeparator5, btnCategories, btnUnits, btnTags });
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnItemUnits, toolStripSeparator4, btnItems, toolStripSeparator5, btnPriceTypes, btnCategories, btnUnits, btnTags });
             toolStripDropDownButton1.Image = Properties.Resources.products;
             toolStripDropDownButton1.ImageScaling = ToolStripItemImageScaling.None;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
@@ -110,26 +109,12 @@
             toolStripDropDownButton1.Text = "Listings";
             toolStripDropDownButton1.TextImageRelation = TextImageRelation.ImageAboveText;
             // 
-            // btnProducts
+            // btnItemUnits
             // 
-            btnProducts.Name = "btnProducts";
-            btnProducts.Size = new Size(248, 30);
-            btnProducts.Text = "Manage Item-units";
-            btnProducts.Click += btnProducts_Click;
-            // 
-            // columnsToolStripMenuItem
-            // 
-            columnsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { btnPriceTypes });
-            columnsToolStripMenuItem.Name = "columnsToolStripMenuItem";
-            columnsToolStripMenuItem.Size = new Size(248, 30);
-            columnsToolStripMenuItem.Text = "Columns";
-            // 
-            // btnPriceTypes
-            // 
-            btnPriceTypes.Name = "btnPriceTypes";
-            btnPriceTypes.Size = new Size(185, 30);
-            btnPriceTypes.Text = "Price Types";
-            btnPriceTypes.Click += btnPriceTypes_Click;
+            btnItemUnits.Name = "btnItemUnits";
+            btnItemUnits.Size = new Size(248, 30);
+            btnItemUnits.Text = "Manage Item-units";
+            btnItemUnits.Click += btnItemUnits_Click;
             // 
             // toolStripSeparator4
             // 
@@ -147,6 +132,13 @@
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
             toolStripSeparator5.Size = new Size(245, 6);
+            // 
+            // btnPriceTypes
+            // 
+            btnPriceTypes.Name = "btnPriceTypes";
+            btnPriceTypes.Size = new Size(248, 30);
+            btnPriceTypes.Text = "Price Types";
+            btnPriceTypes.Click += btnPriceTypes_Click;
             // 
             // btnCategories
             // 
@@ -185,17 +177,30 @@
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 102);
             // 
+            // toolStripDropDownButton2
+            // 
+            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { btnOrders, btnOrderForm });
+            toolStripDropDownButton2.Image = Properties.Resources.orders;
+            toolStripDropDownButton2.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripDropDownButton2.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            toolStripDropDownButton2.Size = new Size(80, 99);
+            toolStripDropDownButton2.Text = "Orders";
+            toolStripDropDownButton2.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
             // btnOrders
             // 
-            btnOrders.Image = Properties.Resources.orders;
-            btnOrders.ImageScaling = ToolStripItemImageScaling.None;
-            btnOrders.ImageTransparentColor = Color.Magenta;
             btnOrders.Name = "btnOrders";
-            btnOrders.Padding = new Padding(10);
-            btnOrders.Size = new Size(90, 99);
-            btnOrders.Text = "Orders";
-            btnOrders.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnOrders.Size = new Size(227, 30);
+            btnOrders.Text = "Manager Orders";
             btnOrders.Click += btnOrders_Click;
+            // 
+            // btnOrderForm
+            // 
+            btnOrderForm.Name = "btnOrderForm";
+            btnOrderForm.Size = new Size(227, 30);
+            btnOrderForm.Text = "Order Form";
+            btnOrderForm.Click += btnOrderForm_Click;
             // 
             // toolStripSeparator3
             // 
@@ -212,7 +217,6 @@
             toolStripButton1.Size = new Size(76, 99);
             toolStripButton1.Text = "Sales";
             toolStripButton1.TextImageRelation = TextImageRelation.ImageAboveText;
-            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // toolStripButton2
             // 
@@ -224,12 +228,6 @@
             toolStripButton2.Size = new Size(97, 99);
             toolStripButton2.Text = "Reports";
             toolStripButton2.TextImageRelation = TextImageRelation.ImageAboveText;
-            // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.ImageScalingSize = new Size(20, 20);
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(61, 4);
             // 
             // toolStrip2
             // 
@@ -297,7 +295,6 @@
         private ToolStrip toolStrip1;
         private ToolStripButton tsbtnStocks;
         private ToolStripSeparator toolStripSeparator1;
-        private ContextMenuStrip contextMenuStrip1;
         private Panel panel1;
         private Label lblNewOrders;
         private ToolStrip toolStrip2;
@@ -308,16 +305,17 @@
         private ToolStripMenuItem btnCategories;
         private ToolStripMenuItem btnUnits;
         private ToolStripMenuItem btnTags;
-        private ToolStripMenuItem btnProducts;
+        private ToolStripMenuItem btnItemUnits;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem btnItems;
         private ToolStripSeparator toolStripSeparator3;
-        private ToolStripButton btnOrders;
         private ToolStripButton toolStripButton1;
         private ToolStripButton toolStripButton2;
-        private ToolStripMenuItem btnPriceTypes;
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem columnsToolStripMenuItem;
+        private ToolStripDropDownButton toolStripDropDownButton2;
+        private ToolStripMenuItem btnOrders;
+        private ToolStripMenuItem btnOrderForm;
+        private ToolStripMenuItem btnPriceTypes;
     }
 }

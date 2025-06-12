@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             lblTitle = new Label();
             panel1 = new Panel();
+            lnkSelectCustomer = new LinkLabel();
             button4 = new Button();
             label7 = new Label();
             label2 = new Label();
@@ -48,7 +49,7 @@
             clmQuantity = new DataGridViewTextBoxColumn();
             clmPrice = new DataGridViewTextBoxColumn();
             clmTotal = new DataGridViewTextBoxColumn();
-            txtItem = new TextBox();
+            txtCustomer = new TextBox();
             lblTimestamp = new Label();
             label5 = new Label();
             label4 = new Label();
@@ -73,6 +74,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(lnkSelectCustomer);
             panel1.Controls.Add(button4);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(label2);
@@ -85,7 +87,7 @@
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(dgvTags);
-            panel1.Controls.Add(txtItem);
+            panel1.Controls.Add(txtCustomer);
             panel1.Controls.Add(lblTimestamp);
             panel1.Controls.Add(label5);
             panel1.Controls.Add(label4);
@@ -97,6 +99,17 @@
             panel1.Padding = new Padding(20);
             panel1.Size = new Size(1482, 733);
             panel1.TabIndex = 13;
+            // 
+            // lnkSelectCustomer
+            // 
+            lnkSelectCustomer.AutoSize = true;
+            lnkSelectCustomer.Location = new System.Drawing.Point(557, 100);
+            lnkSelectCustomer.Name = "lnkSelectCustomer";
+            lnkSelectCustomer.Size = new Size(165, 28);
+            lnkSelectCustomer.TabIndex = 50;
+            lnkSelectCustomer.TabStop = true;
+            lnkSelectCustomer.Text = "Select Customer...";
+            lnkSelectCustomer.LinkClicked += lnkSelectCustomer_LinkClicked;
             // 
             // button4
             // 
@@ -280,14 +293,14 @@
             clmTotal.ReadOnly = true;
             clmTotal.Width = 150;
             // 
-            // txtItem
+            // txtCustomer
             // 
-            txtItem.Location = new System.Drawing.Point(128, 97);
-            txtItem.Margin = new Padding(4);
-            txtItem.MaxLength = 100;
-            txtItem.Name = "txtItem";
-            txtItem.Size = new Size(422, 34);
-            txtItem.TabIndex = 32;
+            txtCustomer.Location = new System.Drawing.Point(128, 97);
+            txtCustomer.Margin = new Padding(4);
+            txtCustomer.MaxLength = 100;
+            txtCustomer.Name = "txtCustomer";
+            txtCustomer.Size = new Size(422, 34);
+            txtCustomer.TabIndex = 32;
             // 
             // lblTimestamp
             // 
@@ -365,7 +378,7 @@
         private Label label4;
         private Label lblTimestamp;
         private DataGridView dgvTags;
-        private TextBox txtItem;
+        private TextBox txtCustomer;
         private Label label1;
         private DataGridViewTextBoxColumn clmItem;
         private DataGridViewTextBoxColumn clmUnit;
@@ -383,5 +396,6 @@
         private Label label7;
         private System.Windows.Forms.Timer timerTimestamp;
         private Button button4;
+        private LinkLabel lnkSelectCustomer;
     }
 }

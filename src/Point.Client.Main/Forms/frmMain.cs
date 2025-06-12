@@ -18,9 +18,9 @@ namespace Point.Client.Main
 
         }
 
-        #region Products
+        #region Listing
 
-        private void btnProducts_Click(object sender, EventArgs e)
+        private void btnItemUnits_Click(object sender, EventArgs e)
         {
             OpenChildForm(new frmItemUnits());
         }
@@ -63,6 +63,11 @@ namespace Point.Client.Main
             OpenChildForm(new frmOrders());
         }
 
+        private void btnOrderForm_Click(object sender, EventArgs e)
+        {
+            FormFactory.GetForm<frmOrder>().Show();
+        }
+
         #endregion
 
         #region Helpers
@@ -84,9 +89,6 @@ namespace Point.Client.Main
 
         #endregion
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            FormFactory.GetFormWindow<frmOrder>().Show();
-        }
+        
     }
 }

@@ -16,7 +16,7 @@ namespace Point.Client.Main.Listing
     {
         private bool _isFirstLoad;
 
-        private SearchItemDto? _searchItemDto;
+        private SearchItemCriteriaDto? _searchItemDto;
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;

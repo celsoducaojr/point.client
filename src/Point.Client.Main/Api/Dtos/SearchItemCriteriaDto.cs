@@ -2,7 +2,7 @@
 
 namespace Point.Client.Main.Api.Dtos
 {
-    public class SearchItemDto
+    public class SearchItemCriteriaDto
     {
         public string? Name { get; init; }
         public Category? Category { get; init; }

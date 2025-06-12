@@ -9,25 +9,25 @@ namespace Point.Client.Main.Forms.Listing
 {
     public partial class frmItemSearch : Form
     {
+        public SearchItemCriteriaDto? SearchItemCriteria { get; set; }
+
         private DateTime? _categoryLastUpdate;
         private DateTime? _tagLastUpdate;
 
         private readonly CategoryService _categoryService;
         private readonly TagService _tagService;
 
-        public SearchItemDto? SearchItemDto { get; set; }
-
         public frmItemSearch()
         {
             InitializeComponent();
+
+            SearchItemCriteria = null;
 
             _categoryLastUpdate = null;
             _tagLastUpdate = null;
 
             _categoryService = ServiceFactory.GetService<CategoryService>();
             _tagService = ServiceFactory.GetService<TagService>();
-
-            SearchItemDto = null;
         }
 
         private async void frmItemSearch_Load(object sender, EventArgs e)
@@ -89,14 +89,14 @@ namespace Point.Client.Main.Forms.Listing
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearFields();
-            SearchItemDto = null;
+            SearchItemCriteria = null;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
 
-            SearchItemDto = new SearchItemDto
+            SearchItemCriteria = new SearchItemCriteriaDto
             {
                 Name = !string.IsNullOrWhiteSpace(txtItem.Text) 
                     ? txtItem.Text 
@@ -110,8 +110,8 @@ namespace Point.Client.Main.Forms.Listing
                     : null
             };
 
-            var properties = SearchItemDto.GetType().GetProperties();
-            if (properties.All(prop => prop.GetValue(SearchItemDto) == null)) SearchItemDto = null;
+            var properties = SearchItemCriteria.GetType().GetProperties();
+            if (properties.All(prop => prop.GetValue(SearchItemCriteria) == null)) SearchItemCriteria = null;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

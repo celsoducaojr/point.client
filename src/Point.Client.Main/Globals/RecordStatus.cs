@@ -2,6 +2,22 @@
 {
     public static class RecordStatus
     {
+        #region Orders
+
+        public static class Customers
+        {
+            public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
+
+            public static void Updated()
+            {
+                LastUpdate = DateTime.Now;
+            }
+        }
+
+        #endregion
+
+        #region Listing
+
         public static class ItemUnits
         {
             public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
@@ -67,5 +83,7 @@
                 IndexLastUpdate = DateTime.Now;
             }
         }
+
+        #endregion
     }
 }

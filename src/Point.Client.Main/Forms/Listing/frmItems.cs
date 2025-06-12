@@ -18,7 +18,7 @@ namespace Point.Client.Main.Listing
         private bool _isFirstLoad;
         private bool _isAddingNew;
 
-        private SearchItemDto? _searchItemDto;
+        private SearchItemCriteriaDto? _searchItemDto;
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
@@ -143,7 +143,7 @@ namespace Point.Client.Main.Listing
             var itemSearchForm = FormFactory.GetFormDialog<frmItemSearch>();
             if (itemSearchForm.ShowDialog() == DialogResult.OK)
             {
-                _searchItemDto = itemSearchForm.SearchItemDto;
+                _searchItemDto = itemSearchForm.SearchItemCriteria;
                 lblSearchCriteria.Text = null;
 
                 if (_searchItemDto != null)

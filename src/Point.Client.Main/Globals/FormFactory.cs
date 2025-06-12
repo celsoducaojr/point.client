@@ -12,6 +12,7 @@
             if (existingForm != null && !existingForm.IsDisposed)
             {
                 existingForm.StartPosition = FormStartPosition.Manual;
+
                 return existingForm;
             }
 
@@ -21,10 +22,11 @@
             // Create a new instance of the form
             T newForm = new T();
             _forms.Add(newForm);
+
             return newForm;
         }
 
-        public static T GetFormWindow<T>() where T : Form, new()
+        public static T GetForm<T>() where T : Form, new()
         {
             // Try to find an existing form of type T
             var existingForm = _forms.OfType<T>().FirstOrDefault();
