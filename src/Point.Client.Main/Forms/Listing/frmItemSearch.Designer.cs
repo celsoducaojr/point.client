@@ -37,16 +37,17 @@
             label1 = new Label();
             txtItem = new TextBox();
             label2 = new Label();
-            label4 = new Label();
             lblTag = new Label();
             btnClear = new Button();
             cmbCategory = new ComboBox();
+            cmbUnit = new ComboBox();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvTags).BeginInit();
             SuspendLayout();
             // 
             // btnSearch
             // 
-            btnSearch.Location = new System.Drawing.Point(249, 444);
+            btnSearch.Location = new System.Drawing.Point(624, 392);
             btnSearch.Margin = new Padding(4);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(180, 36);
@@ -57,7 +58,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new System.Drawing.Point(437, 444);
+            btnCancel.Location = new System.Drawing.Point(812, 392);
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 36);
@@ -68,7 +69,7 @@
             // 
             // txtTag
             // 
-            txtTag.Location = new System.Drawing.Point(24, 312);
+            txtTag.Location = new System.Drawing.Point(427, 248);
             txtTag.Margin = new Padding(4);
             txtTag.Name = "txtTag";
             txtTag.Size = new Size(250, 31);
@@ -81,13 +82,13 @@
             dgvTags.AllowUserToDeleteRows = false;
             dgvTags.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTags.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn2, clmRemove });
-            dgvTags.Location = new System.Drawing.Point(24, 127);
-            dgvTags.Margin = new Padding(4);
+            dgvTags.Location = new System.Drawing.Point(427, 63);
+            dgvTags.Margin = new Padding(15, 4, 4, 4);
             dgvTags.MultiSelect = false;
             dgvTags.Name = "dgvTags";
             dgvTags.ReadOnly = true;
             dgvTags.RowHeadersWidth = 51;
-            dgvTags.Size = new Size(531, 177);
+            dgvTags.Size = new Size(503, 177);
             dgvTags.TabIndex = 3;
             dgvTags.CellClick += dgvTags_CellClick;
             // 
@@ -124,7 +125,7 @@
             txtItem.Margin = new Padding(4);
             txtItem.MaxLength = 100;
             txtItem.Name = "txtItem";
-            txtItem.Size = new Size(400, 31);
+            txtItem.Size = new Size(814, 31);
             txtItem.TabIndex = 1;
             // 
             // label2
@@ -137,23 +138,12 @@
             label2.TabIndex = 16;
             label2.Text = "Category";
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new System.Drawing.Point(24, 98);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(50, 25);
-            label4.TabIndex = 25;
-            label4.Text = "Tags";
-            // 
             // lblTag
             // 
             lblTag.AutoSize = true;
             lblTag.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTag.ForeColor = SystemColors.ControlDarkDark;
-            lblTag.Location = new System.Drawing.Point(24, 347);
+            lblTag.Location = new System.Drawing.Point(427, 283);
             lblTag.Margin = new Padding(4, 0, 4, 0);
             lblTag.Name = "lblTag";
             lblTag.Size = new Size(98, 23);
@@ -162,7 +152,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new System.Drawing.Point(24, 444);
+            btnClear.Location = new System.Drawing.Point(24, 392);
             btnClear.Margin = new Padding(4);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(118, 36);
@@ -179,20 +169,43 @@
             cmbCategory.Location = new System.Drawing.Point(116, 63);
             cmbCategory.Margin = new Padding(4);
             cmbCategory.Name = "cmbCategory";
-            cmbCategory.Size = new Size(269, 33);
+            cmbCategory.Size = new Size(292, 33);
             cmbCategory.TabIndex = 2;
+            // 
+            // cmbUnit
+            // 
+            cmbUnit.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbUnit.AutoCompleteSource = AutoCompleteSource.ListItems;
+            cmbUnit.FormattingEnabled = true;
+            cmbUnit.Location = new System.Drawing.Point(116, 104);
+            cmbUnit.Margin = new Padding(4);
+            cmbUnit.Name = "cmbUnit";
+            cmbUnit.Size = new Size(292, 33);
+            cmbUnit.TabIndex = 27;
+            cmbUnit.Visible = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(64, 107);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(44, 25);
+            label3.TabIndex = 28;
+            label3.Text = "Unit";
+            label3.Visible = false;
             // 
             // frmItemSearch
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new Size(579, 504);
-            ControlBox = false;
+            ClientSize = new Size(954, 452);
+            Controls.Add(cmbUnit);
+            Controls.Add(label3);
             Controls.Add(cmbCategory);
             Controls.Add(btnClear);
             Controls.Add(lblTag);
-            Controls.Add(label4);
             Controls.Add(txtTag);
             Controls.Add(dgvTags);
             Controls.Add(label1);
@@ -222,11 +235,12 @@
         private Label label1;
         private TextBox txtItem;
         private Label label2;
-        private Label label4;
         private Label lblTag;
         private Button btnClear;
         private ComboBox cmbCategory;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewButtonColumn clmRemove;
+        private ComboBox cmbUnit;
+        private Label label3;
     }
 }

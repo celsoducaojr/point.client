@@ -28,127 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOrderItem));
-            tsPages = new ToolStrip();
-            toolStripLabel2 = new ToolStripLabel();
-            cmbPageSize = new ToolStripComboBox();
-            toolStripSeparator2 = new ToolStripSeparator();
-            btnLast = new ToolStripButton();
-            btnNext = new ToolStripButton();
-            lblTotalPage = new ToolStripLabel();
-            txtPage = new ToolStripTextBox();
-            toolStripLabel1 = new ToolStripLabel();
-            btnPrev = new ToolStripButton();
-            btnFirst = new ToolStripButton();
             label1 = new Label();
             txtItem = new TextBox();
             dgvItemUnits = new DataGridView();
             clmItem = new DataGridViewTextBoxColumn();
+            clmCategory = new DataGridViewTextBoxColumn();
             clmUnit = new DataGridViewTextBoxColumn();
-            clmItemCode = new DataGridViewTextBoxColumn();
-            clmPriceCode = new DataGridViewTextBoxColumn();
-            tsPages.SuspendLayout();
+            clmCapitalCode = new DataGridViewTextBoxColumn();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             SuspendLayout();
-            // 
-            // tsPages
-            // 
-            tsPages.Dock = DockStyle.Bottom;
-            tsPages.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tsPages.GripStyle = ToolStripGripStyle.Hidden;
-            tsPages.ImageScalingSize = new Size(20, 20);
-            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst });
-            tsPages.Location = new System.Drawing.Point(0, 812);
-            tsPages.Name = "tsPages";
-            tsPages.Size = new Size(1457, 31);
-            tsPages.TabIndex = 3;
-            tsPages.Text = "toolStrip2";
-            // 
-            // toolStripLabel2
-            // 
-            toolStripLabel2.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel2.Name = "toolStripLabel2";
-            toolStripLabel2.Size = new Size(144, 28);
-            toolStripLabel2.Text = "items per page";
-            // 
-            // cmbPageSize
-            // 
-            cmbPageSize.Alignment = ToolStripItemAlignment.Right;
-            cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbPageSize.DropDownWidth = 75;
-            cmbPageSize.Name = "cmbPageSize";
-            cmbPageSize.Size = new Size(93, 31);
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Alignment = ToolStripItemAlignment.Right;
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 31);
-            // 
-            // btnLast
-            // 
-            btnLast.Alignment = ToolStripItemAlignment.Right;
-            btnLast.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnLast.Image = (Image)resources.GetObject("btnLast.Image");
-            btnLast.ImageTransparentColor = Color.Magenta;
-            btnLast.Name = "btnLast";
-            btnLast.Size = new Size(44, 28);
-            btnLast.Text = ">>";
-            btnLast.ToolTipText = "last page";
-            // 
-            // btnNext
-            // 
-            btnNext.Alignment = ToolStripItemAlignment.Right;
-            btnNext.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnNext.Image = (Image)resources.GetObject("btnNext.Image");
-            btnNext.ImageTransparentColor = Color.Magenta;
-            btnNext.Name = "btnNext";
-            btnNext.Size = new Size(29, 28);
-            btnNext.Text = ">";
-            btnNext.ToolTipText = "next page";
-            // 
-            // lblTotalPage
-            // 
-            lblTotalPage.Alignment = ToolStripItemAlignment.Right;
-            lblTotalPage.Name = "lblTotalPage";
-            lblTotalPage.Size = new Size(44, 28);
-            lblTotalPage.Text = "of 0";
-            // 
-            // txtPage
-            // 
-            txtPage.Alignment = ToolStripItemAlignment.Right;
-            txtPage.Name = "txtPage";
-            txtPage.Size = new Size(68, 31);
-            txtPage.TextBoxTextAlign = HorizontalAlignment.Center;
-            // 
-            // toolStripLabel1
-            // 
-            toolStripLabel1.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(54, 28);
-            toolStripLabel1.Text = "page";
-            // 
-            // btnPrev
-            // 
-            btnPrev.Alignment = ToolStripItemAlignment.Right;
-            btnPrev.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
-            btnPrev.ImageTransparentColor = Color.Magenta;
-            btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(29, 28);
-            btnPrev.Text = "<";
-            btnPrev.ToolTipText = "previous page";
-            // 
-            // btnFirst
-            // 
-            btnFirst.Alignment = ToolStripItemAlignment.Right;
-            btnFirst.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
-            btnFirst.ImageTransparentColor = Color.Magenta;
-            btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(44, 28);
-            btnFirst.Text = "<<";
-            btnFirst.ToolTipText = "first page";
             // 
             // label1
             // 
@@ -157,18 +46,18 @@
             label1.Location = new System.Drawing.Point(13, 16);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(72, 38);
+            label1.Size = new Size(163, 38);
             label1.TabIndex = 36;
-            label1.Text = "Item";
+            label1.Text = "Search Item";
             // 
             // txtItem
             // 
             txtItem.Font = new Font("Segoe UI", 16.2F);
-            txtItem.Location = new System.Drawing.Point(93, 13);
+            txtItem.Location = new System.Drawing.Point(184, 13);
             txtItem.Margin = new Padding(4);
             txtItem.MaxLength = 100;
             txtItem.Name = "txtItem";
-            txtItem.Size = new Size(1351, 43);
+            txtItem.Size = new Size(1453, 43);
             txtItem.TabIndex = 1;
             // 
             // dgvItemUnits
@@ -176,15 +65,18 @@
             dgvItemUnits.AllowUserToAddRows = false;
             dgvItemUnits.AllowUserToDeleteRows = false;
             dgvItemUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmUnit, clmItemCode, clmPriceCode });
+            dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmUnit, clmCapitalCode });
             dgvItemUnits.Dock = DockStyle.Bottom;
             dgvItemUnits.Location = new System.Drawing.Point(0, 64);
             dgvItemUnits.Margin = new Padding(4);
+            dgvItemUnits.MultiSelect = false;
             dgvItemUnits.Name = "dgvItemUnits";
             dgvItemUnits.ReadOnly = true;
             dgvItemUnits.RowHeadersWidth = 51;
-            dgvItemUnits.Size = new Size(1457, 748);
+            dgvItemUnits.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvItemUnits.Size = new Size(1650, 754);
             dgvItemUnits.TabIndex = 2;
+            dgvItemUnits.KeyDown += dgvItemUnits_KeyDown;
             // 
             // clmItem
             // 
@@ -194,6 +86,14 @@
             clmItem.Name = "clmItem";
             clmItem.ReadOnly = true;
             // 
+            // clmCategory
+            // 
+            clmCategory.HeaderText = "Category";
+            clmCategory.MinimumWidth = 6;
+            clmCategory.Name = "clmCategory";
+            clmCategory.ReadOnly = true;
+            clmCategory.Width = 125;
+            // 
             // clmUnit
             // 
             clmUnit.HeaderText = "Unit";
@@ -202,33 +102,34 @@
             clmUnit.ReadOnly = true;
             clmUnit.Width = 125;
             // 
-            // clmItemCode
+            // clmCapitalCode
             // 
-            clmItemCode.HeaderText = "Item Code";
-            clmItemCode.MaxInputLength = 50;
-            clmItemCode.MinimumWidth = 6;
-            clmItemCode.Name = "clmItemCode";
-            clmItemCode.ReadOnly = true;
-            clmItemCode.Width = 175;
+            clmCapitalCode.HeaderText = "Capital Code";
+            clmCapitalCode.MaxInputLength = 50;
+            clmCapitalCode.MinimumWidth = 6;
+            clmCapitalCode.Name = "clmCapitalCode";
+            clmCapitalCode.ReadOnly = true;
+            clmCapitalCode.Width = 150;
             // 
-            // clmPriceCode
+            // label2
             // 
-            clmPriceCode.HeaderText = "Price Code";
-            clmPriceCode.MaxInputLength = 50;
-            clmPriceCode.MinimumWidth = 6;
-            clmPriceCode.Name = "clmPriceCode";
-            clmPriceCode.ReadOnly = true;
-            clmPriceCode.Width = 125;
+            label2.AutoSize = true;
+            label2.Dock = DockStyle.Bottom;
+            label2.Location = new System.Drawing.Point(0, 818);
+            label2.Name = "label2";
+            label2.Size = new Size(199, 25);
+            label2.TabIndex = 37;
+            label2.Text = "Loaded top 100 items...";
             // 
             // frmOrderItem
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1457, 843);
+            ClientSize = new Size(1650, 843);
             Controls.Add(dgvItemUnits);
             Controls.Add(label1);
             Controls.Add(txtItem);
-            Controls.Add(tsPages);
+            Controls.Add(label2);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(4);
@@ -238,25 +139,12 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Order Item";
             Load += frmOrderItem_Load;
-            tsPages.ResumeLayout(false);
-            tsPages.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private ToolStrip tsPages;
-        private ToolStripLabel toolStripLabel2;
-        private ToolStripComboBox cmbPageSize;
-        private ToolStripSeparator toolStripSeparator2;
-        private ToolStripButton btnLast;
-        private ToolStripButton btnNext;
-        private ToolStripLabel lblTotalPage;
-        private ToolStripTextBox txtPage;
-        private ToolStripLabel toolStripLabel1;
-        private ToolStripButton btnPrev;
-        private ToolStripButton btnFirst;
         private ComboBox cmbCategory;
         private Button btnClear;
         private Label lblTag;
@@ -273,8 +161,8 @@
         private TextBox txtItem;
         private DataGridView dgvItemUnits;
         private DataGridViewTextBoxColumn clmItem;
+        private DataGridViewTextBoxColumn clmCategory;
         private DataGridViewTextBoxColumn clmUnit;
-        private DataGridViewTextBoxColumn clmItemCode;
-        private DataGridViewTextBoxColumn clmPriceCode;
+        private DataGridViewTextBoxColumn clmCapitalCode;
     }
 }

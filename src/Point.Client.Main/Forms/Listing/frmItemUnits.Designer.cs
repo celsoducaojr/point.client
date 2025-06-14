@@ -50,7 +50,9 @@
             btnFirst = new ToolStripButton();
             btnSearch = new ToolStripButton();
             btnClearFilter = new ToolStripButton();
+            lblSearchCriteria = new ToolStripLabel();
             clmItem = new DataGridViewTextBoxColumn();
+            clmCategory = new DataGridViewTextBoxColumn();
             clmUnit = new DataGridViewTextBoxColumn();
             clmCapitalCode = new DataGridViewTextBoxColumn();
             tsMain.SuspendLayout();
@@ -124,7 +126,7 @@
             dgvItemUnits.AllowUserToAddRows = false;
             dgvItemUnits.AllowUserToDeleteRows = false;
             dgvItemUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmUnit, clmCapitalCode });
+            dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmUnit, clmCapitalCode });
             dgvItemUnits.Dock = DockStyle.Fill;
             dgvItemUnits.Location = new System.Drawing.Point(0, 101);
             dgvItemUnits.Margin = new Padding(4);
@@ -155,7 +157,7 @@
             tsPages.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
-            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, btnSearch, btnClearFilter });
+            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, btnSearch, btnClearFilter, lblSearchCriteria });
             tsPages.Location = new System.Drawing.Point(0, 707);
             tsPages.Name = "tsPages";
             tsPages.Size = new Size(1285, 31);
@@ -274,6 +276,14 @@
             btnClearFilter.ToolTipText = "Clear Filter";
             btnClearFilter.Click += btnClearFilter_Click;
             // 
+            // lblSearchCriteria
+            // 
+            lblSearchCriteria.Font = new Font("Tahoma", 10.8F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblSearchCriteria.ForeColor = SystemColors.ControlDarkDark;
+            lblSearchCriteria.Name = "lblSearchCriteria";
+            lblSearchCriteria.Size = new Size(201, 28);
+            lblSearchCriteria.Text = "Loading search criteria...";
+            // 
             // clmItem
             // 
             clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -282,12 +292,21 @@
             clmItem.Name = "clmItem";
             clmItem.ReadOnly = true;
             // 
+            // clmCategory
+            // 
+            clmCategory.HeaderText = "Category";
+            clmCategory.MinimumWidth = 6;
+            clmCategory.Name = "clmCategory";
+            clmCategory.ReadOnly = true;
+            clmCategory.Width = 125;
+            // 
             // clmUnit
             // 
             clmUnit.HeaderText = "Unit";
             clmUnit.MinimumWidth = 6;
             clmUnit.Name = "clmUnit";
             clmUnit.ReadOnly = true;
+            clmUnit.Width = 125;
             // 
             // clmCapitalCode
             // 
@@ -345,7 +364,9 @@
         private ToolStripButton btnClearFilter;
         private ToolStripButton btnSave;
         private ToolStripButton btnCancel;
+        private ToolStripLabel lblSearchCriteria;
         private DataGridViewTextBoxColumn clmItem;
+        private DataGridViewTextBoxColumn clmCategory;
         private DataGridViewTextBoxColumn clmUnit;
         private DataGridViewTextBoxColumn clmCapitalCode;
     }

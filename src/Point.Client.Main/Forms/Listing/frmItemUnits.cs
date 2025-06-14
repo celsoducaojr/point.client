@@ -1,8 +1,10 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
+using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
+using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Globals;
 using static Point.Client.Main.Globals.RecordStatus;
 
@@ -16,7 +18,6 @@ namespace Point.Client.Main.Listing
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
-
         private List<PriceType>? _currentPriceTypes;
 
         private DateTime? _categoryLastUpdate;
@@ -38,18 +39,19 @@ namespace Point.Client.Main.Listing
             _currentPage = 1;
             _currentTotalPages = 0;
             _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
+            _currentPriceTypes = null;
 
             _categoryLastUpdate = null;
             _tagLastUpdate = null;
             _unitLastUpdate = null;
             _itemLastUpdate = null;
-            
 
             _itemService = ServiceFactory.GetService<ItemService>();
             _itemUnitService = ServiceFactory.GetService<ItemUnitService>();
             _priceTypeService = ServiceFactory.GetService<PriceTypeService>();
 
             cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
+            lblSearchCriteria.Text = null;
         }
 
         private async void frmItemUnits_Load(object sender, EventArgs e)
@@ -63,7 +65,6 @@ namespace Point.Client.Main.Listing
                 await Task.Run(LoadPriceTypes);
 
                 cmbPageSize.SelectedIndex = 0;
-                //lblSearchCriteria.Text = null;
             }
             else if (_categoryLastUpdate != Categories.LastUpdate 
                 || _tagLastUpdate != Tags.LastUpdate 
@@ -82,14 +83,35 @@ namespace Point.Client.Main.Listing
         }
 
         #region Search and Pagination
-        private void btnSearch_Click(object sender, EventArgs e)
+        private async void btnSearch_Click(object sender, EventArgs e)
         {
+            var itemSearchForm = FormFactory.GetFormDialog<frmItemSearch>();
+            if (itemSearchForm.ShowDialog() == DialogResult.OK)
+            {
+                _searchItemDto = itemSearchForm.SearchItemCriteria;
+                lblSearchCriteria.Text = null;
 
+                if (_searchItemDto != null)
+                {
+                    var criteria = new List<string>
+                    {
+                        _searchItemDto?.Name ?? string.Empty,
+                        _searchItemDto?.Category?.Name ?? string.Empty,
+                        string.Join(", ", _searchItemDto?.Tags?.Select(tag => tag.Name)?.ToList() ?? [])
+                    };
+                    lblSearchCriteria.Text = criteria.ToSearchResultLabel();
+                }
+
+                await SearchItemsWithUnits();
+            }
         }
 
-        private void btnClearFilter_Click(object sender, EventArgs e)
+        private async void btnClearFilter_Click(object sender, EventArgs e)
         {
+            _searchItemDto = null;
+            lblSearchCriteria.Text = null;
 
+            await SearchItemsWithUnits();
         }
 
         private void btnFirst_Click(object sender, EventArgs e)
@@ -269,6 +291,7 @@ namespace Point.Client.Main.Listing
 
             dgvItemUnits.ReadOnly = !enable;
             dgvItemUnits.Columns["clmItem"].ReadOnly = enable;
+            dgvItemUnits.Columns["clmCategory"].ReadOnly = enable;
             dgvItemUnits.Columns["clmUnit"].ReadOnly = enable;
 
             tsPages.Enabled = !enable;
@@ -285,7 +308,8 @@ namespace Point.Client.Main.Listing
 
         private void UpdateRowValues(Item item, ItemUnit unit, DataGridViewRow row)
         {
-            row.Cells["clmItem"].Value = $"{item.Name} ({item.Category?.Name})";
+            row.Cells["clmItem"].Value = item.Name;
+            row.Cells["clmCategory"].Value = item.Category?.Name;
             row.Cells["clmUnit"].Value = unit.Unit?.Name;
             row.Cells["clmCapitalCode"].Value = unit.CostPriceCode;
 

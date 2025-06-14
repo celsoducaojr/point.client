@@ -52,6 +52,7 @@ namespace Point.Client.Main.Listing
             _tagService = ServiceFactory.GetService<TagService>();
 
             cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
+            lblSearchCriteria.Text = null;
         }
 
         #region Main
@@ -81,7 +82,6 @@ namespace Point.Client.Main.Listing
                 _isFirstLoad = false;
 
                 cmbPageSize.SelectedIndex = 0;
-                lblSearchCriteria.Text = null;
             }
 
             // Show Add-button

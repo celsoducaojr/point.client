@@ -43,6 +43,7 @@ namespace Point.Client.Main.Forms.Listing
             EnableEditing(true);
 
             txtItem.Focus();
+            txtItem.SelectAll();
         }
 
         private void frmItemSearch_FormClosing(object sender, FormClosingEventArgs e)
@@ -127,6 +128,7 @@ namespace Point.Client.Main.Forms.Listing
         {
             txtItem.Clear();
             cmbCategory.SelectedItem = null;
+            cmbUnit.SelectedItem = null;
             dgvTags.Rows.Clear();
             txtTag.Clear();
 
