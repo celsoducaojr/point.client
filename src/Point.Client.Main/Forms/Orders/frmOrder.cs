@@ -24,5 +24,14 @@ namespace Point.Client.Main.Forms.Orders
                 txtCustomer.Text = form.SelectedCustomer.Name;
             }
         }
+
+        private void btnAddItem_Click(object sender, EventArgs e)
+        {
+            var form = FormFactory.GetFormDialog<frmOrderItem>();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+        }
     }
 }

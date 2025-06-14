@@ -143,8 +143,6 @@ namespace Point.Client.Main.Forms.Products
                     dgvTags.Rows[rowIndex].Selected = true;
                     dgvTags.FirstDisplayedScrollingRowIndex = rowIndex;
 
-                    txtTag.Text = tagDto.Name;
-
                     EnableEditing(false);
                 }));
 
@@ -219,8 +217,6 @@ namespace Point.Client.Main.Forms.Products
             }));
         }
 
-        #endregion
-
-        
+        #endregion 
     }
 }

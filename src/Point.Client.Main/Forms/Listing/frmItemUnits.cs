@@ -1,13 +1,9 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
-using Point.Client.Main.Api;
+﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
 using Point.Client.Main.Globals;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using static Point.Client.Main.Globals.RecordStatus;
 
 namespace Point.Client.Main.Listing
@@ -23,12 +19,14 @@ namespace Point.Client.Main.Listing
 
         private List<PriceType>? _currentPriceTypes;
 
+        private DateTime? _categoryLastUpdate;
+        private DateTime? _tagLastUpdate;
+        private DateTime? _unitLastUpdate;
         private DateTime? _itemLastUpdate;
-        private DateTime? _itemUnitLastUpdate;
 
         private readonly ItemService _itemService;
         private readonly ItemUnitService _itemUnitService;
-        private readonly PriceTypeService _priceTypeService; 
+        private readonly PriceTypeService _priceTypeService;
 
         public frmItemUnits()
         {
@@ -41,8 +39,11 @@ namespace Point.Client.Main.Listing
             _currentTotalPages = 0;
             _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
 
+            _categoryLastUpdate = null;
+            _tagLastUpdate = null;
+            _unitLastUpdate = null;
             _itemLastUpdate = null;
-            _itemUnitLastUpdate = null;
+            
 
             _itemService = ServiceFactory.GetService<ItemService>();
             _itemUnitService = ServiceFactory.GetService<ItemUnitService>();
@@ -55,24 +56,6 @@ namespace Point.Client.Main.Listing
         {
             EnableControls(false);
 
-            await Task.Run(() =>
-            {
-                var reloadRequired = false;
-                if (_itemLastUpdate != RecordStatus.Categories.LastUpdate)
-                {
-                    reloadRequired = true;
-                    //await LoadCategories();
-                }
-                if (_itemLastUpdate != RecordStatus.Tags.LastUpdate)
-                {
-                    reloadRequired = true;
-                    //await LoadTags();
-                }
-
-                // Reload
-                //if (!_isFirstLoad && reloadRequired) cmbPageSize_SelectedIndexChanged(sender, e);
-            });
-
             if (_isFirstLoad)
             {
                 _isFirstLoad = false;
@@ -82,11 +65,32 @@ namespace Point.Client.Main.Listing
                 cmbPageSize.SelectedIndex = 0;
                 //lblSearchCriteria.Text = null;
             }
+            else if (_categoryLastUpdate != Categories.LastUpdate 
+                || _tagLastUpdate != Tags.LastUpdate 
+                || _unitLastUpdate != Units.LastUpdate
+                || _itemLastUpdate != Items.LastUpdate)
+            {
+                _categoryLastUpdate = Categories.LastUpdate;
+                _tagLastUpdate = Tags.LastUpdate;
+                _unitLastUpdate = Units.LastUpdate;
+                _itemLastUpdate = Items.LastUpdate;
+
+                cmbPageSize_SelectedIndexChanged(sender, e);
+            }
 
             EnableControls();
         }
 
         #region Search and Pagination
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnClearFilter_Click(object sender, EventArgs e)
+        {
+
+        }
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
@@ -201,17 +205,16 @@ namespace Point.Client.Main.Listing
                     prices.Add(new PriceDto
                     {
                         PriceTypeId = type.Id,
-                        Amount =  amount
+                        Amount = amount
                     });
                 });
 
                 itemUnits.Add(new ItemUnitPatchDto
                 {
                     Id = (int)row.Tag,
-                    ItemCode = row.Cells["clmItemCode"].Value?.ToString(),
-                    PriceCode = row.Cells["clmPriceCode"].Value?.ToString(),
+                    CostPriceCode = row.Cells["clmCapitalCode"].Value?.ToString(),
                     Prices = prices.Count > 0 ? prices : null
-                }); 
+                });
             }
 
             Task.Run(() => PatchItemUnits(itemUnits));
@@ -265,7 +268,7 @@ namespace Point.Client.Main.Listing
             btnCancel.Visible = enable;
 
             dgvItemUnits.ReadOnly = !enable;
-            dgvItemUnits.Columns["clmName"].ReadOnly = enable;
+            dgvItemUnits.Columns["clmItem"].ReadOnly = enable;
             dgvItemUnits.Columns["clmUnit"].ReadOnly = enable;
 
             tsPages.Enabled = !enable;
@@ -282,12 +285,11 @@ namespace Point.Client.Main.Listing
 
         private void UpdateRowValues(Item item, ItemUnit unit, DataGridViewRow row)
         {
-            row.Cells["clmName"].Value = $"{item.Name} ({item.Category?.Name})";
+            row.Cells["clmItem"].Value = $"{item.Name} ({item.Category?.Name})";
             row.Cells["clmUnit"].Value = unit.Unit?.Name;
-            row.Cells["clmItemCode"].Value = unit.ItemCode;
-            row.Cells["clmPriceCode"].Value = unit.PriceCode;
+            row.Cells["clmCapitalCode"].Value = unit.CostPriceCode;
 
-            _currentPriceTypes?.ForEach(type => 
+            _currentPriceTypes?.ForEach(type =>
             {
                 var amount = unit.Prices?
                 .Where(price => price.PriceType.Id == type.Id)
@@ -403,6 +405,6 @@ namespace Point.Client.Main.Listing
             }));
         }
 
-        #endregion
+        #endregion   
     }
 }

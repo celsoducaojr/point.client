@@ -137,8 +137,6 @@ namespace Point.Client.Main.Forms.Products
                     dgvUnits.Rows[rowIndex].Selected = true;
                     dgvUnits.FirstDisplayedScrollingRowIndex = rowIndex;
 
-                    txtUnit.Text = unitDto.Name;
-
                     EnableEditing(false);
                 }));
 

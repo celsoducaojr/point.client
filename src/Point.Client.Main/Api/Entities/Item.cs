@@ -2,7 +2,7 @@
 {
     public class Item
     {
-        public int Id { get; init; }
+        public int Id { get; set; }
         public string Name { get; init; } 
         public Category? Category { get; init; }
         public string? Description { get; init; }

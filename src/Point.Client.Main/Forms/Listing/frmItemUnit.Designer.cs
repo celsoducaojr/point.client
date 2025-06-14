@@ -84,7 +84,7 @@
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(180, 36);
             btnSave.TabIndex = 2;
-            btnSave.Text = "Add Item-Unit";
+            btnSave.Text = "Add Item-unit";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
@@ -107,7 +107,8 @@
             MinimizeBox = false;
             Name = "frmItemUnit";
             Padding = new Padding(25);
-            Text = "Add Item-Unit";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Add Item-unit";
             Load += frmItemUnit_Load;
             ResumeLayout(false);
             PerformLayout();

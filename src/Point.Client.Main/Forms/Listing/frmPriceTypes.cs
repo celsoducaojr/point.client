@@ -171,8 +171,6 @@ namespace Point.Client.Main.Forms.Listing
                     dgvTypes.Rows[rowIndex].Selected = true;
                     dgvTypes.FirstDisplayedScrollingRowIndex = rowIndex;
 
-                    txtType.Text = priceTypeDto.Name;
-
                     EnableEditing(false);
                 }));
 

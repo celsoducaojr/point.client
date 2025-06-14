@@ -72,7 +72,7 @@ namespace Point.Client.Main.Listing
                     await LoadTags();
                 }
 
-                // Reload
+                // Reload Items
                 if (!_isFirstLoad && reloadRequired) cmbPageSize_SelectedIndexChanged(sender, e);
             });
 
@@ -423,8 +423,6 @@ namespace Point.Client.Main.Listing
         {
             row.Cells[0].Value = item.Name;
             row.Cells[1].Value = item.Category?.Name;
-            row.Cells[2].Value = item.Description;
-            row.Cells[3].Value = string.Join(", ", item.Tags?.Select(tag => tag.Name).ToList() ?? []);
             row.Tag = item;
         }
 
@@ -437,6 +435,7 @@ namespace Point.Client.Main.Listing
             try
             {
                 var response = await _itemService.CreateItem(item.ToItemDto());
+                item.Id = response.Id;
 
                 this.Invoke((MethodInvoker)(() =>
                 {

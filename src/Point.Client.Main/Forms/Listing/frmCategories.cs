@@ -143,8 +143,6 @@ namespace Point.Client.Main.Listing
                     dgvCategories.Rows[rowIndex].Selected = true;
                     dgvCategories.FirstDisplayedScrollingRowIndex = rowIndex;
 
-                    txtCategory.Text = categoryDto.Name;
-
                     EnableEditing(false);
                 }));
 

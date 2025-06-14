@@ -41,6 +41,8 @@ namespace Point.Client.Main.Forms.Listing
             });
 
             EnableEditing(true);
+
+            txtItem.Focus();
         }
 
         private void frmItemSearch_FormClosing(object sender, FormClosingEventArgs e)

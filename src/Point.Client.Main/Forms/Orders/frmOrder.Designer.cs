@@ -32,7 +32,7 @@
             lblTitle = new Label();
             panel1 = new Panel();
             lnkSelectCustomer = new LinkLabel();
-            button4 = new Button();
+            btnAddItem = new Button();
             label7 = new Label();
             label2 = new Label();
             button3 = new Button();
@@ -75,7 +75,7 @@
             // panel1
             // 
             panel1.Controls.Add(lnkSelectCustomer);
-            panel1.Controls.Add(button4);
+            panel1.Controls.Add(btnAddItem);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(button3);
@@ -111,16 +111,17 @@
             lnkSelectCustomer.Text = "Select Customer...";
             lnkSelectCustomer.LinkClicked += lnkSelectCustomer_LinkClicked;
             // 
-            // button4
+            // btnAddItem
             // 
-            button4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button4.Font = new Font("Segoe UI", 13.8F);
-            button4.Location = new System.Drawing.Point(1231, 60);
-            button4.Name = "button4";
-            button4.Size = new Size(227, 72);
-            button4.TabIndex = 49;
-            button4.Text = "ADD ITEM";
-            button4.UseVisualStyleBackColor = true;
+            btnAddItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnAddItem.Font = new Font("Segoe UI", 13.8F);
+            btnAddItem.Location = new System.Drawing.Point(1231, 60);
+            btnAddItem.Name = "btnAddItem";
+            btnAddItem.Size = new Size(227, 72);
+            btnAddItem.TabIndex = 49;
+            btnAddItem.Text = "ADD ITEM";
+            btnAddItem.UseVisualStyleBackColor = true;
+            btnAddItem.Click += btnAddItem_Click;
             // 
             // label7
             // 
@@ -299,6 +300,7 @@
             txtCustomer.Margin = new Padding(4);
             txtCustomer.MaxLength = 100;
             txtCustomer.Name = "txtCustomer";
+            txtCustomer.ReadOnly = true;
             txtCustomer.Size = new Size(422, 34);
             txtCustomer.TabIndex = 32;
             // 
@@ -395,7 +397,7 @@
         private Label label2;
         private Label label7;
         private System.Windows.Forms.Timer timerTimestamp;
-        private Button button4;
+        private Button btnAddItem;
         private LinkLabel lnkSelectCustomer;
     }
 }
