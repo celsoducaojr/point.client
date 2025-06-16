@@ -29,11 +29,16 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            comboBox1 = new ComboBox();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            label5 = new Label();
+            cmbPrice = new ComboBox();
+            lblItem = new Label();
+            lblUnit = new Label();
+            lblCapitalCode = new Label();
+            btnAddItem = new Button();
+            btnCancel = new Button();
+            txtPrice = new TextBox();
+            lblQuantity = new Label();
+            numQuantity = new NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)numQuantity).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -47,68 +52,119 @@
             label1.TabIndex = 38;
             label1.Text = "Item Price";
             // 
-            // comboBox1
+            // cmbPrice
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new System.Drawing.Point(176, 281);
-            comboBox1.Margin = new Padding(6);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(464, 45);
-            comboBox1.TabIndex = 39;
+            cmbPrice.FormattingEnabled = true;
+            cmbPrice.Location = new System.Drawing.Point(176, 281);
+            cmbPrice.Margin = new Padding(6);
+            cmbPrice.Name = "cmbPrice";
+            cmbPrice.Size = new Size(464, 45);
+            cmbPrice.TabIndex = 1;
+            cmbPrice.SelectedIndexChanged += cmbPrice_SelectedIndexChanged;
             // 
-            // label2
+            // lblItem
             // 
-            label2.Font = new Font("Segoe UI", 28.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new System.Drawing.Point(176, 339);
-            label2.Margin = new Padding(20);
-            label2.Name = "label2";
-            label2.Size = new Size(464, 72);
-            label2.TabIndex = 40;
-            label2.Text = "0.00";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
+            lblItem.Font = new Font("Segoe UI Semibold", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblItem.Location = new System.Drawing.Point(28, 20);
+            lblItem.Margin = new Padding(8, 0, 8, 0);
+            lblItem.Name = "lblItem";
+            lblItem.Size = new Size(612, 159);
+            lblItem.TabIndex = 41;
+            lblItem.Text = "Item name...";
             // 
-            // label3
+            // lblUnit
             // 
-            label3.Font = new Font("Segoe UI", 16.2F);
-            label3.Location = new System.Drawing.Point(28, 20);
-            label3.Margin = new Padding(8, 0, 8, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(612, 159);
-            label3.TabIndex = 41;
-            label3.Text = "Item name...";
+            lblUnit.AutoSize = true;
+            lblUnit.Font = new Font("Segoe UI", 16.2F);
+            lblUnit.Location = new System.Drawing.Point(28, 189);
+            lblUnit.Margin = new Padding(8, 10, 8, 0);
+            lblUnit.Name = "lblUnit";
+            lblUnit.Size = new Size(139, 38);
+            lblUnit.TabIndex = 42;
+            lblUnit.Text = "Unit '###'";
             // 
-            // label4
+            // lblCapitalCode
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 16.2F);
-            label4.Location = new System.Drawing.Point(28, 189);
-            label4.Margin = new Padding(8, 10, 8, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(133, 38);
-            label4.TabIndex = 42;
-            label4.Text = "Unit: ###";
+            lblCapitalCode.AutoSize = true;
+            lblCapitalCode.Font = new Font("Segoe UI", 16.2F);
+            lblCapitalCode.Location = new System.Drawing.Point(28, 237);
+            lblCapitalCode.Margin = new Padding(8, 10, 8, 0);
+            lblCapitalCode.Name = "lblCapitalCode";
+            lblCapitalCode.Size = new Size(244, 38);
+            lblCapitalCode.TabIndex = 43;
+            lblCapitalCode.Text = "Capital Code '###'";
             // 
-            // label5
+            // btnAddItem
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 16.2F);
-            label5.Location = new System.Drawing.Point(28, 237);
-            label5.Margin = new Padding(8, 10, 8, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(238, 38);
-            label5.TabIndex = 43;
-            label5.Text = "Capital Code: ###";
+            btnAddItem.Location = new System.Drawing.Point(28, 539);
+            btnAddItem.Name = "btnAddItem";
+            btnAddItem.Size = new Size(423, 70);
+            btnAddItem.TabIndex = 4;
+            btnAddItem.Text = "Add Item";
+            btnAddItem.UseVisualStyleBackColor = true;
+            btnAddItem.Click += btnAddItem_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Location = new System.Drawing.Point(465, 539);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(175, 70);
+            btnCancel.TabIndex = 5;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // txtPrice
+            // 
+            txtPrice.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPrice.Location = new System.Drawing.Point(176, 335);
+            txtPrice.Name = "txtPrice";
+            txtPrice.Size = new Size(464, 87);
+            txtPrice.TabIndex = 2;
+            txtPrice.TextAlign = HorizontalAlignment.Right;
+            txtPrice.Validating += txtPrice_Validating;
+            txtPrice.Validated += txtPrice_Validated;
+            // 
+            // lblQuantity
+            // 
+            lblQuantity.AutoSize = true;
+            lblQuantity.Font = new Font("Segoe UI", 16.2F);
+            lblQuantity.Location = new System.Drawing.Point(42, 428);
+            lblQuantity.Margin = new Padding(8, 0, 8, 0);
+            lblQuantity.Name = "lblQuantity";
+            lblQuantity.Size = new Size(123, 38);
+            lblQuantity.TabIndex = 47;
+            lblQuantity.Text = "Quantity";
+            // 
+            // numQuantity
+            // 
+            numQuantity.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            numQuantity.Location = new System.Drawing.Point(176, 428);
+            numQuantity.Maximum = new decimal(new int[] { 1000000, 0, 0, 0 });
+            numQuantity.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            numQuantity.Name = "numQuantity";
+            numQuantity.Size = new Size(257, 87);
+            numQuantity.TabIndex = 3;
+            numQuantity.TextAlign = HorizontalAlignment.Right;
+            numQuantity.ThousandsSeparator = true;
+            numQuantity.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // frmOrderItemPrice
             // 
+            AcceptButton = btnAddItem;
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(666, 451);
-            Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(comboBox1);
+            CancelButton = btnCancel;
+            ClientSize = new Size(666, 632);
+            Controls.Add(numQuantity);
+            Controls.Add(lblQuantity);
+            Controls.Add(txtPrice);
+            Controls.Add(btnCancel);
+            Controls.Add(btnAddItem);
+            Controls.Add(lblCapitalCode);
+            Controls.Add(lblUnit);
+            Controls.Add(lblItem);
+            Controls.Add(cmbPrice);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -120,6 +176,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Select Item Price...";
             Load += frmOrderItemPrice_Load;
+            ((System.ComponentModel.ISupportInitialize)numQuantity).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -127,10 +184,14 @@
         #endregion
 
         private Label label1;
-        private ComboBox comboBox1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
+        private ComboBox cmbPrice;
+        private Label lblItem;
+        private Label lblUnit;
+        private Label lblCapitalCode;
+        private Button btnAddItem;
+        private Button btnCancel;
+        private TextBox txtPrice;
+        private Label lblQuantity;
+        private NumericUpDown numQuantity;
     }
 }

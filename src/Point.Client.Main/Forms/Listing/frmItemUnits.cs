@@ -24,6 +24,7 @@ namespace Point.Client.Main.Listing
         private DateTime? _tagLastUpdate;
         private DateTime? _unitLastUpdate;
         private DateTime? _itemLastUpdate;
+        private DateTime? _priceTypeLastUpdate;
 
         private readonly ItemService _itemService;
         private readonly ItemUnitService _itemUnitService;
@@ -45,6 +46,7 @@ namespace Point.Client.Main.Listing
             _tagLastUpdate = null;
             _unitLastUpdate = null;
             _itemLastUpdate = null;
+            _priceTypeLastUpdate = null;
 
             _itemService = ServiceFactory.GetService<ItemService>();
             _itemUnitService = ServiceFactory.GetService<ItemUnitService>();
@@ -69,12 +71,16 @@ namespace Point.Client.Main.Listing
             else if (_categoryLastUpdate != Categories.LastUpdate 
                 || _tagLastUpdate != Tags.LastUpdate 
                 || _unitLastUpdate != Units.LastUpdate
-                || _itemLastUpdate != Items.LastUpdate)
+                || _itemLastUpdate != Items.LastUpdate
+                || _priceTypeLastUpdate != PriceTypes.LastUpdate)
             {
                 _categoryLastUpdate = Categories.LastUpdate;
                 _tagLastUpdate = Tags.LastUpdate;
                 _unitLastUpdate = Units.LastUpdate;
                 _itemLastUpdate = Items.LastUpdate;
+                _priceTypeLastUpdate = PriceTypes.LastUpdate;
+
+                await Task.Run(LoadPriceTypes);
 
                 cmbPageSize_SelectedIndexChanged(sender, e);
             }
@@ -256,7 +262,7 @@ namespace Point.Client.Main.Listing
             {
                 var value = e.FormattedValue?.ToString() ?? string.Empty;
 
-                if (!string.IsNullOrWhiteSpace(value) && !decimal.TryParse(value, out _))
+                if (!string.IsNullOrWhiteSpace(value) && (!decimal.TryParse(value, out decimal amount) || amount < 0))
                 {
                     MessageBox.Show("Invalid Amount value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     e.Cancel = true;

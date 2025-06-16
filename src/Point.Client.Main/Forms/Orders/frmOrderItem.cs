@@ -1,15 +1,17 @@
-﻿using System.Windows.Forms;
-using Point.Client.Main.Api;
+﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
+using Point.Client.Main.Globals;
 using static Point.Client.Main.Globals.RecordStatus;
 
 namespace Point.Client.Main.Forms.Orders
 {
     public partial class frmOrderItem : Form
     {
+        public OrderItem SelectedOrderItem { get; private set; }
+
         private bool _isFirstLoad;
 
         private SearchItemCriteriaDto? _searchItemDto;
@@ -71,6 +73,31 @@ namespace Point.Client.Main.Forms.Orders
             EnableControls();
         }
 
+        private void dgvItemUnits_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+
+                if (dgvItemUnits.CurrentRow != null)
+                {
+                    var selectedRow = dgvItemUnits.CurrentRow;
+
+                    var form = FormFactory.GetFormDialog<frmOrderItemPrice>();
+                    form.SetItemDetails((Item)selectedRow.Cells["clmItem"].Tag, (ItemUnit)selectedRow.Cells["clmUnit"].Tag);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        SelectedOrderItem = new OrderItem
+                        {
+
+                        };
+
+                        this.DialogResult = DialogResult.OK;
+                    }
+                }
+            }
+        }
+
         #region Helpers
 
         private void EnableControls(bool enable = true)
@@ -78,23 +105,23 @@ namespace Point.Client.Main.Forms.Orders
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
         }
 
-        private void UpdateRowValues(Item item, ItemUnit unit, DataGridViewRow row)
+        private void UpdateRowValues(Item item, ItemUnit itemUnit, DataGridViewRow row)
         {
             row.Cells["clmItem"].Value = item.Name;
+            row.Cells["clmItem"].Tag = item;
             row.Cells["clmCategory"].Value = item.Category?.Name;
-            row.Cells["clmUnit"].Value = unit.Unit?.Name;
-            row.Cells["clmCapitalCode"].Value = unit.CostPriceCode;
+            row.Cells["clmUnit"].Value = itemUnit.Unit?.Name;
+            row.Cells["clmUnit"].Tag = itemUnit;
+            row.Cells["clmCapitalCode"].Value = itemUnit.CostPriceCode;
 
             _currentPriceTypes?.ForEach(type =>
             {
-                var amount = unit.Prices?
+                var amount = itemUnit.Prices?
                 .Where(price => price.PriceType.Id == type.Id)
                 .Select(price => price.Amount).FirstOrDefault() ?? 0;
 
                 row.Cells[type.Id.ToString()].Value = amount;
             });
-
-            row.Tag = unit.Id;
         }
 
         #endregion
@@ -122,10 +149,10 @@ namespace Point.Client.Main.Forms.Orders
                 {
                     response?.Data?.ForEach(item =>
                     {
-                        item.Units?.ForEach(unit =>
+                        item.Units?.ForEach(itemUnit =>
                         {
                             dgvItemUnits.Rows.Add(new DataGridViewRow());
-                            UpdateRowValues(item, unit, dgvItemUnits.Rows[dgvItemUnits.Rows.Count - 1]);
+                            UpdateRowValues(item, itemUnit, dgvItemUnits.Rows[dgvItemUnits.Rows.Count - 1]);
                         });
                     });
                 }
@@ -168,20 +195,5 @@ namespace Point.Client.Main.Forms.Orders
         }
 
         #endregion
-
-        private void dgvItemUnits_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.Handled = true;
-
-                if (dgvItemUnits.CurrentRow != null)
-                {
-                    var selectedRow = dgvItemUnits.CurrentRow;
-
-                    new frmOrderItemPrice().ShowDialog();
-                }
-            }
-        }
     }
 }

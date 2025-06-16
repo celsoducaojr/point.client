@@ -246,7 +246,7 @@ namespace Point.Client.Main.Forms.Listing
 
             await _priceTypeService.UpdatePriceTypeDisplayIndexes(priceTypeIndex);
 
-            RecordStatus.PriceTypes.IndexUpdated();
+            RecordStatus.PriceTypes.Updated();
 
             this.Invoke((MethodInvoker)(() =>
             {
