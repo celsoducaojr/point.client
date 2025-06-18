@@ -78,8 +78,8 @@ namespace Point.Client.Main.Forms.Orders
             row.Cells["clmItem"].Value = orderItem.ItemName;
             row.Cells["clmUnit"].Value = orderItem.UnitName;
             row.Cells[FormConstants.DataGridView.Columns.Quantiy].Value = orderItem.Quantity;
-            row.Cells["clmPrice"].Value = orderItem.Price;
-            row.Cells["clmTotal"].Value = orderItem.Total;
+            row.Cells["clmPrice"].Value = orderItem.Price.ToString(FormConstants.Formats.Amount);
+            row.Cells["clmTotal"].Value = orderItem.Total.ToString(FormConstants.Formats.Amount);
         }
 
         private void UpdateTotal()

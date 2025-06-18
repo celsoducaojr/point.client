@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             lblTitle = new Label();
             panel1 = new Panel();
             lnkSelectCustomer = new LinkLabel();
@@ -46,18 +46,18 @@
             label8 = new Label();
             label1 = new Label();
             dgvOrderItems = new DataGridView();
-            clmRemove = new DataGridViewButtonColumn();
-            clmItem = new DataGridViewTextBoxColumn();
-            clmUnit = new DataGridViewTextBoxColumn();
-            clmQuantity = new DataGridViewTextBoxColumn();
-            clmPrice = new DataGridViewTextBoxColumn();
-            clmTotal = new DataGridViewTextBoxColumn();
             txtCustomer = new TextBox();
             lblTimestamp = new Label();
             label5 = new Label();
             label4 = new Label();
             label6 = new Label();
             timerTimestamp = new System.Windows.Forms.Timer(components);
+            clmRemove = new DataGridViewButtonColumn();
+            clmItem = new DataGridViewTextBoxColumn();
+            clmUnit = new DataGridViewTextBoxColumn();
+            clmQuantity = new DataGridViewTextBoxColumn();
+            clmPrice = new DataGridViewTextBoxColumn();
+            clmTotal = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrderItems).BeginInit();
             SuspendLayout();
@@ -262,56 +262,6 @@
             dgvOrderItems.CellValidated += dgvOrderItems_CellValidated;
             dgvOrderItems.CellValidating += dgvOrderItems_CellValidating;
             // 
-            // clmRemove
-            // 
-            clmRemove.HeaderText = "";
-            clmRemove.MinimumWidth = 6;
-            clmRemove.Name = "clmRemove";
-            clmRemove.Width = 125;
-            // 
-            // clmItem
-            // 
-            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmItem.HeaderText = "Item";
-            clmItem.MinimumWidth = 6;
-            clmItem.Name = "clmItem";
-            clmItem.ReadOnly = true;
-            // 
-            // clmUnit
-            // 
-            clmUnit.HeaderText = "Unit";
-            clmUnit.MinimumWidth = 6;
-            clmUnit.Name = "clmUnit";
-            clmUnit.ReadOnly = true;
-            clmUnit.Width = 125;
-            // 
-            // clmQuantity
-            // 
-            clmQuantity.HeaderText = "Quantity";
-            clmQuantity.MinimumWidth = 6;
-            clmQuantity.Name = "clmQuantity";
-            clmQuantity.Width = 125;
-            // 
-            // clmPrice
-            // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmPrice.DefaultCellStyle = dataGridViewCellStyle3;
-            clmPrice.HeaderText = "Price";
-            clmPrice.MinimumWidth = 6;
-            clmPrice.Name = "clmPrice";
-            clmPrice.ReadOnly = true;
-            clmPrice.Width = 125;
-            // 
-            // clmTotal
-            // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmTotal.DefaultCellStyle = dataGridViewCellStyle4;
-            clmTotal.HeaderText = "Total";
-            clmTotal.MinimumWidth = 6;
-            clmTotal.Name = "clmTotal";
-            clmTotal.ReadOnly = true;
-            clmTotal.Width = 150;
-            // 
             // txtCustomer
             // 
             txtCustomer.Location = new System.Drawing.Point(128, 97);
@@ -371,6 +321,56 @@
             // 
             timerTimestamp.Enabled = true;
             timerTimestamp.Tick += timerTimestamp_Tick;
+            // 
+            // clmRemove
+            // 
+            clmRemove.HeaderText = "";
+            clmRemove.MinimumWidth = 6;
+            clmRemove.Name = "clmRemove";
+            clmRemove.Width = 125;
+            // 
+            // clmItem
+            // 
+            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmItem.HeaderText = "Item";
+            clmItem.MinimumWidth = 6;
+            clmItem.Name = "clmItem";
+            clmItem.ReadOnly = true;
+            // 
+            // clmUnit
+            // 
+            clmUnit.HeaderText = "Unit";
+            clmUnit.MinimumWidth = 6;
+            clmUnit.Name = "clmUnit";
+            clmUnit.ReadOnly = true;
+            clmUnit.Width = 125;
+            // 
+            // clmQuantity
+            // 
+            clmQuantity.HeaderText = "Quantity";
+            clmQuantity.MinimumWidth = 6;
+            clmQuantity.Name = "clmQuantity";
+            clmQuantity.Width = 125;
+            // 
+            // clmPrice
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmPrice.DefaultCellStyle = dataGridViewCellStyle1;
+            clmPrice.HeaderText = "Price";
+            clmPrice.MinimumWidth = 6;
+            clmPrice.Name = "clmPrice";
+            clmPrice.ReadOnly = true;
+            clmPrice.Width = 150;
+            // 
+            // clmTotal
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmTotal.DefaultCellStyle = dataGridViewCellStyle2;
+            clmTotal.HeaderText = "Total";
+            clmTotal.MinimumWidth = 6;
+            clmTotal.Name = "clmTotal";
+            clmTotal.ReadOnly = true;
+            clmTotal.Width = 175;
             // 
             // frmOrder
             // 
