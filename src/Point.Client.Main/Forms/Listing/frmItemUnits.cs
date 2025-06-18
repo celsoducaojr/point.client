@@ -258,7 +258,7 @@ namespace Point.Client.Main.Listing
         {
             var columnTag = dgvItemUnits.Columns[e.ColumnIndex].Tag;
 
-            if (columnTag != null && columnTag.ToString() == FormConstants.DataGridViewColumn.PriceTag)
+            if (columnTag != null && columnTag.ToString() == FormConstants.DataGridView.Tags.Price)
             {
                 var value = e.FormattedValue?.ToString() ?? string.Empty;
 
@@ -269,11 +269,12 @@ namespace Point.Client.Main.Listing
                 }
             }
         }
+
         private void dgvItemUnits_CellValidated(object sender, DataGridViewCellEventArgs e)
         {
             var columnTag = dgvItemUnits.Columns[e.ColumnIndex].Tag;
 
-            if (columnTag != null && columnTag.ToString() == FormConstants.DataGridViewColumn.PriceTag)
+            if (columnTag != null && columnTag.ToString() == FormConstants.DataGridView.Tags.Price)
             {
                 var cell = dgvItemUnits.Rows[e.RowIndex].Cells[e.ColumnIndex];
 
@@ -424,7 +425,7 @@ namespace Point.Client.Main.Listing
                         Name = priceType.Id.ToString(),
                         HeaderText = priceType.Name,
                     };
-                    column.Tag = FormConstants.DataGridViewColumn.PriceTag;
+                    column.Tag = FormConstants.DataGridView.Tags.Price;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     column.DefaultCellStyle.Format = FormConstants.Formats.Amount;
                     dgvItemUnits.Columns.Add(column);

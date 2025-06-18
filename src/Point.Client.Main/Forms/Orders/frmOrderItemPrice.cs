@@ -5,7 +5,9 @@ namespace Point.Client.Main.Forms.Orders
 {
     public partial class frmOrderItemPrice : Form
     {
-        public decimal SelectedAmount { get; private set; }
+        public int SelectedQuantity { get; private set; }
+        public decimal SelectedPrice { get; private set; }
+        public decimal SelectedTotal { get; private set; }
 
         public frmOrderItemPrice()
         {
@@ -21,6 +23,20 @@ namespace Point.Client.Main.Forms.Orders
         private void cmbPrice_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtPrice.Text = ((decimal)cmbPrice.SelectedValue).ToString(FormConstants.Formats.Amount);
+            lblTotal.Text = GetTotalPrice();
+        }
+
+        private void numQuantity_ValueChanged(object sender, EventArgs e)
+        {
+            lblTotal.Text = GetTotalPrice();
+        }
+
+        private void numQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.')
+            {
+                e.Handled = true; // block decimal point
+            }
         }
 
         private void txtPrice_Validating(object sender, System.ComponentModel.CancelEventArgs e)
@@ -37,11 +53,14 @@ namespace Point.Client.Main.Forms.Orders
         {
             var value = txtPrice.Text;
             txtPrice.Text = decimal.Parse(txtPrice.Text).ToString(FormConstants.Formats.Amount);
+            lblTotal.Text = GetTotalPrice();
         }
 
         private void btnAddItem_Click(object sender, EventArgs e)
         {
-            SelectedAmount = decimal.Parse(txtPrice.Text);
+            SelectedQuantity = (int)numQuantity.Value;
+            SelectedPrice = decimal.Parse(txtPrice.Text);
+            SelectedTotal = decimal.Parse(GetTotalPrice());
             this.DialogResult = DialogResult.OK;
         }
 
@@ -53,8 +72,8 @@ namespace Point.Client.Main.Forms.Orders
         public void SetItemDetails(Item item, ItemUnit itemUnit)
         {
             lblItem.Text = item.Name;
-            lblUnit.Text = $"Unit '{itemUnit.Unit.Name}'";
-            lblCapitalCode.Text = $"Capital Code '{itemUnit.CostPriceCode}'";
+            lblUnit.Text = itemUnit.Unit.Name;
+            lblCapitalCode.Text = itemUnit.CostPriceCode;
 
             var prices = itemUnit.Prices?
                 .Where(price => price.Amount > 0)
@@ -70,6 +89,11 @@ namespace Point.Client.Main.Forms.Orders
 
             cmbPrice.SelectedIndexChanged += cmbPrice_SelectedIndexChanged;
             cmbPrice_SelectedIndexChanged(null, null);
+        }
+
+        private string GetTotalPrice()
+        {
+            return (decimal.Parse(txtPrice.Text) * numQuantity.Value).ToString(FormConstants.Formats.Amount);
         }
     }
 }

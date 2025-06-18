@@ -18,9 +18,18 @@
             ];
         }
 
-        public static class DataGridViewColumn
+        public static class DataGridView
         {
-            public const string PriceTag = "PRICETAG";
+            public static class Columns
+            {
+                public const string Quantiy = "clmQuantity";
+            }
+
+            public static class Tags
+            {
+                public const string Price = "PRICETAG";
+            }
         }
+
     }
 }

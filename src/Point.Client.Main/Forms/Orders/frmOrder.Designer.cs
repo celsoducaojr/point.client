@@ -29,21 +29,24 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             lblTitle = new Label();
             panel1 = new Panel();
             lnkSelectCustomer = new LinkLabel();
             btnAddItem = new Button();
             label7 = new Label();
-            label2 = new Label();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
+            lblTotal = new Label();
+            btnSaveAsNew = new Button();
+            btnPaid = new Button();
+            btnCancel = new Button();
             label11 = new Label();
-            label10 = new Label();
-            label9 = new Label();
+            lblDiscount = new Label();
+            lblSubTotal = new Label();
             label8 = new Label();
             label1 = new Label();
-            dgvTags = new DataGridView();
+            dgvOrderItems = new DataGridView();
+            clmRemove = new DataGridViewButtonColumn();
             clmItem = new DataGridViewTextBoxColumn();
             clmUnit = new DataGridViewTextBoxColumn();
             clmQuantity = new DataGridViewTextBoxColumn();
@@ -56,7 +59,7 @@
             label6 = new Label();
             timerTimestamp = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvTags).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvOrderItems).BeginInit();
             SuspendLayout();
             // 
             // lblTitle
@@ -77,16 +80,16 @@
             panel1.Controls.Add(lnkSelectCustomer);
             panel1.Controls.Add(btnAddItem);
             panel1.Controls.Add(label7);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(lblTotal);
+            panel1.Controls.Add(btnSaveAsNew);
+            panel1.Controls.Add(btnPaid);
+            panel1.Controls.Add(btnCancel);
             panel1.Controls.Add(label11);
-            panel1.Controls.Add(label10);
-            panel1.Controls.Add(label9);
+            panel1.Controls.Add(lblDiscount);
+            panel1.Controls.Add(lblSubTotal);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(dgvTags);
+            panel1.Controls.Add(dgvOrderItems);
             panel1.Controls.Add(txtCustomer);
             panel1.Controls.Add(lblTimestamp);
             panel1.Controls.Add(label5);
@@ -135,50 +138,53 @@
             label7.TabIndex = 48;
             label7.Text = "Total";
             // 
-            // label2
+            // lblTotal
             // 
-            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label2.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
-            label2.Location = new System.Drawing.Point(1191, 633);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(267, 75);
-            label2.TabIndex = 47;
-            label2.Text = "0.00";
-            label2.TextAlign = ContentAlignment.MiddleRight;
+            lblTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblTotal.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
+            lblTotal.Location = new System.Drawing.Point(1191, 633);
+            lblTotal.Margin = new Padding(4, 0, 4, 0);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(267, 75);
+            lblTotal.TabIndex = 47;
+            lblTotal.Text = "0.00";
+            lblTotal.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // button3
+            // btnSaveAsNew
             // 
-            button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button3.Font = new Font("Segoe UI", 13.8F);
-            button3.Location = new System.Drawing.Point(23, 638);
-            button3.Name = "button3";
-            button3.Size = new Size(188, 72);
-            button3.TabIndex = 46;
-            button3.Text = "SAVE AS NEW";
-            button3.UseVisualStyleBackColor = true;
+            btnSaveAsNew.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnSaveAsNew.Font = new Font("Segoe UI", 13.8F);
+            btnSaveAsNew.Location = new System.Drawing.Point(23, 638);
+            btnSaveAsNew.Name = "btnSaveAsNew";
+            btnSaveAsNew.Size = new Size(188, 72);
+            btnSaveAsNew.TabIndex = 46;
+            btnSaveAsNew.Text = "SAVE AS NEW";
+            btnSaveAsNew.UseVisualStyleBackColor = true;
+            btnSaveAsNew.Click += btnSaveAsNew_Click;
             // 
-            // button2
+            // btnPaid
             // 
-            button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button2.Font = new Font("Segoe UI", 13.8F);
-            button2.Location = new System.Drawing.Point(23, 560);
-            button2.Name = "button2";
-            button2.Size = new Size(382, 72);
-            button2.TabIndex = 45;
-            button2.Text = "PAID";
-            button2.UseVisualStyleBackColor = true;
+            btnPaid.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnPaid.Font = new Font("Segoe UI", 13.8F);
+            btnPaid.Location = new System.Drawing.Point(23, 560);
+            btnPaid.Name = "btnPaid";
+            btnPaid.Size = new Size(382, 72);
+            btnPaid.TabIndex = 45;
+            btnPaid.Text = "PAID";
+            btnPaid.UseVisualStyleBackColor = true;
+            btnPaid.Click += btnPaid_Click;
             // 
-            // button1
+            // btnCancel
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button1.Font = new Font("Segoe UI", 13.8F);
-            button1.Location = new System.Drawing.Point(217, 638);
-            button1.Name = "button1";
-            button1.Size = new Size(188, 72);
-            button1.TabIndex = 44;
-            button1.Text = "CANCEL";
-            button1.UseVisualStyleBackColor = true;
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnCancel.Font = new Font("Segoe UI", 13.8F);
+            btnCancel.Location = new System.Drawing.Point(217, 638);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(188, 72);
+            btnCancel.TabIndex = 44;
+            btnCancel.Text = "CANCEL";
+            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // label11
             // 
@@ -192,29 +198,29 @@
             label11.TabIndex = 41;
             label11.Text = "Discount";
             // 
-            // label10
+            // lblDiscount
             // 
-            label10.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label10.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label10.Location = new System.Drawing.Point(1191, 595);
-            label10.Margin = new Padding(4, 0, 4, 0);
-            label10.Name = "label10";
-            label10.Size = new Size(267, 38);
-            label10.TabIndex = 40;
-            label10.Text = "0.00";
-            label10.TextAlign = ContentAlignment.MiddleRight;
+            lblDiscount.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblDiscount.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDiscount.Location = new System.Drawing.Point(1191, 595);
+            lblDiscount.Margin = new Padding(4, 0, 4, 0);
+            lblDiscount.Name = "lblDiscount";
+            lblDiscount.Size = new Size(267, 38);
+            lblDiscount.TabIndex = 40;
+            lblDiscount.Text = "0.00";
+            lblDiscount.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // label9
+            // lblSubTotal
             // 
-            label9.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label9.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.Location = new System.Drawing.Point(1191, 557);
-            label9.Margin = new Padding(4, 0, 4, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(267, 38);
-            label9.TabIndex = 39;
-            label9.Text = "0.00";
-            label9.TextAlign = ContentAlignment.MiddleRight;
+            lblSubTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblSubTotal.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSubTotal.Location = new System.Drawing.Point(1191, 557);
+            lblSubTotal.Margin = new Padding(4, 0, 4, 0);
+            lblSubTotal.Name = "lblSubTotal";
+            lblSubTotal.Size = new Size(267, 38);
+            lblSubTotal.TabIndex = 39;
+            lblSubTotal.Text = "0.00";
+            lblSubTotal.TextAlign = ContentAlignment.MiddleRight;
             // 
             // label8
             // 
@@ -238,21 +244,30 @@
             label1.TabIndex = 34;
             label1.Text = "Customer";
             // 
-            // dgvTags
+            // dgvOrderItems
             // 
-            dgvTags.AllowUserToAddRows = false;
-            dgvTags.AllowUserToDeleteRows = false;
-            dgvTags.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvTags.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTags.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmUnit, clmQuantity, clmPrice, clmTotal });
-            dgvTags.Location = new System.Drawing.Point(24, 139);
-            dgvTags.Margin = new Padding(4);
-            dgvTags.MultiSelect = false;
-            dgvTags.Name = "dgvTags";
-            dgvTags.ReadOnly = true;
-            dgvTags.RowHeadersWidth = 51;
-            dgvTags.Size = new Size(1434, 414);
-            dgvTags.TabIndex = 33;
+            dgvOrderItems.AllowUserToAddRows = false;
+            dgvOrderItems.AllowUserToDeleteRows = false;
+            dgvOrderItems.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvOrderItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvOrderItems.Columns.AddRange(new DataGridViewColumn[] { clmRemove, clmItem, clmUnit, clmQuantity, clmPrice, clmTotal });
+            dgvOrderItems.Location = new System.Drawing.Point(24, 139);
+            dgvOrderItems.Margin = new Padding(4);
+            dgvOrderItems.MultiSelect = false;
+            dgvOrderItems.Name = "dgvOrderItems";
+            dgvOrderItems.RowHeadersWidth = 51;
+            dgvOrderItems.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgvOrderItems.Size = new Size(1434, 414);
+            dgvOrderItems.TabIndex = 33;
+            dgvOrderItems.CellValidated += dgvOrderItems_CellValidated;
+            dgvOrderItems.CellValidating += dgvOrderItems_CellValidating;
+            // 
+            // clmRemove
+            // 
+            clmRemove.HeaderText = "";
+            clmRemove.MinimumWidth = 6;
+            clmRemove.Name = "clmRemove";
+            clmRemove.Width = 125;
             // 
             // clmItem
             // 
@@ -275,11 +290,12 @@
             clmQuantity.HeaderText = "Quantity";
             clmQuantity.MinimumWidth = 6;
             clmQuantity.Name = "clmQuantity";
-            clmQuantity.ReadOnly = true;
             clmQuantity.Width = 125;
             // 
             // clmPrice
             // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmPrice.DefaultCellStyle = dataGridViewCellStyle3;
             clmPrice.HeaderText = "Price";
             clmPrice.MinimumWidth = 6;
             clmPrice.Name = "clmPrice";
@@ -288,6 +304,8 @@
             // 
             // clmTotal
             // 
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmTotal.DefaultCellStyle = dataGridViewCellStyle4;
             clmTotal.HeaderText = "Total";
             clmTotal.MinimumWidth = 6;
             clmTotal.Name = "clmTotal";
@@ -323,9 +341,9 @@
             label5.Location = new System.Drawing.Point(97, 48);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(50, 25);
+            label5.Size = new Size(54, 25);
             label5.TabIndex = 30;
-            label5.Text = "New";
+            label5.Text = "NEW";
             // 
             // label4
             // 
@@ -347,6 +365,7 @@
             label6.Size = new Size(207, 31);
             label6.TabIndex = 24;
             label6.Text = "ORDER NO. 12345";
+            label6.Visible = false;
             // 
             // timerTimestamp
             // 
@@ -368,7 +387,7 @@
             WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvTags).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvOrderItems).EndInit();
             ResumeLayout(false);
         }
 
@@ -379,25 +398,26 @@
         private Label label5;
         private Label label4;
         private Label lblTimestamp;
-        private DataGridView dgvTags;
+        private DataGridView dgvOrderItems;
         private TextBox txtCustomer;
         private Label label1;
+        private Label label11;
+        private Label lblDiscount;
+        private Label lblSubTotal;
+        private Label label8;
+        private Button btnSaveAsNew;
+        private Button btnPaid;
+        private Button btnCancel;
+        private Label lblTotal;
+        private Label label7;
+        private System.Windows.Forms.Timer timerTimestamp;
+        private Button btnAddItem;
+        private LinkLabel lnkSelectCustomer;
+        private DataGridViewButtonColumn clmRemove;
         private DataGridViewTextBoxColumn clmItem;
         private DataGridViewTextBoxColumn clmUnit;
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmTotal;
-        private Label label11;
-        private Label label10;
-        private Label label9;
-        private Label label8;
-        private Button button3;
-        private Button button2;
-        private Button button1;
-        private Label label2;
-        private Label label7;
-        private System.Windows.Forms.Timer timerTimestamp;
-        private Button btnAddItem;
-        private LinkLabel lnkSelectCustomer;
     }
 }

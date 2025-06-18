@@ -35,7 +35,6 @@
             clmCategory = new DataGridViewTextBoxColumn();
             clmUnit = new DataGridViewTextBoxColumn();
             clmCapitalCode = new DataGridViewTextBoxColumn();
-            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             SuspendLayout();
             // 
@@ -67,7 +66,7 @@
             dgvItemUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmUnit, clmCapitalCode });
             dgvItemUnits.Dock = DockStyle.Bottom;
-            dgvItemUnits.Location = new System.Drawing.Point(0, 64);
+            dgvItemUnits.Location = new System.Drawing.Point(0, 89);
             dgvItemUnits.Margin = new Padding(4);
             dgvItemUnits.MultiSelect = false;
             dgvItemUnits.Name = "dgvItemUnits";
@@ -76,6 +75,7 @@
             dgvItemUnits.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvItemUnits.Size = new Size(1650, 754);
             dgvItemUnits.TabIndex = 2;
+            dgvItemUnits.CellDoubleClick += dgvItemUnits_CellDoubleClick;
             dgvItemUnits.KeyDown += dgvItemUnits_KeyDown;
             // 
             // clmItem
@@ -111,16 +111,6 @@
             clmCapitalCode.ReadOnly = true;
             clmCapitalCode.Width = 150;
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Dock = DockStyle.Bottom;
-            label2.Location = new System.Drawing.Point(0, 818);
-            label2.Name = "label2";
-            label2.Size = new Size(199, 25);
-            label2.TabIndex = 37;
-            label2.Text = "Loaded top 100 items...";
-            // 
             // frmOrderItem
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -129,7 +119,6 @@
             Controls.Add(dgvItemUnits);
             Controls.Add(label1);
             Controls.Add(txtItem);
-            Controls.Add(label2);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(4);
@@ -149,7 +138,6 @@
         private Button btnClear;
         private Label lblTag;
         private TextBox txtTag;
-        private Label label2;
         private Button btnSearch;
         private ComboBox comboBox1;
         private Label label3;

@@ -1,4 +1,5 @@
-﻿using Point.Client.Main.Api;
+﻿using System.Windows.Forms;
+using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
@@ -10,7 +11,7 @@ namespace Point.Client.Main.Forms.Orders
 {
     public partial class frmOrderItem : Form
     {
-        public OrderItem SelectedOrderItem { get; private set; }
+        public OrderItemDto SelectedOrderItem { get; private set; }
 
         private bool _isFirstLoad;
 
@@ -23,7 +24,6 @@ namespace Point.Client.Main.Forms.Orders
         private DateTime? _itemLastUpdate;
 
         private readonly ItemService _itemService;
-        private readonly ItemUnitService _itemUnitService;
         private readonly PriceTypeService _priceTypeService;
 
         public frmOrderItem()
@@ -41,7 +41,6 @@ namespace Point.Client.Main.Forms.Orders
             _itemLastUpdate = null;
 
             _itemService = ServiceFactory.GetService<ItemService>();
-            _itemUnitService = ServiceFactory.GetService<ItemUnitService>();
             _priceTypeService = ServiceFactory.GetService<PriceTypeService>();
         }
 
@@ -73,32 +72,60 @@ namespace Point.Client.Main.Forms.Orders
             EnableControls();
         }
 
+        private void dgvItemUnits_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvItemUnits.CurrentRow != null)
+            {
+                OpenPriceSelectionDialog();
+            }
+        }
+
         private void dgvItemUnits_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter && dgvItemUnits.CurrentRow != null)
             {
                 e.Handled = true;
 
-                if (dgvItemUnits.CurrentRow != null)
-                {
-                    var selectedRow = dgvItemUnits.CurrentRow;
-
-                    var form = FormFactory.GetFormDialog<frmOrderItemPrice>();
-                    form.SetItemDetails((Item)selectedRow.Cells["clmItem"].Tag, (ItemUnit)selectedRow.Cells["clmUnit"].Tag);
-                    if (form.ShowDialog() == DialogResult.OK)
-                    {
-                        SelectedOrderItem = new OrderItem
-                        {
-
-                        };
-
-                        this.DialogResult = DialogResult.OK;
-                    }
-                }
+                OpenPriceSelectionDialog();
             }
         }
 
         #region Helpers
+
+        private void OpenPriceSelectionDialog()
+        {
+            var selectedRow = dgvItemUnits.CurrentRow;
+
+            var item = (Item)selectedRow.Cells["clmItem"].Tag;
+            var itemUnit = (ItemUnit)selectedRow.Cells["clmUnit"].Tag;
+
+            if (itemUnit.Prices?.Where(price => price.Amount > 0).Any() == true)
+            {
+                var form = FormFactory.GetFormDialog<frmOrderItemPrice>();
+                form.SetItemDetails(item, itemUnit);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    SelectedOrderItem = new OrderItemDto
+                    {
+                        ItemUnitId = itemUnit.Id,
+                        ItemName = item.Name,
+                        UnitId = itemUnit.Unit.Id,
+                        UnitName = itemUnit.Unit.Name,
+                        Quantity = form.SelectedQuantity,
+                        Price = form.SelectedPrice,
+                        Discount = 0,
+                        Total = form.SelectedTotal
+                    };
+
+                    this.DialogResult = DialogResult.OK;
+                }
+            }
+            else
+            {
+                MessageBox.Show("The Item-unit selected has zero (0) Price.", "Invalid Item selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
 
         private void EnableControls(bool enable = true)
         {
@@ -183,7 +210,7 @@ namespace Point.Client.Main.Forms.Orders
                         Name = priceType.Id.ToString(),
                         HeaderText = priceType.Name,
                     };
-                    column.Tag = FormConstants.DataGridViewColumn.PriceTag;
+                    column.Tag = FormConstants.DataGridView.Tags.Price;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     column.DefaultCellStyle.Format = FormConstants.Formats.Amount;
                     dgvItemUnits.Columns.Add(column);
