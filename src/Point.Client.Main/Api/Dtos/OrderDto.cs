@@ -5,10 +5,12 @@ namespace Point.Client.Main.Api.Dtos
     public sealed class OrderDto
     {
         public int? CustomerId { get; init; }
+        public decimal SubTotal { get; init; }
+        public decimal Discount { get; init; }
         public decimal Total { get; init; }
-        public PaymentTerm? PaymentTerm { get; init; }
         public List<OrderItemDto> Items { get; init; }
-        public PaymentItemDto Payment {  get; init; }
+        public PaymentTerm? PaymentTerm { get; init; }
+        public PaymentDto? Payment {  get; init; }
     }
 
     public sealed class OrderItemDto
@@ -23,7 +25,7 @@ namespace Point.Client.Main.Api.Dtos
         public decimal Total { get; set; }
     }
 
-    public sealed class PaymentItemDto 
+    public sealed class PaymentDto 
     {
         public decimal Amount { get; init; }
         public PaymentMode Mode { get; init; }

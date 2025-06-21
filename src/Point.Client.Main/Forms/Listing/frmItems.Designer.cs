@@ -52,7 +52,6 @@
             label4 = new Label();
             label6 = new Label();
             txtTag = new TextBox();
-            lblTag = new Label();
             lnkManageTags = new LinkLabel();
             dgvTags = new DataGridView();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
@@ -272,7 +271,6 @@
             pnlEdit.Controls.Add(label4);
             pnlEdit.Controls.Add(label6);
             pnlEdit.Controls.Add(txtTag);
-            pnlEdit.Controls.Add(lblTag);
             pnlEdit.Controls.Add(lnkManageTags);
             pnlEdit.Controls.Add(dgvTags);
             pnlEdit.Controls.Add(txtCategory);
@@ -337,23 +335,11 @@
             txtTag.Location = new System.Drawing.Point(30, 510);
             txtTag.Margin = new Padding(4);
             txtTag.Name = "txtTag";
+            txtTag.PlaceholderText = "Select tag...";
             txtTag.Size = new Size(325, 31);
             txtTag.TabIndex = 6;
             txtTag.Visible = false;
             txtTag.KeyDown += txtTag_KeyDown;
-            // 
-            // lblTag
-            // 
-            lblTag.AutoSize = true;
-            lblTag.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTag.ForeColor = SystemColors.ControlDarkDark;
-            lblTag.Location = new System.Drawing.Point(30, 545);
-            lblTag.Margin = new Padding(4, 0, 4, 0);
-            lblTag.Name = "lblTag";
-            lblTag.Size = new Size(98, 23);
-            lblTag.TabIndex = 23;
-            lblTag.Text = "Select Tag...";
-            lblTag.Visible = false;
             // 
             // lnkManageTags
             // 
@@ -596,7 +582,6 @@
         private DataGridView dgvTags;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewButtonColumn clmRemove;
-        private Label lblTag;
         private ComboBox cmbTag;
         private TextBox txtTag;
         private Panel pnlList;

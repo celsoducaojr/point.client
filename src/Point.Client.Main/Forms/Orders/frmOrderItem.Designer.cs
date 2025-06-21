@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             txtItem = new TextBox();
             dgvItemUnits = new DataGridView();
             clmItem = new DataGridViewTextBoxColumn();
@@ -38,26 +37,17 @@
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             SuspendLayout();
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16.2F);
-            label1.Location = new System.Drawing.Point(13, 16);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(163, 38);
-            label1.TabIndex = 36;
-            label1.Text = "Search Item";
-            // 
             // txtItem
             // 
             txtItem.Font = new Font("Segoe UI", 16.2F);
-            txtItem.Location = new System.Drawing.Point(184, 13);
+            txtItem.Location = new System.Drawing.Point(13, 13);
             txtItem.Margin = new Padding(4);
             txtItem.MaxLength = 100;
             txtItem.Name = "txtItem";
-            txtItem.Size = new Size(1453, 43);
+            txtItem.PlaceholderText = "Search item...";
+            txtItem.Size = new Size(1624, 43);
             txtItem.TabIndex = 1;
+            txtItem.KeyDown += txtItem_KeyDown;
             // 
             // dgvItemUnits
             // 
@@ -66,14 +56,14 @@
             dgvItemUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmUnit, clmCapitalCode });
             dgvItemUnits.Dock = DockStyle.Bottom;
-            dgvItemUnits.Location = new System.Drawing.Point(0, 89);
+            dgvItemUnits.Location = new System.Drawing.Point(0, 64);
             dgvItemUnits.Margin = new Padding(4);
             dgvItemUnits.MultiSelect = false;
             dgvItemUnits.Name = "dgvItemUnits";
             dgvItemUnits.ReadOnly = true;
             dgvItemUnits.RowHeadersWidth = 51;
             dgvItemUnits.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvItemUnits.Size = new Size(1650, 754);
+            dgvItemUnits.Size = new Size(1650, 779);
             dgvItemUnits.TabIndex = 2;
             dgvItemUnits.CellDoubleClick += dgvItemUnits_CellDoubleClick;
             dgvItemUnits.KeyDown += dgvItemUnits_KeyDown;
@@ -117,7 +107,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1650, 843);
             Controls.Add(dgvItemUnits);
-            Controls.Add(label1);
             Controls.Add(txtItem);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -126,7 +115,7 @@
             MinimizeBox = false;
             Name = "frmOrderItem";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Order Item";
+            Text = "Search Item";
             Load += frmOrderItem_Load;
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).EndInit();
             ResumeLayout(false);
@@ -145,7 +134,6 @@
         private DataGridView dgvTags;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewButtonColumn clmRemove;
-        private Label label1;
         private TextBox txtItem;
         private DataGridView dgvItemUnits;
         private DataGridViewTextBoxColumn clmItem;

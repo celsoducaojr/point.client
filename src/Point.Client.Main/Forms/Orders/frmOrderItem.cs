@@ -70,6 +70,20 @@ namespace Point.Client.Main.Forms.Orders
             }
 
             EnableControls();
+
+            txtItem.Focus();
+        }
+
+        private async void txtItem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(txtItem.Text))
+            {
+                _searchItemDto = new SearchItemCriteriaDto
+                {
+                    Name = txtItem.Text
+                };
+                await SearchItemsWithUnits();
+            }
         }
 
         private void dgvItemUnits_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -101,7 +115,7 @@ namespace Point.Client.Main.Forms.Orders
 
             if (itemUnit.Prices?.Where(price => price.Amount > 0).Any() == true)
             {
-                var form = FormFactory.GetFormDialog<frmOrderItemPrice>();
+                var form = new frmOrderItemPrice();
                 form.SetItemDetails(item, itemUnit);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -117,6 +131,9 @@ namespace Point.Client.Main.Forms.Orders
                         Total = form.SelectedTotal
                     };
 
+                    txtItem.Focus();
+                    txtItem.SelectAll();
+
                     this.DialogResult = DialogResult.OK;
                 }
             }
@@ -130,6 +147,8 @@ namespace Point.Client.Main.Forms.Orders
         private void EnableControls(bool enable = true)
         {
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
+
+            txtItem.Focus();
         }
 
         private void UpdateRowValues(Item item, ItemUnit itemUnit, DataGridViewRow row)

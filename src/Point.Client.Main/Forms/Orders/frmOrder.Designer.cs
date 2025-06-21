@@ -46,18 +46,18 @@
             label8 = new Label();
             label1 = new Label();
             dgvOrderItems = new DataGridView();
-            txtCustomer = new TextBox();
-            lblTimestamp = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label6 = new Label();
-            timerTimestamp = new System.Windows.Forms.Timer(components);
             clmRemove = new DataGridViewButtonColumn();
             clmItem = new DataGridViewTextBoxColumn();
             clmUnit = new DataGridViewTextBoxColumn();
             clmQuantity = new DataGridViewTextBoxColumn();
             clmPrice = new DataGridViewTextBoxColumn();
             clmTotal = new DataGridViewTextBoxColumn();
+            txtCustomer = new TextBox();
+            lblTimestamp = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            label6 = new Label();
+            timerTimestamp = new System.Windows.Forms.Timer(components);
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrderItems).BeginInit();
             SuspendLayout();
@@ -130,8 +130,9 @@
             // 
             label7.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label7.AutoSize = true;
+            label7.BackColor = Color.FromArgb(192, 192, 0);
             label7.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
-            label7.Location = new System.Drawing.Point(1088, 648);
+            label7.Location = new System.Drawing.Point(1057, 651);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(95, 46);
@@ -141,11 +142,12 @@
             // lblTotal
             // 
             lblTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblTotal.BackColor = Color.FromArgb(192, 192, 0);
             lblTotal.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
-            lblTotal.Location = new System.Drawing.Point(1191, 633);
+            lblTotal.Location = new System.Drawing.Point(1057, 638);
             lblTotal.Margin = new Padding(4, 0, 4, 0);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(267, 75);
+            lblTotal.Size = new Size(401, 70);
             lblTotal.TabIndex = 47;
             lblTotal.Text = "0.00";
             lblTotal.TextAlign = ContentAlignment.MiddleRight;
@@ -262,6 +264,56 @@
             dgvOrderItems.CellValidated += dgvOrderItems_CellValidated;
             dgvOrderItems.CellValidating += dgvOrderItems_CellValidating;
             // 
+            // clmRemove
+            // 
+            clmRemove.HeaderText = "";
+            clmRemove.MinimumWidth = 6;
+            clmRemove.Name = "clmRemove";
+            clmRemove.Width = 125;
+            // 
+            // clmItem
+            // 
+            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmItem.HeaderText = "Item";
+            clmItem.MinimumWidth = 6;
+            clmItem.Name = "clmItem";
+            clmItem.ReadOnly = true;
+            // 
+            // clmUnit
+            // 
+            clmUnit.HeaderText = "Unit";
+            clmUnit.MinimumWidth = 6;
+            clmUnit.Name = "clmUnit";
+            clmUnit.ReadOnly = true;
+            clmUnit.Width = 125;
+            // 
+            // clmQuantity
+            // 
+            clmQuantity.HeaderText = "Quantity";
+            clmQuantity.MinimumWidth = 6;
+            clmQuantity.Name = "clmQuantity";
+            clmQuantity.Width = 125;
+            // 
+            // clmPrice
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmPrice.DefaultCellStyle = dataGridViewCellStyle1;
+            clmPrice.HeaderText = "Price";
+            clmPrice.MinimumWidth = 6;
+            clmPrice.Name = "clmPrice";
+            clmPrice.ReadOnly = true;
+            clmPrice.Width = 150;
+            // 
+            // clmTotal
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmTotal.DefaultCellStyle = dataGridViewCellStyle2;
+            clmTotal.HeaderText = "Total";
+            clmTotal.MinimumWidth = 6;
+            clmTotal.Name = "clmTotal";
+            clmTotal.ReadOnly = true;
+            clmTotal.Width = 175;
+            // 
             // txtCustomer
             // 
             txtCustomer.Location = new System.Drawing.Point(128, 97);
@@ -321,56 +373,6 @@
             // 
             timerTimestamp.Enabled = true;
             timerTimestamp.Tick += timerTimestamp_Tick;
-            // 
-            // clmRemove
-            // 
-            clmRemove.HeaderText = "";
-            clmRemove.MinimumWidth = 6;
-            clmRemove.Name = "clmRemove";
-            clmRemove.Width = 125;
-            // 
-            // clmItem
-            // 
-            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmItem.HeaderText = "Item";
-            clmItem.MinimumWidth = 6;
-            clmItem.Name = "clmItem";
-            clmItem.ReadOnly = true;
-            // 
-            // clmUnit
-            // 
-            clmUnit.HeaderText = "Unit";
-            clmUnit.MinimumWidth = 6;
-            clmUnit.Name = "clmUnit";
-            clmUnit.ReadOnly = true;
-            clmUnit.Width = 125;
-            // 
-            // clmQuantity
-            // 
-            clmQuantity.HeaderText = "Quantity";
-            clmQuantity.MinimumWidth = 6;
-            clmQuantity.Name = "clmQuantity";
-            clmQuantity.Width = 125;
-            // 
-            // clmPrice
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmPrice.DefaultCellStyle = dataGridViewCellStyle1;
-            clmPrice.HeaderText = "Price";
-            clmPrice.MinimumWidth = 6;
-            clmPrice.Name = "clmPrice";
-            clmPrice.ReadOnly = true;
-            clmPrice.Width = 150;
-            // 
-            // clmTotal
-            // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmTotal.DefaultCellStyle = dataGridViewCellStyle2;
-            clmTotal.HeaderText = "Total";
-            clmTotal.MinimumWidth = 6;
-            clmTotal.Name = "clmTotal";
-            clmTotal.ReadOnly = true;
-            clmTotal.Width = 175;
             // 
             // frmOrder
             // 

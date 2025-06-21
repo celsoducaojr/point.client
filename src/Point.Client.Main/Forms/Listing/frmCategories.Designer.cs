@@ -132,6 +132,7 @@
             // 
             // frmCategories
             // 
+            AcceptButton = btnSave;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(918, 531);

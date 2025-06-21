@@ -37,7 +37,6 @@
             label1 = new Label();
             txtItem = new TextBox();
             label2 = new Label();
-            lblTag = new Label();
             btnClear = new Button();
             cmbCategory = new ComboBox();
             cmbUnit = new ComboBox();
@@ -72,6 +71,7 @@
             txtTag.Location = new System.Drawing.Point(427, 248);
             txtTag.Margin = new Padding(4);
             txtTag.Name = "txtTag";
+            txtTag.PlaceholderText = "Select tag...";
             txtTag.Size = new Size(250, 31);
             txtTag.TabIndex = 4;
             txtTag.KeyDown += txtTag_KeyDown;
@@ -138,18 +138,6 @@
             label2.TabIndex = 16;
             label2.Text = "Category";
             // 
-            // lblTag
-            // 
-            lblTag.AutoSize = true;
-            lblTag.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTag.ForeColor = SystemColors.ControlDarkDark;
-            lblTag.Location = new System.Drawing.Point(427, 283);
-            lblTag.Margin = new Padding(4, 0, 4, 0);
-            lblTag.Name = "lblTag";
-            lblTag.Size = new Size(98, 23);
-            lblTag.TabIndex = 26;
-            lblTag.Text = "Select Tag...";
-            // 
             // btnClear
             // 
             btnClear.Location = new System.Drawing.Point(24, 392);
@@ -205,7 +193,6 @@
             Controls.Add(label3);
             Controls.Add(cmbCategory);
             Controls.Add(btnClear);
-            Controls.Add(lblTag);
             Controls.Add(txtTag);
             Controls.Add(dgvTags);
             Controls.Add(label1);
@@ -235,7 +222,6 @@
         private Label label1;
         private TextBox txtItem;
         private Label label2;
-        private Label lblTag;
         private Button btnClear;
         private ComboBox cmbCategory;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;

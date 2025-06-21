@@ -42,7 +42,7 @@
             // btnEdit
             // 
             btnEdit.Location = new System.Drawing.Point(771, 466);
-            btnEdit.Margin = new Padding(4, 4, 4, 4);
+            btnEdit.Margin = new Padding(4);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(118, 36);
             btnEdit.TabIndex = 4;
@@ -53,7 +53,7 @@
             // btnNew
             // 
             btnNew.Location = new System.Drawing.Point(646, 466);
-            btnNew.Margin = new Padding(4, 4, 4, 4);
+            btnNew.Margin = new Padding(4);
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(118, 36);
             btnNew.TabIndex = 3;
@@ -64,7 +64,7 @@
             // txtUnit
             // 
             txtUnit.Location = new System.Drawing.Point(568, 29);
-            txtUnit.Margin = new Padding(4, 4, 4, 4);
+            txtUnit.Margin = new Padding(4);
             txtUnit.MaxLength = 30;
             txtUnit.Name = "txtUnit";
             txtUnit.ReadOnly = true;
@@ -84,7 +84,7 @@
             // btnCancel
             // 
             btnCancel.Location = new System.Drawing.Point(771, 466);
-            btnCancel.Margin = new Padding(4, 4, 4, 4);
+            btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 36);
             btnCancel.TabIndex = 6;
@@ -96,7 +96,7 @@
             // btnSave
             // 
             btnSave.Location = new System.Drawing.Point(583, 466);
-            btnSave.Margin = new Padding(4, 4, 4, 4);
+            btnSave.Margin = new Padding(4);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(180, 36);
             btnSave.TabIndex = 5;
@@ -132,6 +132,7 @@
             // 
             // frmUnits
             // 
+            AcceptButton = btnSave;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(918, 531);
@@ -144,11 +145,11 @@
             Controls.Add(btnSave);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmUnits";
-            Padding = new Padding(25, 25, 25, 25);
+            Padding = new Padding(25);
             Text = "Units";
             Load += frmUnits_Load;
             ((System.ComponentModel.ISupportInitialize)dgvUnits).EndInit();

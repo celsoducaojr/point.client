@@ -403,7 +403,6 @@ namespace Point.Client.Main.Listing
             txtDescription.ReadOnly = !enable;
             clmRemove.Visible = enable;
             txtTag.Visible = enable;
-            lblTag.Visible = enable;
             lnkManageTags.Visible = enable;
 
             btnNew.Visible = !enable;

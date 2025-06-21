@@ -23,22 +23,19 @@ namespace Point.Client.Main.Forms.Orders
         private void cmbPrice_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtPrice.Text = ((decimal)cmbPrice.SelectedValue).ToString(FormConstants.Formats.Amount);
-            lblTotal.Text = GetTotalPrice();
+            lblTotal.Text = GenerateTotalPrice();
         }
 
-        private void numQuantity_ValueChanged(object sender, EventArgs e)
+        private void cmbPrice_KeyDown(object sender, KeyEventArgs e)
         {
-            lblTotal.Text = GetTotalPrice();
-        }
+            if (e.KeyCode == Keys.Enter) btnAddItem.Focus();
 
-        private void numQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        }
+     
+        private void txtPrice_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyChar == '.')
-            {
-                e.Handled = true; // block decimal point
-            }
+            if (e.KeyCode == Keys.Enter) btnAddItem.Focus();
         }
-
         private void txtPrice_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var value = txtPrice.Text;
@@ -53,14 +50,33 @@ namespace Point.Client.Main.Forms.Orders
         {
             var value = txtPrice.Text;
             txtPrice.Text = decimal.Parse(txtPrice.Text).ToString(FormConstants.Formats.Amount);
-            lblTotal.Text = GetTotalPrice();
+            lblTotal.Text = GenerateTotalPrice();
+        }
+
+        private void numQuantity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) btnAddItem.Focus();
+
+        }
+
+        private void numQuantity_ValueChanged(object sender, EventArgs e)
+        {
+            lblTotal.Text = GenerateTotalPrice();
+        }
+
+        private void numQuantity_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '.')
+            {
+                e.Handled = true; // block decimal point
+            }
         }
 
         private void btnAddItem_Click(object sender, EventArgs e)
         {
             SelectedQuantity = (int)numQuantity.Value;
             SelectedPrice = decimal.Parse(txtPrice.Text);
-            SelectedTotal = decimal.Parse(GetTotalPrice());
+            SelectedTotal = decimal.Parse(GenerateTotalPrice());
             this.DialogResult = DialogResult.OK;
         }
 
@@ -91,7 +107,7 @@ namespace Point.Client.Main.Forms.Orders
             cmbPrice_SelectedIndexChanged(null, null);
         }
 
-        private string GetTotalPrice()
+        private string GenerateTotalPrice()
         {
             return (decimal.Parse(txtPrice.Text) * numQuantity.Value).ToString(FormConstants.Formats.Amount);
         }

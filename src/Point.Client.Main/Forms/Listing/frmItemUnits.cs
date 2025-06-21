@@ -428,6 +428,7 @@ namespace Point.Client.Main.Listing
                     column.Tag = FormConstants.DataGridView.Tags.Price;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     column.DefaultCellStyle.Format = FormConstants.Formats.Amount;
+                    column.Width = 200;
                     dgvItemUnits.Columns.Add(column);
                 });
 
