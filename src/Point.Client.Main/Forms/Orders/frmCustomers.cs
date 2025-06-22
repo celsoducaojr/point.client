@@ -3,7 +3,6 @@ using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Globals;
-using static Point.Client.Main.Globals.RecordStatus;
 
 namespace Point.Client.Main.Forms.Orders
 {
@@ -197,6 +196,7 @@ namespace Point.Client.Main.Forms.Orders
                     dgvCustomers.FirstDisplayedScrollingRowIndex = rowIndex;
 
                     txtCustomer.Text = customerDto.Name;
+                    txtCustomer.Tag = new Customer { Id = response.Id, Name = customerDto.Name};
 
                     EnableEditing(false);
                 }));

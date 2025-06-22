@@ -2,13 +2,14 @@
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
+using Point.Client.Main.Constants;
 
 namespace Point.Client.Main.Forms.Orders
 {
     public partial class frmPayOrder : Form
     {
         public PaymentDto? PaymentDto { get; private set; }
-        
+
 
         public frmPayOrder()
         {
@@ -29,16 +30,52 @@ namespace Point.Client.Main.Forms.Orders
             txtTendered.Focus();
         }
 
+        private void txtTendered_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) btnPaid.Focus();
+        }
+
+        private void txtTendered_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var value = txtTendered.Text;
+            if (!string.IsNullOrWhiteSpace(value) && (!decimal.TryParse(value, out decimal amount) || amount <= 0))
+            {
+                MessageBox.Show("Invalid Amount value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                e.Cancel = true;
+            }
+        }
+
+        private void txtTendered_Validated(object sender, EventArgs e)
+        {
+            var tendered = decimal.Parse(txtTendered.Text);
+            txtTendered.Text = tendered.ToString(FormConstants.Formats.Amount);
+
+            var change = (tendered - decimal.Parse(lblTotal.Text));
+            if (change >= 0)
+                lblChange.Text = change.ToString(FormConstants.Formats.Amount);
+            else
+                lblChange.Text = $"({Math.Abs(change).ToString(FormConstants.Formats.Amount)})";
+        }
+
         private void btnPaid_Click(object sender, EventArgs e)
         {
-            if (txtTendered.Text.Trim().Equals("PAY", StringComparison.OrdinalIgnoreCase))
+            var total = decimal.Parse(lblTotal.Text);
+            var tendered = decimal.Parse(txtTendered.Text);
+            if (total <= tendered)
             {
                 PaymentDto = new PaymentDto
                 {
-
+                    Amount = total,
+                    Mode = (PaymentMode)cmbMode.SelectedValue,
+                    Reference = !string.IsNullOrWhiteSpace(txtReference.Text) ? txtReference.Text : null,
+                    Remarks = !string.IsNullOrWhiteSpace(txtRemarks.Text) ? txtRemarks.Text : null,
                 };
 
                 this.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                MessageBox.Show("Invalid Payment Amount value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

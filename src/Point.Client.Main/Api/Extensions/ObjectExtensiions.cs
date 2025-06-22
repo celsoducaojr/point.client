@@ -7,7 +7,7 @@
             return obj == null;
         }
 
-        public static T Parse<T>(this object obj)
+        public static T Parse<T>(this object obj) where T : class
         {
             return (T)obj;
         }

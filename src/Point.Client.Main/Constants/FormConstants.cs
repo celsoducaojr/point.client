@@ -23,6 +23,7 @@
             public static class Columns
             {
                 public const string Quantiy = "clmQuantity";
+                public const string Price = "clmPrice";
             }
 
             public static class Tags

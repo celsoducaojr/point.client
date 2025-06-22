@@ -14,6 +14,16 @@
             }
         }
 
+        public static class Orders
+        {
+            public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
+
+            public static void Updated()
+            {
+                LastUpdate = DateTime.Now;
+            }
+        }
+
         #endregion
 
         #region Listing

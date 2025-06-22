@@ -203,6 +203,9 @@
             txtTendered.TabIndex = 1;
             txtTendered.Text = "0.00";
             txtTendered.TextAlign = HorizontalAlignment.Right;
+            txtTendered.KeyDown += txtTendered_KeyDown;
+            txtTendered.Validating += txtTendered_Validating;
+            txtTendered.Validated += txtTendered_Validated;
             // 
             // label1
             // 
@@ -218,7 +221,6 @@
             // 
             // frmPayOrder
             // 
-            AcceptButton = btnPaid;
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;

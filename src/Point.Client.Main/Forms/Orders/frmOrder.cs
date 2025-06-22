@@ -1,4 +1,6 @@
-﻿using Point.Client.Main.Api;
+﻿using System;
+using Newtonsoft.Json.Linq;
+using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
@@ -49,13 +51,21 @@ namespace Point.Client.Main.Forms.Orders
 
         private void dgvOrderItems_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
+            var value = e.FormattedValue?.ToString() ?? string.Empty;
+
             if (dgvOrderItems.Columns[e.ColumnIndex].Name == FormConstants.DataGridView.Columns.Quantiy)
             {
-                var value = e.FormattedValue?.ToString() ?? string.Empty;
-
-                if (!int.TryParse(value, out int amount) || amount < 1)
+                if (!int.TryParse(value, out int quantity) || quantity < 1)
                 {
                     MessageBox.Show("Invalid Quantity value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    e.Cancel = true;
+                }
+            }
+            else if (dgvOrderItems.Columns[e.ColumnIndex].Name == FormConstants.DataGridView.Columns.Price)
+            {
+                if (!decimal.TryParse(value, out decimal price) || price < 1)
+                {
+                    MessageBox.Show("Invalid Priice value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     e.Cancel = true;
                 }
             }
@@ -63,14 +73,33 @@ namespace Point.Client.Main.Forms.Orders
 
         private void dgvOrderItems_CellValidated(object sender, DataGridViewCellEventArgs e)
         {
-
-            if (dgvOrderItems.Columns[e.ColumnIndex].Name == FormConstants.DataGridView.Columns.Quantiy)
+            var cell = dgvOrderItems.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (dgvOrderItems.Rows[e.RowIndex].Tag is OrderItemDto orderItem)
             {
-                var cell = dgvOrderItems.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                var itemUpdated = false;
 
-                if (int.TryParse(cell.Value?.ToString(), out int value))
+                if (dgvOrderItems.Columns[e.ColumnIndex].Name == FormConstants.DataGridView.Columns.Quantiy)
                 {
-                    cell.Value = value;
+                    var quantity = int.Parse(cell.Value.ToString());
+                    cell.Value = quantity;
+                    orderItem.Quantity = quantity;
+                    itemUpdated = true;
+                }
+                else if (dgvOrderItems.Columns[e.ColumnIndex].Name == FormConstants.DataGridView.Columns.Price)
+                {
+                    var price = decimal.Parse(cell.Value.ToString());
+                    cell.Value = price.ToAmountString();
+                    orderItem.Price = price;
+                    itemUpdated = true;
+                }
+
+                if (itemUpdated)
+                {
+                    orderItem.Total = orderItem.Quantity * orderItem.Price;
+                    dgvOrderItems.Rows[e.RowIndex].Cells["clmTotal"].Value = orderItem.Total.ToAmountString();
+                    dgvOrderItems.Rows[e.RowIndex].Tag = orderItem;
+                    
+                    UpdateTotal();
                 }
             }
         }
@@ -80,28 +109,24 @@ namespace Point.Client.Main.Forms.Orders
             if (dgvOrderItems.Rows.Count > 0)
             {
                 var form = new frmPayOrder();
-                form.SetTotal(lblTotal.Text.ToAmountDecimal());
+                form.SetTotal(decimal.Parse(lblTotal.Text));
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     var items = new List<OrderItemDto>();
-                    foreach (DataGridView row in dgvOrderItems.Rows) items.Add(row.Tag.Parse<OrderItemDto>());
-
-                    var payment = new PaymentDto 
-                    {
-                        Amount = decimal.Parse(lblTotal.Text),
-                        Mode = PaymentMode.Cash
-                    };
+                    foreach (DataGridViewRow row in dgvOrderItems.Rows) items.Add(row.Tag.Parse<OrderItemDto>());
 
                     var orderDto = new OrderDto
                     {
-                        CustomerId = !txtCustomer.Tag.IsNull() ? txtCustomer.Tag.Parse<int>() : null,
+                        CustomerId = !txtCustomer.Tag.IsNull() ? int.Parse(txtCustomer.Tag.ToString()) : null,
                         SubTotal = decimal.Parse(lblSubTotal.Text),
                         Discount = decimal.Parse(lblDiscount.Text),
                         Total = decimal.Parse(lblTotal.Text),
                         Items = items,
                         PaymentTerm = null,
-                        Payment = payment
+                        Payment = form.PaymentDto
                     };
+
+                    EnableControls(false);
 
                     Task.Run(() => CreateOrder(orderDto));
                 }
@@ -150,7 +175,7 @@ namespace Point.Client.Main.Forms.Orders
         private void UpdateTotal()
         {
             decimal total = 0;
-            foreach (DataGridViewRow row in dgvOrderItems.Rows) total += decimal.Parse(row.Cells["clmTotal"].Value.ToString());
+            foreach (DataGridViewRow row in dgvOrderItems.Rows) total += ((OrderItemDto)row.Tag).Total;
 
             lblSubTotal.Text = total.ToString(FormConstants.Formats.Amount);
             lblTotal.Text = total.ToString(FormConstants.Formats.Amount);
@@ -168,14 +193,14 @@ namespace Point.Client.Main.Forms.Orders
 
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    MessageBox.Show("New Order has been added.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("New 'PAID' Order has been Posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     ClearFields();
 
-                    EnableControls(false);
+                    EnableControls();
                 }));
 
-                RecordStatus.Items.Updated();
+                RecordStatus.Orders.Updated();
             }
             catch (HttpRequestException ex)
             {
