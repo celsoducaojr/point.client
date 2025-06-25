@@ -46,13 +46,13 @@
             toolStripDropDownButton2 = new ToolStripDropDownButton();
             btnOrders = new ToolStripMenuItem();
             btnOrderForm = new ToolStripMenuItem();
-            toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             toolStripButton2 = new ToolStripButton();
             toolStrip2 = new ToolStrip();
             toolStripLabel1 = new ToolStripLabel();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripLabel2 = new ToolStripLabel();
+            toolStripSeparator3 = new ToolStripSeparator();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             toolStrip2.SuspendLayout();
@@ -88,7 +88,7 @@
             toolStrip1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, tsbtnStocks, toolStripSeparator1, toolStripDropDownButton2, toolStripSeparator3, toolStripButton1, toolStripButton2 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, tsbtnStocks, toolStripSeparator1, toolStripDropDownButton2, toolStripButton1, toolStripSeparator3, toolStripButton2 });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new System.Drawing.Point(0, 28);
             toolStrip1.Name = "toolStrip1";
@@ -202,11 +202,6 @@
             btnOrderForm.Text = "Order Form";
             btnOrderForm.Click += btnOrderForm_Click;
             // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 102);
-            // 
             // toolStripButton1
             // 
             toolStripButton1.Image = Properties.Resources.sales;
@@ -263,6 +258,11 @@
             toolStripLabel2.Size = new Size(83, 22);
             toolStripLabel2.Text = "Connected";
             // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 102);
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(9F, 23F);
@@ -308,7 +308,6 @@
         private ToolStripMenuItem btnItemUnits;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem btnItems;
-        private ToolStripSeparator toolStripSeparator3;
         private ToolStripButton toolStripButton1;
         private ToolStripButton toolStripButton2;
         private ToolStripSeparator toolStripSeparator5;
@@ -317,5 +316,6 @@
         private ToolStripMenuItem btnOrders;
         private ToolStripMenuItem btnOrderForm;
         private ToolStripMenuItem btnPriceTypes;
+        private ToolStripSeparator toolStripSeparator3;
     }
 }

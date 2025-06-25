@@ -18,9 +18,12 @@
         {
             public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
 
+            public static event Action OnDataUpdated;
             public static void Updated()
             {
                 LastUpdate = DateTime.Now;
+
+                OnDataUpdated?.Invoke();
             }
         }
 

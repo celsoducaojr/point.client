@@ -36,6 +36,10 @@
             btnCancel = new ToolStripButton();
             btnSave = new ToolStripButton();
             dgvItemUnits = new DataGridView();
+            clmItem = new DataGridViewTextBoxColumn();
+            clmCategory = new DataGridViewTextBoxColumn();
+            clmUnit = new DataGridViewTextBoxColumn();
+            clmCapitalCode = new DataGridViewTextBoxColumn();
             lblTitle = new Label();
             tsPages = new ToolStrip();
             toolStripLabel2 = new ToolStripLabel();
@@ -51,10 +55,6 @@
             btnSearch = new ToolStripButton();
             btnClearFilter = new ToolStripButton();
             lblSearchCriteria = new ToolStripLabel();
-            clmItem = new DataGridViewTextBoxColumn();
-            clmCategory = new DataGridViewTextBoxColumn();
-            clmUnit = new DataGridViewTextBoxColumn();
-            clmCapitalCode = new DataGridViewTextBoxColumn();
             tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             tsPages.SuspendLayout();
@@ -66,7 +66,7 @@
             tsMain.GripStyle = ToolStripGripStyle.Hidden;
             tsMain.ImageScalingSize = new Size(20, 20);
             tsMain.Items.AddRange(new ToolStripItem[] { btnNew, toolStripSeparator1, btnEdit, btnCancel, btnSave });
-            tsMain.Location = new System.Drawing.Point(0, 70);
+            tsMain.Location = new System.Drawing.Point(0, 60);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(1285, 31);
             tsMain.TabIndex = 0;
@@ -128,25 +128,58 @@
             dgvItemUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmUnit, clmCapitalCode });
             dgvItemUnits.Dock = DockStyle.Fill;
-            dgvItemUnits.Location = new System.Drawing.Point(0, 101);
+            dgvItemUnits.Location = new System.Drawing.Point(0, 91);
             dgvItemUnits.Margin = new Padding(4);
             dgvItemUnits.Name = "dgvItemUnits";
             dgvItemUnits.ReadOnly = true;
             dgvItemUnits.RowHeadersWidth = 51;
-            dgvItemUnits.Size = new Size(1285, 606);
+            dgvItemUnits.Size = new Size(1285, 616);
             dgvItemUnits.TabIndex = 1;
             dgvItemUnits.CellValidated += dgvItemUnits_CellValidated;
             dgvItemUnits.CellValidating += dgvItemUnits_CellValidating;
+            // 
+            // clmItem
+            // 
+            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmItem.HeaderText = "Item";
+            clmItem.MinimumWidth = 6;
+            clmItem.Name = "clmItem";
+            clmItem.ReadOnly = true;
+            // 
+            // clmCategory
+            // 
+            clmCategory.HeaderText = "Category";
+            clmCategory.MinimumWidth = 6;
+            clmCategory.Name = "clmCategory";
+            clmCategory.ReadOnly = true;
+            clmCategory.Width = 125;
+            // 
+            // clmUnit
+            // 
+            clmUnit.HeaderText = "Unit";
+            clmUnit.MinimumWidth = 6;
+            clmUnit.Name = "clmUnit";
+            clmUnit.ReadOnly = true;
+            clmUnit.Width = 125;
+            // 
+            // clmCapitalCode
+            // 
+            clmCapitalCode.HeaderText = "Capital Code";
+            clmCapitalCode.MaxInputLength = 50;
+            clmCapitalCode.MinimumWidth = 6;
+            clmCapitalCode.Name = "clmCapitalCode";
+            clmCapitalCode.ReadOnly = true;
+            clmCapitalCode.Width = 150;
             // 
             // lblTitle
             // 
             lblTitle.BackColor = Color.DeepSkyBlue;
             lblTitle.Dock = DockStyle.Top;
-            lblTitle.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTitle.Location = new System.Drawing.Point(0, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(1285, 70);
+            lblTitle.Size = new Size(1285, 60);
             lblTitle.TabIndex = 2;
             lblTitle.Text = "Manage Item-units";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
@@ -283,39 +316,6 @@
             lblSearchCriteria.Name = "lblSearchCriteria";
             lblSearchCriteria.Size = new Size(201, 28);
             lblSearchCriteria.Text = "Loading search criteria...";
-            // 
-            // clmItem
-            // 
-            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmItem.HeaderText = "Item";
-            clmItem.MinimumWidth = 6;
-            clmItem.Name = "clmItem";
-            clmItem.ReadOnly = true;
-            // 
-            // clmCategory
-            // 
-            clmCategory.HeaderText = "Category";
-            clmCategory.MinimumWidth = 6;
-            clmCategory.Name = "clmCategory";
-            clmCategory.ReadOnly = true;
-            clmCategory.Width = 125;
-            // 
-            // clmUnit
-            // 
-            clmUnit.HeaderText = "Unit";
-            clmUnit.MinimumWidth = 6;
-            clmUnit.Name = "clmUnit";
-            clmUnit.ReadOnly = true;
-            clmUnit.Width = 125;
-            // 
-            // clmCapitalCode
-            // 
-            clmCapitalCode.HeaderText = "Capital Code";
-            clmCapitalCode.MaxInputLength = 50;
-            clmCapitalCode.MinimumWidth = 6;
-            clmCapitalCode.Name = "clmCapitalCode";
-            clmCapitalCode.ReadOnly = true;
-            clmCapitalCode.Width = 150;
             // 
             // frmItemUnits
             // 

@@ -1,10 +1,8 @@
-﻿using System.Windows.Forms;
-using Point.Client.Main.Api;
+﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
-using Point.Client.Main.Globals;
 using static Point.Client.Main.Globals.RecordStatus;
 
 namespace Point.Client.Main.Forms.Orders
@@ -232,7 +230,7 @@ namespace Point.Client.Main.Forms.Orders
                     column.Tag = FormConstants.DataGridView.Tags.Price;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     column.DefaultCellStyle.Format = FormConstants.Formats.Amount;
-                    column.Width = 200;
+                    column.Width = 175;
                     dgvItemUnits.Columns.Add(column);
                 });
 
