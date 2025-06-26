@@ -2,6 +2,11 @@
 {
     public static class StringExtensions
     {
+        public static string ToOrderNumberString(this string number)
+        {
+            return $"Order No. {number}";    
+        }
+
         public static decimal ToAmountDecimal(this string value)
         {
             return decimal.TryParse(value, out var amount) ? amount : 0;

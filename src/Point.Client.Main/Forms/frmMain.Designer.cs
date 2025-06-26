@@ -45,14 +45,15 @@
             toolStripSeparator1 = new ToolStripSeparator();
             toolStripDropDownButton2 = new ToolStripDropDownButton();
             btnOrders = new ToolStripMenuItem();
+            toolStripSeparator6 = new ToolStripSeparator();
             btnOrderForm = new ToolStripMenuItem();
             toolStripButton1 = new ToolStripButton();
+            toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton2 = new ToolStripButton();
             toolStrip2 = new ToolStrip();
             toolStripLabel1 = new ToolStripLabel();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripLabel2 = new ToolStripLabel();
-            toolStripSeparator3 = new ToolStripSeparator();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             toolStrip2.SuspendLayout();
@@ -179,7 +180,7 @@
             // 
             // toolStripDropDownButton2
             // 
-            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { btnOrders, btnOrderForm });
+            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { btnOrders, toolStripSeparator6, btnOrderForm });
             toolStripDropDownButton2.Image = Properties.Resources.orders;
             toolStripDropDownButton2.ImageScaling = ToolStripItemImageScaling.None;
             toolStripDropDownButton2.ImageTransparentColor = Color.Magenta;
@@ -195,11 +196,16 @@
             btnOrders.Text = "Manager Orders";
             btnOrders.Click += btnOrders_Click;
             // 
+            // toolStripSeparator6
+            // 
+            toolStripSeparator6.Name = "toolStripSeparator6";
+            toolStripSeparator6.Size = new Size(224, 6);
+            // 
             // btnOrderForm
             // 
             btnOrderForm.Name = "btnOrderForm";
             btnOrderForm.Size = new Size(227, 30);
-            btnOrderForm.Text = "Order Form";
+            btnOrderForm.Text = "Add New Order";
             btnOrderForm.Click += btnOrderForm_Click;
             // 
             // toolStripButton1
@@ -212,6 +218,11 @@
             toolStripButton1.Size = new Size(76, 99);
             toolStripButton1.Text = "Sales";
             toolStripButton1.TextImageRelation = TextImageRelation.ImageAboveText;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 102);
             // 
             // toolStripButton2
             // 
@@ -257,11 +268,6 @@
             toolStripLabel2.Name = "toolStripLabel2";
             toolStripLabel2.Size = new Size(83, 22);
             toolStripLabel2.Text = "Connected";
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 102);
             // 
             // frmMain
             // 
@@ -317,5 +323,6 @@
         private ToolStripMenuItem btnOrderForm;
         private ToolStripMenuItem btnPriceTypes;
         private ToolStripSeparator toolStripSeparator3;
+        private ToolStripSeparator toolStripSeparator6;
     }
 }

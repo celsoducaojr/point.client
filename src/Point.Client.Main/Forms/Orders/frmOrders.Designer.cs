@@ -51,7 +51,13 @@
             btnPrev = new ToolStripButton();
             btnFirst = new ToolStripButton();
             tsMain = new ToolStrip();
-            toolStripButton1 = new ToolStripButton();
+            btnAddNewOrder = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            toolStripDropDownButton1 = new ToolStripDropDownButton();
+            btnModify = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            btnRelease = new ToolStripMenuItem();
+            btnCancel = new ToolStripMenuItem();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2 = new Panel();
             lblCustomer = new Label();
@@ -260,21 +266,61 @@
             tsMain.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsMain.GripStyle = ToolStripGripStyle.Hidden;
             tsMain.ImageScalingSize = new Size(20, 20);
-            tsMain.Items.AddRange(new ToolStripItem[] { toolStripButton1 });
+            tsMain.Items.AddRange(new ToolStripItem[] { btnAddNewOrder, toolStripSeparator1, toolStripDropDownButton1 });
             tsMain.Location = new System.Drawing.Point(0, 0);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(430, 31);
             tsMain.TabIndex = 5;
             tsMain.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // btnAddNewOrder
             // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(149, 28);
-            toolStripButton1.Text = "Add New Order";
+            btnAddNewOrder.Image = Properties.Resources.add_order_icon;
+            btnAddNewOrder.ImageTransparentColor = Color.Magenta;
+            btnAddNewOrder.Name = "btnAddNewOrder";
+            btnAddNewOrder.Size = new Size(169, 28);
+            btnAddNewOrder.Text = "Add New Order";
+            btnAddNewOrder.Click += btnAddNewOrder_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 31);
+            // 
+            // toolStripDropDownButton1
+            // 
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnModify, toolStripSeparator3, btnRelease, btnCancel });
+            toolStripDropDownButton1.Image = Properties.Resources.update_order_icon;
+            toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            toolStripDropDownButton1.Size = new Size(164, 28);
+            toolStripDropDownButton1.Text = "Update Order";
+            // 
+            // btnModify
+            // 
+            btnModify.Name = "btnModify";
+            btnModify.Size = new Size(224, 28);
+            btnModify.Text = "Modify or Pay";
+            btnModify.Click += btnModify_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(221, 6);
+            // 
+            // btnRelease
+            // 
+            btnRelease.Name = "btnRelease";
+            btnRelease.Size = new Size(224, 28);
+            btnRelease.Text = "Release";
+            btnRelease.Click += btnRelease_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(224, 28);
+            btnCancel.Text = "Cancel";
+            btnCancel.Click += btnCancel_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -560,7 +606,7 @@
         private Panel panel1;
         private DataGridView dgvOrders;
         private ToolStrip tsMain;
-        private ToolStripButton toolStripButton1;
+        private ToolStripButton btnAddNewOrder;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel2;
         private Label lblTitle;
@@ -598,5 +644,11 @@
         private DataGridViewTextBoxColumn clmOrderTotal;
         private DataGridViewTextBoxColumn clmCustomer;
         private Label lblCustomer;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripDropDownButton toolStripDropDownButton1;
+        private ToolStripMenuItem btnModify;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem btnRelease;
+        private ToolStripMenuItem btnCancel;
     }
 }

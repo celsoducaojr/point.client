@@ -74,7 +74,7 @@
             // 
             // btnNew
             // 
-            btnNew.Image = Properties.Resources.save_icon;
+            btnNew.Image = Properties.Resources.add_items_icon;
             btnNew.ImageTransparentColor = Color.Magenta;
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(211, 28);

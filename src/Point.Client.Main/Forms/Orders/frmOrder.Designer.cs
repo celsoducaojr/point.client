@@ -28,37 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             lblTitle = new Label();
-            panel1 = new Panel();
+            pnlMain = new Panel();
             lnkSelectCustomer = new LinkLabel();
             btnAddItem = new Button();
             label7 = new Label();
             lblTotal = new Label();
             btnSaveAsNew = new Button();
             btnPaid = new Button();
-            btnCancel = new Button();
+            btnClear = new Button();
             label11 = new Label();
             lblDiscount = new Label();
             lblSubTotal = new Label();
             label8 = new Label();
             label1 = new Label();
             dgvOrderItems = new DataGridView();
-            txtCustomer = new TextBox();
-            lblTimestamp = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label6 = new Label();
-            timerTimestamp = new System.Windows.Forms.Timer(components);
             clmRemove = new DataGridViewButtonColumn();
             clmItem = new DataGridViewTextBoxColumn();
             clmUnit = new DataGridViewTextBoxColumn();
             clmQuantity = new DataGridViewTextBoxColumn();
             clmPrice = new DataGridViewTextBoxColumn();
             clmTotal = new DataGridViewTextBoxColumn();
-            panel1.SuspendLayout();
+            txtCustomer = new TextBox();
+            lblDateTime = new Label();
+            lblStatus = new Label();
+            label4 = new Label();
+            lblOrderNumber = new Label();
+            pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrderItems).BeginInit();
             SuspendLayout();
             // 
@@ -75,33 +73,33 @@
             lblTitle.Text = "Order Form";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // panel1
+            // pnlMain
             // 
-            panel1.Controls.Add(lnkSelectCustomer);
-            panel1.Controls.Add(btnAddItem);
-            panel1.Controls.Add(label7);
-            panel1.Controls.Add(lblTotal);
-            panel1.Controls.Add(btnSaveAsNew);
-            panel1.Controls.Add(btnPaid);
-            panel1.Controls.Add(btnCancel);
-            panel1.Controls.Add(label11);
-            panel1.Controls.Add(lblDiscount);
-            panel1.Controls.Add(lblSubTotal);
-            panel1.Controls.Add(label8);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(dgvOrderItems);
-            panel1.Controls.Add(txtCustomer);
-            panel1.Controls.Add(lblTimestamp);
-            panel1.Controls.Add(label5);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(label6);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            panel1.Location = new System.Drawing.Point(0, 70);
-            panel1.Name = "panel1";
-            panel1.Padding = new Padding(20);
-            panel1.Size = new Size(1482, 733);
-            panel1.TabIndex = 13;
+            pnlMain.Controls.Add(lnkSelectCustomer);
+            pnlMain.Controls.Add(btnAddItem);
+            pnlMain.Controls.Add(label7);
+            pnlMain.Controls.Add(lblTotal);
+            pnlMain.Controls.Add(btnSaveAsNew);
+            pnlMain.Controls.Add(btnPaid);
+            pnlMain.Controls.Add(btnClear);
+            pnlMain.Controls.Add(label11);
+            pnlMain.Controls.Add(lblDiscount);
+            pnlMain.Controls.Add(lblSubTotal);
+            pnlMain.Controls.Add(label8);
+            pnlMain.Controls.Add(label1);
+            pnlMain.Controls.Add(dgvOrderItems);
+            pnlMain.Controls.Add(txtCustomer);
+            pnlMain.Controls.Add(lblDateTime);
+            pnlMain.Controls.Add(lblStatus);
+            pnlMain.Controls.Add(label4);
+            pnlMain.Controls.Add(lblOrderNumber);
+            pnlMain.Dock = DockStyle.Fill;
+            pnlMain.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            pnlMain.Location = new System.Drawing.Point(0, 70);
+            pnlMain.Name = "pnlMain";
+            pnlMain.Padding = new Padding(20);
+            pnlMain.Size = new Size(1482, 733);
+            pnlMain.TabIndex = 13;
             // 
             // lnkSelectCustomer
             // 
@@ -109,7 +107,7 @@
             lnkSelectCustomer.Location = new System.Drawing.Point(557, 100);
             lnkSelectCustomer.Name = "lnkSelectCustomer";
             lnkSelectCustomer.Size = new Size(165, 28);
-            lnkSelectCustomer.TabIndex = 50;
+            lnkSelectCustomer.TabIndex = 6;
             lnkSelectCustomer.TabStop = true;
             lnkSelectCustomer.Text = "Select Customer...";
             lnkSelectCustomer.LinkClicked += lnkSelectCustomer_LinkClicked;
@@ -121,7 +119,7 @@
             btnAddItem.Location = new System.Drawing.Point(1231, 60);
             btnAddItem.Name = "btnAddItem";
             btnAddItem.Size = new Size(227, 72);
-            btnAddItem.TabIndex = 49;
+            btnAddItem.TabIndex = 1;
             btnAddItem.Text = "ADD ITEM";
             btnAddItem.UseVisualStyleBackColor = true;
             btnAddItem.Click += btnAddItem_Click;
@@ -155,11 +153,12 @@
             // btnSaveAsNew
             // 
             btnSaveAsNew.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnSaveAsNew.Enabled = false;
             btnSaveAsNew.Font = new Font("Segoe UI", 13.8F);
             btnSaveAsNew.Location = new System.Drawing.Point(23, 638);
             btnSaveAsNew.Name = "btnSaveAsNew";
             btnSaveAsNew.Size = new Size(188, 72);
-            btnSaveAsNew.TabIndex = 46;
+            btnSaveAsNew.TabIndex = 4;
             btnSaveAsNew.Text = "SAVE AS NEW";
             btnSaveAsNew.UseVisualStyleBackColor = true;
             btnSaveAsNew.Click += btnSaveAsNew_Click;
@@ -167,26 +166,27 @@
             // btnPaid
             // 
             btnPaid.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnPaid.Enabled = false;
             btnPaid.Font = new Font("Segoe UI", 13.8F);
             btnPaid.Location = new System.Drawing.Point(23, 560);
             btnPaid.Name = "btnPaid";
             btnPaid.Size = new Size(382, 72);
-            btnPaid.TabIndex = 45;
-            btnPaid.Text = "PAID";
+            btnPaid.TabIndex = 3;
+            btnPaid.Text = "PAY";
             btnPaid.UseVisualStyleBackColor = true;
             btnPaid.Click += btnPaid_Click;
             // 
-            // btnCancel
+            // btnClear
             // 
-            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnCancel.Font = new Font("Segoe UI", 13.8F);
-            btnCancel.Location = new System.Drawing.Point(217, 638);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(188, 72);
-            btnCancel.TabIndex = 44;
-            btnCancel.Text = "CANCEL";
-            btnCancel.UseVisualStyleBackColor = true;
-            btnCancel.Click += btnCancel_Click;
+            btnClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnClear.Font = new Font("Segoe UI", 13.8F);
+            btnClear.Location = new System.Drawing.Point(217, 638);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(188, 72);
+            btnClear.TabIndex = 5;
+            btnClear.Text = "CLEAR";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
             // 
             // label11
             // 
@@ -260,69 +260,10 @@
             dgvOrderItems.RowHeadersWidth = 51;
             dgvOrderItems.SelectionMode = DataGridViewSelectionMode.CellSelect;
             dgvOrderItems.Size = new Size(1434, 414);
-            dgvOrderItems.TabIndex = 33;
+            dgvOrderItems.TabIndex = 2;
+            dgvOrderItems.CellClick += dgvOrderItems_CellClick;
             dgvOrderItems.CellValidated += dgvOrderItems_CellValidated;
             dgvOrderItems.CellValidating += dgvOrderItems_CellValidating;
-            // 
-            // txtCustomer
-            // 
-            txtCustomer.Location = new System.Drawing.Point(128, 97);
-            txtCustomer.Margin = new Padding(4);
-            txtCustomer.MaxLength = 100;
-            txtCustomer.Name = "txtCustomer";
-            txtCustomer.ReadOnly = true;
-            txtCustomer.Size = new Size(422, 34);
-            txtCustomer.TabIndex = 32;
-            // 
-            // lblTimestamp
-            // 
-            lblTimestamp.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            lblTimestamp.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTimestamp.Location = new System.Drawing.Point(1237, 14);
-            lblTimestamp.Margin = new Padding(4, 0, 4, 0);
-            lblTimestamp.Name = "lblTimestamp";
-            lblTimestamp.Size = new Size(221, 25);
-            lblTimestamp.TabIndex = 31;
-            lblTimestamp.Text = "Jan 1, 2025";
-            lblTimestamp.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new System.Drawing.Point(97, 48);
-            label5.Margin = new Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(54, 25);
-            label5.TabIndex = 30;
-            label5.Text = "NEW";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(24, 45);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(65, 28);
-            label4.TabIndex = 29;
-            label4.Text = "Status";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new System.Drawing.Point(24, 14);
-            label6.Margin = new Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(207, 31);
-            label6.TabIndex = 24;
-            label6.Text = "ORDER NO. 12345";
-            label6.Visible = false;
-            // 
-            // timerTimestamp
-            // 
-            timerTimestamp.Enabled = true;
-            timerTimestamp.Tick += timerTimestamp_Tick;
             // 
             // clmRemove
             // 
@@ -373,12 +314,67 @@
             clmTotal.ReadOnly = true;
             clmTotal.Width = 175;
             // 
+            // txtCustomer
+            // 
+            txtCustomer.Location = new System.Drawing.Point(128, 97);
+            txtCustomer.Margin = new Padding(4);
+            txtCustomer.MaxLength = 100;
+            txtCustomer.Name = "txtCustomer";
+            txtCustomer.ReadOnly = true;
+            txtCustomer.Size = new Size(422, 34);
+            txtCustomer.TabIndex = 32;
+            txtCustomer.TabStop = false;
+            // 
+            // lblDateTime
+            // 
+            lblDateTime.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblDateTime.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDateTime.Location = new System.Drawing.Point(1237, 14);
+            lblDateTime.Margin = new Padding(4, 0, 4, 0);
+            lblDateTime.Name = "lblDateTime";
+            lblDateTime.Size = new Size(221, 25);
+            lblDateTime.TabIndex = 31;
+            lblDateTime.Text = "Jan 1, 2025";
+            lblDateTime.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new System.Drawing.Point(97, 48);
+            lblStatus.Margin = new Padding(4, 0, 4, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(54, 25);
+            lblStatus.TabIndex = 30;
+            lblStatus.Text = "NEW";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(24, 45);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(65, 28);
+            label4.TabIndex = 29;
+            label4.Text = "Status";
+            // 
+            // lblOrderNumber
+            // 
+            lblOrderNumber.AutoSize = true;
+            lblOrderNumber.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblOrderNumber.Location = new System.Drawing.Point(24, 14);
+            lblOrderNumber.Margin = new Padding(4, 0, 4, 0);
+            lblOrderNumber.Name = "lblOrderNumber";
+            lblOrderNumber.Size = new Size(207, 31);
+            lblOrderNumber.TabIndex = 24;
+            lblOrderNumber.Text = "ORDER NO. 12345";
+            // 
             // frmOrder
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1482, 803);
-            Controls.Add(panel1);
+            Controls.Add(pnlMain);
             Controls.Add(lblTitle);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
@@ -386,19 +382,21 @@
             Name = "frmOrder";
             Text = "Order Form";
             WindowState = FormWindowState.Maximized;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            FormClosing += frmOrder_FormClosing;
+            Load += frmOrder_Load;
+            pnlMain.ResumeLayout(false);
+            pnlMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrderItems).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private Label lblTitle;
-        private Panel panel1;
-        private Label label6;
-        private Label label5;
+        private Panel pnlMain;
+        private Label lblOrderNumber;
+        private Label lblStatus;
         private Label label4;
-        private Label lblTimestamp;
+        private Label lblDateTime;
         private DataGridView dgvOrderItems;
         private TextBox txtCustomer;
         private Label label1;
@@ -408,10 +406,9 @@
         private Label label8;
         private Button btnSaveAsNew;
         private Button btnPaid;
-        private Button btnCancel;
+        private Button btnClear;
         private Label lblTotal;
         private Label label7;
-        private System.Windows.Forms.Timer timerTimestamp;
         private Button btnAddItem;
         private LinkLabel lnkSelectCustomer;
         private DataGridViewButtonColumn clmRemove;

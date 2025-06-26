@@ -38,7 +38,7 @@ namespace Point.Client.Main.Forms.Orders
         private void txtTendered_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var value = txtTendered.Text;
-            if (!string.IsNullOrWhiteSpace(value) && (!decimal.TryParse(value, out decimal amount) || amount <= 0))
+            if (!string.IsNullOrWhiteSpace(value) && (!decimal.TryParse(value, out decimal amount) || amount < 0))
             {
                 MessageBox.Show("Invalid Amount value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 e.Cancel = true;

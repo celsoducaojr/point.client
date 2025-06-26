@@ -37,12 +37,34 @@ namespace Point.Client.Main.Forms.Orders
         {
             if (_isFirstLoad)
             {
+                ClearFields();
+
                 _isFirstLoad = false;
 
                 cmbPageSize.SelectedIndex = 0;
             }
 
             RecordStatus.Orders.OnDataUpdated += ReloadData;
+        }
+
+        private void btnAddNewOrder_Click(object sender, EventArgs e)
+        {
+            FormFactory.GetForm<frmOrder>().Show();
+        }
+
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRelease_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void dgvOrders_SelectionChanged(object sender, EventArgs e)
@@ -53,7 +75,7 @@ namespace Point.Client.Main.Forms.Orders
 
                 var order = (Order)dgvOrders.SelectedRows[0]?.Tag;
 
-                lblOrderNumber.Text = order.Number;
+                lblOrderNumber.Text = order.Number.ToOrderNumberString();
                 lblStatus.Text = order.Status.ToString();
                 lblCustomer.Text = order.Customer?.Name;
                 lblDateTime.Text = order.Created.ConvertToLongDateString();
@@ -164,7 +186,7 @@ namespace Point.Client.Main.Forms.Orders
 
         private void ReloadData()
         {
-            MessageBox.Show("");
+            cmbPageSize_SelectedIndexChanged(null, null);
         }
 
         private void ClearFields()
@@ -242,6 +264,5 @@ namespace Point.Client.Main.Forms.Orders
         }
 
         #endregion
-
     }
 }
