@@ -59,12 +59,20 @@ namespace Point.Client.Main.Forms.Orders
 
         private void btnRelease_Click(object sender, EventArgs e)
         {
-
+            if (dgvOrders.SelectedRows.Count > 0)
+            {
+                var order = (Order)dgvOrders.SelectedRows[0]?.Tag;
+                var form = new frmOrderStatusUpdate(order, OrderStatus.Released).ShowDialog();
+            } 
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            if (dgvOrders.SelectedRows.Count > 0)
+            {
+                var order = (Order)dgvOrders.SelectedRows[0]?.Tag;
+                var form = new frmOrderStatusUpdate(order, OrderStatus.Cancelled).ShowDialog();
+            }
         }
 
         private void dgvOrders_SelectionChanged(object sender, EventArgs e)

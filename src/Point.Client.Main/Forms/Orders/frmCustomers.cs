@@ -146,6 +146,7 @@ namespace Point.Client.Main.Forms.Orders
         {
             txtCustomer.Clear();
         }
+
         private void EnableEditing(bool enable)
         {
             txtSearch.Enabled = !enable;
@@ -162,6 +163,7 @@ namespace Point.Client.Main.Forms.Orders
 
             EnableButtons();
         }
+
         private void EnableButtons(bool enable = true)
         {
             btnLoadAll.Enabled = enable;

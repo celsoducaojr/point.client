@@ -1,4 +1,6 @@
-﻿namespace Point.Client.Main.Constants
+﻿using Point.Client.Main.Api.Enums;
+
+namespace Point.Client.Main.Constants
 {
     public static class FormConstants
     {
@@ -30,6 +32,24 @@
             {
                 public const string Price = "PRICETAG";
             }
+        }
+
+        public static class Order
+        {
+            public static class StatusAction
+            {
+                public static string Release = "Release";
+                public static string Cancel = "Cancel";
+            }
+
+            public static Dictionary<OrderStatus, string> StatusActionDictionary = new()
+            {
+                { OrderStatus.Released, StatusAction.Release },
+                { OrderStatus.Cancelled, StatusAction.Cancel }
+            };
+
+            public static string ChangeStatusLabel = "Type '{0}' to update status...";
+            public static string ChangeStatuslButtonLabel = "{0} ORDER";
         }
 
     }
