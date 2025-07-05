@@ -1,6 +1,7 @@
 using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Forms.Orders;
 using Point.Client.Main.Forms.Products;
+using Point.Client.Main.Forms.Sales;
 using Point.Client.Main.Globals;
 using Point.Client.Main.Listing;
 
@@ -79,7 +80,7 @@ namespace Point.Client.Main
 
         private void btnSales_Click(object sender, EventArgs e)
         {
-            //OpenChildForm(new frmSales());
+            OpenChildForm(new frmSales());
         }
 
         #endregion

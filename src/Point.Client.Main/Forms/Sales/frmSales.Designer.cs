@@ -28,10 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "frmSales";
+            SuspendLayout();
+            // 
+            // frmSales
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1602, 816);
+            Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Margin = new Padding(4, 4, 4, 4);
+            MinimumSize = new Size(1620, 863);
+            Name = "frmSales";
+            Text = "Sales";
+            WindowState = FormWindowState.Maximized;
+            ResumeLayout(false);
         }
 
         #endregion
