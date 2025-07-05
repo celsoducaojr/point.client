@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
+using Point.Client.Main.Api.Entities.Orders;
 using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
@@ -14,6 +15,7 @@ namespace Point.Client.Main.Forms.Orders
     public partial class frmOrder : Form
     {
         private bool _isFirstLoad;
+        private Order? _currentOrder;
 
         private readonly OrderService _orderService;
 
@@ -22,13 +24,14 @@ namespace Point.Client.Main.Forms.Orders
             InitializeComponent();
 
             _isFirstLoad = true;
+            _currentOrder = null;
 
             _orderService = ServiceFactory.GetService<OrderService>();
         }
 
         private void frmOrder_Load(object sender, EventArgs e)
         {
-            if (_isFirstLoad)
+            if (_isFirstLoad && _currentOrder == null)
             {
                 _isFirstLoad = false;
 
@@ -164,11 +167,19 @@ namespace Point.Client.Main.Forms.Orders
         {
             if (dgvOrderItems.Rows.Count == 0) return;
 
-            if (MessageBox.Show("Save this Order as 'NEW'?", "Save New Order",
+            if (MessageBox.Show("Post this Order?", "Post Order",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 EnableControls(false);
-                Task.Run(() => CreateOrder());
+
+                if (_currentOrder == null)
+                {
+                    Task.Run(() => CreateOrder());
+                }
+                else
+                {
+                    Task.Run(() => UpdateOrder());
+                }
             }
         }
 
@@ -188,6 +199,8 @@ namespace Point.Client.Main.Forms.Orders
 
         private void ClearFields()
         {
+            _currentOrder = null;
+
             lblOrderNumber.Text = string.Empty;
             lblStatus.Text = OrderStatus.New.ToString();
             lblDateTime.Text = DateTime.Now.ConvertToLongDateString();
@@ -203,7 +216,7 @@ namespace Point.Client.Main.Forms.Orders
 
         private void EnableButtons(bool enable = true)
         {
-            btnPaid.Enabled = enable;
+            btnPay.Enabled = enable;
             btnSaveAsNew.Enabled = enable;
         }
 
@@ -230,6 +243,30 @@ namespace Point.Client.Main.Forms.Orders
 
             lblSubTotal.Text = total.ToString(FormConstants.Formats.Amount);
             lblTotal.Text = total.ToString(FormConstants.Formats.Amount);
+        }
+
+        public void ShowForEdit(Order order)
+        {
+            ClearFields();
+
+            _currentOrder = order;
+
+            lblOrderNumber.Text = order.Number.ToOrderNumberString();
+            lblDateTime.Text = order.Created.ConvertToLongDateString();
+
+            txtCustomer.Tag = order.Customer?.Id;
+            txtCustomer.Text = order.Customer?.Name;
+
+            foreach (var orderItem in order.Items)
+            {
+                dgvOrderItems.Rows.Add(new DataGridViewRow());
+                UpdateRowValues(orderItem.ToOrderItemDto(), dgvOrderItems.Rows[dgvOrderItems.Rows.Count - 1]);
+                UpdateTotal();
+            }
+
+            btnPay.Enabled = true;
+
+            this.Show();
         }
 
         #endregion
@@ -261,7 +298,47 @@ namespace Point.Client.Main.Forms.Orders
                     var status = OrderStatus.Paid;
                     if (paymentDto == null) status = OrderStatus.New;
 
-                    MessageBox.Show($"'{status.ToString()}' Order has been Posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"'{status.ToString()}' Order has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    ClearFields();
+
+                    EnableControls();
+                }));
+
+                RecordStatus.Orders.Updated();
+            }
+            catch (HttpRequestException ex)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    EnableControls();
+                }));
+            }
+        }
+
+        private async void UpdateOrder()
+        {
+            try
+            {
+                var items = new List<OrderItemDto>();
+                foreach (DataGridViewRow row in dgvOrderItems.Rows) items.Add(row.Tag.Parse<OrderItemDto>());
+
+                var orderDto = new OrderDto
+                {
+                    CustomerId = !txtCustomer.Tag.IsNull() ? int.Parse(txtCustomer.Tag.ToString()) : null,
+                    SubTotal = decimal.Parse(lblSubTotal.Text),
+                    Discount = decimal.Parse(lblDiscount.Text),
+                    Total = decimal.Parse(lblTotal.Text),
+                    Items = items
+                };
+                
+                await _orderService.UpdateOrder(_currentOrder.Id, orderDto);
+
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    MessageBox.Show($"{_currentOrder.Number.ToOrderNumberString()} updates has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     ClearFields();
 

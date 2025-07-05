@@ -4,7 +4,7 @@
     {
         public static string ToOrderNumberString(this string number)
         {
-            return $"Order No. {number}";    
+            return $"Order {number}";    
         }
 
         public static decimal ToAmountDecimal(this string value)

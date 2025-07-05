@@ -138,7 +138,7 @@
             MinimizeBox = false;
             Name = "frmOrderStatusUpdate";
             Padding = new Padding(28);
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Order Status Update";
             Load += frmOrderStatusUpdate_Load;
             ResumeLayout(false);

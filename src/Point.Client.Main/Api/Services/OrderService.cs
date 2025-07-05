@@ -26,6 +26,11 @@ namespace Point.Client.Main.Api.Services
             return await _pointApiClient.ExecuteAsync<ResponseDto>(_endPoint, Method.Post, orderDto);
         }
 
+        public async Task UpdateOrder(int id, OrderDto orderDto)
+        {
+            await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, orderDto);
+        }
+
         public async Task UpdateOrderStatus(int id, OrderStatus newStatus)
         {
             var statusAction = FormConstants.Order.StatusActionDictionary[newStatus];

@@ -1,4 +1,5 @@
-﻿using Point.Client.Main.Api;
+﻿using System.Threading.Tasks;
+using Point.Client.Main.Api;
 using Point.Client.Main.Api.Entities.Orders;
 using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
@@ -15,6 +16,7 @@ namespace Point.Client.Main.Forms.Orders
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
+        private OrderStatus _currentOrderStatus;
 
         private readonly OrderService _orderService;
 
@@ -27,6 +29,7 @@ namespace Point.Client.Main.Forms.Orders
             _currentPage = 1;
             _currentTotalPages = 0;
             _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
+            _currentOrderStatus = OrderStatus.New;
 
             _orderService = ServiceFactory.GetService<OrderService>();
 
@@ -41,7 +44,13 @@ namespace Point.Client.Main.Forms.Orders
 
                 _isFirstLoad = false;
 
-                cmbPageSize.SelectedIndex = 0;
+                var orderStatuses = new List<OrderStatus>
+                {
+                    OrderStatus.New,
+                    OrderStatus.Cancelled
+                };
+                cmbStatus.ComboBox.DataSource = orderStatuses.ToList();
+                cmbStatus.SelectedIndex = 0;
             }
 
             RecordStatus.Orders.OnDataUpdated += ReloadData;
@@ -54,7 +63,7 @@ namespace Point.Client.Main.Forms.Orders
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-
+            FormFactory.GetForm<frmOrder>().ShowForEdit((Order)dgvOrders.SelectedRows[0]?.Tag);
         }
 
         private void btnRelease_Click(object sender, EventArgs e)
@@ -63,7 +72,7 @@ namespace Point.Client.Main.Forms.Orders
             {
                 var order = (Order)dgvOrders.SelectedRows[0]?.Tag;
                 var form = new frmOrderStatusUpdate(order, OrderStatus.Released).ShowDialog();
-            } 
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -101,10 +110,26 @@ namespace Point.Client.Main.Forms.Orders
                 lblSubTotal.Text = order.SubTotal.ToAmountString();
                 lblDiscount.Text = order.Discount.ToAmountString();
                 lblTotal.Text = order?.Total.ToAmountString();
+
+                if (order.Status != OrderStatus.Cancelled)
+                {
+                    btnModify.Enabled = true;
+                    btnRelease.Enabled = true;
+                    btnCancel.Enabled = true;
+                }
             }
         }
 
         #region Search and Pagination
+
+        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentOrderStatus = (OrderStatus)cmbStatus.ComboBox.SelectedValue;
+            if (cmbPageSize.SelectedItem == null)
+                cmbPageSize.SelectedIndex = 0;
+            else
+                Task.Run(() => SearchOrders());
+        }
 
         private void btnFirst_Click(object sender, EventArgs e)
         {
@@ -165,6 +190,7 @@ namespace Point.Client.Main.Forms.Orders
                     && selectedPage > 0 && selectedPage != _currentPage && selectedPage <= _currentTotalPages)
                 {
                     _currentPage = selectedPage;
+
                     Task.Run(() => SearchOrders());
                 }
                 else
@@ -207,6 +233,10 @@ namespace Point.Client.Main.Forms.Orders
             lblSubTotal.Text = "0.00";
             lblDiscount.Text = "0.00";
             lblTotal.Text = "0.00";
+
+            btnModify.Enabled = false;
+            btnRelease.Enabled = false;
+            btnCancel.Enabled = false;
         }
 
         private void EnableControls(bool enable = true)
@@ -239,7 +269,7 @@ namespace Point.Client.Main.Forms.Orders
             }));
 
             var response = await _orderService.SearchOrders(_currentPage, _currentPageSize, customerId: null,
-                [OrderStatus.New, OrderStatus.Cancelled]);
+                [_currentOrderStatus]);
 
             this.Invoke((MethodInvoker)(() =>
             {

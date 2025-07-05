@@ -243,7 +243,7 @@
             MinimizeBox = false;
             Name = "frmPayOrder";
             Padding = new Padding(28);
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Pay Order";
             Load += frmPayOrder_Load;
             panel1.ResumeLayout(false);

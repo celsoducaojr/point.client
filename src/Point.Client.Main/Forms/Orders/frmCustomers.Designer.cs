@@ -213,7 +213,7 @@
             MinimizeBox = false;
             Name = "frmCustomers";
             Padding = new Padding(25);
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Customers";
             FormClosing += frmCustomers_FormClosing;
             Load += frmCustomers_Load;

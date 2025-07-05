@@ -32,12 +32,13 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             lblTitle = new Label();
             pnlMain = new Panel();
+            button1 = new Button();
             lnkSelectCustomer = new LinkLabel();
             btnAddItem = new Button();
             label7 = new Label();
             lblTotal = new Label();
             btnSaveAsNew = new Button();
-            btnPaid = new Button();
+            btnPay = new Button();
             btnClear = new Button();
             label11 = new Label();
             lblDiscount = new Label();
@@ -75,12 +76,13 @@
             // 
             // pnlMain
             // 
+            pnlMain.Controls.Add(button1);
             pnlMain.Controls.Add(lnkSelectCustomer);
             pnlMain.Controls.Add(btnAddItem);
             pnlMain.Controls.Add(label7);
             pnlMain.Controls.Add(lblTotal);
             pnlMain.Controls.Add(btnSaveAsNew);
-            pnlMain.Controls.Add(btnPaid);
+            pnlMain.Controls.Add(btnPay);
             pnlMain.Controls.Add(btnClear);
             pnlMain.Controls.Add(label11);
             pnlMain.Controls.Add(lblDiscount);
@@ -100,6 +102,18 @@
             pnlMain.Padding = new Padding(20);
             pnlMain.Size = new Size(1482, 733);
             pnlMain.TabIndex = 13;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            button1.Enabled = false;
+            button1.Font = new Font("Segoe UI", 13.8F);
+            button1.Location = new System.Drawing.Point(316, 597);
+            button1.Name = "button1";
+            button1.Size = new Size(140, 100);
+            button1.TabIndex = 49;
+            button1.Text = "RELEASE";
+            button1.UseVisualStyleBackColor = true;
             // 
             // lnkSelectCustomer
             // 
@@ -155,34 +169,35 @@
             btnSaveAsNew.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnSaveAsNew.Enabled = false;
             btnSaveAsNew.Font = new Font("Segoe UI", 13.8F);
-            btnSaveAsNew.Location = new System.Drawing.Point(23, 638);
+            btnSaveAsNew.Location = new System.Drawing.Point(170, 597);
             btnSaveAsNew.Name = "btnSaveAsNew";
-            btnSaveAsNew.Size = new Size(188, 72);
+            btnSaveAsNew.Size = new Size(140, 100);
             btnSaveAsNew.TabIndex = 4;
-            btnSaveAsNew.Text = "SAVE AS NEW";
+            btnSaveAsNew.Text = "SAVE";
             btnSaveAsNew.UseVisualStyleBackColor = true;
             btnSaveAsNew.Click += btnSaveAsNew_Click;
             // 
-            // btnPaid
+            // btnPay
             // 
-            btnPaid.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnPaid.Enabled = false;
-            btnPaid.Font = new Font("Segoe UI", 13.8F);
-            btnPaid.Location = new System.Drawing.Point(23, 560);
-            btnPaid.Name = "btnPaid";
-            btnPaid.Size = new Size(382, 72);
-            btnPaid.TabIndex = 3;
-            btnPaid.Text = "PAY";
-            btnPaid.UseVisualStyleBackColor = true;
-            btnPaid.Click += btnPaid_Click;
+            btnPay.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnPay.BackColor = Color.YellowGreen;
+            btnPay.Enabled = false;
+            btnPay.Font = new Font("Segoe UI", 13.8F);
+            btnPay.Location = new System.Drawing.Point(24, 595);
+            btnPay.Name = "btnPay";
+            btnPay.Size = new Size(140, 100);
+            btnPay.TabIndex = 3;
+            btnPay.Text = "PAY";
+            btnPay.UseVisualStyleBackColor = false;
+            btnPay.Click += btnPaid_Click;
             // 
             // btnClear
             // 
             btnClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnClear.Font = new Font("Segoe UI", 13.8F);
-            btnClear.Location = new System.Drawing.Point(217, 638);
+            btnClear.Location = new System.Drawing.Point(462, 597);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(188, 72);
+            btnClear.Size = new Size(140, 100);
             btnClear.TabIndex = 5;
             btnClear.Text = "CLEAR";
             btnClear.UseVisualStyleBackColor = true;
@@ -405,7 +420,7 @@
         private Label lblSubTotal;
         private Label label8;
         private Button btnSaveAsNew;
-        private Button btnPaid;
+        private Button btnPay;
         private Button btnClear;
         private Label lblTotal;
         private Label label7;
@@ -417,5 +432,6 @@
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmTotal;
+        private Button button1;
     }
 }

@@ -50,6 +50,8 @@
             toolStripLabel1 = new ToolStripLabel();
             btnPrev = new ToolStripButton();
             btnFirst = new ToolStripButton();
+            toolStripLabel3 = new ToolStripLabel();
+            cmbStatus = new ToolStripComboBox();
             tsMain = new ToolStrip();
             btnAddNewOrder = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
@@ -97,7 +99,7 @@
             panel1.Location = new System.Drawing.Point(4, 4);
             panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(430, 735);
+            panel1.Size = new Size(817, 735);
             panel1.TabIndex = 0;
             // 
             // dgvOrders
@@ -114,7 +116,7 @@
             dgvOrders.ReadOnly = true;
             dgvOrders.RowHeadersWidth = 51;
             dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvOrders.Size = new Size(430, 673);
+            dgvOrders.Size = new Size(817, 673);
             dgvOrders.TabIndex = 6;
             dgvOrders.SelectionChanged += dgvOrders_SelectionChanged;
             // 
@@ -167,10 +169,10 @@
             tsPages.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
-            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst });
+            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, toolStripLabel3, cmbStatus });
             tsPages.Location = new System.Drawing.Point(0, 704);
             tsPages.Name = "tsPages";
-            tsPages.Size = new Size(430, 31);
+            tsPages.Size = new Size(817, 31);
             tsPages.TabIndex = 11;
             tsPages.Text = "toolStrip2";
             // 
@@ -236,7 +238,7 @@
             // 
             toolStripLabel1.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(54, 24);
+            toolStripLabel1.Size = new Size(54, 28);
             toolStripLabel1.Text = "page";
             // 
             // btnPrev
@@ -261,6 +263,19 @@
             btnFirst.Text = "<<";
             btnFirst.ToolTipText = "first page";
             // 
+            // toolStripLabel3
+            // 
+            toolStripLabel3.Name = "toolStripLabel3";
+            toolStripLabel3.Size = new Size(66, 28);
+            toolStripLabel3.Text = "Status";
+            // 
+            // cmbStatus
+            // 
+            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbStatus.Name = "cmbStatus";
+            cmbStatus.Size = new Size(121, 31);
+            cmbStatus.SelectedIndexChanged += cmbStatus_SelectedIndexChanged;
+            // 
             // tsMain
             // 
             tsMain.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -269,7 +284,7 @@
             tsMain.Items.AddRange(new ToolStripItem[] { btnAddNewOrder, toolStripSeparator1, toolStripDropDownButton1 });
             tsMain.Location = new System.Drawing.Point(0, 0);
             tsMain.Name = "tsMain";
-            tsMain.Size = new Size(430, 31);
+            tsMain.Size = new Size(817, 31);
             tsMain.TabIndex = 5;
             tsMain.Text = "toolStrip1";
             // 
@@ -298,9 +313,10 @@
             // 
             // btnModify
             // 
+            btnModify.Enabled = false;
             btnModify.Name = "btnModify";
             btnModify.Size = new Size(224, 28);
-            btnModify.Text = "Modify or Pay";
+            btnModify.Text = "Modify";
             btnModify.Click += btnModify_Click;
             // 
             // toolStripSeparator3
@@ -310,6 +326,7 @@
             // 
             // btnRelease
             // 
+            btnRelease.Enabled = false;
             btnRelease.Name = "btnRelease";
             btnRelease.Size = new Size(224, 28);
             btnRelease.Text = "Release";
@@ -317,6 +334,7 @@
             // 
             // btnCancel
             // 
+            btnCancel.Enabled = false;
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(224, 28);
             btnCancel.Text = "Cancel";
@@ -336,7 +354,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1482, 743);
+            tableLayoutPanel1.Size = new Size(1869, 743);
             tableLayoutPanel1.TabIndex = 8;
             // 
             // panel2
@@ -355,7 +373,7 @@
             panel2.Controls.Add(lblOrderNumber);
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new System.Drawing.Point(442, 4);
+            panel2.Location = new System.Drawing.Point(829, 4);
             panel2.Margin = new Padding(4);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(10);
@@ -568,7 +586,7 @@
             lblTitle.Location = new System.Drawing.Point(0, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(1482, 60);
+            lblTitle.Size = new Size(1869, 60);
             lblTitle.TabIndex = 9;
             lblTitle.Text = "Manage Orders";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
@@ -577,7 +595,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1482, 803);
+            ClientSize = new Size(1869, 803);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(lblTitle);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -650,5 +668,7 @@
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem btnRelease;
         private ToolStripMenuItem btnCancel;
+        private ToolStripComboBox cmbStatus;
+        private ToolStripLabel toolStripLabel3;
     }
 }
