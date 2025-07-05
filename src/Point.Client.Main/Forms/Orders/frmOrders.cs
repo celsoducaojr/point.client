@@ -84,6 +84,11 @@ namespace Point.Client.Main.Forms.Orders
             }
         }
 
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            ReloadData();
+        }
+
         private void dgvOrders_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvOrders.SelectedRows.Count > 0)
