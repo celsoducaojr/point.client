@@ -33,6 +33,22 @@ namespace Point.Client.Main.Forms.Orders
             lblTotal.Text = _order.Total.ToAmountString();
             lblStatus.Text = string.Format(FormConstants.Order.ChangeStatusLabel, _newOrderStatusAction.ToUpper());
             btnUpdate.Text = string.Format(FormConstants.Order.ChangeStatuslButtonLabel, _newOrderStatusAction.ToUpper());
+
+            if (_newOrderStatus == OrderStatus.Released)
+            {
+                lblPaymentTerm.Visible = true;
+                cmbPaymentTerm.Visible = true;
+
+                cmbPaymentTerm.DataSource = Enum.GetValues(typeof(PaymentTerm))
+                    .Cast<PaymentTerm>()
+                    .Select(e => new
+                    {
+                        Value = e,
+                        Text = e.GetDescription()
+                    }).ToList();
+                cmbPaymentTerm.DisplayMember = "Text";
+                cmbPaymentTerm.ValueMember = "Value";
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -40,9 +56,12 @@ namespace Point.Client.Main.Forms.Orders
             if (txtStatus.Text.Trim().Equals(_newOrderStatusAction, StringComparison.OrdinalIgnoreCase))
             {
                 this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = false);
-                UpdateOrderStatus(_order.Id, _newOrderStatus);
+                UpdateOrderStatus(_order.Id);
             }
-
+            else 
+            {
+                MessageBox.Show(lblStatus.Text, "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -50,17 +69,24 @@ namespace Point.Client.Main.Forms.Orders
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private async void UpdateOrderStatus(int id, OrderStatus newStatus)
+        private async void UpdateOrderStatus(int id)
         {
             try
             {
-                await _orderService.UpdateOrderStatus(id, newStatus);
+                if (_newOrderStatus == OrderStatus.Released)
+                {
+                    await _orderService.ReleaseOrder(id, (PaymentTerm)cmbPaymentTerm.SelectedValue);
+                }
+                else if (_newOrderStatus == OrderStatus.Cancelled)
+                {
+                    await _orderService.CancelOrder(id);
+                }
 
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    MessageBox.Show($"Order has been {newStatus}.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Order has been {_newOrderStatus}.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    _order.Status = newStatus;
+                    _order.Status = _newOrderStatus;
 
                     this.DialogResult = DialogResult.OK;
                 }));

@@ -32,12 +32,12 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             lblTitle = new Label();
             pnlMain = new Panel();
-            button1 = new Button();
+            btnRelease = new Button();
             lnkSelectCustomer = new LinkLabel();
             btnAddItem = new Button();
             label7 = new Label();
             lblTotal = new Label();
-            btnSaveAsNew = new Button();
+            btnSave = new Button();
             btnPay = new Button();
             btnClear = new Button();
             label11 = new Label();
@@ -76,12 +76,12 @@
             // 
             // pnlMain
             // 
-            pnlMain.Controls.Add(button1);
+            pnlMain.Controls.Add(btnRelease);
             pnlMain.Controls.Add(lnkSelectCustomer);
             pnlMain.Controls.Add(btnAddItem);
             pnlMain.Controls.Add(label7);
             pnlMain.Controls.Add(lblTotal);
-            pnlMain.Controls.Add(btnSaveAsNew);
+            pnlMain.Controls.Add(btnSave);
             pnlMain.Controls.Add(btnPay);
             pnlMain.Controls.Add(btnClear);
             pnlMain.Controls.Add(label11);
@@ -103,17 +103,17 @@
             pnlMain.Size = new Size(1482, 733);
             pnlMain.TabIndex = 13;
             // 
-            // button1
+            // btnRelease
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button1.Enabled = false;
-            button1.Font = new Font("Segoe UI", 13.8F);
-            button1.Location = new System.Drawing.Point(316, 597);
-            button1.Name = "button1";
-            button1.Size = new Size(140, 100);
-            button1.TabIndex = 49;
-            button1.Text = "RELEASE";
-            button1.UseVisualStyleBackColor = true;
+            btnRelease.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnRelease.Enabled = false;
+            btnRelease.Font = new Font("Segoe UI", 13.8F);
+            btnRelease.Location = new System.Drawing.Point(170, 595);
+            btnRelease.Name = "btnRelease";
+            btnRelease.Size = new Size(140, 100);
+            btnRelease.TabIndex = 49;
+            btnRelease.Text = "RELEASE";
+            btnRelease.UseVisualStyleBackColor = true;
             // 
             // lnkSelectCustomer
             // 
@@ -164,18 +164,18 @@
             lblTotal.Text = "0.00";
             lblTotal.TextAlign = ContentAlignment.MiddleRight;
             // 
-            // btnSaveAsNew
+            // btnSave
             // 
-            btnSaveAsNew.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnSaveAsNew.Enabled = false;
-            btnSaveAsNew.Font = new Font("Segoe UI", 13.8F);
-            btnSaveAsNew.Location = new System.Drawing.Point(170, 597);
-            btnSaveAsNew.Name = "btnSaveAsNew";
-            btnSaveAsNew.Size = new Size(140, 100);
-            btnSaveAsNew.TabIndex = 4;
-            btnSaveAsNew.Text = "SAVE";
-            btnSaveAsNew.UseVisualStyleBackColor = true;
-            btnSaveAsNew.Click += btnSaveAsNew_Click;
+            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnSave.Enabled = false;
+            btnSave.Font = new Font("Segoe UI", 13.8F);
+            btnSave.Location = new System.Drawing.Point(316, 597);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(140, 100);
+            btnSave.TabIndex = 4;
+            btnSave.Text = "SAVE";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSaveAsNew_Click;
             // 
             // btnPay
             // 
@@ -419,7 +419,7 @@
         private Label lblDiscount;
         private Label lblSubTotal;
         private Label label8;
-        private Button btnSaveAsNew;
+        private Button btnSave;
         private Button btnPay;
         private Button btnClear;
         private Label lblTotal;
@@ -432,6 +432,6 @@
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmTotal;
-        private Button button1;
+        private Button btnRelease;
     }
 }

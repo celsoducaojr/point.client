@@ -35,6 +35,8 @@
             btnUpdate = new Button();
             txtStatus = new TextBox();
             lblStatus = new Label();
+            lblPaymentTerm = new Label();
+            cmbPaymentTerm = new ComboBox();
             SuspendLayout();
             // 
             // lblTotal
@@ -75,11 +77,11 @@
             // 
             btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnCancel.Font = new Font("Segoe UI", 13.8F);
-            btnCancel.Location = new System.Drawing.Point(522, 353);
+            btnCancel.Location = new System.Drawing.Point(522, 441);
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(188, 72);
-            btnCancel.TabIndex = 3;
+            btnCancel.TabIndex = 4;
             btnCancel.Text = "CANCEL";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
@@ -88,11 +90,11 @@
             // 
             btnUpdate.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnUpdate.Font = new Font("Segoe UI", 13.8F);
-            btnUpdate.Location = new System.Drawing.Point(32, 353);
+            btnUpdate.Location = new System.Drawing.Point(32, 441);
             btnUpdate.Margin = new Padding(4);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(482, 72);
-            btnUpdate.TabIndex = 2;
+            btnUpdate.TabIndex = 3;
             btnUpdate.Text = "UPDATE";
             btnUpdate.UseVisualStyleBackColor = true;
             btnUpdate.Click += btnUpdate_Click;
@@ -101,21 +103,44 @@
             // 
             txtStatus.CharacterCasing = CharacterCasing.Upper;
             txtStatus.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtStatus.Location = new System.Drawing.Point(32, 237);
+            txtStatus.Location = new System.Drawing.Point(32, 341);
             txtStatus.Margin = new Padding(4);
             txtStatus.Name = "txtStatus";
             txtStatus.Size = new Size(678, 61);
-            txtStatus.TabIndex = 1;
+            txtStatus.TabIndex = 2;
             txtStatus.TextAlign = HorizontalAlignment.Center;
             // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
-            lblStatus.Location = new System.Drawing.Point(32, 208);
+            lblStatus.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblStatus.Location = new System.Drawing.Point(32, 306);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(279, 25);
+            lblStatus.Size = new Size(356, 31);
             lblStatus.TabIndex = 60;
             lblStatus.Text = "Type 'CHANGE' to update status...";
+            // 
+            // lblPaymentTerm
+            // 
+            lblPaymentTerm.AutoSize = true;
+            lblPaymentTerm.Font = new Font("Segoe UI", 12F);
+            lblPaymentTerm.Location = new System.Drawing.Point(32, 203);
+            lblPaymentTerm.Name = "lblPaymentTerm";
+            lblPaymentTerm.Size = new Size(134, 28);
+            lblPaymentTerm.TabIndex = 61;
+            lblPaymentTerm.Text = "Payment Term";
+            lblPaymentTerm.Visible = false;
+            // 
+            // cmbPaymentTerm
+            // 
+            cmbPaymentTerm.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbPaymentTerm.Font = new Font("Segoe UI", 12F);
+            cmbPaymentTerm.FormattingEnabled = true;
+            cmbPaymentTerm.Location = new System.Drawing.Point(172, 200);
+            cmbPaymentTerm.Name = "cmbPaymentTerm";
+            cmbPaymentTerm.Size = new Size(236, 36);
+            cmbPaymentTerm.TabIndex = 1;
+            cmbPaymentTerm.Visible = false;
             // 
             // frmOrderStatusUpdate
             // 
@@ -123,7 +148,9 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new Size(742, 457);
+            ClientSize = new Size(742, 545);
+            Controls.Add(cmbPaymentTerm);
+            Controls.Add(lblPaymentTerm);
             Controls.Add(lblStatus);
             Controls.Add(txtStatus);
             Controls.Add(btnCancel);
@@ -154,5 +181,7 @@
         private Button btnUpdate;
         private TextBox txtStatus;
         private Label lblStatus;
+        private Label lblPaymentTerm;
+        private ComboBox cmbPaymentTerm;
     }
 }

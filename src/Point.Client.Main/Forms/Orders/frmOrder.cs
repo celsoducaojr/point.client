@@ -217,7 +217,8 @@ namespace Point.Client.Main.Forms.Orders
         private void EnableButtons(bool enable = true)
         {
             btnPay.Enabled = enable;
-            btnSaveAsNew.Enabled = enable;
+            btnSave.Enabled = enable;
+            btnRelease.Enabled = enable;
         }
 
         private void EnableControls(bool enable = true)
@@ -264,7 +265,7 @@ namespace Point.Client.Main.Forms.Orders
                 UpdateTotal();
             }
 
-            btnPay.Enabled = true;
+            EnableButtons(true);
 
             this.Show();
         }
@@ -287,7 +288,6 @@ namespace Point.Client.Main.Forms.Orders
                     Discount = decimal.Parse(lblDiscount.Text),
                     Total = decimal.Parse(lblTotal.Text),
                     Items = items,
-                    PaymentTerm = null,
                     Payment = paymentDto
                 };
 

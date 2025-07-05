@@ -9,7 +9,6 @@ namespace Point.Client.Main.Api.Dtos
         public decimal Discount { get; init; }
         public decimal Total { get; init; }
         public List<OrderItemDto> Items { get; init; }
-        public PaymentTerm? PaymentTerm { get; init; }
         public PaymentDto? Payment {  get; init; }
     }
 

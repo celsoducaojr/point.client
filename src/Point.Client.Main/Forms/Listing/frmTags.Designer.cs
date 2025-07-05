@@ -150,6 +150,7 @@
             MinimizeBox = false;
             Name = "frmTags";
             Padding = new Padding(25);
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Tags";
             FormClosing += frmTags_FormClosing;
             Load += frmTags_Load;

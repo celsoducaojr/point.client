@@ -31,10 +31,16 @@ namespace Point.Client.Main.Api.Services
             await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, orderDto);
         }
 
-        public async Task UpdateOrderStatus(int id, OrderStatus newStatus)
+        public async Task ReleaseOrder(int id, PaymentTerm paymentTerm)
         {
-            var statusAction = FormConstants.Order.StatusActionDictionary[newStatus];
-            await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}/{statusAction}", Method.Put, id);
+            var statusAction = FormConstants.Order.StatusActionDictionary[OrderStatus.Released];
+            await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}/{statusAction}", Method.Put, new { paymentTerm });
+        }
+
+        public async Task CancelOrder(int id)
+        {
+            var statusAction = FormConstants.Order.StatusActionDictionary[OrderStatus.Cancelled];
+            await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}/{statusAction}", Method.Put);
         }
 
         public async Task<GetOrdersResponseDto?> SearchOrders(int page, int pageSize, int? customerId = null, List<OrderStatus>? statuses = null)

@@ -150,6 +150,7 @@
             MinimizeBox = false;
             Name = "frmUnits";
             Padding = new Padding(25);
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Units";
             Load += frmUnits_Load;
             ((System.ComponentModel.ISupportInitialize)dgvUnits).EndInit();

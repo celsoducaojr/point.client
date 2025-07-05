@@ -107,7 +107,7 @@
             MinimizeBox = false;
             Name = "frmItemUnit";
             Padding = new Padding(25);
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Add Item-unit";
             Load += frmItemUnit_Load;
             ResumeLayout(false);

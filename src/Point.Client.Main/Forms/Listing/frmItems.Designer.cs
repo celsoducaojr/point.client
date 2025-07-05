@@ -545,7 +545,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "frmItems";
-            StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Items";
             FormClosing += frmItems_FormClosing;
             Load += frmItems_Load;
