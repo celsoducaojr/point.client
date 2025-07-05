@@ -1,6 +1,7 @@
 using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Forms.Orders;
 using Point.Client.Main.Forms.Products;
+using Point.Client.Main.Forms.Sales;
 using Point.Client.Main.Globals;
 using Point.Client.Main.Listing;
 
@@ -54,6 +55,11 @@ namespace Point.Client.Main
 
         #region Stocks
 
+        private void btnStocks_Click(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
 
         #region Orders
@@ -66,6 +72,15 @@ namespace Point.Client.Main
         private void btnOrderForm_Click(object sender, EventArgs e)
         {
             FormFactory.GetForm<frmOrder>().Show();
+        }
+
+        #endregion
+
+        #region Sales
+
+        private void btnSales_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmSales());
         }
 
         #endregion

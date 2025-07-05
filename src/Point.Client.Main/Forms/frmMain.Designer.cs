@@ -41,13 +41,13 @@
             btnCategories = new ToolStripMenuItem();
             btnUnits = new ToolStripMenuItem();
             btnTags = new ToolStripMenuItem();
-            tsbtnStocks = new ToolStripButton();
+            btnStocks = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             toolStripDropDownButton2 = new ToolStripDropDownButton();
             btnOrders = new ToolStripMenuItem();
             toolStripSeparator6 = new ToolStripSeparator();
             btnOrderForm = new ToolStripMenuItem();
-            toolStripButton1 = new ToolStripButton();
+            btnSales = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripButton2 = new ToolStripButton();
             toolStrip2 = new ToolStrip();
@@ -89,7 +89,7 @@
             toolStrip1.Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, tsbtnStocks, toolStripSeparator1, toolStripDropDownButton2, toolStripButton1, toolStripSeparator3, toolStripButton2 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1, btnStocks, toolStripSeparator1, toolStripDropDownButton2, btnSales, toolStripSeparator3, toolStripButton2 });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new System.Drawing.Point(0, 28);
             toolStrip1.Name = "toolStrip1";
@@ -162,16 +162,17 @@
             btnTags.Text = "Tags";
             btnTags.Click += btnTags_Click;
             // 
-            // tsbtnStocks
+            // btnStocks
             // 
-            tsbtnStocks.Image = Properties.Resources.stocks;
-            tsbtnStocks.ImageScaling = ToolStripItemImageScaling.None;
-            tsbtnStocks.ImageTransparentColor = Color.Magenta;
-            tsbtnStocks.Name = "tsbtnStocks";
-            tsbtnStocks.Padding = new Padding(10);
-            tsbtnStocks.Size = new Size(87, 99);
-            tsbtnStocks.Text = "Stocks";
-            tsbtnStocks.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnStocks.Image = Properties.Resources.stocks;
+            btnStocks.ImageScaling = ToolStripItemImageScaling.None;
+            btnStocks.ImageTransparentColor = Color.Magenta;
+            btnStocks.Name = "btnStocks";
+            btnStocks.Padding = new Padding(10);
+            btnStocks.Size = new Size(87, 99);
+            btnStocks.Text = "Stocks";
+            btnStocks.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnStocks.Click += btnStocks_Click;
             // 
             // toolStripSeparator1
             // 
@@ -208,16 +209,17 @@
             btnOrderForm.Text = "Add New Order";
             btnOrderForm.Click += btnOrderForm_Click;
             // 
-            // toolStripButton1
+            // btnSales
             // 
-            toolStripButton1.Image = Properties.Resources.sales;
-            toolStripButton1.ImageScaling = ToolStripItemImageScaling.None;
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Padding = new Padding(10);
-            toolStripButton1.Size = new Size(76, 99);
-            toolStripButton1.Text = "Sales";
-            toolStripButton1.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnSales.Image = Properties.Resources.sales;
+            btnSales.ImageScaling = ToolStripItemImageScaling.None;
+            btnSales.ImageTransparentColor = Color.Magenta;
+            btnSales.Name = "btnSales";
+            btnSales.Padding = new Padding(10);
+            btnSales.Size = new Size(76, 99);
+            btnSales.Text = "Sales";
+            btnSales.TextImageRelation = TextImageRelation.ImageAboveText;
+            btnSales.Click += btnSales_Click;
             // 
             // toolStripSeparator3
             // 
@@ -299,7 +301,7 @@
         private ToolStripMenuItem productsToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStrip toolStrip1;
-        private ToolStripButton tsbtnStocks;
+        private ToolStripButton btnStocks;
         private ToolStripSeparator toolStripSeparator1;
         private Panel panel1;
         private Label lblNewOrders;
@@ -314,7 +316,7 @@
         private ToolStripMenuItem btnItemUnits;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem btnItems;
-        private ToolStripButton toolStripButton1;
+        private ToolStripButton btnSales;
         private ToolStripButton toolStripButton2;
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripMenuItem toolStripMenuItem1;

@@ -150,7 +150,7 @@ namespace Point.Client.Main.Forms.Orders
             }
         }
 
-        private void btnPaid_Click(object sender, EventArgs e)
+        private void btnPay_Click(object sender, EventArgs e)
         {
             if (dgvOrderItems.Rows.Count == 0) return;
 
@@ -163,7 +163,7 @@ namespace Point.Client.Main.Forms.Orders
             }
         }
 
-        private void btnSaveAsNew_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             if (dgvOrderItems.Rows.Count == 0) return;
 
@@ -218,7 +218,6 @@ namespace Point.Client.Main.Forms.Orders
         {
             btnPay.Enabled = enable;
             btnSave.Enabled = enable;
-            btnRelease.Enabled = enable;
         }
 
         private void EnableControls(bool enable = true)
@@ -333,7 +332,7 @@ namespace Point.Client.Main.Forms.Orders
                     Total = decimal.Parse(lblTotal.Text),
                     Items = items
                 };
-                
+
                 await _orderService.UpdateOrder(_currentOrder.Id, orderDto);
 
                 this.Invoke((MethodInvoker)(() =>

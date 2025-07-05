@@ -32,7 +32,6 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             lblTitle = new Label();
             pnlMain = new Panel();
-            btnRelease = new Button();
             lnkSelectCustomer = new LinkLabel();
             btnAddItem = new Button();
             label7 = new Label();
@@ -76,7 +75,6 @@
             // 
             // pnlMain
             // 
-            pnlMain.Controls.Add(btnRelease);
             pnlMain.Controls.Add(lnkSelectCustomer);
             pnlMain.Controls.Add(btnAddItem);
             pnlMain.Controls.Add(label7);
@@ -102,18 +100,6 @@
             pnlMain.Padding = new Padding(20);
             pnlMain.Size = new Size(1482, 733);
             pnlMain.TabIndex = 13;
-            // 
-            // btnRelease
-            // 
-            btnRelease.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnRelease.Enabled = false;
-            btnRelease.Font = new Font("Segoe UI", 13.8F);
-            btnRelease.Location = new System.Drawing.Point(170, 595);
-            btnRelease.Name = "btnRelease";
-            btnRelease.Size = new Size(140, 100);
-            btnRelease.TabIndex = 49;
-            btnRelease.Text = "RELEASE";
-            btnRelease.UseVisualStyleBackColor = true;
             // 
             // lnkSelectCustomer
             // 
@@ -169,13 +155,13 @@
             btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnSave.Enabled = false;
             btnSave.Font = new Font("Segoe UI", 13.8F);
-            btnSave.Location = new System.Drawing.Point(316, 597);
+            btnSave.Location = new System.Drawing.Point(170, 595);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(140, 100);
-            btnSave.TabIndex = 4;
+            btnSave.TabIndex = 5;
             btnSave.Text = "SAVE";
             btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSaveAsNew_Click;
+            btnSave.Click += btnSave_Click;
             // 
             // btnPay
             // 
@@ -189,16 +175,16 @@
             btnPay.TabIndex = 3;
             btnPay.Text = "PAY";
             btnPay.UseVisualStyleBackColor = false;
-            btnPay.Click += btnPaid_Click;
+            btnPay.Click += btnPay_Click;
             // 
             // btnClear
             // 
             btnClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnClear.Font = new Font("Segoe UI", 13.8F);
-            btnClear.Location = new System.Drawing.Point(462, 597);
+            btnClear.Location = new System.Drawing.Point(316, 595);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(140, 100);
-            btnClear.TabIndex = 5;
+            btnClear.TabIndex = 6;
             btnClear.Text = "CLEAR";
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += btnClear_Click;
@@ -432,6 +418,5 @@
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmTotal;
-        private Button btnRelease;
     }
 }
