@@ -68,7 +68,7 @@
             tsMain.Items.AddRange(new ToolStripItem[] { btnNew, toolStripSeparator1, btnEdit, btnCancel, btnSave });
             tsMain.Location = new System.Drawing.Point(0, 60);
             tsMain.Name = "tsMain";
-            tsMain.Size = new Size(1282, 31);
+            tsMain.Size = new Size(1285, 31);
             tsMain.TabIndex = 0;
             tsMain.Text = "toolStrip1";
             // 
@@ -133,7 +133,7 @@
             dgvItemUnits.Name = "dgvItemUnits";
             dgvItemUnits.ReadOnly = true;
             dgvItemUnits.RowHeadersWidth = 51;
-            dgvItemUnits.Size = new Size(1282, 531);
+            dgvItemUnits.Size = new Size(1285, 616);
             dgvItemUnits.TabIndex = 1;
             dgvItemUnits.CellValidated += dgvItemUnits_CellValidated;
             dgvItemUnits.CellValidating += dgvItemUnits_CellValidating;
@@ -179,7 +179,7 @@
             lblTitle.Location = new System.Drawing.Point(0, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(1282, 60);
+            lblTitle.Size = new Size(1285, 60);
             lblTitle.TabIndex = 2;
             lblTitle.Text = "Manage Item-units";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
@@ -191,9 +191,9 @@
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
             tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, btnSearch, btnClearFilter, lblSearchCriteria });
-            tsPages.Location = new System.Drawing.Point(0, 622);
+            tsPages.Location = new System.Drawing.Point(0, 707);
             tsPages.Name = "tsPages";
-            tsPages.Size = new Size(1282, 31);
+            tsPages.Size = new Size(1285, 31);
             tsPages.TabIndex = 3;
             tsPages.Text = "toolStrip2";
             // 
@@ -321,14 +321,13 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1282, 653);
+            ClientSize = new Size(1285, 738);
             Controls.Add(dgvItemUnits);
             Controls.Add(tsPages);
             Controls.Add(tsMain);
             Controls.Add(lblTitle);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
-            MinimumSize = new Size(1300, 700);
             Name = "frmItemUnits";
             Text = "Item-Units";
             WindowState = FormWindowState.Maximized;
