@@ -16,15 +16,5 @@ namespace Point.Client.Main.Forms.Sales
         {
             InitializeComponent();
         }
-
-        private void frmSales_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-            
-        }
     }
 }

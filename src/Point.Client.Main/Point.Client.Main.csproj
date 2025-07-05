@@ -9,12 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Forms\Sales\**" />
-    <EmbeddedResource Remove="Forms\Sales\**" />
-    <None Remove="Forms\Sales\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
