@@ -100,7 +100,7 @@
             panel1.Location = new System.Drawing.Point(4, 4);
             panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(230, 585);
+            panel1.Size = new Size(716, 585);
             panel1.TabIndex = 0;
             // 
             // dgvOrders
@@ -117,7 +117,7 @@
             dgvOrders.ReadOnly = true;
             dgvOrders.RowHeadersWidth = 51;
             dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvOrders.Size = new Size(230, 523);
+            dgvOrders.Size = new Size(716, 523);
             dgvOrders.TabIndex = 6;
             dgvOrders.SelectionChanged += dgvOrders_SelectionChanged;
             // 
@@ -173,7 +173,7 @@
             tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, toolStripLabel3, cmbStatus });
             tsPages.Location = new System.Drawing.Point(0, 554);
             tsPages.Name = "tsPages";
-            tsPages.Size = new Size(230, 31);
+            tsPages.Size = new Size(716, 31);
             tsPages.TabIndex = 11;
             tsPages.Text = "toolStrip2";
             // 
@@ -190,7 +190,7 @@
             cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPageSize.DropDownWidth = 75;
             cmbPageSize.Name = "cmbPageSize";
-            cmbPageSize.Size = new Size(75, 28);
+            cmbPageSize.Size = new Size(75, 31);
             cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
             // 
             // toolStripSeparator2
@@ -225,21 +225,21 @@
             // 
             lblTotalPage.Alignment = ToolStripItemAlignment.Right;
             lblTotalPage.Name = "lblTotalPage";
-            lblTotalPage.Size = new Size(44, 24);
+            lblTotalPage.Size = new Size(44, 28);
             lblTotalPage.Text = "of 0";
             // 
             // txtPage
             // 
             txtPage.Alignment = ToolStripItemAlignment.Right;
             txtPage.Name = "txtPage";
-            txtPage.Size = new Size(55, 27);
+            txtPage.Size = new Size(55, 31);
             txtPage.TextBoxTextAlign = HorizontalAlignment.Center;
             // 
             // toolStripLabel1
             // 
             toolStripLabel1.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(54, 24);
+            toolStripLabel1.Size = new Size(54, 28);
             toolStripLabel1.Text = "page";
             // 
             // btnPrev
@@ -267,14 +267,14 @@
             // toolStripLabel3
             // 
             toolStripLabel3.Name = "toolStripLabel3";
-            toolStripLabel3.Size = new Size(66, 24);
+            toolStripLabel3.Size = new Size(66, 28);
             toolStripLabel3.Text = "Status";
             // 
             // cmbStatus
             // 
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(121, 28);
+            cmbStatus.Size = new Size(121, 31);
             cmbStatus.SelectedIndexChanged += cmbStatus_SelectedIndexChanged;
             // 
             // tsMain
@@ -285,7 +285,7 @@
             tsMain.Items.AddRange(new ToolStripItem[] { btnAddNewOrder, toolStripDropDownButton1, toolStripSeparator1, btnReload });
             tsMain.Location = new System.Drawing.Point(0, 0);
             tsMain.Name = "tsMain";
-            tsMain.Size = new Size(230, 31);
+            tsMain.Size = new Size(716, 31);
             tsMain.TabIndex = 5;
             tsMain.Text = "toolStrip1";
             // 
@@ -364,7 +364,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1282, 593);
+            tableLayoutPanel1.Size = new Size(1768, 593);
             tableLayoutPanel1.TabIndex = 8;
             // 
             // panel2
@@ -383,7 +383,7 @@
             panel2.Controls.Add(lblOrderNumber);
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new System.Drawing.Point(242, 4);
+            panel2.Location = new System.Drawing.Point(728, 4);
             panel2.Margin = new Padding(4);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(10);
@@ -596,7 +596,7 @@
             lblTitle.Location = new System.Drawing.Point(0, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(1282, 60);
+            lblTitle.Size = new Size(1768, 60);
             lblTitle.TabIndex = 9;
             lblTitle.Text = "Manage Orders";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
@@ -605,7 +605,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1282, 653);
+            ClientSize = new Size(1768, 653);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(lblTitle);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
