@@ -55,6 +55,7 @@
             btnSearch = new ToolStripButton();
             btnClearFilter = new ToolStripButton();
             lblSearchCriteria = new ToolStripLabel();
+            label1 = new Label();
             tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             tsPages.SuspendLayout();
@@ -317,11 +318,22 @@
             lblSearchCriteria.Size = new Size(201, 28);
             lblSearchCriteria.Text = "Loading search criteria...";
             // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label1.BackColor = Color.DeepSkyBlue;
+            label1.Image = Properties.Resources.products;
+            label1.Location = new System.Drawing.Point(1210, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(60, 60);
+            label1.TabIndex = 4;
+            // 
             // frmItemUnits
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1282, 653);
+            Controls.Add(label1);
             Controls.Add(dgvItemUnits);
             Controls.Add(tsPages);
             Controls.Add(tsMain);
@@ -370,5 +382,6 @@
         private DataGridViewTextBoxColumn clmCategory;
         private DataGridViewTextBoxColumn clmUnit;
         private DataGridViewTextBoxColumn clmCapitalCode;
+        private Label label1;
     }
 }

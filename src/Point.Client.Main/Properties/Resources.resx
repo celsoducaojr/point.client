@@ -121,11 +121,14 @@
   <data name="down_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\down_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="stocks" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Stocks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="save_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="update_order_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\update_order_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="stocks" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Stocks.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="add_item_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add_item_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -135,6 +138,9 @@
   </data>
   <data name="add_order_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add_order_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reload_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reload_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="edit_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\edit_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,9 +157,6 @@
   <data name="add_items_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add_items_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="save_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="cancel_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancel_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -166,7 +169,7 @@
   <data name="up_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\up_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="reload_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\reload_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="update_sales_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\update_sales_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
