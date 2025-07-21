@@ -54,7 +54,7 @@ namespace Point.Client.Main.Forms.Orders
             if (change >= 0)
                 lblChange.Text = change.ToString(FormConstants.Formats.Amount);
             else
-                lblChange.Text = $"({Math.Abs(change).ToString(FormConstants.Formats.Amount)})";
+                lblChange.Text = "0.00";
         }
 
         private void btnPaid_Click(object sender, EventArgs e)

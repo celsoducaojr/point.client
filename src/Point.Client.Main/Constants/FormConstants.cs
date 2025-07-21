@@ -16,7 +16,7 @@ namespace Point.Client.Main.Constants
 
             public static readonly int[] PageSizes =
             [
-                1, 2, 3
+                100, 250, 500
             ];
         }
 

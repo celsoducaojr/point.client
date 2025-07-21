@@ -47,7 +47,7 @@ namespace Point.Client.Main.Forms.Sales
                 var orderStatuses = new List<OrderStatus>
                 {
                     OrderStatus.Released,
-                    OrderStatus.PartiallyPaid,
+                    OrderStatus.Partially_Paid,
                     OrderStatus.Paid,
                     OrderStatus.Refunded,
                 };
@@ -80,7 +80,67 @@ namespace Point.Client.Main.Forms.Sales
 
         private void dgvSales_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvSales.SelectedRows.Count > 0)
+            {
+                ClearFields();
 
+                var order = (Order)dgvSales.SelectedRows[0]?.Tag;
+
+                if (order.Status == OrderStatus.Released || order.Status == OrderStatus.Partially_Paid)
+                {
+                    lblTerm.Visible = true;
+                    lblOrderTerm.Visible = true;
+                    lblLastPayment.Visible = true;
+                    lblOrderLastPayment.Visible = true;
+
+                    btnPay.Enabled = true;
+                    btnVoid.Enabled = true;
+                    btnAddPayment.Visible = true;
+                }
+                else if (order.Status == OrderStatus.Paid)
+                {
+                    btnRefund.Enabled = true;
+                    btnVoid.Enabled = true;
+                }
+
+                lblOrderNumber.Text = order.Number.ToOrderNumberString();
+                lblStatus.Text = order.Status.ToString();
+                lblCustomer.Text = order.Customer?.Name ?? "-";
+                lblDateTime.Text = order.Created.ConvertToLongDateString();
+
+                txtReceivable.Text = order.Total.ToAmountString();
+                txtPayment.Text = order.Payments.GenerateTotal().ToAmountString();
+                txtBalance.Text = order.GenerateBalance().ToAmountString();
+
+                lblOrderTerm.Text = order.PaymentTerm?.GetDescription() ?? "-";
+                lblOrderLastPayment.Text = order.GetLastPayment()?.ToString() ?? "-";
+
+                order.Items.ForEach(item =>
+                {
+                    dgvOrderItems.Rows.Add(
+                        item.ItemName,
+                        item.UnitName,
+                        item.Quantity,
+                        item.Price.ToAmountString(),
+                        item.Total.ToAmountString());
+                });
+
+                lblSubTotal.Text = order.SubTotal.ToAmountString();
+                lblDiscount.Text = order.Discount.ToAmountString();
+                lblTotalItems.Text = order.Total.ToAmountString();
+
+                order.Payments?.ForEach(payment =>
+                {
+                    dgvPayments.Rows.Add(
+                        payment.Created,
+                        payment.Amount.ToAmountString(),
+                        payment.Mode,
+                        payment.Reference,
+                        payment.Remarks);
+                });
+
+                lblTotalPayments.Text = order.Payments?.GenerateTotal().ToAmountString() ?? "0.00";
+            }
         }
 
         #region Search and Pagination
@@ -188,18 +248,35 @@ namespace Point.Client.Main.Forms.Sales
 
         private void ClearFields()
         {
-            //lblOrderNumber.Text = string.Empty;
-            //lblStatus.Text = "-";
-            //lblDateTime.Text = string.Empty;
-            //lblCustomer.Text = "-";
-            //dgvOrderItems.Rows.Clear();
-            //lblSubTotal.Text = "0.00";
-            //lblDiscount.Text = "0.00";
-            //lblTotal.Text = "0.00";
+            lblOrderNumber.Text = string.Empty;
+            lblStatus.Text = "-";
+            lblDateTime.Text = string.Empty;
+            lblCustomer.Text = "-";
 
-            //btnModify.Enabled = false;
-            //btnRelease.Enabled = false;
-            //btnCancel.Enabled = false;
+            txtReceivable.Text = "0.00";
+            txtPayment.Text = "0.00";
+            txtBalance.Text = "0.00";
+            lblOrderTerm.Text = "-";
+            lblOrderLastPayment.Text = "-";
+
+            dgvOrderItems.Rows.Clear();
+            lblSubTotal.Text = "0.00";
+            lblDiscount.Text = "0.00";
+            lblTotalItems.Text = "0.00";
+
+            dgvPayments.Rows.Clear();
+            lblTotalPage.Text = "0.00";
+
+            lblTerm.Visible = false;
+            lblOrderTerm.Visible = false;
+            lblLastPayment.Visible = false;
+            lblOrderLastPayment.Visible = false;
+
+            btnPay.Enabled = false;
+            btnRefund.Enabled = false;
+            btnVoid.Enabled = false;
+
+            btnAddPayment.Visible = false;
         }
 
         private void EnableControls(bool enable = true)

@@ -3,7 +3,7 @@
     public enum PaymentMode
     {
         Cash,
-        DigitalWallet,
-        BankTransfer
+        Digital_Wallet,
+        Bank_Transfer
     }
 }

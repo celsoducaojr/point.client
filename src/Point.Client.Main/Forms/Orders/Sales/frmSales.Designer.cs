@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSales));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             btnPay = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             btnReload = new ToolStripButton();
@@ -39,7 +41,7 @@
             panel1 = new Panel();
             dgvSales = new DataGridView();
             clmOrderNumber = new DataGridViewTextBoxColumn();
-            clmDateTime = new DataGridViewTextBoxColumn();
+            clmDate = new DataGridViewTextBoxColumn();
             clmStatus = new DataGridViewTextBoxColumn();
             clmOrderTotal = new DataGridViewTextBoxColumn();
             clmCustomer = new DataGridViewTextBoxColumn();
@@ -59,15 +61,45 @@
             tsMain = new ToolStrip();
             btnUpdate = new ToolStripDropDownButton();
             toolStripSeparator3 = new ToolStripSeparator();
-            refundToolStripMenuItem = new ToolStripMenuItem();
+            btnRefund = new ToolStripMenuItem();
             btnVoid = new ToolStripMenuItem();
             panel2 = new Panel();
-            label2 = new Label();
-            lblTotal = new Label();
-            label11 = new Label();
+            tabControl1 = new TabControl();
+            tabSummary = new TabPage();
+            panel3 = new Panel();
+            btnAddPayment = new Button();
+            txtBalance = new TextBox();
+            txtPayment = new TextBox();
+            txtReceivable = new TextBox();
+            lblOrderTerm = new Label();
+            lblOrderLastPayment = new Label();
+            lblLastPayment = new Label();
+            lblTerm = new Label();
+            label17 = new Label();
+            label15 = new Label();
+            label19 = new Label();
+            tabItems = new TabPage();
+            lblTotalItems = new Label();
+            label6 = new Label();
             lblDiscount = new Label();
+            label5 = new Label();
             lblSubTotal = new Label();
             label8 = new Label();
+            dgvOrderItems = new DataGridView();
+            clmItem = new DataGridViewTextBoxColumn();
+            clmUnit = new DataGridViewTextBoxColumn();
+            clmQuantity = new DataGridViewTextBoxColumn();
+            clmPrice = new DataGridViewTextBoxColumn();
+            clmTotal = new DataGridViewTextBoxColumn();
+            tabPayments = new TabPage();
+            lblTotalPayments = new Label();
+            label13 = new Label();
+            dgvPayments = new DataGridView();
+            clmDateTime = new DataGridViewTextBoxColumn();
+            clmAmount = new DataGridViewTextBoxColumn();
+            clmMode = new DataGridViewTextBoxColumn();
+            clmReference = new DataGridViewTextBoxColumn();
+            clmRemarks = new DataGridViewTextBoxColumn();
             lblDateTime = new Label();
             lblCustomer = new Label();
             lblStatus = new Label();
@@ -76,15 +108,6 @@
             label1 = new Label();
             lblTitle = new Label();
             lblIcon = new Label();
-            tabControl1 = new TabControl();
-            tabPage1 = new TabPage();
-            tabPage2 = new TabPage();
-            dgvOrderItems = new DataGridView();
-            clmItem = new DataGridViewTextBoxColumn();
-            clmUnit = new DataGridViewTextBoxColumn();
-            clmQuantity = new DataGridViewTextBoxColumn();
-            clmPrice = new DataGridViewTextBoxColumn();
-            clmTotal = new DataGridViewTextBoxColumn();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSales).BeginInit();
@@ -92,8 +115,12 @@
             tsMain.SuspendLayout();
             panel2.SuspendLayout();
             tabControl1.SuspendLayout();
-            tabPage1.SuspendLayout();
+            tabSummary.SuspendLayout();
+            panel3.SuspendLayout();
+            tabItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrderItems).BeginInit();
+            tabPayments.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPayments).BeginInit();
             SuspendLayout();
             // 
             // btnPay
@@ -152,7 +179,7 @@
             dgvSales.AllowUserToAddRows = false;
             dgvSales.AllowUserToDeleteRows = false;
             dgvSales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSales.Columns.AddRange(new DataGridViewColumn[] { clmOrderNumber, clmDateTime, clmStatus, clmOrderTotal, clmCustomer });
+            dgvSales.Columns.AddRange(new DataGridViewColumn[] { clmOrderNumber, clmDate, clmStatus, clmOrderTotal, clmCustomer });
             dgvSales.Dock = DockStyle.Fill;
             dgvSales.Location = new System.Drawing.Point(0, 31);
             dgvSales.Margin = new Padding(5);
@@ -173,13 +200,13 @@
             clmOrderNumber.ReadOnly = true;
             clmOrderNumber.Width = 150;
             // 
-            // clmDateTime
+            // clmDate
             // 
-            clmDateTime.HeaderText = "Date & Time";
-            clmDateTime.MinimumWidth = 6;
-            clmDateTime.Name = "clmDateTime";
-            clmDateTime.ReadOnly = true;
-            clmDateTime.Width = 165;
+            clmDate.HeaderText = "Date";
+            clmDate.MinimumWidth = 6;
+            clmDate.Name = "clmDate";
+            clmDate.ReadOnly = true;
+            clmDate.Width = 165;
             // 
             // clmStatus
             // 
@@ -340,7 +367,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.DropDownItems.AddRange(new ToolStripItem[] { btnPay, toolStripSeparator3, refundToolStripMenuItem, btnVoid });
+            btnUpdate.DropDownItems.AddRange(new ToolStripItem[] { btnPay, toolStripSeparator3, btnRefund, btnVoid });
             btnUpdate.Image = Properties.Resources.update_sales_icon;
             btnUpdate.ImageTransparentColor = Color.Magenta;
             btnUpdate.Name = "btnUpdate";
@@ -352,13 +379,13 @@
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Size = new Size(153, 6);
             // 
-            // refundToolStripMenuItem
+            // btnRefund
             // 
-            refundToolStripMenuItem.Enabled = false;
-            refundToolStripMenuItem.Name = "refundToolStripMenuItem";
-            refundToolStripMenuItem.Size = new Size(156, 28);
-            refundToolStripMenuItem.Text = "Refund";
-            refundToolStripMenuItem.Click += refundToolStripMenuItem_Click;
+            btnRefund.Enabled = false;
+            btnRefund.Name = "btnRefund";
+            btnRefund.Size = new Size(156, 28);
+            btnRefund.Text = "Refund";
+            btnRefund.Click += refundToolStripMenuItem_Click;
             // 
             // btnVoid
             // 
@@ -371,12 +398,6 @@
             // panel2
             // 
             panel2.Controls.Add(tabControl1);
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(lblTotal);
-            panel2.Controls.Add(label11);
-            panel2.Controls.Add(lblDiscount);
-            panel2.Controls.Add(lblSubTotal);
-            panel2.Controls.Add(label8);
             panel2.Controls.Add(lblDateTime);
             panel2.Controls.Add(lblCustomer);
             panel2.Controls.Add(lblStatus);
@@ -390,63 +411,253 @@
             panel2.TabIndex = 1;
             panel2.Paint += panel2_Paint;
             // 
-            // label2
+            // tabControl1
             // 
-            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new System.Drawing.Point(697, 652);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(85, 41);
-            label2.TabIndex = 53;
-            label2.Text = "Total";
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl1.Controls.Add(tabSummary);
+            tabControl1.Controls.Add(tabItems);
+            tabControl1.Controls.Add(tabPayments);
+            tabControl1.Location = new System.Drawing.Point(18, 91);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(1008, 599);
+            tabControl1.TabIndex = 1;
             // 
-            // lblTotal
+            // tabSummary
             // 
-            lblTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lblTotal.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTotal.Location = new System.Drawing.Point(790, 652);
-            lblTotal.Margin = new Padding(4, 0, 4, 0);
-            lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(236, 41);
-            lblTotal.TabIndex = 52;
-            lblTotal.Text = "0.00";
-            lblTotal.TextAlign = ContentAlignment.MiddleRight;
+            tabSummary.Controls.Add(panel3);
+            tabSummary.Location = new System.Drawing.Point(4, 34);
+            tabSummary.Name = "tabSummary";
+            tabSummary.Padding = new Padding(3);
+            tabSummary.Size = new Size(1000, 561);
+            tabSummary.TabIndex = 2;
+            tabSummary.Text = "Summary";
+            tabSummary.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // panel3
             // 
-            label11.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new System.Drawing.Point(656, 615);
-            label11.Margin = new Padding(4, 0, 4, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(126, 38);
-            label11.TabIndex = 51;
-            label11.Text = "Discount";
+            panel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel3.BackColor = Color.WhiteSmoke;
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(btnAddPayment);
+            panel3.Controls.Add(txtBalance);
+            panel3.Controls.Add(txtPayment);
+            panel3.Controls.Add(txtReceivable);
+            panel3.Controls.Add(lblOrderTerm);
+            panel3.Controls.Add(lblOrderLastPayment);
+            panel3.Controls.Add(lblLastPayment);
+            panel3.Controls.Add(lblTerm);
+            panel3.Controls.Add(label17);
+            panel3.Controls.Add(label15);
+            panel3.Controls.Add(label19);
+            panel3.Location = new System.Drawing.Point(28, 25);
+            panel3.Margin = new Padding(25);
+            panel3.Name = "panel3";
+            panel3.Padding = new Padding(10);
+            panel3.Size = new Size(400, 508);
+            panel3.TabIndex = 56;
+            // 
+            // btnAddPayment
+            // 
+            btnAddPayment.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnAddPayment.BackColor = Color.YellowGreen;
+            btnAddPayment.Font = new Font("Segoe UI", 13.8F);
+            btnAddPayment.Location = new System.Drawing.Point(13, 424);
+            btnAddPayment.Name = "btnAddPayment";
+            btnAddPayment.Size = new Size(372, 69);
+            btnAddPayment.TabIndex = 4;
+            btnAddPayment.Text = "Add Payment";
+            btnAddPayment.UseVisualStyleBackColor = false;
+            btnAddPayment.Visible = false;
+            // 
+            // txtBalance
+            // 
+            txtBalance.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtBalance.Location = new System.Drawing.Point(138, 93);
+            txtBalance.Name = "txtBalance";
+            txtBalance.ReadOnly = true;
+            txtBalance.Size = new Size(236, 34);
+            txtBalance.TabIndex = 3;
+            txtBalance.Text = "0.00";
+            txtBalance.TextAlign = HorizontalAlignment.Right;
+            // 
+            // txtPayment
+            // 
+            txtPayment.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPayment.Location = new System.Drawing.Point(138, 53);
+            txtPayment.Name = "txtPayment";
+            txtPayment.ReadOnly = true;
+            txtPayment.Size = new Size(236, 34);
+            txtPayment.TabIndex = 2;
+            txtPayment.Text = "0.00";
+            txtPayment.TextAlign = HorizontalAlignment.Right;
+            // 
+            // txtReceivable
+            // 
+            txtReceivable.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtReceivable.Location = new System.Drawing.Point(138, 13);
+            txtReceivable.Name = "txtReceivable";
+            txtReceivable.ReadOnly = true;
+            txtReceivable.Size = new Size(236, 34);
+            txtReceivable.TabIndex = 1;
+            txtReceivable.Text = "0.00";
+            txtReceivable.TextAlign = HorizontalAlignment.Right;
+            // 
+            // lblOrderTerm
+            // 
+            lblOrderTerm.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
+            lblOrderTerm.Location = new System.Drawing.Point(136, 160);
+            lblOrderTerm.Margin = new Padding(4, 0, 4, 0);
+            lblOrderTerm.Name = "lblOrderTerm";
+            lblOrderTerm.Size = new Size(171, 38);
+            lblOrderTerm.TabIndex = 69;
+            lblOrderTerm.Text = "Term";
+            lblOrderTerm.TextAlign = ContentAlignment.MiddleLeft;
+            lblOrderTerm.Visible = false;
+            // 
+            // lblOrderLastPayment
+            // 
+            lblOrderLastPayment.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
+            lblOrderLastPayment.Location = new System.Drawing.Point(136, 198);
+            lblOrderLastPayment.Margin = new Padding(4, 0, 4, 0);
+            lblOrderLastPayment.Name = "lblOrderLastPayment";
+            lblOrderLastPayment.Size = new Size(171, 38);
+            lblOrderLastPayment.TabIndex = 70;
+            lblOrderLastPayment.Text = "Last Payment";
+            lblOrderLastPayment.TextAlign = ContentAlignment.MiddleLeft;
+            lblOrderLastPayment.Visible = false;
+            // 
+            // lblLastPayment
+            // 
+            lblLastPayment.AutoSize = true;
+            lblLastPayment.Font = new Font("Segoe UI", 10.8F);
+            lblLastPayment.Location = new System.Drawing.Point(12, 205);
+            lblLastPayment.Margin = new Padding(4, 0, 4, 0);
+            lblLastPayment.Name = "lblLastPayment";
+            lblLastPayment.Size = new Size(116, 25);
+            lblLastPayment.TabIndex = 68;
+            lblLastPayment.Text = "Last Payment";
+            lblLastPayment.Visible = false;
+            // 
+            // lblTerm
+            // 
+            lblTerm.AutoSize = true;
+            lblTerm.Font = new Font("Segoe UI", 10.8F);
+            lblTerm.Location = new System.Drawing.Point(78, 167);
+            lblTerm.Margin = new Padding(4, 0, 4, 0);
+            lblTerm.Name = "lblTerm";
+            lblTerm.Size = new Size(50, 25);
+            lblTerm.TabIndex = 67;
+            lblTerm.Text = "Term";
+            lblTerm.Visible = false;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 10.8F);
+            label17.Location = new System.Drawing.Point(51, 59);
+            label17.Margin = new Padding(4, 0, 4, 0);
+            label17.Name = "label17";
+            label17.Size = new Size(80, 25);
+            label17.TabIndex = 63;
+            label17.Text = "Payment";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 10.8F);
+            label15.Location = new System.Drawing.Point(58, 97);
+            label15.Margin = new Padding(4, 0, 4, 0);
+            label15.Name = "label15";
+            label15.Size = new Size(71, 25);
+            label15.TabIndex = 65;
+            label15.Text = "Balance";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 10.8F);
+            label19.Location = new System.Drawing.Point(37, 19);
+            label19.Margin = new Padding(4, 0, 4, 0);
+            label19.Name = "label19";
+            label19.Size = new Size(94, 25);
+            label19.TabIndex = 61;
+            label19.Text = "Receivable";
+            // 
+            // tabItems
+            // 
+            tabItems.Controls.Add(lblTotalItems);
+            tabItems.Controls.Add(label6);
+            tabItems.Controls.Add(lblDiscount);
+            tabItems.Controls.Add(label5);
+            tabItems.Controls.Add(lblSubTotal);
+            tabItems.Controls.Add(label8);
+            tabItems.Controls.Add(dgvOrderItems);
+            tabItems.Location = new System.Drawing.Point(4, 34);
+            tabItems.Name = "tabItems";
+            tabItems.Padding = new Padding(3);
+            tabItems.Size = new Size(1000, 561);
+            tabItems.TabIndex = 0;
+            tabItems.Text = "Items";
+            tabItems.UseVisualStyleBackColor = true;
+            // 
+            // lblTotalItems
+            // 
+            lblTotalItems.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblTotalItems.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
+            lblTotalItems.Location = new System.Drawing.Point(822, 520);
+            lblTotalItems.Margin = new Padding(4, 0, 4, 0);
+            lblTotalItems.Name = "lblTotalItems";
+            lblTotalItems.Size = new Size(171, 38);
+            lblTotalItems.TabIndex = 54;
+            lblTotalItems.Text = "0.00";
+            lblTotalItems.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
+            label6.Location = new System.Drawing.Point(765, 527);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(54, 25);
+            label6.TabIndex = 53;
+            label6.Text = "Total";
             // 
             // lblDiscount
             // 
             lblDiscount.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lblDiscount.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblDiscount.Location = new System.Drawing.Point(790, 614);
+            lblDiscount.Font = new Font("Segoe UI", 10.8F);
+            lblDiscount.Location = new System.Drawing.Point(822, 482);
             lblDiscount.Margin = new Padding(4, 0, 4, 0);
             lblDiscount.Name = "lblDiscount";
-            lblDiscount.Size = new Size(236, 38);
-            lblDiscount.TabIndex = 50;
+            lblDiscount.Size = new Size(171, 38);
+            lblDiscount.TabIndex = 52;
             lblDiscount.Text = "0.00";
             lblDiscount.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10.8F);
+            label5.Location = new System.Drawing.Point(732, 489);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(82, 25);
+            label5.TabIndex = 51;
+            label5.Text = "Discount";
             // 
             // lblSubTotal
             // 
             lblSubTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lblSubTotal.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblSubTotal.Location = new System.Drawing.Point(790, 576);
+            lblSubTotal.Font = new Font("Segoe UI", 10.8F);
+            lblSubTotal.Location = new System.Drawing.Point(822, 444);
             lblSubTotal.Margin = new Padding(4, 0, 4, 0);
             lblSubTotal.Name = "lblSubTotal";
-            lblSubTotal.Size = new Size(236, 38);
-            lblSubTotal.TabIndex = 49;
+            lblSubTotal.Size = new Size(171, 38);
+            lblSubTotal.TabIndex = 48;
             lblSubTotal.Text = "0.00";
             lblSubTotal.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -454,13 +665,172 @@
             // 
             label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new System.Drawing.Point(652, 577);
+            label8.Font = new Font("Segoe UI", 10.8F);
+            label8.Location = new System.Drawing.Point(728, 451);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
-            label8.Size = new Size(130, 38);
-            label8.TabIndex = 48;
+            label8.Size = new Size(85, 25);
+            label8.TabIndex = 47;
             label8.Text = "Sub Total";
+            // 
+            // dgvOrderItems
+            // 
+            dgvOrderItems.AllowUserToAddRows = false;
+            dgvOrderItems.AllowUserToDeleteRows = false;
+            dgvOrderItems.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvOrderItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvOrderItems.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmUnit, clmQuantity, clmPrice, clmTotal });
+            dgvOrderItems.Location = new System.Drawing.Point(7, 7);
+            dgvOrderItems.Margin = new Padding(4);
+            dgvOrderItems.MultiSelect = false;
+            dgvOrderItems.Name = "dgvOrderItems";
+            dgvOrderItems.ReadOnly = true;
+            dgvOrderItems.RowHeadersWidth = 51;
+            dgvOrderItems.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgvOrderItems.Size = new Size(986, 433);
+            dgvOrderItems.TabIndex = 46;
+            // 
+            // clmItem
+            // 
+            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmItem.HeaderText = "Item";
+            clmItem.MinimumWidth = 6;
+            clmItem.Name = "clmItem";
+            clmItem.ReadOnly = true;
+            // 
+            // clmUnit
+            // 
+            clmUnit.HeaderText = "Unit";
+            clmUnit.MinimumWidth = 6;
+            clmUnit.Name = "clmUnit";
+            clmUnit.ReadOnly = true;
+            clmUnit.Width = 125;
+            // 
+            // clmQuantity
+            // 
+            clmQuantity.HeaderText = "Quantity";
+            clmQuantity.MinimumWidth = 6;
+            clmQuantity.Name = "clmQuantity";
+            clmQuantity.ReadOnly = true;
+            clmQuantity.Width = 125;
+            // 
+            // clmPrice
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmPrice.DefaultCellStyle = dataGridViewCellStyle2;
+            clmPrice.HeaderText = "Price";
+            clmPrice.MinimumWidth = 6;
+            clmPrice.Name = "clmPrice";
+            clmPrice.ReadOnly = true;
+            clmPrice.Width = 150;
+            // 
+            // clmTotal
+            // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmTotal.DefaultCellStyle = dataGridViewCellStyle3;
+            clmTotal.HeaderText = "Total";
+            clmTotal.MinimumWidth = 6;
+            clmTotal.Name = "clmTotal";
+            clmTotal.ReadOnly = true;
+            clmTotal.Width = 175;
+            // 
+            // tabPayments
+            // 
+            tabPayments.Controls.Add(lblTotalPayments);
+            tabPayments.Controls.Add(label13);
+            tabPayments.Controls.Add(dgvPayments);
+            tabPayments.Location = new System.Drawing.Point(4, 34);
+            tabPayments.Name = "tabPayments";
+            tabPayments.Padding = new Padding(3);
+            tabPayments.Size = new Size(1000, 561);
+            tabPayments.TabIndex = 1;
+            tabPayments.Text = "Payments";
+            tabPayments.UseVisualStyleBackColor = true;
+            // 
+            // lblTotalPayments
+            // 
+            lblTotalPayments.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            lblTotalPayments.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
+            lblTotalPayments.Location = new System.Drawing.Point(822, 520);
+            lblTotalPayments.Margin = new Padding(4, 0, 4, 0);
+            lblTotalPayments.Name = "lblTotalPayments";
+            lblTotalPayments.Size = new Size(171, 38);
+            lblTotalPayments.TabIndex = 56;
+            lblTotalPayments.Text = "0.00";
+            lblTotalPayments.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // label13
+            // 
+            label13.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
+            label13.Location = new System.Drawing.Point(765, 527);
+            label13.Margin = new Padding(4, 0, 4, 0);
+            label13.Name = "label13";
+            label13.Size = new Size(54, 25);
+            label13.TabIndex = 55;
+            label13.Text = "Total";
+            // 
+            // dgvPayments
+            // 
+            dgvPayments.AllowUserToAddRows = false;
+            dgvPayments.AllowUserToDeleteRows = false;
+            dgvPayments.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvPayments.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPayments.Columns.AddRange(new DataGridViewColumn[] { clmDateTime, clmAmount, clmMode, clmReference, clmRemarks });
+            dgvPayments.Location = new System.Drawing.Point(7, 7);
+            dgvPayments.Margin = new Padding(4);
+            dgvPayments.MultiSelect = false;
+            dgvPayments.Name = "dgvPayments";
+            dgvPayments.ReadOnly = true;
+            dgvPayments.RowHeadersWidth = 51;
+            dgvPayments.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgvPayments.Size = new Size(986, 509);
+            dgvPayments.TabIndex = 47;
+            // 
+            // clmDateTime
+            // 
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            clmDateTime.DefaultCellStyle = dataGridViewCellStyle4;
+            clmDateTime.HeaderText = "Date & Time";
+            clmDateTime.MinimumWidth = 6;
+            clmDateTime.Name = "clmDateTime";
+            clmDateTime.ReadOnly = true;
+            clmDateTime.Width = 220;
+            // 
+            // clmAmount
+            // 
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmAmount.DefaultCellStyle = dataGridViewCellStyle5;
+            clmAmount.HeaderText = "Amount";
+            clmAmount.MinimumWidth = 6;
+            clmAmount.Name = "clmAmount";
+            clmAmount.ReadOnly = true;
+            clmAmount.Width = 175;
+            // 
+            // clmMode
+            // 
+            clmMode.HeaderText = "Mode";
+            clmMode.MinimumWidth = 6;
+            clmMode.Name = "clmMode";
+            clmMode.ReadOnly = true;
+            clmMode.Width = 200;
+            // 
+            // clmReference
+            // 
+            clmReference.HeaderText = "Reference";
+            clmReference.MinimumWidth = 6;
+            clmReference.Name = "clmReference";
+            clmReference.ReadOnly = true;
+            clmReference.Width = 125;
+            // 
+            // clmRemarks
+            // 
+            clmRemarks.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clmRemarks.HeaderText = "Remarks";
+            clmRemarks.MinimumWidth = 6;
+            clmRemarks.Name = "clmRemarks";
+            clmRemarks.ReadOnly = true;
             // 
             // lblDateTime
             // 
@@ -550,98 +920,6 @@
             lblIcon.Size = new Size(60, 60);
             lblIcon.TabIndex = 0;
             // 
-            // tabControl1
-            // 
-            tabControl1.Controls.Add(tabPage1);
-            tabControl1.Controls.Add(tabPage2);
-            tabControl1.Location = new System.Drawing.Point(18, 91);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1008, 482);
-            tabControl1.TabIndex = 54;
-            // 
-            // tabPage1
-            // 
-            tabPage1.Controls.Add(dgvOrderItems);
-            tabPage1.Location = new System.Drawing.Point(4, 34);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(1000, 444);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "tabPage1";
-            tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            tabPage2.Location = new System.Drawing.Point(4, 34);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(242, 87);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "tabPage2";
-            tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // dgvOrderItems
-            // 
-            dgvOrderItems.AllowUserToAddRows = false;
-            dgvOrderItems.AllowUserToDeleteRows = false;
-            dgvOrderItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvOrderItems.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmUnit, clmQuantity, clmPrice, clmTotal });
-            dgvOrderItems.Dock = DockStyle.Fill;
-            dgvOrderItems.Location = new System.Drawing.Point(3, 3);
-            dgvOrderItems.Margin = new Padding(4);
-            dgvOrderItems.MultiSelect = false;
-            dgvOrderItems.Name = "dgvOrderItems";
-            dgvOrderItems.ReadOnly = true;
-            dgvOrderItems.RowHeadersWidth = 51;
-            dgvOrderItems.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvOrderItems.Size = new Size(994, 438);
-            dgvOrderItems.TabIndex = 46;
-            // 
-            // clmItem
-            // 
-            clmItem.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clmItem.HeaderText = "Item";
-            clmItem.MinimumWidth = 6;
-            clmItem.Name = "clmItem";
-            clmItem.ReadOnly = true;
-            // 
-            // clmUnit
-            // 
-            clmUnit.HeaderText = "Unit";
-            clmUnit.MinimumWidth = 6;
-            clmUnit.Name = "clmUnit";
-            clmUnit.ReadOnly = true;
-            clmUnit.Width = 125;
-            // 
-            // clmQuantity
-            // 
-            clmQuantity.HeaderText = "Quantity";
-            clmQuantity.MinimumWidth = 6;
-            clmQuantity.Name = "clmQuantity";
-            clmQuantity.ReadOnly = true;
-            clmQuantity.Width = 125;
-            // 
-            // clmPrice
-            // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmPrice.DefaultCellStyle = dataGridViewCellStyle2;
-            clmPrice.HeaderText = "Price";
-            clmPrice.MinimumWidth = 6;
-            clmPrice.Name = "clmPrice";
-            clmPrice.ReadOnly = true;
-            clmPrice.Width = 150;
-            // 
-            // clmTotal
-            // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmTotal.DefaultCellStyle = dataGridViewCellStyle3;
-            clmTotal.HeaderText = "Total";
-            clmTotal.MinimumWidth = 6;
-            clmTotal.Name = "clmTotal";
-            clmTotal.ReadOnly = true;
-            clmTotal.Width = 175;
-            // 
             // frmSales
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -668,8 +946,15 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             tabControl1.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
+            tabSummary.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            tabItems.ResumeLayout(false);
+            tabItems.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrderItems).EndInit();
+            tabPayments.ResumeLayout(false);
+            tabPayments.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvPayments).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -703,13 +988,8 @@
         private Panel panel2;
         private ToolStripMenuItem btnVoid;
         private ToolStripSeparator toolStripSeparator3;
-        private ToolStripMenuItem refundToolStripMenuItem;
+        private ToolStripMenuItem btnRefund;
         private ToolStripLabel toolStripLabel3;
-        private DataGridViewTextBoxColumn clmOrderNumber;
-        private DataGridViewTextBoxColumn clmDateTime;
-        private DataGridViewTextBoxColumn clmStatus;
-        private DataGridViewTextBoxColumn clmOrderTotal;
-        private DataGridViewTextBoxColumn clmCustomer;
         private Label lblIcon;
         private Label lblCustomer;
         private Label lblStatus;
@@ -717,20 +997,46 @@
         private Label lblOrderNumber;
         private Label label1;
         private Label lblDateTime;
-        private Label label2;
-        private Label lblTotal;
-        private Label label11;
-        private Label lblDiscount;
-        private Label lblSubTotal;
-        private Label label8;
         private TabControl tabControl1;
-        private TabPage tabPage1;
+        private TabPage tabItems;
         private DataGridView dgvOrderItems;
         private DataGridViewTextBoxColumn clmItem;
         private DataGridViewTextBoxColumn clmUnit;
         private DataGridViewTextBoxColumn clmQuantity;
         private DataGridViewTextBoxColumn clmPrice;
         private DataGridViewTextBoxColumn clmTotal;
-        private TabPage tabPage2;
+        private TabPage tabPayments;
+        private Label lblTotalItems;
+        private Label label6;
+        private Label lblDiscount;
+        private Label label5;
+        private Label lblSubTotal;
+        private Label label8;
+        private DataGridView dgvPayments;
+        private TabPage tabSummary;
+        private Label lblTerm;
+        private Panel panel3;
+        private Label label17;
+        private Label label15;
+        private Label label19;
+        private Label lblOrderTerm;
+        private Label lblOrderLastPayment;
+        private Label lblLastPayment;
+        private TextBox txtBalance;
+        private TextBox txtPayment;
+        private TextBox txtReceivable;
+        private Label lblTotalPayments;
+        private Label label13;
+        private Button btnAddPayment;
+        private DataGridViewTextBoxColumn clmOrderNumber;
+        private DataGridViewTextBoxColumn clmDate;
+        private DataGridViewTextBoxColumn clmStatus;
+        private DataGridViewTextBoxColumn clmOrderTotal;
+        private DataGridViewTextBoxColumn clmCustomer;
+        private DataGridViewTextBoxColumn clmDateTime;
+        private DataGridViewTextBoxColumn clmAmount;
+        private DataGridViewTextBoxColumn clmMode;
+        private DataGridViewTextBoxColumn clmReference;
+        private DataGridViewTextBoxColumn clmRemarks;
     }
 }

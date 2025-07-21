@@ -1,10 +1,12 @@
-﻿namespace Point.Client.Main.Api.Enums
+﻿using System.ComponentModel;
+
+namespace Point.Client.Main.Api.Enums
 {
     public enum OrderStatus
     {
         New,
         Released,
-        PartiallyPaid,
+        Partially_Paid,
         Paid,
         Refunded,
         Cancelled

@@ -99,7 +99,7 @@ namespace Point.Client.Main.Forms.Orders
 
                 lblOrderNumber.Text = order.Number.ToOrderNumberString();
                 lblStatus.Text = order.Status.ToString();
-                lblCustomer.Text = order.Customer?.Name;
+                lblCustomer.Text = order.Customer?.Name ?? "-";
                 lblDateTime.Text = order.Created.ConvertToLongDateString();
 
                 order.Items.ForEach(item =>

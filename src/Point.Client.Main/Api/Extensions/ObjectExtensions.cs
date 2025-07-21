@@ -1,6 +1,6 @@
 ﻿namespace Point.Client.Main.Api.Extensions
 {
-    public static class ObjectExtensiions
+    public static class ObjectExtensions
     {
         public static bool IsNull(this object obj)
         {
