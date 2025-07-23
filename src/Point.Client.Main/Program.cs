@@ -10,7 +10,7 @@ namespace Point.Client.Main
         [STAThread]
         static void Main()
         {
-            ServiceFactory.ConfigureServices("https://localhost:7155/api/v1");
+            ServiceFactory.ConfigureServices("http://localhost:5230/api/v1");
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
