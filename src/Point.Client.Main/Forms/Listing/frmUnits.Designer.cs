@@ -100,7 +100,7 @@
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(180, 36);
             btnSave.TabIndex = 5;
-            btnSave.Text = "Save Category";
+            btnSave.Text = "Save Unit";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Visible = false;
             btnSave.Click += btnSave_Click;

@@ -1,9 +1,15 @@
-﻿namespace Point.Client.Main.Api.Enums
+﻿using System.ComponentModel;
+
+namespace Point.Client.Main.Api.Enums
 {
     public enum PaymentMode
     {
         Cash,
-        Digital_Wallet,
-        Bank_Transfer
+
+        [Description("Digital Wallet")]
+        DigitalWallet,
+
+        [Description("Bank Transfer")]
+        BankTransfer
     }
 }

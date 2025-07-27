@@ -29,7 +29,7 @@ namespace Point.Client.Main.Forms.Orders
 
         private void frmOrderStatusUpdate_Load(object sender, EventArgs e)
         {
-            lblOrderNumber.Text = _order.Number.ToOrderNumberString();
+            lblOrderNumber.Text = _order.GenerateOrderNumberString();
             lblTotal.Text = _order.Total.ToAmountString();
             lblStatus.Text = string.Format(FormConstants.Order.ChangeStatusLabel, _newOrderStatusAction.ToUpper());
             btnUpdate.Text = string.Format(FormConstants.Order.ChangeStatuslButtonLabel, _newOrderStatusAction.ToUpper());

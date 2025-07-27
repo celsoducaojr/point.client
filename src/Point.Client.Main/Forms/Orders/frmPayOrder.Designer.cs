@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnPaid = new Button();
+            btnPay = new Button();
             btnCancel = new Button();
             cmbMode = new ComboBox();
             label2 = new Label();
@@ -46,18 +46,18 @@
             panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // btnPaid
+            // btnPay
             // 
-            btnPaid.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnPaid.Font = new Font("Segoe UI", 13.8F);
-            btnPaid.Location = new System.Drawing.Point(32, 592);
-            btnPaid.Margin = new Padding(4);
-            btnPaid.Name = "btnPaid";
-            btnPaid.Size = new Size(482, 72);
-            btnPaid.TabIndex = 5;
-            btnPaid.Text = "PAY";
-            btnPaid.UseVisualStyleBackColor = true;
-            btnPaid.Click += btnPaid_Click;
+            btnPay.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnPay.Font = new Font("Segoe UI", 13.8F);
+            btnPay.Location = new System.Drawing.Point(32, 592);
+            btnPay.Margin = new Padding(4);
+            btnPay.Name = "btnPay";
+            btnPay.Size = new Size(482, 72);
+            btnPay.TabIndex = 5;
+            btnPay.Text = "PAY";
+            btnPay.UseVisualStyleBackColor = true;
+            btnPay.Click += btnPay_Click;
             // 
             // btnCancel
             // 
@@ -74,6 +74,7 @@
             // 
             // cmbMode
             // 
+            cmbMode.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbMode.Font = new Font("Segoe UI", 12F);
             cmbMode.FormattingEnabled = true;
             cmbMode.Location = new System.Drawing.Point(184, 376);
@@ -235,7 +236,7 @@
             Controls.Add(label2);
             Controls.Add(cmbMode);
             Controls.Add(btnCancel);
-            Controls.Add(btnPaid);
+            Controls.Add(btnPay);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(4);
@@ -254,7 +255,7 @@
 
         #endregion
 
-        private Button btnPaid;
+        private Button btnPay;
         private Button btnCancel;
         private ComboBox cmbMode;
         private Label label2;

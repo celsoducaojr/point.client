@@ -93,8 +93,8 @@
             btnEdit.Image = Properties.Resources.edit_icon;
             btnEdit.ImageTransparentColor = Color.Magenta;
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(166, 28);
-            btnEdit.Text = "Edit Item-units";
+            btnEdit.Size = new Size(68, 28);
+            btnEdit.Text = "Edit";
             btnEdit.TextAlign = ContentAlignment.MiddleRight;
             btnEdit.Click += btnEdit_Click;
             // 

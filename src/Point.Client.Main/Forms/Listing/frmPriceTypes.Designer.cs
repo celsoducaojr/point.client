@@ -130,7 +130,7 @@
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(180, 36);
             btnSave.TabIndex = 7;
-            btnSave.Text = "Save Type";
+            btnSave.Text = "Save Price Type";
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Visible = false;
             btnSave.Click += btnSave_Click;

@@ -10,19 +10,23 @@ namespace Point.Client.Main.Forms.Orders
     {
         public PaymentDto? PaymentDto { get; private set; }
 
-
-        public frmPayOrder()
+        public frmPayOrder(decimal total)
         {
             InitializeComponent();
 
             PaymentDto = null;
+
+            lblTotal.Text = total.ToAmountString();
         }
 
         private void frmPayOrder_Load(object sender, EventArgs e)
         {
             cmbMode.DataSource = Enum.GetValues(typeof(PaymentMode))
                 .Cast<PaymentMode>()
-                .Select(s => new { Value = s, Text = s.ToString() })
+                .Select(s => new 
+                { 
+                    Value = s, 
+                    Text = s.GetDescription() })
                 .ToList();
             cmbMode.DisplayMember = "Text";
             cmbMode.ValueMember = "Value";
@@ -32,7 +36,7 @@ namespace Point.Client.Main.Forms.Orders
 
         private void txtTendered_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter) btnPaid.Focus();
+            if (e.KeyCode == Keys.Enter) btnPay.Focus();
         }
 
         private void txtTendered_Validating(object sender, System.ComponentModel.CancelEventArgs e)
@@ -57,7 +61,7 @@ namespace Point.Client.Main.Forms.Orders
                 lblChange.Text = "0.00";
         }
 
-        private void btnPaid_Click(object sender, EventArgs e)
+        private void btnPay_Click(object sender, EventArgs e)
         {
             var total = decimal.Parse(lblTotal.Text);
             var tendered = decimal.Parse(txtTendered.Text);
@@ -82,11 +86,6 @@ namespace Point.Client.Main.Forms.Orders
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
-        }
-
-        public void SetTotal(decimal total)
-        {
-            lblTotal.Text = total.ToAmountString();
         }
     }
 }

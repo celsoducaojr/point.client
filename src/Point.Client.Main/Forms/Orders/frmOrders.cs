@@ -97,7 +97,7 @@ namespace Point.Client.Main.Forms.Orders
 
                 var order = (Order)dgvOrders.SelectedRows[0]?.Tag;
 
-                lblOrderNumber.Text = order.Number.ToOrderNumberString();
+                lblOrderNumber.Text = order.GenerateOrderNumberString();
                 lblStatus.Text = order.Status.ToString();
                 lblCustomer.Text = order.Customer?.Name ?? "-";
                 lblDateTime.Text = order.Created.ConvertToLongDateString();

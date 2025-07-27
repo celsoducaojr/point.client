@@ -6,7 +6,10 @@ namespace Point.Client.Main.Api.Enums
     {
         New,
         Released,
-        Partially_Paid,
+
+        [Description("Partially Paid")]
+        PartiallyPaid,
+
         Paid,
         Refunded,
         Cancelled

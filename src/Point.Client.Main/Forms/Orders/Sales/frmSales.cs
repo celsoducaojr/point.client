@@ -5,7 +5,9 @@ using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
+using Point.Client.Main.Forms.Orders.Sales;
 using Point.Client.Main.Globals;
+using Point.Client.Main.Globals.Common.Objects;
 
 namespace Point.Client.Main.Forms.Sales
 {
@@ -16,7 +18,7 @@ namespace Point.Client.Main.Forms.Sales
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
-        private OrderStatus _currentOrderStatus;
+        private ComboBoxItem<OrderStatus> _currentOrderStatus;
 
         private readonly OrderService _orderService;
 
@@ -29,7 +31,11 @@ namespace Point.Client.Main.Forms.Sales
             _currentPage = 1;
             _currentTotalPages = 0;
             _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
-            _currentOrderStatus = OrderStatus.New;
+            _currentOrderStatus = new ComboBoxItem<OrderStatus>
+            {
+                Value = OrderStatus.New,
+                Text = OrderStatus.New.GetDescription()
+            };
 
             _orderService = ServiceFactory.GetService<OrderService>();
 
@@ -47,11 +53,18 @@ namespace Point.Client.Main.Forms.Sales
                 var orderStatuses = new List<OrderStatus>
                 {
                     OrderStatus.Released,
-                    OrderStatus.Partially_Paid,
+                    OrderStatus.PartiallyPaid,
                     OrderStatus.Paid,
                     OrderStatus.Refunded,
                 };
-                cmbStatus.ComboBox.DataSource = orderStatuses.ToList();
+                cmbStatus.ComboBox.DataSource = orderStatuses
+                    .Select(e => new ComboBoxItem<OrderStatus>
+                    {
+                        Value = e,
+                        Text = e.GetDescription()
+                    }).ToList();
+                cmbStatus.ComboBox.DisplayMember = "Text";
+                cmbStatus.ComboBox.ValueMember = "Value";
                 cmbStatus.SelectedIndex = 0;
             }
 
@@ -60,7 +73,12 @@ namespace Point.Client.Main.Forms.Sales
 
         private void btnPay_Click(object sender, EventArgs e)
         {
+            var order = (Order)dgvSales.SelectedRows[0]?.Tag;
+            var form = new frmPayment(order);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
 
+            }
         }
 
         private void refundToolStripMenuItem_Click(object sender, EventArgs e)
@@ -86,7 +104,7 @@ namespace Point.Client.Main.Forms.Sales
 
                 var order = (Order)dgvSales.SelectedRows[0]?.Tag;
 
-                if (order.Status == OrderStatus.Released || order.Status == OrderStatus.Partially_Paid)
+                if (order.Status == OrderStatus.Released || order.Status == OrderStatus.PartiallyPaid)
                 {
                     lblTerm.Visible = true;
                     lblOrderTerm.Visible = true;
@@ -103,13 +121,13 @@ namespace Point.Client.Main.Forms.Sales
                     btnVoid.Enabled = true;
                 }
 
-                lblOrderNumber.Text = order.Number.ToOrderNumberString();
-                lblStatus.Text = order.Status.ToString();
+                lblOrderNumber.Text = order.GenerateOrderNumberString();
+                lblStatus.Text = order.Status.GetDescription();
                 lblCustomer.Text = order.Customer?.Name ?? "-";
                 lblDateTime.Text = order.Created.ConvertToLongDateString();
 
-                txtReceivable.Text = order.Total.ToAmountString();
-                txtPayment.Text = order.Payments.GenerateTotal().ToAmountString();
+                txtReceivables.Text = order.Total.ToAmountString();
+                txtPayments.Text = order.GenerateTotalPayment().ToAmountString();
                 txtBalance.Text = order.GenerateBalance().ToAmountString();
 
                 lblOrderTerm.Text = order.PaymentTerm?.GetDescription() ?? "-";
@@ -134,12 +152,12 @@ namespace Point.Client.Main.Forms.Sales
                     dgvPayments.Rows.Add(
                         payment.Created,
                         payment.Amount.ToAmountString(),
-                        payment.Mode,
+                        payment.Mode.GetDescription(),
                         payment.Reference,
                         payment.Remarks);
                 });
 
-                lblTotalPayments.Text = order.Payments?.GenerateTotal().ToAmountString() ?? "0.00";
+                lblTotalPayments.Text = order?.GenerateTotalPayment().ToAmountString() ?? "0.00";
             }
         }
 
@@ -147,7 +165,8 @@ namespace Point.Client.Main.Forms.Sales
 
         private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _currentOrderStatus = (OrderStatus)cmbStatus.ComboBox.SelectedValue;
+            _currentOrderStatus = (ComboBoxItem<OrderStatus>)cmbStatus.ComboBox.SelectedItem;
+
             if (cmbPageSize.SelectedItem == null)
                 cmbPageSize.SelectedIndex = 0;
             else
@@ -253,8 +272,8 @@ namespace Point.Client.Main.Forms.Sales
             lblDateTime.Text = string.Empty;
             lblCustomer.Text = "-";
 
-            txtReceivable.Text = "0.00";
-            txtPayment.Text = "0.00";
+            txtReceivables.Text = "0.00";
+            txtPayments.Text = "0.00";
             txtBalance.Text = "0.00";
             lblOrderTerm.Text = "-";
             lblOrderLastPayment.Text = "-";
@@ -288,7 +307,7 @@ namespace Point.Client.Main.Forms.Sales
         {
             row.Cells[0].Value = order.Number;
             row.Cells[1].Value = order.Created.ConvertToLongDateString();
-            row.Cells[2].Value = order.Status;
+            row.Cells[2].Value = order.Status.GetDescription();
             row.Cells[3].Value = order.Total.ToAmountString();
             row.Cells[4].Value = order.Customer?.Name;
             row.Tag = order;
@@ -309,7 +328,7 @@ namespace Point.Client.Main.Forms.Sales
             }));
 
             var response = await _orderService.SearchOrders(_currentPage, _currentPageSize, customerId: null,
-                [_currentOrderStatus]);
+                [_currentOrderStatus.Value]);
 
             this.Invoke((MethodInvoker)(() =>
             {
@@ -342,10 +361,5 @@ namespace Point.Client.Main.Forms.Sales
         }
 
         #endregion
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

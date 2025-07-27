@@ -137,7 +137,7 @@ namespace Point.Client.Main.Forms.Orders
             }
             else
             {
-                MessageBox.Show("The Item-unit selected has zero (0) Price.", "Invalid Item selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The Item-unit selected has no valid Prices.", "Invalid Item selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }

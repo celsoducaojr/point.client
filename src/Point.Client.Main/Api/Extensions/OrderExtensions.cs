@@ -4,11 +4,23 @@ namespace Point.Client.Main.Api.Extensions
 {
     public static class OrderExtensions
     {
+        public static string GenerateOrderNumberString(this Order? order)
+        {
+            return $"Order {order?.Number}";
+        }
+
+        public static decimal GenerateTotalPayment(this Order? order)
+        {
+            if (order?.Payments == null) return 0;
+
+            return order.Payments.Sum(payment => payment.Amount);
+        }
+
         public static decimal GenerateBalance(this Order? order)
         {
             if (order == null) return 0;
 
-            var payments = order.Payments.GenerateTotal();
+            var payments = order.GenerateTotalPayment();
             return order.Total - payments;
         }
 

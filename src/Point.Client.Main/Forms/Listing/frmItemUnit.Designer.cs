@@ -58,17 +58,18 @@
             // 
             // lblItem
             // 
+            lblItem.BorderStyle = BorderStyle.FixedSingle;
             lblItem.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblItem.Location = new System.Drawing.Point(29, 66);
+            lblItem.Location = new System.Drawing.Point(29, 75);
             lblItem.Margin = new Padding(4, 0, 4, 0);
             lblItem.Name = "lblItem";
-            lblItem.Size = new Size(346, 213);
+            lblItem.Size = new Size(570, 92);
             lblItem.TabIndex = 15;
             lblItem.Text = "Item";
             // 
             // btnCancel
             // 
-            btnCancel.Location = new System.Drawing.Point(257, 283);
+            btnCancel.Location = new System.Drawing.Point(481, 202);
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 36);
@@ -79,7 +80,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new System.Drawing.Point(69, 283);
+            btnSave.Location = new System.Drawing.Point(293, 202);
             btnSave.Margin = new Padding(4);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(180, 36);
@@ -94,14 +95,14 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new Size(404, 348);
+            ClientSize = new Size(628, 267);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(lblItem);
             Controls.Add(label2);
             Controls.Add(cmbUnit);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Margin = new Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;

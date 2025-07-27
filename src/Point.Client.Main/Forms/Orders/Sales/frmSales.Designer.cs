@@ -69,8 +69,8 @@
             panel3 = new Panel();
             btnAddPayment = new Button();
             txtBalance = new TextBox();
-            txtPayment = new TextBox();
-            txtReceivable = new TextBox();
+            txtPayments = new TextBox();
+            txtReceivables = new TextBox();
             lblOrderTerm = new Label();
             lblOrderLastPayment = new Label();
             lblLastPayment = new Label();
@@ -127,8 +127,8 @@
             // 
             btnPay.Enabled = false;
             btnPay.Name = "btnPay";
-            btnPay.Size = new Size(156, 28);
-            btnPay.Text = "Pay";
+            btnPay.Size = new Size(224, 28);
+            btnPay.Text = "Add Payment";
             btnPay.Click += btnPay_Click;
             // 
             // toolStripSeparator1
@@ -371,19 +371,19 @@
             btnUpdate.Image = Properties.Resources.update_sales_icon;
             btnUpdate.ImageTransparentColor = Color.Magenta;
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(161, 28);
-            btnUpdate.Text = "Update Sales";
+            btnUpdate.Size = new Size(108, 28);
+            btnUpdate.Text = "Update";
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(153, 6);
+            toolStripSeparator3.Size = new Size(221, 6);
             // 
             // btnRefund
             // 
             btnRefund.Enabled = false;
             btnRefund.Name = "btnRefund";
-            btnRefund.Size = new Size(156, 28);
+            btnRefund.Size = new Size(224, 28);
             btnRefund.Text = "Refund";
             btnRefund.Click += refundToolStripMenuItem_Click;
             // 
@@ -391,7 +391,7 @@
             // 
             btnVoid.Enabled = false;
             btnVoid.Name = "btnVoid";
-            btnVoid.Size = new Size(156, 28);
+            btnVoid.Size = new Size(224, 28);
             btnVoid.Text = "Void";
             btnVoid.Click += btnVoid_Click;
             // 
@@ -409,7 +409,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(1036, 699);
             panel2.TabIndex = 1;
-            panel2.Paint += panel2_Paint;
             // 
             // tabControl1
             // 
@@ -441,8 +440,8 @@
             panel3.BorderStyle = BorderStyle.FixedSingle;
             panel3.Controls.Add(btnAddPayment);
             panel3.Controls.Add(txtBalance);
-            panel3.Controls.Add(txtPayment);
-            panel3.Controls.Add(txtReceivable);
+            panel3.Controls.Add(txtPayments);
+            panel3.Controls.Add(txtReceivables);
             panel3.Controls.Add(lblOrderTerm);
             panel3.Controls.Add(lblOrderLastPayment);
             panel3.Controls.Add(lblLastPayment);
@@ -469,44 +468,45 @@
             btnAddPayment.Text = "Add Payment";
             btnAddPayment.UseVisualStyleBackColor = false;
             btnAddPayment.Visible = false;
+            btnAddPayment.Click += btnPay_Click;
             // 
             // txtBalance
             // 
             txtBalance.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtBalance.Location = new System.Drawing.Point(138, 93);
+            txtBalance.Location = new System.Drawing.Point(157, 93);
             txtBalance.Name = "txtBalance";
             txtBalance.ReadOnly = true;
-            txtBalance.Size = new Size(236, 34);
+            txtBalance.Size = new Size(217, 34);
             txtBalance.TabIndex = 3;
             txtBalance.Text = "0.00";
             txtBalance.TextAlign = HorizontalAlignment.Right;
             // 
-            // txtPayment
+            // txtPayments
             // 
-            txtPayment.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPayment.Location = new System.Drawing.Point(138, 53);
-            txtPayment.Name = "txtPayment";
-            txtPayment.ReadOnly = true;
-            txtPayment.Size = new Size(236, 34);
-            txtPayment.TabIndex = 2;
-            txtPayment.Text = "0.00";
-            txtPayment.TextAlign = HorizontalAlignment.Right;
+            txtPayments.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtPayments.Location = new System.Drawing.Point(157, 53);
+            txtPayments.Name = "txtPayments";
+            txtPayments.ReadOnly = true;
+            txtPayments.Size = new Size(217, 34);
+            txtPayments.TabIndex = 2;
+            txtPayments.Text = "0.00";
+            txtPayments.TextAlign = HorizontalAlignment.Right;
             // 
-            // txtReceivable
+            // txtReceivables
             // 
-            txtReceivable.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtReceivable.Location = new System.Drawing.Point(138, 13);
-            txtReceivable.Name = "txtReceivable";
-            txtReceivable.ReadOnly = true;
-            txtReceivable.Size = new Size(236, 34);
-            txtReceivable.TabIndex = 1;
-            txtReceivable.Text = "0.00";
-            txtReceivable.TextAlign = HorizontalAlignment.Right;
+            txtReceivables.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtReceivables.Location = new System.Drawing.Point(157, 13);
+            txtReceivables.Name = "txtReceivables";
+            txtReceivables.ReadOnly = true;
+            txtReceivables.Size = new Size(217, 34);
+            txtReceivables.TabIndex = 1;
+            txtReceivables.Text = "0.00";
+            txtReceivables.TextAlign = HorizontalAlignment.Right;
             // 
             // lblOrderTerm
             // 
             lblOrderTerm.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            lblOrderTerm.Location = new System.Drawing.Point(136, 160);
+            lblOrderTerm.Location = new System.Drawing.Point(157, 130);
             lblOrderTerm.Margin = new Padding(4, 0, 4, 0);
             lblOrderTerm.Name = "lblOrderTerm";
             lblOrderTerm.Size = new Size(171, 38);
@@ -518,7 +518,7 @@
             // lblOrderLastPayment
             // 
             lblOrderLastPayment.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            lblOrderLastPayment.Location = new System.Drawing.Point(136, 198);
+            lblOrderLastPayment.Location = new System.Drawing.Point(157, 168);
             lblOrderLastPayment.Margin = new Padding(4, 0, 4, 0);
             lblOrderLastPayment.Name = "lblOrderLastPayment";
             lblOrderLastPayment.Size = new Size(171, 38);
@@ -531,7 +531,7 @@
             // 
             lblLastPayment.AutoSize = true;
             lblLastPayment.Font = new Font("Segoe UI", 10.8F);
-            lblLastPayment.Location = new System.Drawing.Point(12, 205);
+            lblLastPayment.Location = new System.Drawing.Point(33, 175);
             lblLastPayment.Margin = new Padding(4, 0, 4, 0);
             lblLastPayment.Name = "lblLastPayment";
             lblLastPayment.Size = new Size(116, 25);
@@ -543,7 +543,7 @@
             // 
             lblTerm.AutoSize = true;
             lblTerm.Font = new Font("Segoe UI", 10.8F);
-            lblTerm.Location = new System.Drawing.Point(78, 167);
+            lblTerm.Location = new System.Drawing.Point(99, 137);
             lblTerm.Margin = new Padding(4, 0, 4, 0);
             lblTerm.Name = "lblTerm";
             lblTerm.Size = new Size(50, 25);
@@ -555,18 +555,18 @@
             // 
             label17.AutoSize = true;
             label17.Font = new Font("Segoe UI", 10.8F);
-            label17.Location = new System.Drawing.Point(51, 59);
+            label17.Location = new System.Drawing.Point(28, 59);
             label17.Margin = new Padding(4, 0, 4, 0);
             label17.Name = "label17";
-            label17.Size = new Size(80, 25);
+            label17.Size = new Size(122, 25);
             label17.TabIndex = 63;
-            label17.Text = "Payment";
+            label17.Text = "Total Payment";
             // 
             // label15
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 10.8F);
-            label15.Location = new System.Drawing.Point(58, 97);
+            label15.Location = new System.Drawing.Point(79, 99);
             label15.Margin = new Padding(4, 0, 4, 0);
             label15.Name = "label15";
             label15.Size = new Size(71, 25);
@@ -577,12 +577,12 @@
             // 
             label19.AutoSize = true;
             label19.Font = new Font("Segoe UI", 10.8F);
-            label19.Location = new System.Drawing.Point(37, 19);
+            label19.Location = new System.Drawing.Point(14, 19);
             label19.Margin = new Padding(4, 0, 4, 0);
             label19.Name = "label19";
-            label19.Size = new Size(94, 25);
+            label19.Size = new Size(136, 25);
             label19.TabIndex = 61;
-            label19.Text = "Receivable";
+            label19.Text = "Total Receivable";
             // 
             // tabItems
             // 
@@ -593,10 +593,10 @@
             tabItems.Controls.Add(lblSubTotal);
             tabItems.Controls.Add(label8);
             tabItems.Controls.Add(dgvOrderItems);
-            tabItems.Location = new System.Drawing.Point(4, 34);
+            tabItems.Location = new System.Drawing.Point(4, 29);
             tabItems.Name = "tabItems";
             tabItems.Padding = new Padding(3);
-            tabItems.Size = new Size(1000, 561);
+            tabItems.Size = new Size(1000, 566);
             tabItems.TabIndex = 0;
             tabItems.Text = "Items";
             tabItems.UseVisualStyleBackColor = true;
@@ -739,10 +739,10 @@
             tabPayments.Controls.Add(lblTotalPayments);
             tabPayments.Controls.Add(label13);
             tabPayments.Controls.Add(dgvPayments);
-            tabPayments.Location = new System.Drawing.Point(4, 34);
+            tabPayments.Location = new System.Drawing.Point(4, 29);
             tabPayments.Name = "tabPayments";
             tabPayments.Padding = new Padding(3);
-            tabPayments.Size = new Size(1000, 561);
+            tabPayments.Size = new Size(1000, 566);
             tabPayments.TabIndex = 1;
             tabPayments.Text = "Payments";
             tabPayments.UseVisualStyleBackColor = true;
@@ -1023,8 +1023,8 @@
         private Label lblOrderLastPayment;
         private Label lblLastPayment;
         private TextBox txtBalance;
-        private TextBox txtPayment;
-        private TextBox txtReceivable;
+        private TextBox txtPayments;
+        private TextBox txtReceivables;
         private Label lblTotalPayments;
         private Label label13;
         private Button btnAddPayment;

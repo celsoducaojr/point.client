@@ -28,12 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOrders));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             dgvOrders = new DataGridView();
+            clmOrderNumber = new DataGridViewTextBoxColumn();
+            clmDate = new DataGridViewTextBoxColumn();
+            clmStatus = new DataGridViewTextBoxColumn();
+            clmOrderTotal = new DataGridViewTextBoxColumn();
+            clmCustomer = new DataGridViewTextBoxColumn();
             tsPages = new ToolStrip();
             toolStripLabel2 = new ToolStripLabel();
             cmbPageSize = new ToolStripComboBox();
@@ -78,11 +83,6 @@
             label1 = new Label();
             lblTitle = new Label();
             lblIcon = new Label();
-            clmOrderNumber = new DataGridViewTextBoxColumn();
-            clmDate = new DataGridViewTextBoxColumn();
-            clmStatus = new DataGridViewTextBoxColumn();
-            clmOrderTotal = new DataGridViewTextBoxColumn();
-            clmCustomer = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
             tsPages.SuspendLayout();
@@ -121,6 +121,49 @@
             dgvOrders.Size = new Size(716, 523);
             dgvOrders.TabIndex = 6;
             dgvOrders.SelectionChanged += dgvOrders_SelectionChanged;
+            // 
+            // clmOrderNumber
+            // 
+            clmOrderNumber.HeaderText = "Order";
+            clmOrderNumber.MinimumWidth = 6;
+            clmOrderNumber.Name = "clmOrderNumber";
+            clmOrderNumber.ReadOnly = true;
+            clmOrderNumber.Width = 150;
+            // 
+            // clmDate
+            // 
+            clmDate.HeaderText = "Date";
+            clmDate.MinimumWidth = 6;
+            clmDate.Name = "clmDate";
+            clmDate.ReadOnly = true;
+            clmDate.Width = 165;
+            // 
+            // clmStatus
+            // 
+            clmStatus.HeaderText = "Status";
+            clmStatus.MaxInputLength = 50;
+            clmStatus.MinimumWidth = 6;
+            clmStatus.Name = "clmStatus";
+            clmStatus.ReadOnly = true;
+            clmStatus.Width = 125;
+            // 
+            // clmOrderTotal
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
+            clmOrderTotal.HeaderText = "Total";
+            clmOrderTotal.MinimumWidth = 6;
+            clmOrderTotal.Name = "clmOrderTotal";
+            clmOrderTotal.ReadOnly = true;
+            clmOrderTotal.Width = 150;
+            // 
+            // clmCustomer
+            // 
+            clmCustomer.HeaderText = "Customer";
+            clmCustomer.MinimumWidth = 6;
+            clmCustomer.Name = "clmCustomer";
+            clmCustomer.ReadOnly = true;
+            clmCustomer.Width = 250;
             // 
             // tsPages
             // 
@@ -267,27 +310,27 @@
             toolStripDropDownButton1.Image = Properties.Resources.update_order_icon;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            toolStripDropDownButton1.Size = new Size(164, 28);
-            toolStripDropDownButton1.Text = "Update Order";
+            toolStripDropDownButton1.Size = new Size(108, 28);
+            toolStripDropDownButton1.Text = "Update";
             // 
             // btnModify
             // 
             btnModify.Enabled = false;
             btnModify.Name = "btnModify";
-            btnModify.Size = new Size(164, 28);
-            btnModify.Text = "Modify";
+            btnModify.Size = new Size(224, 28);
+            btnModify.Text = "Modify or Pay";
             btnModify.Click += btnModify_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(161, 6);
+            toolStripSeparator3.Size = new Size(221, 6);
             // 
             // btnRelease
             // 
             btnRelease.Enabled = false;
             btnRelease.Name = "btnRelease";
-            btnRelease.Size = new Size(164, 28);
+            btnRelease.Size = new Size(224, 28);
             btnRelease.Text = "Release";
             btnRelease.Click += btnRelease_Click;
             // 
@@ -295,7 +338,7 @@
             // 
             btnCancel.Enabled = false;
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(164, 28);
+            btnCancel.Size = new Size(224, 28);
             btnCancel.Text = "Cancel";
             btnCancel.Click += btnCancel_Click;
             // 
@@ -573,49 +616,6 @@
             lblIcon.Name = "lblIcon";
             lblIcon.Size = new Size(60, 60);
             lblIcon.TabIndex = 10;
-            // 
-            // clmOrderNumber
-            // 
-            clmOrderNumber.HeaderText = "Order";
-            clmOrderNumber.MinimumWidth = 6;
-            clmOrderNumber.Name = "clmOrderNumber";
-            clmOrderNumber.ReadOnly = true;
-            clmOrderNumber.Width = 150;
-            // 
-            // clmDate
-            // 
-            clmDate.HeaderText = "Date";
-            clmDate.MinimumWidth = 6;
-            clmDate.Name = "clmDate";
-            clmDate.ReadOnly = true;
-            clmDate.Width = 165;
-            // 
-            // clmStatus
-            // 
-            clmStatus.HeaderText = "Status";
-            clmStatus.MaxInputLength = 50;
-            clmStatus.MinimumWidth = 6;
-            clmStatus.Name = "clmStatus";
-            clmStatus.ReadOnly = true;
-            clmStatus.Width = 125;
-            // 
-            // clmOrderTotal
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
-            clmOrderTotal.HeaderText = "Total";
-            clmOrderTotal.MinimumWidth = 6;
-            clmOrderTotal.Name = "clmOrderTotal";
-            clmOrderTotal.ReadOnly = true;
-            clmOrderTotal.Width = 150;
-            // 
-            // clmCustomer
-            // 
-            clmCustomer.HeaderText = "Customer";
-            clmCustomer.MinimumWidth = 6;
-            clmCustomer.Name = "clmCustomer";
-            clmCustomer.ReadOnly = true;
-            clmCustomer.Width = 250;
             // 
             // frmOrders
             // 

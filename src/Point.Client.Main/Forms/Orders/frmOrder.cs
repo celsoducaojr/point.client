@@ -154,8 +154,7 @@ namespace Point.Client.Main.Forms.Orders
         {
             if (dgvOrderItems.Rows.Count == 0) return;
 
-            var form = new frmPayOrder();
-            form.SetTotal(decimal.Parse(lblTotal.Text));
+            var form = new frmPayOrder(decimal.Parse(lblTotal.Text));
             if (form.ShowDialog() == DialogResult.OK)
             {
                 EnableControls(false);
@@ -251,7 +250,7 @@ namespace Point.Client.Main.Forms.Orders
 
             _currentOrder = order;
 
-            lblOrderNumber.Text = order.Number.ToOrderNumberString();
+            lblOrderNumber.Text = order.GenerateOrderNumberString();
             lblDateTime.Text = order.Created.ConvertToLongDateString();
 
             txtCustomer.Tag = order.Customer?.Id;
@@ -337,7 +336,7 @@ namespace Point.Client.Main.Forms.Orders
 
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    MessageBox.Show($"{_currentOrder.Number.ToOrderNumberString()} updates has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"{_currentOrder.GenerateOrderNumberString()} updates has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     ClearFields();
 
