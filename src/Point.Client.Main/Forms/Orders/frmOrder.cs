@@ -158,7 +158,15 @@ namespace Point.Client.Main.Forms.Orders
             if (form.ShowDialog() == DialogResult.OK)
             {
                 EnableControls(false);
-                Task.Run(() => CreateOrder(form.PaymentDto));
+
+                if (_currentOrder == null)
+                {
+                    Task.Run(() => CreateOrder(form.PaymentDto));
+                }
+                else
+                {
+                    Task.Run(() => UpdateOrder(form.PaymentDto));
+                }
             }
         }
 
@@ -166,19 +174,18 @@ namespace Point.Client.Main.Forms.Orders
         {
             if (dgvOrderItems.Rows.Count == 0) return;
 
-            if (MessageBox.Show("Post this Order?", "Post Order",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                EnableControls(false);
+            EnableControls(false);
 
-                if (_currentOrder == null)
+            if (_currentOrder == null)
+            {
+                if (MessageBox.Show("Post this Order?", "Post Order", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     Task.Run(() => CreateOrder());
                 }
-                else
-                {
-                    Task.Run(() => UpdateOrder());
-                }
+            }
+            else if (MessageBox.Show("Update this Order?", "Post Order", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Task.Run(() => UpdateOrder());
             }
         }
 
@@ -293,10 +300,7 @@ namespace Point.Client.Main.Forms.Orders
 
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    var status = OrderStatus.Paid;
-                    if (paymentDto == null) status = OrderStatus.New;
-
-                    MessageBox.Show($"'{status.ToString()}' Order has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"'{response?.Status.ToString()}' Order has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     ClearFields();
 
@@ -316,7 +320,7 @@ namespace Point.Client.Main.Forms.Orders
             }
         }
 
-        private async void UpdateOrder()
+        private async void UpdateOrder(PaymentDto? paymentDto = null)
         {
             try
             {
@@ -329,15 +333,23 @@ namespace Point.Client.Main.Forms.Orders
                     SubTotal = decimal.Parse(lblSubTotal.Text),
                     Discount = decimal.Parse(lblDiscount.Text),
                     Total = decimal.Parse(lblTotal.Text),
-                    Items = items
+                    Items = items,
+                    Payment = paymentDto
                 };
 
-                await _orderService.UpdateOrder(_currentOrder.Id, orderDto);
+                var response = await _orderService.UpdateOrder(_currentOrder.Id, orderDto);
 
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    MessageBox.Show($"{_currentOrder.GenerateOrderNumberString()} updates has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    if (response?.Status == OrderStatus.New)
+                    {
+                        MessageBox.Show($"{_currentOrder.GenerateOrderNumberString()} updates has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else // Paid
+                    {
+                        MessageBox.Show($"{_currentOrder.GenerateOrderNumberString()} updates and payment has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                    }
+                    
                     ClearFields();
 
                     EnableControls();

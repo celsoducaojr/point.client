@@ -60,7 +60,7 @@ namespace Point.Client.Main.Api
                 try
                 {
                     var errorResponse = JsonConvert.DeserializeObject<ApiErrorResponse>(response.Content);
-                    throw new HttpRequestException($"{errorResponse?.Detail}");
+                    throw new HttpRequestException($"{errorResponse?.Detail ?? errorResponse?.Title}");
                 }
                 catch (JsonException)
                 {

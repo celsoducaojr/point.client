@@ -158,11 +158,11 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.Green;
+            panel1.BackColor = Color.YellowGreen;
             panel1.Controls.Add(lblChange);
-            panel1.Controls.Add(label7);
             panel1.Controls.Add(txtTendered);
             panel1.Controls.Add(label1);
+            panel1.Controls.Add(label7);
             panel1.Location = new System.Drawing.Point(32, 126);
             panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
@@ -185,7 +185,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new System.Drawing.Point(156, 137);
+            label7.Location = new System.Drawing.Point(156, 162);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(120, 41);

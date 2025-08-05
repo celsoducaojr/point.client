@@ -21,14 +21,14 @@ namespace Point.Client.Main.Api.Services
             _pointApiClient = pointApiClient;
         }
 
-        public async Task<ResponseDto?> CreateOrder(OrderDto orderDto)
+        public async Task<OrderResponseDto?> CreateOrder(OrderDto orderDto)
         {
-            return await _pointApiClient.ExecuteAsync<ResponseDto>(_endPoint, Method.Post, orderDto);
+            return await _pointApiClient.ExecuteAsync<OrderResponseDto>(_endPoint, Method.Post, orderDto);
         }
 
-        public async Task UpdateOrder(int id, OrderDto orderDto)
+        public async Task<OrderResponseDto?> UpdateOrder(int id, OrderDto orderDto)
         {
-            await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, orderDto);
+            return await _pointApiClient.ExecuteAsync<OrderResponseDto>($"{_endPoint}/{id}", Method.Put, orderDto);
         }
 
         public async Task ReleaseOrder(int id, PaymentTerm paymentTerm)
