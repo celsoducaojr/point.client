@@ -40,9 +40,9 @@
             lblTotal = new Label();
             panel1 = new Panel();
             lblChange = new Label();
-            label7 = new Label();
             txtTendered = new TextBox();
             label1 = new Label();
+            label7 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -158,7 +158,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.YellowGreen;
+            panel1.BackColor = Color.LightSkyBlue;
             panel1.Controls.Add(lblChange);
             panel1.Controls.Add(txtTendered);
             panel1.Controls.Add(label1);
@@ -180,18 +180,6 @@
             lblChange.TabIndex = 62;
             lblChange.Text = "0.00";
             lblChange.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new System.Drawing.Point(156, 162);
-            label7.Margin = new Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(120, 41);
-            label7.TabIndex = 61;
-            label7.Text = "Change";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // txtTendered
             // 
@@ -219,6 +207,18 @@
             label1.TabIndex = 60;
             label1.Text = "Amount Tendered";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new System.Drawing.Point(156, 162);
+            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(120, 41);
+            label7.TabIndex = 61;
+            label7.Text = "Change";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // frmPayOrder
             // 

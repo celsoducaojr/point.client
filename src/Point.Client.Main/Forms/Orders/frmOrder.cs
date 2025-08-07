@@ -174,17 +174,17 @@ namespace Point.Client.Main.Forms.Orders
         {
             if (dgvOrderItems.Rows.Count == 0) return;
 
-            EnableControls(false);
-
             if (_currentOrder == null)
             {
                 if (MessageBox.Show("Post this Order?", "Post Order", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    EnableControls(false);
                     Task.Run(() => CreateOrder());
                 }
             }
-            else if (MessageBox.Show("Update this Order?", "Post Order", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            else if (MessageBox.Show("Update this Order?", "Update Order", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                EnableControls(false);
                 Task.Run(() => UpdateOrder());
             }
         }
