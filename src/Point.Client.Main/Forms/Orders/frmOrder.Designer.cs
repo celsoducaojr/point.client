@@ -166,7 +166,7 @@
             // btnPay
             // 
             btnPay.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnPay.BackColor = Color.YellowGreen;
+            btnPay.BackColor = Color.LimeGreen;
             btnPay.Enabled = false;
             btnPay.Font = new Font("Segoe UI", 13.8F);
             btnPay.Location = new System.Drawing.Point(24, 595);

@@ -118,7 +118,7 @@
             dgvOrders.ReadOnly = true;
             dgvOrders.RowHeadersWidth = 51;
             dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvOrders.Size = new Size(716, 523);
+            dgvOrders.Size = new Size(716, 522);
             dgvOrders.TabIndex = 6;
             dgvOrders.SelectionChanged += dgvOrders_SelectionChanged;
             // 
@@ -172,9 +172,9 @@
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
             tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, toolStripLabel3, cmbStatus });
-            tsPages.Location = new System.Drawing.Point(0, 554);
+            tsPages.Location = new System.Drawing.Point(0, 553);
             tsPages.Name = "tsPages";
-            tsPages.Size = new Size(716, 31);
+            tsPages.Size = new Size(716, 32);
             tsPages.TabIndex = 11;
             tsPages.Text = "toolStrip2";
             // 
@@ -182,7 +182,7 @@
             // 
             toolStripLabel2.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel2.Name = "toolStripLabel2";
-            toolStripLabel2.Size = new Size(137, 28);
+            toolStripLabel2.Size = new Size(137, 29);
             toolStripLabel2.Text = "rows per page";
             // 
             // cmbPageSize
@@ -191,14 +191,14 @@
             cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPageSize.DropDownWidth = 75;
             cmbPageSize.Name = "cmbPageSize";
-            cmbPageSize.Size = new Size(75, 31);
+            cmbPageSize.Size = new Size(75, 32);
             cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Alignment = ToolStripItemAlignment.Right;
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 31);
+            toolStripSeparator2.Size = new Size(6, 32);
             // 
             // btnLast
             // 
@@ -207,7 +207,7 @@
             btnLast.Image = (Image)resources.GetObject("btnLast.Image");
             btnLast.ImageTransparentColor = Color.Magenta;
             btnLast.Name = "btnLast";
-            btnLast.Size = new Size(44, 28);
+            btnLast.Size = new Size(44, 29);
             btnLast.Text = ">>";
             btnLast.ToolTipText = "last page";
             btnLast.Click += btnLast_Click;
@@ -219,7 +219,7 @@
             btnNext.Image = (Image)resources.GetObject("btnNext.Image");
             btnNext.ImageTransparentColor = Color.Magenta;
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(29, 28);
+            btnNext.Size = new Size(29, 29);
             btnNext.Text = ">";
             btnNext.ToolTipText = "next page";
             btnNext.Click += btnNext_Click;
@@ -228,14 +228,14 @@
             // 
             lblTotalPage.Alignment = ToolStripItemAlignment.Right;
             lblTotalPage.Name = "lblTotalPage";
-            lblTotalPage.Size = new Size(44, 28);
+            lblTotalPage.Size = new Size(44, 29);
             lblTotalPage.Text = "of 0";
             // 
             // txtPage
             // 
             txtPage.Alignment = ToolStripItemAlignment.Right;
             txtPage.Name = "txtPage";
-            txtPage.Size = new Size(55, 31);
+            txtPage.Size = new Size(55, 32);
             txtPage.TextBoxTextAlign = HorizontalAlignment.Center;
             txtPage.KeyDown += txtPage_KeyDown;
             // 
@@ -243,7 +243,7 @@
             // 
             toolStripLabel1.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(54, 28);
+            toolStripLabel1.Size = new Size(54, 29);
             toolStripLabel1.Text = "page";
             // 
             // btnPrev
@@ -253,7 +253,7 @@
             btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
             btnPrev.ImageTransparentColor = Color.Magenta;
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(29, 28);
+            btnPrev.Size = new Size(29, 29);
             btnPrev.Text = "<";
             btnPrev.ToolTipText = "previous page";
             btnPrev.Click += btnPrev_Click;
@@ -265,7 +265,7 @@
             btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
             btnFirst.ImageTransparentColor = Color.Magenta;
             btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(44, 28);
+            btnFirst.Size = new Size(44, 29);
             btnFirst.Text = "<<";
             btnFirst.ToolTipText = "first page";
             btnFirst.Click += btnFirst_Click;
@@ -273,14 +273,14 @@
             // toolStripLabel3
             // 
             toolStripLabel3.Name = "toolStripLabel3";
-            toolStripLabel3.Size = new Size(66, 28);
+            toolStripLabel3.Size = new Size(66, 29);
             toolStripLabel3.Text = "Status";
             // 
             // cmbStatus
             // 
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(121, 31);
+            cmbStatus.Size = new Size(121, 28);
             cmbStatus.SelectedIndexChanged += cmbStatus_SelectedIndexChanged;
             // 
             // tsMain
@@ -317,20 +317,20 @@
             // 
             btnModify.Enabled = false;
             btnModify.Name = "btnModify";
-            btnModify.Size = new Size(224, 28);
+            btnModify.Size = new Size(214, 28);
             btnModify.Text = "Modify or Pay";
             btnModify.Click += btnModify_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(221, 6);
+            toolStripSeparator3.Size = new Size(211, 6);
             // 
             // btnRelease
             // 
             btnRelease.Enabled = false;
             btnRelease.Name = "btnRelease";
-            btnRelease.Size = new Size(224, 28);
+            btnRelease.Size = new Size(214, 28);
             btnRelease.Text = "Release";
             btnRelease.Click += btnRelease_Click;
             // 
@@ -338,7 +338,7 @@
             // 
             btnCancel.Enabled = false;
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(224, 28);
+            btnCancel.Size = new Size(214, 28);
             btnCancel.Text = "Cancel";
             btnCancel.Click += btnCancel_Click;
             // 

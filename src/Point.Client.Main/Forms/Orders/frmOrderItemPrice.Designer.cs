@@ -163,7 +163,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = Color.Olive;
+            label2.BackColor = Color.FromArgb(192, 192, 0);
             label2.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new System.Drawing.Point(28, 521);
             label2.Margin = new Padding(8, 0, 8, 0);
@@ -174,7 +174,7 @@
             // 
             // lblTotal
             // 
-            lblTotal.BackColor = Color.Olive;
+            lblTotal.BackColor = Color.FromArgb(192, 192, 0);
             lblTotal.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTotal.Location = new System.Drawing.Point(28, 518);
             lblTotal.Margin = new Padding(8, 0, 8, 0);

@@ -127,7 +127,7 @@
             // 
             btnPay.Enabled = false;
             btnPay.Name = "btnPay";
-            btnPay.Size = new Size(224, 28);
+            btnPay.Size = new Size(212, 28);
             btnPay.Text = "Add Payment";
             btnPay.Click += btnPay_Click;
             // 
@@ -188,7 +188,7 @@
             dgvSales.ReadOnly = true;
             dgvSales.RowHeadersWidth = 51;
             dgvSales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSales.Size = new Size(720, 635);
+            dgvSales.Size = new Size(720, 634);
             dgvSales.TabIndex = 6;
             dgvSales.SelectionChanged += dgvSales_SelectionChanged;
             // 
@@ -242,9 +242,9 @@
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
             tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, toolStripLabel3, cmbStatus });
-            tsPages.Location = new System.Drawing.Point(0, 666);
+            tsPages.Location = new System.Drawing.Point(0, 665);
             tsPages.Name = "tsPages";
-            tsPages.Size = new Size(720, 31);
+            tsPages.Size = new Size(720, 32);
             tsPages.TabIndex = 11;
             tsPages.Text = "toolStrip2";
             // 
@@ -252,7 +252,7 @@
             // 
             toolStripLabel2.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel2.Name = "toolStripLabel2";
-            toolStripLabel2.Size = new Size(137, 28);
+            toolStripLabel2.Size = new Size(137, 29);
             toolStripLabel2.Text = "rows per page";
             // 
             // cmbPageSize
@@ -261,14 +261,14 @@
             cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPageSize.DropDownWidth = 75;
             cmbPageSize.Name = "cmbPageSize";
-            cmbPageSize.Size = new Size(75, 31);
+            cmbPageSize.Size = new Size(75, 32);
             cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Alignment = ToolStripItemAlignment.Right;
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 31);
+            toolStripSeparator2.Size = new Size(6, 32);
             // 
             // btnLast
             // 
@@ -277,7 +277,7 @@
             btnLast.Image = (Image)resources.GetObject("btnLast.Image");
             btnLast.ImageTransparentColor = Color.Magenta;
             btnLast.Name = "btnLast";
-            btnLast.Size = new Size(44, 28);
+            btnLast.Size = new Size(44, 29);
             btnLast.Text = ">>";
             btnLast.ToolTipText = "last page";
             btnLast.Click += btnLast_Click;
@@ -289,7 +289,7 @@
             btnNext.Image = (Image)resources.GetObject("btnNext.Image");
             btnNext.ImageTransparentColor = Color.Magenta;
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(29, 28);
+            btnNext.Size = new Size(29, 29);
             btnNext.Text = ">";
             btnNext.ToolTipText = "next page";
             btnNext.Click += btnNext_Click;
@@ -298,14 +298,14 @@
             // 
             lblTotalPage.Alignment = ToolStripItemAlignment.Right;
             lblTotalPage.Name = "lblTotalPage";
-            lblTotalPage.Size = new Size(44, 28);
+            lblTotalPage.Size = new Size(44, 29);
             lblTotalPage.Text = "of 0";
             // 
             // txtPage
             // 
             txtPage.Alignment = ToolStripItemAlignment.Right;
             txtPage.Name = "txtPage";
-            txtPage.Size = new Size(55, 31);
+            txtPage.Size = new Size(55, 32);
             txtPage.TextBoxTextAlign = HorizontalAlignment.Center;
             txtPage.KeyDown += txtPage_KeyDown;
             // 
@@ -313,7 +313,7 @@
             // 
             toolStripLabel1.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(54, 28);
+            toolStripLabel1.Size = new Size(54, 29);
             toolStripLabel1.Text = "page";
             // 
             // btnPrev
@@ -323,7 +323,7 @@
             btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
             btnPrev.ImageTransparentColor = Color.Magenta;
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(29, 28);
+            btnPrev.Size = new Size(29, 29);
             btnPrev.Text = "<";
             btnPrev.ToolTipText = "previous page";
             btnPrev.Click += btnPrev_Click;
@@ -335,7 +335,7 @@
             btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
             btnFirst.ImageTransparentColor = Color.Magenta;
             btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(44, 28);
+            btnFirst.Size = new Size(44, 29);
             btnFirst.Text = "<<";
             btnFirst.ToolTipText = "first page";
             btnFirst.Click += btnFirst_Click;
@@ -343,14 +343,14 @@
             // toolStripLabel3
             // 
             toolStripLabel3.Name = "toolStripLabel3";
-            toolStripLabel3.Size = new Size(66, 28);
+            toolStripLabel3.Size = new Size(66, 29);
             toolStripLabel3.Text = "Status";
             // 
             // cmbStatus
             // 
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(121, 31);
+            cmbStatus.Size = new Size(121, 28);
             cmbStatus.SelectedIndexChanged += cmbStatus_SelectedIndexChanged;
             // 
             // tsMain
@@ -377,13 +377,13 @@
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(221, 6);
+            toolStripSeparator3.Size = new Size(209, 6);
             // 
             // btnRefund
             // 
             btnRefund.Enabled = false;
             btnRefund.Name = "btnRefund";
-            btnRefund.Size = new Size(224, 28);
+            btnRefund.Size = new Size(212, 28);
             btnRefund.Text = "Refund";
             btnRefund.Click += refundToolStripMenuItem_Click;
             // 
@@ -391,7 +391,7 @@
             // 
             btnVoid.Enabled = false;
             btnVoid.Name = "btnVoid";
-            btnVoid.Size = new Size(224, 28);
+            btnVoid.Size = new Size(212, 28);
             btnVoid.Text = "Void";
             btnVoid.Click += btnVoid_Click;
             // 
@@ -453,17 +453,17 @@
             panel3.Margin = new Padding(25);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(10);
-            panel3.Size = new Size(400, 508);
+            panel3.Size = new Size(420, 508);
             panel3.TabIndex = 56;
             // 
             // btnAddPayment
             // 
             btnAddPayment.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnAddPayment.BackColor = Color.YellowGreen;
+            btnAddPayment.BackColor = Color.LimeGreen;
             btnAddPayment.Font = new Font("Segoe UI", 13.8F);
             btnAddPayment.Location = new System.Drawing.Point(13, 424);
             btnAddPayment.Name = "btnAddPayment";
-            btnAddPayment.Size = new Size(372, 69);
+            btnAddPayment.Size = new Size(392, 69);
             btnAddPayment.TabIndex = 4;
             btnAddPayment.Text = "Add Payment";
             btnAddPayment.UseVisualStyleBackColor = false;
@@ -476,7 +476,7 @@
             txtBalance.Location = new System.Drawing.Point(157, 93);
             txtBalance.Name = "txtBalance";
             txtBalance.ReadOnly = true;
-            txtBalance.Size = new Size(217, 34);
+            txtBalance.Size = new Size(248, 34);
             txtBalance.TabIndex = 3;
             txtBalance.Text = "0.00";
             txtBalance.TextAlign = HorizontalAlignment.Right;
@@ -487,7 +487,7 @@
             txtPayments.Location = new System.Drawing.Point(157, 53);
             txtPayments.Name = "txtPayments";
             txtPayments.ReadOnly = true;
-            txtPayments.Size = new Size(217, 34);
+            txtPayments.Size = new Size(248, 34);
             txtPayments.TabIndex = 2;
             txtPayments.Text = "0.00";
             txtPayments.TextAlign = HorizontalAlignment.Right;
@@ -498,7 +498,7 @@
             txtReceivables.Location = new System.Drawing.Point(157, 13);
             txtReceivables.Name = "txtReceivables";
             txtReceivables.ReadOnly = true;
-            txtReceivables.Size = new Size(217, 34);
+            txtReceivables.Size = new Size(248, 34);
             txtReceivables.TabIndex = 1;
             txtReceivables.Text = "0.00";
             txtReceivables.TextAlign = HorizontalAlignment.Right;
@@ -509,7 +509,7 @@
             lblOrderTerm.Location = new System.Drawing.Point(157, 130);
             lblOrderTerm.Margin = new Padding(4, 0, 4, 0);
             lblOrderTerm.Name = "lblOrderTerm";
-            lblOrderTerm.Size = new Size(171, 38);
+            lblOrderTerm.Size = new Size(247, 38);
             lblOrderTerm.TabIndex = 69;
             lblOrderTerm.Text = "Term";
             lblOrderTerm.TextAlign = ContentAlignment.MiddleLeft;
@@ -521,7 +521,7 @@
             lblOrderLastPayment.Location = new System.Drawing.Point(157, 168);
             lblOrderLastPayment.Margin = new Padding(4, 0, 4, 0);
             lblOrderLastPayment.Name = "lblOrderLastPayment";
-            lblOrderLastPayment.Size = new Size(171, 38);
+            lblOrderLastPayment.Size = new Size(247, 38);
             lblOrderLastPayment.TabIndex = 70;
             lblOrderLastPayment.Text = "Last Payment";
             lblOrderLastPayment.TextAlign = ContentAlignment.MiddleLeft;

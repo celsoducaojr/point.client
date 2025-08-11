@@ -1,5 +1,6 @@
 ﻿using System.Data.SqlTypes;
 using Point.Client.Main.Api;
+using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities.Orders;
 using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
@@ -14,6 +15,7 @@ namespace Point.Client.Main.Forms.Sales
     public partial class frmSales : Form
     {
         private bool _isFirstLoad;
+        private Order? _currentOrder;
 
         private int _currentPage;
         private int _currentTotalPages;
@@ -27,6 +29,7 @@ namespace Point.Client.Main.Forms.Sales
             InitializeComponent();
 
             _isFirstLoad = true;
+            _currentOrder = null;
 
             _currentPage = 1;
             _currentTotalPages = 0;
@@ -73,11 +76,10 @@ namespace Point.Client.Main.Forms.Sales
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            var order = (Order)dgvSales.SelectedRows[0]?.Tag;
-            var form = new frmPayment(order);
+            var form = new frmPaySales(_currentOrder);
             if (form.ShowDialog() == DialogResult.OK)
             {
-
+                Task.Run(() => AddPayment(form.PaymentDto));
             }
         }
 
@@ -102,9 +104,9 @@ namespace Point.Client.Main.Forms.Sales
             {
                 ClearFields();
 
-                var order = (Order)dgvSales.SelectedRows[0]?.Tag;
+                _currentOrder = (Order)dgvSales.SelectedRows[0]?.Tag;
 
-                if (order.Status == OrderStatus.Released || order.Status == OrderStatus.PartiallyPaid)
+                if (_currentOrder.Status == OrderStatus.Released || _currentOrder.Status == OrderStatus.PartiallyPaid)
                 {
                     lblTerm.Visible = true;
                     lblOrderTerm.Visible = true;
@@ -115,25 +117,25 @@ namespace Point.Client.Main.Forms.Sales
                     btnVoid.Enabled = true;
                     btnAddPayment.Visible = true;
                 }
-                else if (order.Status == OrderStatus.Paid)
+                else if (_currentOrder.Status == OrderStatus.Paid)
                 {
                     btnRefund.Enabled = true;
                     btnVoid.Enabled = true;
                 }
 
-                lblOrderNumber.Text = order.GenerateOrderNumberString();
-                lblStatus.Text = order.Status.GetDescription();
-                lblCustomer.Text = order.Customer?.Name ?? "-";
-                lblDateTime.Text = order.Created.ConvertToLongDateString();
+                lblOrderNumber.Text = _currentOrder.GenerateOrderNumberString();
+                lblStatus.Text = _currentOrder.Status.GetDescription();
+                lblCustomer.Text = _currentOrder.Customer?.Name ?? "-";
+                lblDateTime.Text = _currentOrder.Created.ConvertToLongDateString();
 
-                txtReceivables.Text = order.Total.ToAmountString();
-                txtPayments.Text = order.GenerateTotalPayment().ToAmountString();
-                txtBalance.Text = order.GenerateBalance().ToAmountString();
+                txtReceivables.Text = _currentOrder.Total.ToAmountString();
+                txtPayments.Text = _currentOrder.GenerateTotalPayment().ToAmountString();
+                txtBalance.Text = _currentOrder.GenerateBalance().ToAmountString();
 
-                lblOrderTerm.Text = order.PaymentTerm?.GetDescription() ?? "-";
-                lblOrderLastPayment.Text = order.GetLastPayment()?.ToString() ?? "-";
+                lblOrderTerm.Text = _currentOrder.PaymentTerm?.GetDescription() ?? "-";
+                lblOrderLastPayment.Text = _currentOrder.GetLastPayment()?.ToString() ?? "-";
 
-                order.Items.ForEach(item =>
+                _currentOrder.Items.ForEach(item =>
                 {
                     dgvOrderItems.Rows.Add(
                         item.ItemName,
@@ -143,11 +145,11 @@ namespace Point.Client.Main.Forms.Sales
                         item.Total.ToAmountString());
                 });
 
-                lblSubTotal.Text = order.SubTotal.ToAmountString();
-                lblDiscount.Text = order.Discount.ToAmountString();
-                lblTotalItems.Text = order.Total.ToAmountString();
+                lblSubTotal.Text = _currentOrder.SubTotal.ToAmountString();
+                lblDiscount.Text = _currentOrder.Discount.ToAmountString();
+                lblTotalItems.Text = _currentOrder.Total.ToAmountString();
 
-                order.Payments?.ForEach(payment =>
+                _currentOrder.Payments?.ForEach(payment =>
                 {
                     dgvPayments.Rows.Add(
                         payment.Created,
@@ -157,7 +159,7 @@ namespace Point.Client.Main.Forms.Sales
                         payment.Remarks);
                 });
 
-                lblTotalPayments.Text = order?.GenerateTotalPayment().ToAmountString() ?? "0.00";
+                lblTotalPayments.Text = _currentOrder?.GenerateTotalPayment().ToAmountString() ?? "0.00";
             }
         }
 
@@ -284,7 +286,7 @@ namespace Point.Client.Main.Forms.Sales
             lblTotalItems.Text = "0.00";
 
             dgvPayments.Rows.Clear();
-            lblTotalPage.Text = "0.00";
+            lblTotalPayments.Text = "0.00";
 
             lblTerm.Visible = false;
             lblOrderTerm.Visible = false;
@@ -358,6 +360,63 @@ namespace Point.Client.Main.Forms.Sales
                 this.Text = frmText;
                 EnableControls();
             }));
+        }
+
+        private async Task AddPayment(PaymentDto? paymentDto = null)
+        {
+            try
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    EnableControls(false);
+                }));
+
+                var response = await _orderService.AddPayment(_currentOrder.Id, paymentDto);
+
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    if (response?.Status == OrderStatus.Paid)
+                    {
+                        MessageBox.Show($"{_currentOrder.GenerateOrderNumberString()} payment completed.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        cmbStatus_SelectedIndexChanged(null, null);
+                    }
+                    else // Partially Paid
+                    {
+                        MessageBox.Show($"{_currentOrder.GenerateOrderNumberString()} new payment has been posted.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        if (_currentOrder.Status == response.Status)
+                        {
+                            if (_currentOrder.Payments == null) _currentOrder.Payments = [];
+                            _currentOrder.Payments.Add(new Payment
+                            {
+                                Amount = paymentDto.Amount,
+                                Mode = paymentDto.Mode,
+                                Reference = paymentDto.Reference,
+                                Remarks = paymentDto.Remarks,
+                                Created = DateTime.Now
+                            });
+
+                            dgvSales_SelectionChanged(null, null);
+                        }
+                        else // Reload
+                        {
+                            cmbStatus_SelectedIndexChanged(null, null);
+                        }
+                    }
+
+                    EnableControls();
+                }));
+            }
+            catch (HttpRequestException ex)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    EnableControls();
+                }));
+            }
         }
 
         #endregion

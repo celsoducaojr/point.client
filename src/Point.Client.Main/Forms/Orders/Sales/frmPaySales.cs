@@ -7,13 +7,13 @@ using Point.Client.Main.Globals.Common.Enums;
 
 namespace Point.Client.Main.Forms.Orders.Sales
 {
-    public partial class frmPayment : Form
+    public partial class frmPaySales : Form
     {
         public PaymentDto? PaymentDto { get; private set; }
 
         private Order _order;
 
-        public frmPayment(Order order)
+        public frmPaySales(Order order)
         {
             InitializeComponent();
 

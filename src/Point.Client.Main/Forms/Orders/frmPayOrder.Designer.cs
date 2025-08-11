@@ -158,7 +158,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.LightSkyBlue;
+            panel1.BackColor = Color.FromArgb(192, 192, 0);
             panel1.Controls.Add(lblChange);
             panel1.Controls.Add(txtTendered);
             panel1.Controls.Add(label1);

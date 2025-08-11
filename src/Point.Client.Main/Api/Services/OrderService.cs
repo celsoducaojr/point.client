@@ -31,6 +31,11 @@ namespace Point.Client.Main.Api.Services
             return await _pointApiClient.ExecuteAsync<OrderResponseDto>($"{_endPoint}/{id}", Method.Put, orderDto);
         }
 
+        public async Task<OrderResponseDto?> AddPayment(int id, PaymentDto paymentDto)
+        {
+            return await _pointApiClient.ExecuteAsync<OrderResponseDto>($"{_endPoint}/{id}/payment", Method.Post, paymentDto);
+        }
+
         public async Task ReleaseOrder(int id, PaymentTerm paymentTerm)
         {
             var statusAction = FormConstants.Order.StatusActionDictionary[OrderStatus.Released];

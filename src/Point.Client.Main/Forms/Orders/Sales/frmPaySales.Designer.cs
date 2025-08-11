@@ -1,6 +1,6 @@
 ﻿namespace Point.Client.Main.Forms.Orders.Sales
 {
-    partial class frmPayment
+    partial class frmPaySales
     {
         /// <summary>
         /// Required designer variable.
@@ -63,7 +63,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.Green;
+            panel1.BackColor = Color.FromArgb(192, 192, 0);
             panel1.Controls.Add(cmbPaymentType);
             panel1.Controls.Add(txtAmount);
             panel1.Controls.Add(label1);
@@ -265,7 +265,7 @@
             label19.TabIndex = 90;
             label19.Text = "Total Receivable";
             // 
-            // frmPayment
+            // frmPaySales
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -292,10 +292,10 @@
             Margin = new Padding(4);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "frmPayment";
+            Name = "frmPaySales";
             Padding = new Padding(25);
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Payment";
+            Text = "Add Payment";
             Load += frmPayment_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
