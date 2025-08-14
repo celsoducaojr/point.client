@@ -28,17 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOrders));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             dgvOrders = new DataGridView();
-            clmOrderNumber = new DataGridViewTextBoxColumn();
-            clmDate = new DataGridViewTextBoxColumn();
-            clmStatus = new DataGridViewTextBoxColumn();
-            clmOrderTotal = new DataGridViewTextBoxColumn();
-            clmCustomer = new DataGridViewTextBoxColumn();
             tsPages = new ToolStrip();
             toolStripLabel2 = new ToolStripLabel();
             cmbPageSize = new ToolStripComboBox();
@@ -83,6 +78,11 @@
             label1 = new Label();
             lblTitle = new Label();
             lblIcon = new Label();
+            clmOrderNumber = new DataGridViewTextBoxColumn();
+            clmDate = new DataGridViewTextBoxColumn();
+            clmStatus = new DataGridViewTextBoxColumn();
+            clmOrderTotal = new DataGridViewTextBoxColumn();
+            clmCustomer = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).BeginInit();
             tsPages.SuspendLayout();
@@ -118,52 +118,9 @@
             dgvOrders.ReadOnly = true;
             dgvOrders.RowHeadersWidth = 51;
             dgvOrders.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvOrders.Size = new Size(716, 522);
+            dgvOrders.Size = new Size(716, 523);
             dgvOrders.TabIndex = 6;
             dgvOrders.SelectionChanged += dgvOrders_SelectionChanged;
-            // 
-            // clmOrderNumber
-            // 
-            clmOrderNumber.HeaderText = "Order";
-            clmOrderNumber.MinimumWidth = 6;
-            clmOrderNumber.Name = "clmOrderNumber";
-            clmOrderNumber.ReadOnly = true;
-            clmOrderNumber.Width = 150;
-            // 
-            // clmDate
-            // 
-            clmDate.HeaderText = "Date";
-            clmDate.MinimumWidth = 6;
-            clmDate.Name = "clmDate";
-            clmDate.ReadOnly = true;
-            clmDate.Width = 165;
-            // 
-            // clmStatus
-            // 
-            clmStatus.HeaderText = "Status";
-            clmStatus.MaxInputLength = 50;
-            clmStatus.MinimumWidth = 6;
-            clmStatus.Name = "clmStatus";
-            clmStatus.ReadOnly = true;
-            clmStatus.Width = 125;
-            // 
-            // clmOrderTotal
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
-            clmOrderTotal.HeaderText = "Total";
-            clmOrderTotal.MinimumWidth = 6;
-            clmOrderTotal.Name = "clmOrderTotal";
-            clmOrderTotal.ReadOnly = true;
-            clmOrderTotal.Width = 150;
-            // 
-            // clmCustomer
-            // 
-            clmCustomer.HeaderText = "Customer";
-            clmCustomer.MinimumWidth = 6;
-            clmCustomer.Name = "clmCustomer";
-            clmCustomer.ReadOnly = true;
-            clmCustomer.Width = 250;
             // 
             // tsPages
             // 
@@ -172,9 +129,9 @@
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
             tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, toolStripLabel3, cmbStatus });
-            tsPages.Location = new System.Drawing.Point(0, 553);
+            tsPages.Location = new System.Drawing.Point(0, 554);
             tsPages.Name = "tsPages";
-            tsPages.Size = new Size(716, 32);
+            tsPages.Size = new Size(716, 31);
             tsPages.TabIndex = 11;
             tsPages.Text = "toolStrip2";
             // 
@@ -182,7 +139,7 @@
             // 
             toolStripLabel2.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel2.Name = "toolStripLabel2";
-            toolStripLabel2.Size = new Size(137, 29);
+            toolStripLabel2.Size = new Size(137, 28);
             toolStripLabel2.Text = "rows per page";
             // 
             // cmbPageSize
@@ -191,14 +148,14 @@
             cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPageSize.DropDownWidth = 75;
             cmbPageSize.Name = "cmbPageSize";
-            cmbPageSize.Size = new Size(75, 32);
+            cmbPageSize.Size = new Size(75, 31);
             cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Alignment = ToolStripItemAlignment.Right;
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 32);
+            toolStripSeparator2.Size = new Size(6, 31);
             // 
             // btnLast
             // 
@@ -207,7 +164,7 @@
             btnLast.Image = (Image)resources.GetObject("btnLast.Image");
             btnLast.ImageTransparentColor = Color.Magenta;
             btnLast.Name = "btnLast";
-            btnLast.Size = new Size(44, 29);
+            btnLast.Size = new Size(44, 28);
             btnLast.Text = ">>";
             btnLast.ToolTipText = "last page";
             btnLast.Click += btnLast_Click;
@@ -219,7 +176,7 @@
             btnNext.Image = (Image)resources.GetObject("btnNext.Image");
             btnNext.ImageTransparentColor = Color.Magenta;
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(29, 29);
+            btnNext.Size = new Size(29, 28);
             btnNext.Text = ">";
             btnNext.ToolTipText = "next page";
             btnNext.Click += btnNext_Click;
@@ -228,14 +185,14 @@
             // 
             lblTotalPage.Alignment = ToolStripItemAlignment.Right;
             lblTotalPage.Name = "lblTotalPage";
-            lblTotalPage.Size = new Size(44, 29);
+            lblTotalPage.Size = new Size(44, 28);
             lblTotalPage.Text = "of 0";
             // 
             // txtPage
             // 
             txtPage.Alignment = ToolStripItemAlignment.Right;
             txtPage.Name = "txtPage";
-            txtPage.Size = new Size(55, 32);
+            txtPage.Size = new Size(55, 31);
             txtPage.TextBoxTextAlign = HorizontalAlignment.Center;
             txtPage.KeyDown += txtPage_KeyDown;
             // 
@@ -243,7 +200,7 @@
             // 
             toolStripLabel1.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(54, 29);
+            toolStripLabel1.Size = new Size(54, 28);
             toolStripLabel1.Text = "page";
             // 
             // btnPrev
@@ -253,7 +210,7 @@
             btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
             btnPrev.ImageTransparentColor = Color.Magenta;
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(29, 29);
+            btnPrev.Size = new Size(29, 28);
             btnPrev.Text = "<";
             btnPrev.ToolTipText = "previous page";
             btnPrev.Click += btnPrev_Click;
@@ -265,7 +222,7 @@
             btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
             btnFirst.ImageTransparentColor = Color.Magenta;
             btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(44, 29);
+            btnFirst.Size = new Size(44, 28);
             btnFirst.Text = "<<";
             btnFirst.ToolTipText = "first page";
             btnFirst.Click += btnFirst_Click;
@@ -273,14 +230,14 @@
             // toolStripLabel3
             // 
             toolStripLabel3.Name = "toolStripLabel3";
-            toolStripLabel3.Size = new Size(66, 29);
+            toolStripLabel3.Size = new Size(66, 28);
             toolStripLabel3.Text = "Status";
             // 
             // cmbStatus
             // 
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(121, 28);
+            cmbStatus.Size = new Size(121, 31);
             cmbStatus.SelectedIndexChanged += cmbStatus_SelectedIndexChanged;
             // 
             // tsMain
@@ -616,6 +573,49 @@
             lblIcon.Name = "lblIcon";
             lblIcon.Size = new Size(60, 60);
             lblIcon.TabIndex = 10;
+            // 
+            // clmOrderNumber
+            // 
+            clmOrderNumber.HeaderText = "Order";
+            clmOrderNumber.MinimumWidth = 6;
+            clmOrderNumber.Name = "clmOrderNumber";
+            clmOrderNumber.ReadOnly = true;
+            clmOrderNumber.Width = 150;
+            // 
+            // clmDate
+            // 
+            clmDate.HeaderText = "Date Created";
+            clmDate.MinimumWidth = 6;
+            clmDate.Name = "clmDate";
+            clmDate.ReadOnly = true;
+            clmDate.Width = 175;
+            // 
+            // clmStatus
+            // 
+            clmStatus.HeaderText = "Status";
+            clmStatus.MaxInputLength = 50;
+            clmStatus.MinimumWidth = 6;
+            clmStatus.Name = "clmStatus";
+            clmStatus.ReadOnly = true;
+            clmStatus.Width = 125;
+            // 
+            // clmOrderTotal
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
+            clmOrderTotal.HeaderText = "Total";
+            clmOrderTotal.MinimumWidth = 6;
+            clmOrderTotal.Name = "clmOrderTotal";
+            clmOrderTotal.ReadOnly = true;
+            clmOrderTotal.Width = 150;
+            // 
+            // clmCustomer
+            // 
+            clmCustomer.HeaderText = "Customer";
+            clmCustomer.MinimumWidth = 6;
+            clmCustomer.Name = "clmCustomer";
+            clmCustomer.ReadOnly = true;
+            clmCustomer.Width = 250;
             // 
             // frmOrders
             // 

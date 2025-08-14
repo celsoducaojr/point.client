@@ -308,7 +308,7 @@ namespace Point.Client.Main.Forms.Sales
         private void UpdateRowValues(Order order, DataGridViewRow row)
         {
             row.Cells[0].Value = order.Number;
-            row.Cells[1].Value = order.Created.ConvertToLongDateString();
+            row.Cells[1].Value = order.Released?.ConvertToLongDateString();
             row.Cells[2].Value = order.Status.GetDescription();
             row.Cells[3].Value = order.Total.ToAmountString();
             row.Cells[4].Value = order.Customer?.Name;

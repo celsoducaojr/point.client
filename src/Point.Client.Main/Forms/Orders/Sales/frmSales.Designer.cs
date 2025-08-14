@@ -28,23 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSales));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             btnPay = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             btnReload = new ToolStripButton();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
             dgvSales = new DataGridView();
-            clmOrderNumber = new DataGridViewTextBoxColumn();
-            clmDate = new DataGridViewTextBoxColumn();
-            clmStatus = new DataGridViewTextBoxColumn();
-            clmOrderTotal = new DataGridViewTextBoxColumn();
-            clmCustomer = new DataGridViewTextBoxColumn();
             tsPages = new ToolStrip();
             toolStripLabel2 = new ToolStripLabel();
             cmbPageSize = new ToolStripComboBox();
@@ -108,6 +103,11 @@
             label1 = new Label();
             lblTitle = new Label();
             lblIcon = new Label();
+            clmOrderNumber = new DataGridViewTextBoxColumn();
+            clmDate = new DataGridViewTextBoxColumn();
+            clmStatus = new DataGridViewTextBoxColumn();
+            clmOrderTotal = new DataGridViewTextBoxColumn();
+            clmCustomer = new DataGridViewTextBoxColumn();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSales).BeginInit();
@@ -188,52 +188,9 @@
             dgvSales.ReadOnly = true;
             dgvSales.RowHeadersWidth = 51;
             dgvSales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSales.Size = new Size(720, 634);
+            dgvSales.Size = new Size(720, 635);
             dgvSales.TabIndex = 6;
             dgvSales.SelectionChanged += dgvSales_SelectionChanged;
-            // 
-            // clmOrderNumber
-            // 
-            clmOrderNumber.HeaderText = "Order";
-            clmOrderNumber.MinimumWidth = 6;
-            clmOrderNumber.Name = "clmOrderNumber";
-            clmOrderNumber.ReadOnly = true;
-            clmOrderNumber.Width = 150;
-            // 
-            // clmDate
-            // 
-            clmDate.HeaderText = "Date";
-            clmDate.MinimumWidth = 6;
-            clmDate.Name = "clmDate";
-            clmDate.ReadOnly = true;
-            clmDate.Width = 165;
-            // 
-            // clmStatus
-            // 
-            clmStatus.HeaderText = "Status";
-            clmStatus.MaxInputLength = 50;
-            clmStatus.MinimumWidth = 6;
-            clmStatus.Name = "clmStatus";
-            clmStatus.ReadOnly = true;
-            clmStatus.Width = 125;
-            // 
-            // clmOrderTotal
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
-            clmOrderTotal.HeaderText = "Total";
-            clmOrderTotal.MinimumWidth = 6;
-            clmOrderTotal.Name = "clmOrderTotal";
-            clmOrderTotal.ReadOnly = true;
-            clmOrderTotal.Width = 150;
-            // 
-            // clmCustomer
-            // 
-            clmCustomer.HeaderText = "Customer";
-            clmCustomer.MinimumWidth = 6;
-            clmCustomer.Name = "clmCustomer";
-            clmCustomer.ReadOnly = true;
-            clmCustomer.Width = 250;
             // 
             // tsPages
             // 
@@ -242,9 +199,9 @@
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
             tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, toolStripLabel3, cmbStatus });
-            tsPages.Location = new System.Drawing.Point(0, 665);
+            tsPages.Location = new System.Drawing.Point(0, 666);
             tsPages.Name = "tsPages";
-            tsPages.Size = new Size(720, 32);
+            tsPages.Size = new Size(720, 31);
             tsPages.TabIndex = 11;
             tsPages.Text = "toolStrip2";
             // 
@@ -252,7 +209,7 @@
             // 
             toolStripLabel2.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel2.Name = "toolStripLabel2";
-            toolStripLabel2.Size = new Size(137, 29);
+            toolStripLabel2.Size = new Size(137, 28);
             toolStripLabel2.Text = "rows per page";
             // 
             // cmbPageSize
@@ -261,14 +218,14 @@
             cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPageSize.DropDownWidth = 75;
             cmbPageSize.Name = "cmbPageSize";
-            cmbPageSize.Size = new Size(75, 32);
+            cmbPageSize.Size = new Size(75, 31);
             cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Alignment = ToolStripItemAlignment.Right;
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 32);
+            toolStripSeparator2.Size = new Size(6, 31);
             // 
             // btnLast
             // 
@@ -277,7 +234,7 @@
             btnLast.Image = (Image)resources.GetObject("btnLast.Image");
             btnLast.ImageTransparentColor = Color.Magenta;
             btnLast.Name = "btnLast";
-            btnLast.Size = new Size(44, 29);
+            btnLast.Size = new Size(44, 28);
             btnLast.Text = ">>";
             btnLast.ToolTipText = "last page";
             btnLast.Click += btnLast_Click;
@@ -289,7 +246,7 @@
             btnNext.Image = (Image)resources.GetObject("btnNext.Image");
             btnNext.ImageTransparentColor = Color.Magenta;
             btnNext.Name = "btnNext";
-            btnNext.Size = new Size(29, 29);
+            btnNext.Size = new Size(29, 28);
             btnNext.Text = ">";
             btnNext.ToolTipText = "next page";
             btnNext.Click += btnNext_Click;
@@ -298,14 +255,14 @@
             // 
             lblTotalPage.Alignment = ToolStripItemAlignment.Right;
             lblTotalPage.Name = "lblTotalPage";
-            lblTotalPage.Size = new Size(44, 29);
+            lblTotalPage.Size = new Size(44, 28);
             lblTotalPage.Text = "of 0";
             // 
             // txtPage
             // 
             txtPage.Alignment = ToolStripItemAlignment.Right;
             txtPage.Name = "txtPage";
-            txtPage.Size = new Size(55, 32);
+            txtPage.Size = new Size(55, 31);
             txtPage.TextBoxTextAlign = HorizontalAlignment.Center;
             txtPage.KeyDown += txtPage_KeyDown;
             // 
@@ -313,7 +270,7 @@
             // 
             toolStripLabel1.Alignment = ToolStripItemAlignment.Right;
             toolStripLabel1.Name = "toolStripLabel1";
-            toolStripLabel1.Size = new Size(54, 29);
+            toolStripLabel1.Size = new Size(54, 28);
             toolStripLabel1.Text = "page";
             // 
             // btnPrev
@@ -323,7 +280,7 @@
             btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
             btnPrev.ImageTransparentColor = Color.Magenta;
             btnPrev.Name = "btnPrev";
-            btnPrev.Size = new Size(29, 29);
+            btnPrev.Size = new Size(29, 28);
             btnPrev.Text = "<";
             btnPrev.ToolTipText = "previous page";
             btnPrev.Click += btnPrev_Click;
@@ -335,7 +292,7 @@
             btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
             btnFirst.ImageTransparentColor = Color.Magenta;
             btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(44, 29);
+            btnFirst.Size = new Size(44, 28);
             btnFirst.Text = "<<";
             btnFirst.ToolTipText = "first page";
             btnFirst.Click += btnFirst_Click;
@@ -343,14 +300,14 @@
             // toolStripLabel3
             // 
             toolStripLabel3.Name = "toolStripLabel3";
-            toolStripLabel3.Size = new Size(66, 29);
+            toolStripLabel3.Size = new Size(66, 28);
             toolStripLabel3.Text = "Status";
             // 
             // cmbStatus
             // 
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(121, 28);
+            cmbStatus.Size = new Size(121, 31);
             cmbStatus.SelectedIndexChanged += cmbStatus_SelectedIndexChanged;
             // 
             // tsMain
@@ -605,7 +562,7 @@
             // 
             lblTotalItems.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblTotalItems.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            lblTotalItems.Location = new System.Drawing.Point(822, 520);
+            lblTotalItems.Location = new System.Drawing.Point(822, 515);
             lblTotalItems.Margin = new Padding(4, 0, 4, 0);
             lblTotalItems.Name = "lblTotalItems";
             lblTotalItems.Size = new Size(171, 38);
@@ -618,7 +575,7 @@
             label6.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            label6.Location = new System.Drawing.Point(765, 527);
+            label6.Location = new System.Drawing.Point(765, 522);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(54, 25);
@@ -629,7 +586,7 @@
             // 
             lblDiscount.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblDiscount.Font = new Font("Segoe UI", 10.8F);
-            lblDiscount.Location = new System.Drawing.Point(822, 482);
+            lblDiscount.Location = new System.Drawing.Point(822, 477);
             lblDiscount.Margin = new Padding(4, 0, 4, 0);
             lblDiscount.Name = "lblDiscount";
             lblDiscount.Size = new Size(171, 38);
@@ -642,7 +599,7 @@
             label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10.8F);
-            label5.Location = new System.Drawing.Point(732, 489);
+            label5.Location = new System.Drawing.Point(732, 484);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(82, 25);
@@ -653,7 +610,7 @@
             // 
             lblSubTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblSubTotal.Font = new Font("Segoe UI", 10.8F);
-            lblSubTotal.Location = new System.Drawing.Point(822, 444);
+            lblSubTotal.Location = new System.Drawing.Point(822, 439);
             lblSubTotal.Margin = new Padding(4, 0, 4, 0);
             lblSubTotal.Name = "lblSubTotal";
             lblSubTotal.Size = new Size(171, 38);
@@ -666,7 +623,7 @@
             label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 10.8F);
-            label8.Location = new System.Drawing.Point(728, 451);
+            label8.Location = new System.Drawing.Point(728, 446);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new Size(85, 25);
@@ -687,7 +644,7 @@
             dgvOrderItems.ReadOnly = true;
             dgvOrderItems.RowHeadersWidth = 51;
             dgvOrderItems.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvOrderItems.Size = new Size(986, 433);
+            dgvOrderItems.Size = new Size(986, 428);
             dgvOrderItems.TabIndex = 46;
             // 
             // clmItem
@@ -920,6 +877,49 @@
             lblIcon.Size = new Size(60, 60);
             lblIcon.TabIndex = 0;
             // 
+            // clmOrderNumber
+            // 
+            clmOrderNumber.HeaderText = "Order";
+            clmOrderNumber.MinimumWidth = 6;
+            clmOrderNumber.Name = "clmOrderNumber";
+            clmOrderNumber.ReadOnly = true;
+            clmOrderNumber.Width = 150;
+            // 
+            // clmDate
+            // 
+            clmDate.HeaderText = "Date Released";
+            clmDate.MinimumWidth = 6;
+            clmDate.Name = "clmDate";
+            clmDate.ReadOnly = true;
+            clmDate.Width = 175;
+            // 
+            // clmStatus
+            // 
+            clmStatus.HeaderText = "Status";
+            clmStatus.MaxInputLength = 50;
+            clmStatus.MinimumWidth = 6;
+            clmStatus.Name = "clmStatus";
+            clmStatus.ReadOnly = true;
+            clmStatus.Width = 125;
+            // 
+            // clmOrderTotal
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
+            clmOrderTotal.HeaderText = "Total";
+            clmOrderTotal.MinimumWidth = 6;
+            clmOrderTotal.Name = "clmOrderTotal";
+            clmOrderTotal.ReadOnly = true;
+            clmOrderTotal.Width = 150;
+            // 
+            // clmCustomer
+            // 
+            clmCustomer.HeaderText = "Customer";
+            clmCustomer.MinimumWidth = 6;
+            clmCustomer.Name = "clmCustomer";
+            clmCustomer.ReadOnly = true;
+            clmCustomer.Width = 250;
+            // 
             // frmSales
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -1028,15 +1028,15 @@
         private Label lblTotalPayments;
         private Label label13;
         private Button btnAddPayment;
-        private DataGridViewTextBoxColumn clmOrderNumber;
-        private DataGridViewTextBoxColumn clmDate;
-        private DataGridViewTextBoxColumn clmStatus;
-        private DataGridViewTextBoxColumn clmOrderTotal;
-        private DataGridViewTextBoxColumn clmCustomer;
         private DataGridViewTextBoxColumn clmDateTime;
         private DataGridViewTextBoxColumn clmAmount;
         private DataGridViewTextBoxColumn clmMode;
         private DataGridViewTextBoxColumn clmReference;
         private DataGridViewTextBoxColumn clmRemarks;
+        private DataGridViewTextBoxColumn clmOrderNumber;
+        private DataGridViewTextBoxColumn clmDate;
+        private DataGridViewTextBoxColumn clmStatus;
+        private DataGridViewTextBoxColumn clmOrderTotal;
+        private DataGridViewTextBoxColumn clmCustomer;
     }
 }

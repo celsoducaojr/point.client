@@ -81,7 +81,7 @@
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(188, 72);
-            btnCancel.TabIndex = 4;
+            btnCancel.TabIndex = 3;
             btnCancel.Text = "CANCEL";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
@@ -94,7 +94,7 @@
             btnUpdate.Margin = new Padding(4);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(482, 72);
-            btnUpdate.TabIndex = 3;
+            btnUpdate.TabIndex = 2;
             btnUpdate.Text = "UPDATE";
             btnUpdate.UseVisualStyleBackColor = true;
             btnUpdate.Click += btnUpdate_Click;
@@ -107,7 +107,7 @@
             txtStatus.Margin = new Padding(4);
             txtStatus.Name = "txtStatus";
             txtStatus.Size = new Size(678, 61);
-            txtStatus.TabIndex = 2;
+            txtStatus.TabIndex = 1;
             txtStatus.TextAlign = HorizontalAlignment.Center;
             // 
             // lblStatus
@@ -139,7 +139,7 @@
             cmbPaymentTerm.Location = new System.Drawing.Point(172, 200);
             cmbPaymentTerm.Name = "cmbPaymentTerm";
             cmbPaymentTerm.Size = new Size(236, 36);
-            cmbPaymentTerm.TabIndex = 1;
+            cmbPaymentTerm.TabIndex = 4;
             cmbPaymentTerm.Visible = false;
             // 
             // frmOrderStatusUpdate
