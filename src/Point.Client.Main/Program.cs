@@ -1,21 +1,39 @@
+using Microsoft.Extensions.Configuration;
 using Point.Client.Main.Api;
 
 namespace Point.Client.Main
 {
     internal static class Program
     {
+        public static IConfiguration Configuration { get; private set; }
+
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            ServiceFactory.ConfigureServices("http://localhost:5230/api/v1");
+            try
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(AppContext.BaseDirectory)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new frmMain());
+                Configuration = builder.Build();
+
+                ServiceFactory.ConfigureServices(Configuration["ApiBaseUrl"].ToString());
+
+                ApplicationConfiguration.Initialize();
+                Application.Run(new frmMain());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An unexpected error occurred. Please restart the application.\n\n" + ex.Message,
+                    "Application Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Application.Exit();
+            }
+            
         }
     }
 }
