@@ -330,7 +330,7 @@ namespace Point.Client.Main.Listing
                 return;
             }
 
-            if (!string.IsNullOrWhiteSpace(cmbCategory.Text) && cmbCategory.SelectedItem == null)
+            if (cmbCategory.SelectedItem == null)
             {
                 MessageBox.Show("Selected Category is invalid.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 cmbCategory.Focus();
