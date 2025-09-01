@@ -21,17 +21,12 @@ namespace Point.Client.Main.Api.Extensions
 
         public static decimal GenerateBalance(this Order? order)
         {
-            if (order == null) return 0;
-
-            var payments = order.GenerateTotalPayment();
-            return order.Total - payments;
+            return order?.Total - (order?.GenerateTotalPayment() - order?.GenerateTotalRefund()) ?? 0;
         }
 
         public static DateTime? GetLastPayment(this Order? order)
         {
-            if ( order == null || order.Payments == null) return null;
-
-            return order.Payments.Max(payment => payment.Created);
+            return order?.Payments?.Max(payment => payment.Created) ?? null;
         }
     }
 }

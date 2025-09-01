@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSales));
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             btnPay = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             btnReload = new ToolStripButton();
@@ -69,6 +69,8 @@
             tabControl1 = new TabControl();
             tabSummary = new TabPage();
             panel3 = new Panel();
+            txtRefunds = new TextBox();
+            label7 = new Label();
             btnAddPayment = new Button();
             txtBalance = new TextBox();
             txtPayments = new TextBox();
@@ -236,8 +238,8 @@
             // 
             // clmOrderTotal
             // 
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
             clmOrderTotal.HeaderText = "Total";
             clmOrderTotal.MinimumWidth = 6;
             clmOrderTotal.Name = "clmOrderTotal";
@@ -456,6 +458,8 @@
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panel3.BackColor = Color.WhiteSmoke;
             panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(txtRefunds);
+            panel3.Controls.Add(label7);
             panel3.Controls.Add(btnAddPayment);
             panel3.Controls.Add(txtBalance);
             panel3.Controls.Add(txtPayments);
@@ -474,6 +478,28 @@
             panel3.Size = new Size(420, 508);
             panel3.TabIndex = 56;
             // 
+            // txtRefunds
+            // 
+            txtRefunds.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtRefunds.Location = new System.Drawing.Point(157, 93);
+            txtRefunds.Name = "txtRefunds";
+            txtRefunds.ReadOnly = true;
+            txtRefunds.Size = new Size(248, 34);
+            txtRefunds.TabIndex = 73;
+            txtRefunds.Text = "0.00";
+            txtRefunds.TextAlign = HorizontalAlignment.Right;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 10.8F);
+            label7.Location = new System.Drawing.Point(40, 99);
+            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Name = "label7";
+            label7.Size = new Size(110, 25);
+            label7.TabIndex = 74;
+            label7.Text = "Total Refund";
+            // 
             // btnAddPayment
             // 
             btnAddPayment.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -491,7 +517,7 @@
             // txtBalance
             // 
             txtBalance.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtBalance.Location = new System.Drawing.Point(157, 93);
+            txtBalance.Location = new System.Drawing.Point(157, 133);
             txtBalance.Name = "txtBalance";
             txtBalance.ReadOnly = true;
             txtBalance.Size = new Size(248, 34);
@@ -524,10 +550,10 @@
             // lblOrderTerm
             // 
             lblOrderTerm.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            lblOrderTerm.Location = new System.Drawing.Point(157, 130);
+            lblOrderTerm.Location = new System.Drawing.Point(157, 183);
             lblOrderTerm.Margin = new Padding(4, 0, 4, 0);
             lblOrderTerm.Name = "lblOrderTerm";
-            lblOrderTerm.Size = new Size(247, 38);
+            lblOrderTerm.Size = new Size(248, 38);
             lblOrderTerm.TabIndex = 69;
             lblOrderTerm.Text = "Term";
             lblOrderTerm.TextAlign = ContentAlignment.MiddleLeft;
@@ -536,10 +562,10 @@
             // lblOrderLastPayment
             // 
             lblOrderLastPayment.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            lblOrderLastPayment.Location = new System.Drawing.Point(157, 168);
+            lblOrderLastPayment.Location = new System.Drawing.Point(157, 221);
             lblOrderLastPayment.Margin = new Padding(4, 0, 4, 0);
             lblOrderLastPayment.Name = "lblOrderLastPayment";
-            lblOrderLastPayment.Size = new Size(247, 38);
+            lblOrderLastPayment.Size = new Size(248, 38);
             lblOrderLastPayment.TabIndex = 70;
             lblOrderLastPayment.Text = "Last Payment";
             lblOrderLastPayment.TextAlign = ContentAlignment.MiddleLeft;
@@ -549,7 +575,7 @@
             // 
             lblLastPayment.AutoSize = true;
             lblLastPayment.Font = new Font("Segoe UI", 10.8F);
-            lblLastPayment.Location = new System.Drawing.Point(33, 175);
+            lblLastPayment.Location = new System.Drawing.Point(33, 228);
             lblLastPayment.Margin = new Padding(4, 0, 4, 0);
             lblLastPayment.Name = "lblLastPayment";
             lblLastPayment.Size = new Size(116, 25);
@@ -561,7 +587,7 @@
             // 
             lblTerm.AutoSize = true;
             lblTerm.Font = new Font("Segoe UI", 10.8F);
-            lblTerm.Location = new System.Drawing.Point(99, 137);
+            lblTerm.Location = new System.Drawing.Point(99, 190);
             lblTerm.Margin = new Padding(4, 0, 4, 0);
             lblTerm.Name = "lblTerm";
             lblTerm.Size = new Size(50, 25);
@@ -584,7 +610,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 10.8F);
-            label15.Location = new System.Drawing.Point(79, 99);
+            label15.Location = new System.Drawing.Point(79, 139);
             label15.Margin = new Padding(4, 0, 4, 0);
             label15.Name = "label15";
             label15.Size = new Size(71, 25);
@@ -611,10 +637,10 @@
             tabItems.Controls.Add(lblSubTotal);
             tabItems.Controls.Add(label8);
             tabItems.Controls.Add(dgvOrderItems);
-            tabItems.Location = new System.Drawing.Point(4, 34);
+            tabItems.Location = new System.Drawing.Point(4, 29);
             tabItems.Name = "tabItems";
             tabItems.Padding = new Padding(3);
-            tabItems.Size = new Size(1000, 561);
+            tabItems.Size = new Size(1000, 566);
             tabItems.TabIndex = 0;
             tabItems.Text = "Items";
             tabItems.UseVisualStyleBackColor = true;
@@ -734,8 +760,8 @@
             // 
             // clmPrice
             // 
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmPrice.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmPrice.DefaultCellStyle = dataGridViewCellStyle2;
             clmPrice.HeaderText = "Price";
             clmPrice.MinimumWidth = 6;
             clmPrice.Name = "clmPrice";
@@ -744,8 +770,8 @@
             // 
             // clmTotal
             // 
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmTotal.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmTotal.DefaultCellStyle = dataGridViewCellStyle3;
             clmTotal.HeaderText = "Total";
             clmTotal.MinimumWidth = 6;
             clmTotal.Name = "clmTotal";
@@ -757,10 +783,10 @@
             tabPayments.Controls.Add(lblTotalPayments);
             tabPayments.Controls.Add(label13);
             tabPayments.Controls.Add(dgvPayments);
-            tabPayments.Location = new System.Drawing.Point(4, 34);
+            tabPayments.Location = new System.Drawing.Point(4, 29);
             tabPayments.Name = "tabPayments";
             tabPayments.Padding = new Padding(3);
-            tabPayments.Size = new Size(1000, 561);
+            tabPayments.Size = new Size(1000, 566);
             tabPayments.TabIndex = 1;
             tabPayments.Text = "Payments";
             tabPayments.UseVisualStyleBackColor = true;
@@ -808,8 +834,8 @@
             // 
             // clmDateTime
             // 
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            clmDateTime.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            clmDateTime.DefaultCellStyle = dataGridViewCellStyle4;
             clmDateTime.HeaderText = "Date & Time";
             clmDateTime.MinimumWidth = 6;
             clmDateTime.Name = "clmDateTime";
@@ -818,8 +844,8 @@
             // 
             // clmAmount
             // 
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmAmount.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmAmount.DefaultCellStyle = dataGridViewCellStyle5;
             clmAmount.HeaderText = "Amount";
             clmAmount.MinimumWidth = 6;
             clmAmount.Name = "clmAmount";
@@ -855,10 +881,10 @@
             tabRefunds.Controls.Add(dgvRefunds);
             tabRefunds.Controls.Add(lblTotalRefunds);
             tabRefunds.Controls.Add(label3);
-            tabRefunds.Location = new System.Drawing.Point(4, 34);
+            tabRefunds.Location = new System.Drawing.Point(4, 29);
             tabRefunds.Name = "tabRefunds";
             tabRefunds.Padding = new Padding(3);
-            tabRefunds.Size = new Size(1000, 561);
+            tabRefunds.Size = new Size(1000, 566);
             tabRefunds.TabIndex = 3;
             tabRefunds.Text = "Refunds";
             tabRefunds.UseVisualStyleBackColor = true;
@@ -906,8 +932,8 @@
             // 
             // dataGridViewTextBoxColumn4
             // 
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewTextBoxColumn4.HeaderText = "Price";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -916,8 +942,8 @@
             // 
             // dataGridViewTextBoxColumn5
             // 
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewTextBoxColumn5.HeaderText = "Total";
             dataGridViewTextBoxColumn5.MinimumWidth = 6;
             dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -1202,5 +1228,7 @@
         private DataGridViewTextBoxColumn clmRefundMode;
         private DataGridViewTextBoxColumn clmRefundReference;
         private DataGridViewTextBoxColumn clmRefundRemarks;
+        private TextBox txtRefunds;
+        private Label label7;
     }
 }

@@ -130,6 +130,7 @@ namespace Point.Client.Main.Forms.Sales
                 // Summary
                 txtReceivables.Text = _currentOrder.Total.ToAmountString();
                 txtPayments.Text = _currentOrder.GenerateTotalPayment().ToAmountString();
+                txtRefunds.Text = _currentOrder.GenerateTotalRefund().ToAmountString();
                 txtBalance.Text = _currentOrder.GenerateBalance().ToAmountString();
                 lblOrderTerm.Text = _currentOrder.PaymentTerm?.GetDescription() ?? "-";
                 lblOrderLastPayment.Text = _currentOrder.GetLastPayment()?.ToString() ?? "-";
