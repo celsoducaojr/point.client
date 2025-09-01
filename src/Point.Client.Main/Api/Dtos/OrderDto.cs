@@ -14,6 +14,7 @@ namespace Point.Client.Main.Api.Dtos
 
     public sealed class OrderItemDto
     {
+        public int Id { get; set; }
         public int ItemUnitId { get; set; }
         public string ItemName { get; set; }
         public int UnitId { get; set; }

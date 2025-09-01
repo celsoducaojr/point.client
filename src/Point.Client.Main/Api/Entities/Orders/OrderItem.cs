@@ -1,4 +1,6 @@
-﻿namespace Point.Client.Main.Api.Entities.Orders
+﻿using Point.Client.Main.Api.Enums;
+
+namespace Point.Client.Main.Api.Entities.Orders
 {
     public class OrderItem
     {
@@ -11,5 +13,6 @@
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         public decimal Total { get; set; }
+        public OrderItemStatus Status { get; set; }
     }
 }

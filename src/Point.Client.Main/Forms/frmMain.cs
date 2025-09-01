@@ -1,3 +1,4 @@
+using Point.Client.Main.Forms;
 using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Forms.Orders;
 using Point.Client.Main.Forms.Products;
@@ -14,10 +15,19 @@ namespace Point.Client.Main
             InitializeComponent();
         }
 
-        private void frmMain_Load(object sender, EventArgs e)
-        {
+        #region Menu
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
+
+        private void dataManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormFactory.GetFormDialog<frmDataManager>().ShowDialog();
+        }
+
+        #endregion
 
         #region Listing
 
@@ -103,7 +113,5 @@ namespace Point.Client.Main
         }
 
         #endregion
-
-        
     }
 }

@@ -70,7 +70,7 @@ namespace Point.Client.Main.Forms.Orders.Sales
         private void txtAmount_Validated(object sender, EventArgs e)
         {
             var tendered = decimal.Parse(txtAmount.Text);
-            txtAmount.Text = tendered.ToString(FormConstants.Formats.Amount);
+            txtAmount.Text = tendered.ToAmountString();
         }
 
         private void btnPay_Click(object sender, EventArgs e)

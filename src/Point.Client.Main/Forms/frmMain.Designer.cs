@@ -55,6 +55,8 @@
             toolStripLabel1 = new ToolStripLabel();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripLabel2 = new ToolStripLabel();
+            databaseToolStripMenuItem = new ToolStripMenuItem();
+            dataManagerToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             toolStrip2.SuspendLayout();
@@ -63,7 +65,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { productsToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { productsToolStripMenuItem, databaseToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 2, 0, 2);
@@ -81,8 +83,9 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(116, 26);
+            exitToolStripMenuItem.Size = new Size(224, 26);
             exitToolStripMenuItem.Text = "Exit";
+            exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // toolStrip1
             // 
@@ -272,6 +275,20 @@
             toolStripLabel2.Size = new Size(83, 22);
             toolStripLabel2.Text = "Connected";
             // 
+            // databaseToolStripMenuItem
+            // 
+            databaseToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dataManagerToolStripMenuItem });
+            databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
+            databaseToolStripMenuItem.Size = new Size(55, 24);
+            databaseToolStripMenuItem.Text = "Data";
+            // 
+            // dataManagerToolStripMenuItem
+            // 
+            dataManagerToolStripMenuItem.Name = "dataManagerToolStripMenuItem";
+            dataManagerToolStripMenuItem.Size = new Size(224, 26);
+            dataManagerToolStripMenuItem.Text = "Data Manager";
+            dataManagerToolStripMenuItem.Click += dataManagerToolStripMenuItem_Click;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(9F, 23F);
@@ -286,7 +303,6 @@
             Name = "frmMain";
             Text = "Point Client";
             WindowState = FormWindowState.Maximized;
-            Load += frmMain_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             toolStrip1.ResumeLayout(false);
@@ -328,5 +344,7 @@
         private ToolStripMenuItem btnPriceTypes;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripSeparator toolStripSeparator6;
+        private ToolStripMenuItem databaseToolStripMenuItem;
+        private ToolStripMenuItem dataManagerToolStripMenuItem;
     }
 }

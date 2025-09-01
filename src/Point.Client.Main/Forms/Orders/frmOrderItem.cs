@@ -229,7 +229,7 @@ namespace Point.Client.Main.Forms.Orders
                     };
                     column.Tag = FormConstants.DataGridView.Tags.Price;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    column.DefaultCellStyle.Format = FormConstants.Formats.Amount;
+                    column.DefaultCellStyle.Format = "N2";
                     column.Width = 175;
                     dgvItemUnits.Columns.Add(column);
                 });

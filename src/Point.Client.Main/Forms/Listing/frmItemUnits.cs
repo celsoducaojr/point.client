@@ -280,7 +280,7 @@ namespace Point.Client.Main.Listing
 
                 if (decimal.TryParse(cell.Value?.ToString(), out decimal value))
                 {
-                    cell.Value = value.ToString(FormConstants.Formats.Amount);
+                    cell.Value = value.ToAmountString();
                 }
             }
         }
@@ -427,7 +427,7 @@ namespace Point.Client.Main.Listing
                     };
                     column.Tag = FormConstants.DataGridView.Tags.Price;
                     column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                    column.DefaultCellStyle.Format = FormConstants.Formats.Amount;
+                    column.DefaultCellStyle.Format = "N2";
                     column.Width = 175;
                     dgvItemUnits.Columns.Add(column);
                 });

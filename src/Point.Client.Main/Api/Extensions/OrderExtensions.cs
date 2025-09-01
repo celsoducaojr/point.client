@@ -11,9 +11,12 @@ namespace Point.Client.Main.Api.Extensions
 
         public static decimal GenerateTotalPayment(this Order? order)
         {
-            if (order?.Payments == null) return 0;
+            return order?.Payments?.Sum(payment => payment.Amount) ?? 0;
+        }
 
-            return order.Payments.Sum(payment => payment.Amount);
+        public static decimal GenerateTotalRefund(this Order? order)
+        {
+            return order?.Refunds?.Sum(payment => payment.Amount) ?? 0;
         }
 
         public static decimal GenerateBalance(this Order? order)

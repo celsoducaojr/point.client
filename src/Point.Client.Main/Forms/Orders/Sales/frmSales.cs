@@ -1,5 +1,4 @@
-﻿using System.Data.SqlTypes;
-using Point.Client.Main.Api;
+﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities.Orders;
 using Point.Client.Main.Api.Enums;
@@ -128,14 +127,16 @@ namespace Point.Client.Main.Forms.Sales
                 lblCustomer.Text = _currentOrder.Customer?.Name ?? "-";
                 lblDateTime.Text = _currentOrder.Created.ConvertToLongDateString();
 
+                // Summary
                 txtReceivables.Text = _currentOrder.Total.ToAmountString();
                 txtPayments.Text = _currentOrder.GenerateTotalPayment().ToAmountString();
                 txtBalance.Text = _currentOrder.GenerateBalance().ToAmountString();
-
                 lblOrderTerm.Text = _currentOrder.PaymentTerm?.GetDescription() ?? "-";
                 lblOrderLastPayment.Text = _currentOrder.GetLastPayment()?.ToString() ?? "-";
 
-                _currentOrder.Items.ForEach(item =>
+                // Items
+                _currentOrder.Items.Where(item => item.Status == OrderItemStatus.Active)
+                    .ToList().ForEach(item =>
                 {
                     dgvOrderItems.Rows.Add(
                         item.ItemName,
@@ -149,6 +150,7 @@ namespace Point.Client.Main.Forms.Sales
                 lblDiscount.Text = _currentOrder.Discount.ToAmountString();
                 lblTotalItems.Text = _currentOrder.Total.ToAmountString();
 
+                // Payments
                 _currentOrder.Payments?.ForEach(payment =>
                 {
                     dgvPayments.Rows.Add(
@@ -160,6 +162,25 @@ namespace Point.Client.Main.Forms.Sales
                 });
 
                 lblTotalPayments.Text = _currentOrder?.GenerateTotalPayment().ToAmountString() ?? "0.00";
+
+
+                // Refunds
+                _currentOrder.Refunds?.ForEach(refund =>
+                {
+                    var item = _currentOrder.Items.Where(i => i.Id == refund.OrderItemId).FirstOrDefault();
+                    dgvRefunds.Rows.Add(
+                        item.ItemName,
+                        item.UnitName,
+                        item.Quantity,
+                        item.Price.ToAmountString(),
+                        refund.Amount.ToAmountString(),
+                        refund.Created,
+                        refund.Mode.GetDescription(),
+                        refund.Reference,
+                        refund.Remarks);
+                });
+
+                lblTotalRefunds.Text = _currentOrder?.GenerateTotalRefund().ToAmountString() ?? "0.00";
             }
         }
 
@@ -287,6 +308,9 @@ namespace Point.Client.Main.Forms.Sales
 
             dgvPayments.Rows.Clear();
             lblTotalPayments.Text = "0.00";
+
+            dgvRefunds.Rows.Clear();
+            lblTotalRefunds.Text = "0.00";
 
             lblTerm.Visible = false;
             lblOrderTerm.Visible = false;

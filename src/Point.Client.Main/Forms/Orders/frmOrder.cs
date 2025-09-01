@@ -237,8 +237,8 @@ namespace Point.Client.Main.Forms.Orders
             row.Cells["clmItem"].Value = orderItem.ItemName;
             row.Cells["clmUnit"].Value = orderItem.UnitName;
             row.Cells[FormConstants.DataGridView.Columns.Quantiy].Value = orderItem.Quantity;
-            row.Cells["clmPrice"].Value = orderItem.Price.ToString(FormConstants.Formats.Amount);
-            row.Cells["clmTotal"].Value = orderItem.Total.ToString(FormConstants.Formats.Amount);
+            row.Cells["clmPrice"].Value = orderItem.Price.ToAmountString();
+            row.Cells["clmTotal"].Value = orderItem.Total.ToAmountString();
             row.Tag = orderItem;
         }
 
@@ -247,8 +247,8 @@ namespace Point.Client.Main.Forms.Orders
             decimal total = 0;
             foreach (DataGridViewRow row in dgvOrderItems.Rows) total += ((OrderItemDto)row.Tag).Total;
 
-            lblSubTotal.Text = total.ToString(FormConstants.Formats.Amount);
-            lblTotal.Text = total.ToString(FormConstants.Formats.Amount);
+            lblSubTotal.Text = total.ToAmountString();
+            lblTotal.Text = total.ToAmountString();
         }
 
         public void ShowForEdit(Order order)

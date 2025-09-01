@@ -1,4 +1,5 @@
-﻿using Point.Client.Main.Constants;
+﻿using Point.Client.Main.Api.Entities.Orders;
+using Point.Client.Main.Constants;
 
 namespace Point.Client.Main.Api.Extensions
 {
@@ -6,7 +7,7 @@ namespace Point.Client.Main.Api.Extensions
     {
         public static string ToAmountString(this decimal value)
         {
-            return value.ToString(FormConstants.Formats.Amount) ?? string.Empty;
+            return value < 0 ? $"({Math.Abs(value):N2})" : value.ToString("N2");
         }
     }
 }

@@ -6,7 +6,6 @@ namespace Point.Client.Main.Constants
     {
         public static class Formats
         {
-            public const string Amount = "N2";
             public const string Timestamp = "MMM dd, yyyy, hh:mm tt";
         }
        

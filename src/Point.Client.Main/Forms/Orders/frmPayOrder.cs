@@ -52,11 +52,11 @@ namespace Point.Client.Main.Forms.Orders
         private void txtTendered_Validated(object sender, EventArgs e)
         {
             var tendered = decimal.Parse(txtTendered.Text);
-            txtTendered.Text = tendered.ToString(FormConstants.Formats.Amount);
+            txtTendered.Text = tendered.ToAmountString();
 
             var change = (tendered - decimal.Parse(lblTotal.Text));
             if (change >= 0)
-                lblChange.Text = change.ToString(FormConstants.Formats.Amount);
+                lblChange.Text = change.ToAmountString();
             else
                 lblChange.Text = "0.00";
         }

@@ -1,4 +1,5 @@
 ﻿using Point.Client.Main.Api.Entities;
+using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Constants;
 
 namespace Point.Client.Main.Forms.Orders
@@ -22,7 +23,7 @@ namespace Point.Client.Main.Forms.Orders
 
         private void cmbPrice_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtPrice.Text = ((decimal)cmbPrice.SelectedValue).ToString(FormConstants.Formats.Amount);
+            txtPrice.Text = ((decimal)cmbPrice.SelectedValue).ToAmountString();
             lblTotal.Text = GenerateTotalPrice();
         }
 
@@ -49,7 +50,7 @@ namespace Point.Client.Main.Forms.Orders
         private void txtPrice_Validated(object sender, EventArgs e)
         {
             var value = txtPrice.Text;
-            txtPrice.Text = decimal.Parse(txtPrice.Text).ToString(FormConstants.Formats.Amount);
+            txtPrice.Text = decimal.Parse(txtPrice.Text).ToAmountString();
             lblTotal.Text = GenerateTotalPrice();
         }
 
@@ -109,7 +110,7 @@ namespace Point.Client.Main.Forms.Orders
 
         private string GenerateTotalPrice()
         {
-            return (decimal.Parse(txtPrice.Text) * numQuantity.Value).ToString(FormConstants.Formats.Amount);
+            return (decimal.Parse(txtPrice.Text) * numQuantity.Value).ToAmountString();
         }
     }
 }

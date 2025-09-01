@@ -2,7 +2,7 @@
 
 namespace Point.Client.Main.Api.Entities.Orders
 {
-    public class Payment
+    public class Refund
     {
         public int Id { get; set; } 
         public DateTime Created { get; set; }
@@ -10,5 +10,6 @@ namespace Point.Client.Main.Api.Entities.Orders
         public PaymentMode Mode { get; set; }
         public string? Reference { get; set; }
         public string? Remarks { get; set; }
+        public int OrderItemId { get; set; }
     }
 }

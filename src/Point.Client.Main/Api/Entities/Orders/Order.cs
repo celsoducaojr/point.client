@@ -16,5 +16,6 @@ namespace Point.Client.Main.Api.Entities.Orders
         public List<OrderItem> Items { get; set; }
         public PaymentTerm? PaymentTerm { get; set; }
         public List<Payment>? Payments { get; set; }
+        public List<Refund>? Refunds { get; set; }
     }
 }
