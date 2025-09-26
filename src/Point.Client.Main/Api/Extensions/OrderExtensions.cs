@@ -21,7 +21,7 @@ namespace Point.Client.Main.Api.Extensions
 
         public static decimal GenerateBalance(this Order? order)
         {
-            return order?.Total - (order?.GenerateTotalPayment() - order?.GenerateTotalRefund()) ?? 0;
+            return order?.Total - order?.GenerateTotalPayment() ?? 0;
         }
 
         public static DateTime? GetLastPayment(this Order? order)

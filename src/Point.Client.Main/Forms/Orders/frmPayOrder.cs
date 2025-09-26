@@ -1,8 +1,7 @@
-﻿using System.Data;
-using Point.Client.Main.Api.Dtos;
+﻿using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
-using Point.Client.Main.Constants;
+using System.Data;
 
 namespace Point.Client.Main.Forms.Orders
 {

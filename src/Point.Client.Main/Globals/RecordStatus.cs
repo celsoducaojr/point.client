@@ -92,5 +92,19 @@
         }
 
         #endregion
+
+        #region Stocks
+
+        public static class Stocks
+        {
+            public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
+
+            public static void Updated()
+            {
+                LastUpdate = DateTime.Now;
+            }
+        }
+
+        #endregion
     }
 }

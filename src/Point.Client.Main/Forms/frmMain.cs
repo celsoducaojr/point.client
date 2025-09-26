@@ -5,6 +5,7 @@ using Point.Client.Main.Forms.Products;
 using Point.Client.Main.Forms.Sales;
 using Point.Client.Main.Globals;
 using Point.Client.Main.Listing;
+using Point.Client.Main.Stocks;
 
 namespace Point.Client.Main
 {
@@ -67,7 +68,7 @@ namespace Point.Client.Main
 
         private void btnStocks_Click(object sender, EventArgs e)
         {
-
+            OpenChildForm(new frmStocks());
         }
 
         #endregion

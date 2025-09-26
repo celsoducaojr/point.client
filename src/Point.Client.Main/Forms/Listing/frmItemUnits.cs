@@ -1,10 +1,12 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
+using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
 using Point.Client.Main.Forms.Listing;
+using Point.Client.Main.Forms.Stocks;
 using Point.Client.Main.Globals;
 using static Point.Client.Main.Globals.RecordStatus;
 
@@ -68,8 +70,8 @@ namespace Point.Client.Main.Listing
 
                 cmbPageSize.SelectedIndex = 0;
             }
-            else if (_categoryLastUpdate != Categories.LastUpdate 
-                || _tagLastUpdate != Tags.LastUpdate 
+            else if (_categoryLastUpdate != Categories.LastUpdate
+                || _tagLastUpdate != Tags.LastUpdate
                 || _unitLastUpdate != Units.LastUpdate
                 || _itemLastUpdate != Items.LastUpdate
                 || _priceTypeLastUpdate != PriceTypes.LastUpdate)
@@ -215,6 +217,23 @@ namespace Point.Client.Main.Listing
         private void btnEdit_Click(object sender, EventArgs e)
         {
             EnableEditing();
+        }
+
+        private void addStockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvItemUnits.SelectedCells.Count == 0)
+            {
+                MessageBox.Show("Please select an Item-unit to add stock.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var selectedRow = dgvItemUnits.SelectedCells[0].OwningRow;
+            new frmUpdateStock(
+                StockUpdateType.Addition, 
+                selectedRow.Cells["clmItem"].Value.ToString(),
+                selectedRow.Cells["clmUnit"].Value.ToString(),
+                int.Parse(selectedRow.Tag.ToString()))
+                .ShowDialog();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -437,6 +456,6 @@ namespace Point.Client.Main.Listing
             }));
         }
 
-        #endregion   
+        #endregion
     }
 }

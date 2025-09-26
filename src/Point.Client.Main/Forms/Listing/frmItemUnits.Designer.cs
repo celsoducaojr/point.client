@@ -31,10 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmItemUnits));
             tsMain = new ToolStrip();
             btnNew = new ToolStripButton();
-            toolStripSeparator1 = new ToolStripSeparator();
-            btnEdit = new ToolStripButton();
             btnCancel = new ToolStripButton();
             btnSave = new ToolStripButton();
+            btnEdit = new ToolStripButton();
+            toolStripSeparator3 = new ToolStripSeparator();
+            toolStripDropDownButton1 = new ToolStripDropDownButton();
+            addStockToolStripMenuItem = new ToolStripMenuItem();
             dgvItemUnits = new DataGridView();
             clmItem = new DataGridViewTextBoxColumn();
             clmCategory = new DataGridViewTextBoxColumn();
@@ -66,7 +68,7 @@
             tsMain.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsMain.GripStyle = ToolStripGripStyle.Hidden;
             tsMain.ImageScalingSize = new Size(20, 20);
-            tsMain.Items.AddRange(new ToolStripItem[] { btnNew, toolStripSeparator1, btnEdit, btnCancel, btnSave });
+            tsMain.Items.AddRange(new ToolStripItem[] { btnNew, btnCancel, btnSave, btnEdit, toolStripSeparator3, toolStripDropDownButton1 });
             tsMain.Location = new System.Drawing.Point(0, 60);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(1282, 31);
@@ -78,25 +80,10 @@
             btnNew.Image = Properties.Resources.add_items_icon;
             btnNew.ImageTransparentColor = Color.Magenta;
             btnNew.Name = "btnNew";
-            btnNew.Size = new Size(211, 28);
-            btnNew.Text = "Add New Item-units";
+            btnNew.Size = new Size(113, 28);
+            btnNew.Text = "Add New";
             btnNew.TextAlign = ContentAlignment.MiddleRight;
             btnNew.Click += btnNew_Click;
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 31);
-            // 
-            // btnEdit
-            // 
-            btnEdit.Image = Properties.Resources.edit_icon;
-            btnEdit.ImageTransparentColor = Color.Magenta;
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(68, 28);
-            btnEdit.Text = "Edit";
-            btnEdit.TextAlign = ContentAlignment.MiddleRight;
-            btnEdit.Click += btnEdit_Click;
             // 
             // btnCancel
             // 
@@ -122,6 +109,37 @@
             btnSave.Visible = false;
             btnSave.Click += btnSave_Click;
             // 
+            // btnEdit
+            // 
+            btnEdit.Image = Properties.Resources.edit_icon;
+            btnEdit.ImageTransparentColor = Color.Magenta;
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(68, 28);
+            btnEdit.Text = "Edit";
+            btnEdit.TextAlign = ContentAlignment.MiddleRight;
+            btnEdit.Click += btnEdit_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 31);
+            // 
+            // toolStripDropDownButton1
+            // 
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { addStockToolStripMenuItem });
+            toolStripDropDownButton1.Image = Properties.Resources.stocks_icon;
+            toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            toolStripDropDownButton1.Size = new Size(101, 28);
+            toolStripDropDownButton1.Text = "Stocks";
+            // 
+            // addStockToolStripMenuItem
+            // 
+            addStockToolStripMenuItem.Name = "addStockToolStripMenuItem";
+            addStockToolStripMenuItem.Size = new Size(224, 28);
+            addStockToolStripMenuItem.Text = "Add Stock";
+            addStockToolStripMenuItem.Click += addStockToolStripMenuItem_Click;
+            // 
             // dgvItemUnits
             // 
             dgvItemUnits.AllowUserToAddRows = false;
@@ -131,6 +149,7 @@
             dgvItemUnits.Dock = DockStyle.Fill;
             dgvItemUnits.Location = new System.Drawing.Point(0, 91);
             dgvItemUnits.Margin = new Padding(4);
+            dgvItemUnits.MultiSelect = false;
             dgvItemUnits.Name = "dgvItemUnits";
             dgvItemUnits.ReadOnly = true;
             dgvItemUnits.RowHeadersWidth = 51;
@@ -358,7 +377,6 @@
 
         private ToolStrip tsMain;
         private ToolStripButton btnNew;
-        private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton btnEdit;
         private DataGridView dgvItemUnits;
         private Label lblTitle;
@@ -383,5 +401,8 @@
         private DataGridViewTextBoxColumn clmUnit;
         private DataGridViewTextBoxColumn clmCapitalCode;
         private Label label1;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripDropDownButton toolStripDropDownButton1;
+        private ToolStripMenuItem addStockToolStripMenuItem;
     }
 }
