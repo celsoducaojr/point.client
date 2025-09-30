@@ -31,47 +31,44 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStocks));
             lblTitle = new Label();
             label1 = new Label();
-            dgvItemUnits = new DataGridView();
+            dgvStocks = new DataGridView();
             clmItem = new DataGridViewTextBoxColumn();
             clmCategory = new DataGridViewTextBoxColumn();
             clmUnit = new DataGridViewTextBoxColumn();
-            clmCapitalCode = new DataGridViewTextBoxColumn();
-            panel1 = new Panel();
-            button1 = new Button();
-            btnSearch = new Button();
-            cmbUnit = new ComboBox();
-            label3 = new Label();
-            label2 = new Label();
-            txtItem = new TextBox();
-            tsPages = new ToolStrip();
-            toolStripButton1 = new ToolStripButton();
-            toolStripButton2 = new ToolStripButton();
+            clmQuantity = new DataGridViewTextBoxColumn();
+            pnlSearch = new Panel();
+            linkLabel1 = new LinkLabel();
+            txtSearchItem = new TextBox();
             panel2 = new Panel();
-            dataGridView1 = new DataGridView();
-            clmDate = new DataGridViewTextBoxColumn();
+            dgvHistories = new DataGridView();
+            clmDateTime = new DataGridViewTextBoxColumn();
             clmChanged = new DataGridViewTextBoxColumn();
             clmAfterChange = new DataGridViewTextBoxColumn();
             clmRemarks = new DataGridViewTextBoxColumn();
             label4 = new Label();
             panel3 = new Panel();
-            toolStrip1 = new ToolStrip();
-            toolStripLabel3 = new ToolStripLabel();
-            toolStripComboBox1 = new ToolStripComboBox();
-            toolStripSeparator1 = new ToolStripSeparator();
-            toolStripButton3 = new ToolStripButton();
-            toolStripButton4 = new ToolStripButton();
-            toolStripLabel4 = new ToolStripLabel();
-            toolStripTextBox1 = new ToolStripTextBox();
-            toolStripLabel5 = new ToolStripLabel();
-            toolStripButton5 = new ToolStripButton();
-            toolStripButton6 = new ToolStripButton();
-            ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
-            panel1.SuspendLayout();
-            tsPages.SuspendLayout();
+            tsPages = new ToolStrip();
+            toolStripLabel2 = new ToolStripLabel();
+            cmbPageSize = new ToolStripComboBox();
+            toolStripSeparator2 = new ToolStripSeparator();
+            btnLast = new ToolStripButton();
+            btnNext = new ToolStripButton();
+            lblTotalPage = new ToolStripLabel();
+            txtPage = new ToolStripTextBox();
+            toolStripLabel1 = new ToolStripLabel();
+            btnPrev = new ToolStripButton();
+            btnFirst = new ToolStripButton();
+            btnReload = new ToolStripButton();
+            tsMenu = new ToolStrip();
+            btnAdd = new ToolStripButton();
+            btnRemove = new ToolStripButton();
+            ((System.ComponentModel.ISupportInitialize)dgvStocks).BeginInit();
+            pnlSearch.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvHistories).BeginInit();
             panel3.SuspendLayout();
-            toolStrip1.SuspendLayout();
+            tsPages.SuspendLayout();
+            tsMenu.SuspendLayout();
             SuspendLayout();
             // 
             // lblTitle
@@ -82,8 +79,8 @@
             lblTitle.Location = new System.Drawing.Point(0, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(1282, 42);
-            lblTitle.TabIndex = 10;
+            lblTitle.Size = new Size(1755, 42);
+            lblTitle.TabIndex = 1;
             lblTitle.Text = "Manage Stocks";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -92,25 +89,28 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.BackColor = Color.DeepSkyBlue;
             label1.Image = Properties.Resources.stocks_banner;
-            label1.Location = new System.Drawing.Point(1230, 2);
+            label1.Location = new System.Drawing.Point(1703, 2);
             label1.Name = "label1";
             label1.Size = new Size(40, 40);
             label1.TabIndex = 11;
             // 
-            // dgvItemUnits
+            // dgvStocks
             // 
-            dgvItemUnits.AllowUserToAddRows = false;
-            dgvItemUnits.AllowUserToDeleteRows = false;
-            dgvItemUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmUnit, clmCapitalCode });
-            dgvItemUnits.Dock = DockStyle.Fill;
-            dgvItemUnits.Location = new System.Drawing.Point(0, 0);
-            dgvItemUnits.Margin = new Padding(4);
-            dgvItemUnits.Name = "dgvItemUnits";
-            dgvItemUnits.ReadOnly = true;
-            dgvItemUnits.RowHeadersWidth = 51;
-            dgvItemUnits.Size = new Size(475, 343);
-            dgvItemUnits.TabIndex = 13;
+            dgvStocks.AllowUserToAddRows = false;
+            dgvStocks.AllowUserToDeleteRows = false;
+            dgvStocks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStocks.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmUnit, clmQuantity });
+            dgvStocks.Dock = DockStyle.Fill;
+            dgvStocks.Location = new System.Drawing.Point(0, 0);
+            dgvStocks.Margin = new Padding(4);
+            dgvStocks.MultiSelect = false;
+            dgvStocks.Name = "dgvStocks";
+            dgvStocks.ReadOnly = true;
+            dgvStocks.RowHeadersWidth = 51;
+            dgvStocks.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvStocks.Size = new Size(948, 473);
+            dgvStocks.TabIndex = 1;
+            dgvStocks.SelectionChanged += dgvStocks_SelectionChanged;
             // 
             // clmItem
             // 
@@ -136,153 +136,79 @@
             clmUnit.ReadOnly = true;
             clmUnit.Width = 125;
             // 
-            // clmCapitalCode
+            // clmQuantity
             // 
-            clmCapitalCode.HeaderText = "Quantity";
-            clmCapitalCode.MaxInputLength = 50;
-            clmCapitalCode.MinimumWidth = 6;
-            clmCapitalCode.Name = "clmCapitalCode";
-            clmCapitalCode.ReadOnly = true;
-            clmCapitalCode.Width = 125;
+            clmQuantity.HeaderText = "Quantity";
+            clmQuantity.MaxInputLength = 50;
+            clmQuantity.MinimumWidth = 6;
+            clmQuantity.Name = "clmQuantity";
+            clmQuantity.ReadOnly = true;
+            clmQuantity.Width = 125;
             // 
-            // panel1
+            // pnlSearch
             // 
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(btnSearch);
-            panel1.Controls.Add(cmbUnit);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(label2);
-            panel1.Controls.Add(txtItem);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new System.Drawing.Point(0, 447);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1282, 106);
-            panel1.TabIndex = 14;
-            panel1.Paint += panel1_Paint;
+            pnlSearch.Controls.Add(linkLabel1);
+            pnlSearch.Controls.Add(txtSearchItem);
+            pnlSearch.Dock = DockStyle.Bottom;
+            pnlSearch.Location = new System.Drawing.Point(0, 577);
+            pnlSearch.Name = "pnlSearch";
+            pnlSearch.Size = new Size(1755, 85);
+            pnlSearch.TabIndex = 5;
             // 
-            // button1
+            // linkLabel1
             // 
-            button1.Location = new System.Drawing.Point(201, 57);
-            button1.Margin = new Padding(4);
-            button1.Name = "button1";
-            button1.Size = new Size(118, 36);
-            button1.TabIndex = 36;
-            button1.Text = "Clear";
-            button1.UseVisualStyleBackColor = true;
+            linkLabel1.AutoSize = true;
+            linkLabel1.Location = new System.Drawing.Point(13, 45);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(121, 20);
+            linkLabel1.TabIndex = 2;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "Advance search...";
             // 
-            // btnSearch
+            // txtSearchItem
             // 
-            btnSearch.Location = new System.Drawing.Point(13, 57);
-            btnSearch.Margin = new Padding(4);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(180, 36);
-            btnSearch.TabIndex = 35;
-            btnSearch.Text = "Search Item";
-            btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // cmbUnit
-            // 
-            cmbUnit.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmbUnit.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cmbUnit.FormattingEnabled = true;
-            cmbUnit.Location = new System.Drawing.Point(564, 8);
-            cmbUnit.Margin = new Padding(4);
-            cmbUnit.Name = "cmbUnit";
-            cmbUnit.Size = new Size(292, 28);
-            cmbUnit.TabIndex = 33;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(520, 11);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(36, 20);
-            label3.TabIndex = 34;
-            label3.Text = "Unit";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(13, 11);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(39, 20);
-            label2.TabIndex = 31;
-            label2.Text = "Item";
-            // 
-            // txtItem
-            // 
-            txtItem.Location = new System.Drawing.Point(60, 8);
-            txtItem.Margin = new Padding(4);
-            txtItem.MaxLength = 100;
-            txtItem.Name = "txtItem";
-            txtItem.Size = new Size(452, 27);
-            txtItem.TabIndex = 29;
-            // 
-            // tsPages
-            // 
-            tsPages.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tsPages.GripStyle = ToolStripGripStyle.Hidden;
-            tsPages.ImageScalingSize = new Size(20, 20);
-            tsPages.Items.AddRange(new ToolStripItem[] { toolStripButton1, toolStripButton2 });
-            tsPages.Location = new System.Drawing.Point(0, 42);
-            tsPages.Name = "tsPages";
-            tsPages.Size = new Size(1282, 31);
-            tsPages.TabIndex = 15;
-            tsPages.Text = "toolStrip2";
-            // 
-            // toolStripButton1
-            // 
-            toolStripButton1.Image = Properties.Resources.add_items_icon;
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(176, 28);
-            toolStripButton1.Text = "Add New Stocks";
-            toolStripButton1.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // toolStripButton2
-            // 
-            toolStripButton2.Image = Properties.Resources.edit_icon;
-            toolStripButton2.ImageTransparentColor = Color.Magenta;
-            toolStripButton2.Name = "toolStripButton2";
-            toolStripButton2.Size = new Size(98, 28);
-            toolStripButton2.Text = "Update";
-            toolStripButton2.TextAlign = ContentAlignment.MiddleRight;
+            txtSearchItem.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtSearchItem.Location = new System.Drawing.Point(13, 14);
+            txtSearchItem.Margin = new Padding(4);
+            txtSearchItem.MaxLength = 100;
+            txtSearchItem.Name = "txtSearchItem";
+            txtSearchItem.PlaceholderText = "Search item...";
+            txtSearchItem.Size = new Size(1728, 27);
+            txtSearchItem.TabIndex = 1;
             // 
             // panel2
             // 
-            panel2.Controls.Add(dataGridView1);
+            panel2.Controls.Add(dgvHistories);
             panel2.Controls.Add(label4);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new System.Drawing.Point(475, 73);
+            panel2.Location = new System.Drawing.Point(948, 73);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(10);
-            panel2.Size = new Size(807, 374);
-            panel2.TabIndex = 16;
+            panel2.Size = new Size(807, 504);
+            panel2.TabIndex = 4;
             // 
-            // dataGridView1
+            // dgvHistories
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clmDate, clmChanged, clmAfterChange, clmRemarks });
-            dataGridView1.Location = new System.Drawing.Point(14, 42);
-            dataGridView1.Margin = new Padding(4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(779, 318);
-            dataGridView1.TabIndex = 14;
+            dgvHistories.AllowUserToAddRows = false;
+            dgvHistories.AllowUserToDeleteRows = false;
+            dgvHistories.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvHistories.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvHistories.Columns.AddRange(new DataGridViewColumn[] { clmDateTime, clmChanged, clmAfterChange, clmRemarks });
+            dgvHistories.Location = new System.Drawing.Point(14, 42);
+            dgvHistories.Margin = new Padding(4);
+            dgvHistories.Name = "dgvHistories";
+            dgvHistories.ReadOnly = true;
+            dgvHistories.RowHeadersWidth = 51;
+            dgvHistories.Size = new Size(779, 448);
+            dgvHistories.TabIndex = 1;
             // 
-            // clmDate
+            // clmDateTime
             // 
-            clmDate.HeaderText = "Date";
-            clmDate.MinimumWidth = 6;
-            clmDate.Name = "clmDate";
-            clmDate.ReadOnly = true;
-            clmDate.Width = 125;
+            clmDateTime.HeaderText = "Date & Time";
+            clmDateTime.MinimumWidth = 6;
+            clmDateTime.Name = "clmDateTime";
+            clmDateTime.ReadOnly = true;
+            clmDateTime.Width = 220;
             // 
             // clmChanged
             // 
@@ -302,11 +228,11 @@
             // 
             // clmRemarks
             // 
-            clmRemarks.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             clmRemarks.HeaderText = "Remarks";
             clmRemarks.MinimumWidth = 6;
             clmRemarks.Name = "clmRemarks";
             clmRemarks.ReadOnly = true;
+            clmRemarks.Width = 400;
             // 
             // label4
             // 
@@ -320,140 +246,188 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(dgvItemUnits);
-            panel3.Controls.Add(toolStrip1);
+            panel3.Controls.Add(dgvStocks);
+            panel3.Controls.Add(tsPages);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new System.Drawing.Point(0, 73);
             panel3.Name = "panel3";
-            panel3.Size = new Size(475, 374);
-            panel3.TabIndex = 17;
+            panel3.Size = new Size(948, 504);
+            panel3.TabIndex = 3;
             // 
-            // toolStrip1
+            // tsPages
             // 
-            toolStrip1.Dock = DockStyle.Bottom;
-            toolStrip1.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripLabel3, toolStripComboBox1, toolStripSeparator1, toolStripButton3, toolStripButton4, toolStripLabel4, toolStripTextBox1, toolStripLabel5, toolStripButton5, toolStripButton6 });
-            toolStrip1.Location = new System.Drawing.Point(0, 343);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(475, 31);
-            toolStrip1.TabIndex = 14;
-            toolStrip1.Text = "toolStrip2";
+            tsPages.Dock = DockStyle.Bottom;
+            tsPages.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tsPages.GripStyle = ToolStripGripStyle.Hidden;
+            tsPages.ImageScalingSize = new Size(20, 20);
+            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, btnReload });
+            tsPages.Location = new System.Drawing.Point(0, 473);
+            tsPages.Name = "tsPages";
+            tsPages.Size = new Size(948, 31);
+            tsPages.TabIndex = 2;
+            tsPages.Text = "toolStrip2";
             // 
-            // toolStripLabel3
+            // toolStripLabel2
             // 
-            toolStripLabel3.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel3.Name = "toolStripLabel3";
-            toolStripLabel3.Size = new Size(144, 28);
-            toolStripLabel3.Text = "items per page";
+            toolStripLabel2.Alignment = ToolStripItemAlignment.Right;
+            toolStripLabel2.Name = "toolStripLabel2";
+            toolStripLabel2.Size = new Size(137, 28);
+            toolStripLabel2.Text = "rows per page";
             // 
-            // toolStripComboBox1
+            // cmbPageSize
             // 
-            toolStripComboBox1.Alignment = ToolStripItemAlignment.Right;
-            toolStripComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            toolStripComboBox1.DropDownWidth = 75;
-            toolStripComboBox1.Name = "toolStripComboBox1";
-            toolStripComboBox1.Size = new Size(75, 31);
+            cmbPageSize.Alignment = ToolStripItemAlignment.Right;
+            cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbPageSize.DropDownWidth = 75;
+            cmbPageSize.Name = "cmbPageSize";
+            cmbPageSize.Size = new Size(75, 31);
+            cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
             // 
-            // toolStripSeparator1
+            // toolStripSeparator2
             // 
-            toolStripSeparator1.Alignment = ToolStripItemAlignment.Right;
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 31);
+            toolStripSeparator2.Alignment = ToolStripItemAlignment.Right;
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 31);
             // 
-            // toolStripButton3
+            // btnLast
             // 
-            toolStripButton3.Alignment = ToolStripItemAlignment.Right;
-            toolStripButton3.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton3.Image = (Image)resources.GetObject("toolStripButton3.Image");
-            toolStripButton3.ImageTransparentColor = Color.Magenta;
-            toolStripButton3.Name = "toolStripButton3";
-            toolStripButton3.Size = new Size(44, 28);
-            toolStripButton3.Text = ">>";
-            toolStripButton3.ToolTipText = "last page";
+            btnLast.Alignment = ToolStripItemAlignment.Right;
+            btnLast.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnLast.Image = (Image)resources.GetObject("btnLast.Image");
+            btnLast.ImageTransparentColor = Color.Magenta;
+            btnLast.Name = "btnLast";
+            btnLast.Size = new Size(44, 28);
+            btnLast.Text = ">>";
+            btnLast.ToolTipText = "last page";
+            btnLast.Click += btnLast_Click;
             // 
-            // toolStripButton4
+            // btnNext
             // 
-            toolStripButton4.Alignment = ToolStripItemAlignment.Right;
-            toolStripButton4.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton4.Image = (Image)resources.GetObject("toolStripButton4.Image");
-            toolStripButton4.ImageTransparentColor = Color.Magenta;
-            toolStripButton4.Name = "toolStripButton4";
-            toolStripButton4.Size = new Size(29, 28);
-            toolStripButton4.Text = ">";
-            toolStripButton4.ToolTipText = "next page";
+            btnNext.Alignment = ToolStripItemAlignment.Right;
+            btnNext.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnNext.Image = (Image)resources.GetObject("btnNext.Image");
+            btnNext.ImageTransparentColor = Color.Magenta;
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(29, 28);
+            btnNext.Text = ">";
+            btnNext.ToolTipText = "next page";
+            btnNext.Click += btnNext_Click;
             // 
-            // toolStripLabel4
+            // lblTotalPage
             // 
-            toolStripLabel4.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel4.Name = "toolStripLabel4";
-            toolStripLabel4.Size = new Size(44, 28);
-            toolStripLabel4.Text = "of 0";
+            lblTotalPage.Alignment = ToolStripItemAlignment.Right;
+            lblTotalPage.Name = "lblTotalPage";
+            lblTotalPage.Size = new Size(44, 28);
+            lblTotalPage.Text = "of 0";
             // 
-            // toolStripTextBox1
+            // txtPage
             // 
-            toolStripTextBox1.Alignment = ToolStripItemAlignment.Right;
-            toolStripTextBox1.Name = "toolStripTextBox1";
-            toolStripTextBox1.Size = new Size(55, 31);
-            toolStripTextBox1.TextBoxTextAlign = HorizontalAlignment.Center;
+            txtPage.Alignment = ToolStripItemAlignment.Right;
+            txtPage.Name = "txtPage";
+            txtPage.Size = new Size(55, 31);
+            txtPage.TextBoxTextAlign = HorizontalAlignment.Center;
+            txtPage.KeyDown += txtPage_KeyDown;
             // 
-            // toolStripLabel5
+            // toolStripLabel1
             // 
-            toolStripLabel5.Alignment = ToolStripItemAlignment.Right;
-            toolStripLabel5.Name = "toolStripLabel5";
-            toolStripLabel5.Size = new Size(54, 28);
-            toolStripLabel5.Text = "page";
+            toolStripLabel1.Alignment = ToolStripItemAlignment.Right;
+            toolStripLabel1.Name = "toolStripLabel1";
+            toolStripLabel1.Size = new Size(54, 28);
+            toolStripLabel1.Text = "page";
             // 
-            // toolStripButton5
+            // btnPrev
             // 
-            toolStripButton5.Alignment = ToolStripItemAlignment.Right;
-            toolStripButton5.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton5.Image = (Image)resources.GetObject("toolStripButton5.Image");
-            toolStripButton5.ImageTransparentColor = Color.Magenta;
-            toolStripButton5.Name = "toolStripButton5";
-            toolStripButton5.Size = new Size(29, 28);
-            toolStripButton5.Text = "<";
-            toolStripButton5.ToolTipText = "previous page";
+            btnPrev.Alignment = ToolStripItemAlignment.Right;
+            btnPrev.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnPrev.Image = (Image)resources.GetObject("btnPrev.Image");
+            btnPrev.ImageTransparentColor = Color.Magenta;
+            btnPrev.Name = "btnPrev";
+            btnPrev.Size = new Size(29, 28);
+            btnPrev.Text = "<";
+            btnPrev.ToolTipText = "previous page";
+            btnPrev.Click += btnPrev_Click;
             // 
-            // toolStripButton6
+            // btnFirst
             // 
-            toolStripButton6.Alignment = ToolStripItemAlignment.Right;
-            toolStripButton6.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton6.Image = (Image)resources.GetObject("toolStripButton6.Image");
-            toolStripButton6.ImageTransparentColor = Color.Magenta;
-            toolStripButton6.Name = "toolStripButton6";
-            toolStripButton6.Size = new Size(44, 28);
-            toolStripButton6.Text = "<<";
-            toolStripButton6.ToolTipText = "first page";
+            btnFirst.Alignment = ToolStripItemAlignment.Right;
+            btnFirst.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            btnFirst.Image = (Image)resources.GetObject("btnFirst.Image");
+            btnFirst.ImageTransparentColor = Color.Magenta;
+            btnFirst.Name = "btnFirst";
+            btnFirst.Size = new Size(44, 28);
+            btnFirst.Text = "<<";
+            btnFirst.ToolTipText = "first page";
+            btnFirst.Click += btnFirst_Click;
+            // 
+            // btnReload
+            // 
+            btnReload.Image = Properties.Resources.reload_icon;
+            btnReload.ImageTransparentColor = Color.Magenta;
+            btnReload.Name = "btnReload";
+            btnReload.Size = new Size(123, 28);
+            btnReload.Text = "Reload All";
+            btnReload.Click += btnReload_Click;
+            // 
+            // tsMenu
+            // 
+            tsMenu.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tsMenu.GripStyle = ToolStripGripStyle.Hidden;
+            tsMenu.ImageScalingSize = new Size(20, 20);
+            tsMenu.Items.AddRange(new ToolStripItem[] { btnAdd, btnRemove });
+            tsMenu.Location = new System.Drawing.Point(0, 42);
+            tsMenu.Name = "tsMenu";
+            tsMenu.Size = new Size(1755, 31);
+            tsMenu.TabIndex = 2;
+            tsMenu.Text = "toolStrip1";
+            // 
+            // btnAdd
+            // 
+            btnAdd.Image = Properties.Resources.add_items_icon;
+            btnAdd.ImageTransparentColor = Color.Magenta;
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(131, 28);
+            btnAdd.Text = "Add Stocks";
+            btnAdd.TextAlign = ContentAlignment.MiddleRight;
+            btnAdd.Click += btnAdd_Click;
+            // 
+            // btnRemove
+            // 
+            btnRemove.Image = Properties.Resources.remove_items_icon;
+            btnRemove.ImageTransparentColor = Color.Magenta;
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(106, 28);
+            btnRemove.Text = "Remove";
+            btnRemove.TextAlign = ContentAlignment.MiddleRight;
+            btnRemove.Click += btnRemove_Click;
             // 
             // frmStocks
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1282, 553);
+            ClientSize = new Size(1755, 662);
             Controls.Add(panel3);
             Controls.Add(panel2);
-            Controls.Add(tsPages);
-            Controls.Add(panel1);
+            Controls.Add(pnlSearch);
             Controls.Add(label1);
+            Controls.Add(tsMenu);
             Controls.Add(lblTitle);
             MinimumSize = new Size(1300, 600);
             Name = "frmStocks";
             Text = "Stocks";
             WindowState = FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)dgvItemUnits).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            tsPages.ResumeLayout(false);
-            tsPages.PerformLayout();
+            Load += frmStocks_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvStocks).EndInit();
+            pnlSearch.ResumeLayout(false);
+            pnlSearch.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvHistories).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
+            tsPages.ResumeLayout(false);
+            tsPages.PerformLayout();
+            tsMenu.ResumeLayout(false);
+            tsMenu.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -462,37 +436,34 @@
 
         private Label lblTitle;
         private Label label1;
-        private DataGridView dgvItemUnits;
-        private Panel panel1;
-        private ComboBox cmbUnit;
-        private Label label3;
-        private Label label2;
-        private TextBox txtItem;
-        private Button button1;
-        private Button btnSearch;
+        private DataGridView dgvStocks;
+        private Panel pnlSearch;
+        private TextBox txtSearchItem;
+        private Panel panel2;
+        private DataGridView dgvHistories;
+        private Label label4;
+        private Panel panel3;
+        private ToolStrip tsMenu;
+        private ToolStripButton btnAdd;
+        private ToolStripButton btnRemove;
+        private LinkLabel linkLabel1;
         private ToolStrip tsPages;
-        private ToolStripButton toolStripButton1;
-        private ToolStripButton toolStripButton2;
+        private ToolStripLabel toolStripLabel2;
+        private ToolStripComboBox cmbPageSize;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripButton btnLast;
+        private ToolStripButton btnNext;
+        private ToolStripLabel lblTotalPage;
+        private ToolStripTextBox txtPage;
+        private ToolStripLabel toolStripLabel1;
+        private ToolStripButton btnPrev;
+        private ToolStripButton btnFirst;
+        private ToolStripButton btnReload;
         private DataGridViewTextBoxColumn clmItem;
         private DataGridViewTextBoxColumn clmCategory;
         private DataGridViewTextBoxColumn clmUnit;
-        private DataGridViewTextBoxColumn clmCapitalCode;
-        private Panel panel2;
-        private DataGridView dataGridView1;
-        private Label label4;
-        private Panel panel3;
-        private ToolStrip toolStrip1;
-        private ToolStripLabel toolStripLabel3;
-        private ToolStripComboBox toolStripComboBox1;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton toolStripButton3;
-        private ToolStripButton toolStripButton4;
-        private ToolStripLabel toolStripLabel4;
-        private ToolStripTextBox toolStripTextBox1;
-        private ToolStripLabel toolStripLabel5;
-        private ToolStripButton toolStripButton5;
-        private ToolStripButton toolStripButton6;
-        private DataGridViewTextBoxColumn clmDate;
+        private DataGridViewTextBoxColumn clmQuantity;
+        private DataGridViewTextBoxColumn clmDateTime;
         private DataGridViewTextBoxColumn clmChanged;
         private DataGridViewTextBoxColumn clmAfterChange;
         private DataGridViewTextBoxColumn clmRemarks;

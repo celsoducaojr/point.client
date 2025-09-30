@@ -48,7 +48,7 @@ namespace Point.Client.Main.Forms.Sales
         {
             if (_isFirstLoad)
             {
-                ClearFields();
+                ClearSalesFields();
 
                 _isFirstLoad = false;
 
@@ -101,7 +101,7 @@ namespace Point.Client.Main.Forms.Sales
         {
             if (dgvSales.SelectedRows.Count > 0)
             {
-                ClearFields();
+                ClearSalesFields();
 
                 _currentOrder = (Order)dgvSales.SelectedRows[0]?.Tag;
 
@@ -289,7 +289,7 @@ namespace Point.Client.Main.Forms.Sales
             cmbPageSize_SelectedIndexChanged(null, null);
         }
 
-        private void ClearFields()
+        private void ClearSalesFields()
         {
             lblOrderNumber.Text = string.Empty;
             lblStatus.Text = "-";
@@ -362,10 +362,10 @@ namespace Point.Client.Main.Forms.Sales
                 _currentTotalPages = 0;
 
                 dgvSales.Rows.Clear();
+                ClearSalesFields();
                 txtPage.Clear();
                 lblTotalPage.Text = string.Format(FormConstants.Pagination.TotalPagesCountLabel, 0);
-                ClearFields();
-
+               
                 if (response?.TotalCount > 0)
                 {
                     txtPage.Text = _currentPage.ToString();

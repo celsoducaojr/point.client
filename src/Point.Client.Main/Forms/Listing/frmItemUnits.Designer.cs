@@ -136,8 +136,9 @@
             // addStockToolStripMenuItem
             // 
             addStockToolStripMenuItem.Name = "addStockToolStripMenuItem";
+            addStockToolStripMenuItem.ShortcutKeys = Keys.F3;
             addStockToolStripMenuItem.Size = new Size(224, 28);
-            addStockToolStripMenuItem.Text = "Add Stock";
+            addStockToolStripMenuItem.Text = "Add Stocks";
             addStockToolStripMenuItem.Click += addStockToolStripMenuItem_Click;
             // 
             // dgvItemUnits

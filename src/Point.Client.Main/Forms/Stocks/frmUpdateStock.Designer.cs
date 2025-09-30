@@ -49,7 +49,7 @@
             txtItem.Name = "txtItem";
             txtItem.ReadOnly = true;
             txtItem.Size = new Size(688, 31);
-            txtItem.TabIndex = 4;
+            txtItem.TabIndex = 5;
             // 
             // label1
             // 
@@ -79,7 +79,7 @@
             txtUnit.Name = "txtUnit";
             txtUnit.ReadOnly = true;
             txtUnit.Size = new Size(334, 31);
-            txtUnit.TabIndex = 5;
+            txtUnit.TabIndex = 6;
             // 
             // numQuantity
             // 
@@ -109,7 +109,7 @@
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 36);
-            btnCancel.TabIndex = 3;
+            btnCancel.TabIndex = 4;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             btnCancel.Click += btnCancel_Click;
@@ -120,7 +120,7 @@
             btnUpdateStock.Margin = new Padding(4);
             btnUpdateStock.Name = "btnUpdateStock";
             btnUpdateStock.Size = new Size(180, 36);
-            btnUpdateStock.TabIndex = 2;
+            btnUpdateStock.TabIndex = 3;
             btnUpdateStock.Text = "Update Stock";
             btnUpdateStock.UseVisualStyleBackColor = true;
             btnUpdateStock.Click += btnUpdateStock_Click;
@@ -142,7 +142,7 @@
             txtRemarks.MaxLength = 150;
             txtRemarks.Name = "txtRemarks";
             txtRemarks.Size = new Size(500, 31);
-            txtRemarks.TabIndex = 50;
+            txtRemarks.TabIndex = 2;
             // 
             // frmUpdateStock
             // 
