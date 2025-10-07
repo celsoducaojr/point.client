@@ -9,6 +9,7 @@ namespace Point.Client.Main.Forms.Products
     {
         private bool _isFirstLoad;
         private bool _isAddingNew;
+        private bool _hasChanges;
 
         private readonly TagService _tagService;
 
@@ -18,6 +19,7 @@ namespace Point.Client.Main.Forms.Products
 
             _isFirstLoad = true;
             _isAddingNew = false;
+            _hasChanges = false;
 
             _tagService = ServiceFactory.GetService<TagService>();
         }
@@ -32,21 +34,12 @@ namespace Point.Client.Main.Forms.Products
             }
         }
 
-        private void frmTags_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmTags_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (btnCancel.Visible)
+            if (_hasChanges)
             {
-                btnCancel_Click(sender, e);
-            }
-        }
-
-        private void dgvTags_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dgvTags.SelectedRows.Count > 0)
-            {
-                var row = dgvTags.SelectedRows[0];
-                txtTag.Tag = row.Tag;
-                txtTag.Text = row.Cells[0].Value.ToString();
+                RecordStatus.Tags.Updated();
+                _hasChanges = false;
             }
         }
 
@@ -98,6 +91,16 @@ namespace Point.Client.Main.Forms.Products
             EnableEditing(false);
         }
 
+        private void dgvTags_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvTags.SelectedRows.Count > 0)
+            {
+                var row = dgvTags.SelectedRows[0];
+                txtTag.Tag = row.Tag;
+                txtTag.Text = row.Cells[0].Value.ToString();
+            }
+        }
+
         #region Helpers
 
         private void ClearFields()
@@ -146,7 +149,7 @@ namespace Point.Client.Main.Forms.Products
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Tags.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -176,7 +179,7 @@ namespace Point.Client.Main.Forms.Products
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Tags.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -217,6 +220,6 @@ namespace Point.Client.Main.Forms.Products
             }));
         }
 
-        #endregion 
+        #endregion
     }
 }

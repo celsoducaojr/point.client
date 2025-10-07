@@ -9,6 +9,7 @@ namespace Point.Client.Main.Listing
     {
         private bool _isFirstLoad;
         private bool _isAddingNew;
+        private bool _hasChanges;
 
         private readonly CategoryService _categoryService;
 
@@ -18,6 +19,7 @@ namespace Point.Client.Main.Listing
 
             _isFirstLoad = true;
             _isAddingNew = false;
+            _hasChanges = false;
 
             _categoryService = ServiceFactory.GetService<CategoryService>();
         }
@@ -32,14 +34,13 @@ namespace Point.Client.Main.Listing
             }
         }
 
-        private void frmCategories_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmCategories_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (btnCancel.Visible)
+            if (_hasChanges)
             {
-                btnCancel_Click(sender, e);
+                RecordStatus.Categories.Updated();
             }
         }
-
         private void dgvCategories_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvCategories.SelectedRows.Count > 0)
@@ -146,7 +147,7 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Categories.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -176,7 +177,7 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Categories.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {

@@ -152,7 +152,7 @@
             Padding = new Padding(25);
             StartPosition = FormStartPosition.CenterParent;
             Text = "Categories";
-            FormClosing += frmCategories_FormClosing;
+            FormClosed += frmCategories_FormClosed;
             Load += frmCategories_Load;
             ((System.ComponentModel.ISupportInitialize)dgvCategories).EndInit();
             ResumeLayout(false);

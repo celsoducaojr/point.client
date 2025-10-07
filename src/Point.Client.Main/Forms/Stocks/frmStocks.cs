@@ -119,7 +119,10 @@ namespace Point.Client.Main.Stocks
 
         private void ReloadData()
         {
-            if (_isActive) Task.Run(() => SearchStocks());
+            if (_isActive)
+            {
+                Task.Run(() => SearchStocks());
+            }
         }
 
         private void btnReload_Click(object sender, EventArgs e)

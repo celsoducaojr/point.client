@@ -188,7 +188,7 @@
             Padding = new Padding(20);
             StartPosition = FormStartPosition.CenterParent;
             Text = "Price Types";
-            FormClosing += frmPriceTypes_FormClosing;
+            FormClosed += frmPriceTypes_FormClosed;
             Load += frmPriceTypes_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTypes).EndInit();
             ResumeLayout(false);

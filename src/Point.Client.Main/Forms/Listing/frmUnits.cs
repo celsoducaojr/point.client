@@ -34,13 +34,12 @@ namespace Point.Client.Main.Forms.Products
             }
         }
 
-        private void dgvUnits_SelectionChanged(object sender, EventArgs e)
+        private void frmUnits_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (dgvUnits.SelectedRows.Count > 0)
+            if (_hasChanges)
             {
-                var row = dgvUnits.SelectedRows[0];
-                txtUnit.Tag = row.Tag;
-                txtUnit.Text = row.Cells[0].Value.ToString();
+                RecordStatus.Units.Updated();
+                _hasChanges = false;
             }
         }
 
@@ -90,6 +89,16 @@ namespace Point.Client.Main.Forms.Products
             dgvUnits_SelectionChanged(sender, e);
 
             EnableEditing(false);
+        }
+
+        private void dgvUnits_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvUnits.SelectedRows.Count > 0)
+            {
+                var row = dgvUnits.SelectedRows[0];
+                txtUnit.Tag = row.Tag;
+                txtUnit.Text = row.Cells[0].Value.ToString();
+            }
         }
 
         #region Helpers
@@ -215,13 +224,5 @@ namespace Point.Client.Main.Forms.Products
 
         #endregion
 
-        private void frmUnits_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (_hasChanges)
-            {
-                RecordStatus.Units.Updated();
-                _hasChanges = false;
-            }
-        }
     }
 }

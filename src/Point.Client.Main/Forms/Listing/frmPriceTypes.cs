@@ -1,8 +1,8 @@
-﻿using System.Data;
-using Point.Client.Main.Api;
+﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Globals;
+using System.Data;
 
 namespace Point.Client.Main.Forms.Listing
 {
@@ -10,6 +10,7 @@ namespace Point.Client.Main.Forms.Listing
     {
         private bool _isFirstLoad;
         private bool _isAddingNew;
+        private bool _hasChanges;
 
         private readonly PriceTypeService _priceTypeService;
 
@@ -19,6 +20,7 @@ namespace Point.Client.Main.Forms.Listing
 
             _isFirstLoad = true;
             _isAddingNew = false;
+            _hasChanges = false;
 
             _priceTypeService = ServiceFactory.GetService<PriceTypeService>();
         }
@@ -33,11 +35,12 @@ namespace Point.Client.Main.Forms.Listing
             }
         }
 
-        private void frmPriceTypes_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmPriceTypes_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (btnCancel.Visible)
+            if(_hasChanges)
             {
-                btnCancel_Click(sender, e);
+                RecordStatus.PriceTypes.Updated();
+                _hasChanges = false;
             }
         }
 
@@ -143,7 +146,7 @@ namespace Point.Client.Main.Forms.Listing
         {
             this.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
         }
-        
+
         private void EnableControls(bool enable = true)
         {
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
@@ -174,7 +177,7 @@ namespace Point.Client.Main.Forms.Listing
                     EnableEditing(false);
                 }));
 
-                RecordStatus.PriceTypes.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -204,7 +207,7 @@ namespace Point.Client.Main.Forms.Listing
                     EnableEditing(false);
                 }));
 
-                RecordStatus.PriceTypes.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -285,6 +288,5 @@ namespace Point.Client.Main.Forms.Listing
         }
 
         #endregion
-       
     }
 }

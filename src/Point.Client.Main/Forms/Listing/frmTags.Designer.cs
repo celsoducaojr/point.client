@@ -152,7 +152,7 @@
             Padding = new Padding(25);
             StartPosition = FormStartPosition.CenterParent;
             Text = "Tags";
-            FormClosing += frmTags_FormClosing;
+            FormClosed += frmTags_FormClosed;
             Load += frmTags_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTags).EndInit();
             ResumeLayout(false);
