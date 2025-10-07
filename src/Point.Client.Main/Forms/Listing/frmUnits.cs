@@ -9,6 +9,7 @@ namespace Point.Client.Main.Forms.Products
     {
         private bool _isFirstLoad;
         private bool _isAddingNew;
+        private bool _hasChanges;
 
         private readonly UnitService _unitService;
 
@@ -16,8 +17,9 @@ namespace Point.Client.Main.Forms.Products
         {
             InitializeComponent();
 
-            _isFirstLoad  = true;
+            _isFirstLoad = true;
             _isAddingNew = false;
+            _hasChanges = false;
 
             _unitService = ServiceFactory.GetService<UnitService>();
         }
@@ -140,7 +142,7 @@ namespace Point.Client.Main.Forms.Products
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Units.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -170,7 +172,7 @@ namespace Point.Client.Main.Forms.Products
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Units.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -212,5 +214,14 @@ namespace Point.Client.Main.Forms.Products
         }
 
         #endregion
+
+        private void frmUnits_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (_hasChanges)
+            {
+                RecordStatus.Units.Updated();
+                _hasChanges = false;
+            }
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Point.Client.Main.Globals
+﻿using Point.Client.Main.Forms;
+
+namespace Point.Client.Main.Globals
 {
     public static class FormFactory
     {
@@ -49,6 +51,26 @@
             return newForm;
         }
 
-    }
+        #region Form Loading
 
+        private static Dictionary<string, frmLoading> _loadingForms = [];
+        public static void ShowLoadingForm(Form owner, string? message = null)
+        {
+            var form = new frmLoading();
+            _loadingForms[owner.Name] = form;
+            form.SetMessage(message);
+            form.Show(owner);
+        }
+
+        public static void CloseLoadingForm(Form owner)
+        {
+            if (_loadingForms.TryGetValue(owner.Name, out frmLoading? form))
+            {
+                form?.Close();
+                _loadingForms.Remove(owner.Name);
+            }
+        }
+
+        #endregion
+    }
 }

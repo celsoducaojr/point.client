@@ -152,6 +152,7 @@
             Padding = new Padding(25);
             StartPosition = FormStartPosition.CenterParent;
             Text = "Units";
+            FormClosed += frmUnits_FormClosed;
             Load += frmUnits_Load;
             ((System.ComponentModel.ISupportInitialize)dgvUnits).EndInit();
             ResumeLayout(false);

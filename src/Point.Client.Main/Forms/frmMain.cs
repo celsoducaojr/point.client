@@ -25,7 +25,7 @@ namespace Point.Client.Main
 
         private void dataManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormFactory.GetFormDialog<frmDataManager>().ShowDialog();
+            new frmLoading().ShowDialog();
         }
 
         #endregion

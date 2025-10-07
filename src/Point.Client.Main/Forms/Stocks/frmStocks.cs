@@ -1,28 +1,26 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Dtos.Response;
-using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Entities.Stocks;
 using Point.Client.Main.Api.Enums;
-using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
 using Point.Client.Main.Forms.Stocks;
-using static Point.Client.Main.Globals.RecordStatus;
+using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Stocks
 {
     public partial class frmStocks : Form
     {
         private bool _isFirstLoad;
+        private bool _isActive;
+        private SearchItemCriteriaDto? _searchItemDto;
 
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
 
-        private DateTime? _stockLastUpdate;
-        private DateTime? _itemLastUpdate;
-        private DateTime? _unitLastUpdate;
+        private DateTime? _listingLastUpdate;
 
         private readonly StockService _stockService;
 
@@ -31,49 +29,22 @@ namespace Point.Client.Main.Stocks
             InitializeComponent();
 
             _isFirstLoad = true;
+            _isActive = false;
+            _searchItemDto = null;
 
             _currentPage = 1;
             _currentTotalPages = 0;
             _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
 
-            _stockLastUpdate = null;
-            _itemLastUpdate = null;
-            _unitLastUpdate = null;
+            _listingLastUpdate = RecordStatus.Domain.Listing.LastUpdate;
+            RecordStatus.Domain.Listing.OnDataUpdated += ReloadData;
 
             _stockService = ServiceFactory.GetService<StockService>();
 
             cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
         }
 
-        private void frmStocks_Load(object sender, EventArgs e)
-        {
-            EnableControls(false);
-
-            if (_isFirstLoad)
-            {
-                _isFirstLoad = false;
-
-                cmbPageSize.SelectedIndex = 0;
-            }
-            //else if (_categoryLastUpdate != Categories.LastUpdate
-            //    || _tagLastUpdate != Tags.LastUpdate
-            //    || _unitLastUpdate != Units.LastUpdate
-            //    || _itemLastUpdate != Items.LastUpdate
-            //    || _priceTypeLastUpdate != PriceTypes.LastUpdate)
-            //{
-            //    _categoryLastUpdate = Categories.LastUpdate;
-            //    _tagLastUpdate = Tags.LastUpdate;
-            //    _unitLastUpdate = Units.LastUpdate;
-            //    _itemLastUpdate = Items.LastUpdate;
-            //    _priceTypeLastUpdate = PriceTypes.LastUpdate;
-
-            //    await Task.Run(LoadPriceTypes);
-
-            //    cmbPageSize_SelectedIndexChanged(sender, e);
-            //}
-
-            EnableControls();
-        }
+        #region Editing
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -142,11 +113,18 @@ namespace Point.Client.Main.Stocks
             }
         }
 
+        #endregion
+
         #region Search and Pagination
+
+        private void ReloadData()
+        {
+            if (_isActive) Task.Run(() => SearchStocks());
+        }
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            txtSearchItem.Clear();
+            _searchItemDto = null;
 
             Task.Run(() => SearchStocks());
         }
@@ -234,6 +212,42 @@ namespace Point.Client.Main.Stocks
             });
         }
 
+        private void txtItem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtItem.Text))
+            {
+                _searchItemDto = new SearchItemCriteriaDto
+                {
+                    Name = txtItem.Text.Trim()
+                };
+
+                Task.Run(() => SearchStocks());
+            }
+        }
+
+        private void frmStocks_Activated(object sender, EventArgs e)
+        {
+            if (_isFirstLoad)
+            {
+                _isFirstLoad = false;
+
+                cmbPageSize.SelectedIndex = 0;
+            }
+            else if (_listingLastUpdate != RecordStatus.Domain.Listing.LastUpdate)
+            {
+                _listingLastUpdate = RecordStatus.Domain.Listing.LastUpdate;
+
+                cmbPageSize_SelectedIndexChanged(sender, e);
+            }
+
+            _isActive = true;
+        }
+
+        private void frmStocks_Deactivate(object sender, EventArgs e)
+        {
+            _isActive = false;
+        }
+
         #endregion
 
         #region Helpers
@@ -243,14 +257,30 @@ namespace Point.Client.Main.Stocks
             dgvHistories.Rows.Clear();
         }
 
-        private void EnableControls(bool enable = true)
+        private void EnableFormLoading(string? message = null, bool enable = true)
         {
+            this.ControlBox = enable;
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
 
             if (dgvStocks.Rows.Count == 0)
             {
                 tsMenu.Enabled = false;
                 pnlSearch.Enabled = false;
+            }
+
+            if (!enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.CloseLoadingForm(this);
+                }));
             }
         }
 
@@ -272,13 +302,12 @@ namespace Point.Client.Main.Stocks
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
-
-                this.Text = "Loading Stocks...";
+                EnableFormLoading("Loading Stocks...", false);
             }));
 
+            Thread.Sleep(2000);
             var response = await _stockService.SearchStocks(_currentPage, _currentPageSize,
-                !string.IsNullOrEmpty(txtSearchItem.Text) ? txtSearchItem.Text.Trim() : null);
+                _searchItemDto != null ? _searchItemDto.Name : null);
 
             this.Invoke((MethodInvoker)(() =>
             {
@@ -306,11 +335,10 @@ namespace Point.Client.Main.Stocks
                 }
 
                 this.Text = frmText;
-                EnableControls();
+                EnableFormLoading();
             }));
         }
 
         #endregion
-        
     }
 }

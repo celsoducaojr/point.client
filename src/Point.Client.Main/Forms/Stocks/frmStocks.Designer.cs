@@ -37,8 +37,9 @@
             clmUnit = new DataGridViewTextBoxColumn();
             clmQuantity = new DataGridViewTextBoxColumn();
             pnlSearch = new Panel();
+            panel1 = new Panel();
             linkLabel1 = new LinkLabel();
-            txtSearchItem = new TextBox();
+            txtItem = new TextBox();
             panel2 = new Panel();
             dgvHistories = new DataGridView();
             clmDateTime = new DataGridViewTextBoxColumn();
@@ -79,7 +80,7 @@
             lblTitle.Location = new System.Drawing.Point(0, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(1755, 42);
+            lblTitle.Size = new Size(1598, 42);
             lblTitle.TabIndex = 1;
             lblTitle.Text = "Manage Stocks";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
@@ -89,7 +90,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.BackColor = Color.DeepSkyBlue;
             label1.Image = Properties.Resources.stocks_banner;
-            label1.Location = new System.Drawing.Point(1703, 2);
+            label1.Location = new System.Drawing.Point(1546, 2);
             label1.Name = "label1";
             label1.Size = new Size(40, 40);
             label1.TabIndex = 11;
@@ -108,7 +109,7 @@
             dgvStocks.ReadOnly = true;
             dgvStocks.RowHeadersWidth = 51;
             dgvStocks.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvStocks.Size = new Size(948, 473);
+            dgvStocks.Size = new Size(791, 516);
             dgvStocks.TabIndex = 1;
             dgvStocks.SelectionChanged += dgvStocks_SelectionChanged;
             // 
@@ -147,13 +148,23 @@
             // 
             // pnlSearch
             // 
+            pnlSearch.Controls.Add(panel1);
             pnlSearch.Controls.Add(linkLabel1);
-            pnlSearch.Controls.Add(txtSearchItem);
+            pnlSearch.Controls.Add(txtItem);
             pnlSearch.Dock = DockStyle.Bottom;
-            pnlSearch.Location = new System.Drawing.Point(0, 577);
+            pnlSearch.Location = new System.Drawing.Point(0, 620);
             pnlSearch.Name = "pnlSearch";
-            pnlSearch.Size = new Size(1755, 85);
+            pnlSearch.Size = new Size(1598, 85);
             pnlSearch.TabIndex = 5;
+            // 
+            // panel1
+            // 
+            panel1.BackgroundImage = Properties.Resources.search;
+            panel1.BackgroundImageLayout = ImageLayout.Center;
+            panel1.Location = new System.Drawing.Point(13, 14);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(27, 27);
+            panel1.TabIndex = 3;
             // 
             // linkLabel1
             // 
@@ -165,26 +176,27 @@
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Advance search...";
             // 
-            // txtSearchItem
+            // txtItem
             // 
-            txtSearchItem.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtSearchItem.Location = new System.Drawing.Point(13, 14);
-            txtSearchItem.Margin = new Padding(4);
-            txtSearchItem.MaxLength = 100;
-            txtSearchItem.Name = "txtSearchItem";
-            txtSearchItem.PlaceholderText = "Search item...";
-            txtSearchItem.Size = new Size(1728, 27);
-            txtSearchItem.TabIndex = 1;
+            txtItem.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtItem.Location = new System.Drawing.Point(47, 14);
+            txtItem.Margin = new Padding(4);
+            txtItem.MaxLength = 100;
+            txtItem.Name = "txtItem";
+            txtItem.PlaceholderText = "Search item...";
+            txtItem.Size = new Size(1537, 27);
+            txtItem.TabIndex = 1;
+            txtItem.KeyDown += txtItem_KeyDown;
             // 
             // panel2
             // 
             panel2.Controls.Add(dgvHistories);
             panel2.Controls.Add(label4);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new System.Drawing.Point(948, 73);
+            panel2.Location = new System.Drawing.Point(791, 73);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(10);
-            panel2.Size = new Size(807, 504);
+            panel2.Size = new Size(807, 547);
             panel2.TabIndex = 4;
             // 
             // dgvHistories
@@ -199,7 +211,7 @@
             dgvHistories.Name = "dgvHistories";
             dgvHistories.ReadOnly = true;
             dgvHistories.RowHeadersWidth = 51;
-            dgvHistories.Size = new Size(779, 448);
+            dgvHistories.Size = new Size(779, 491);
             dgvHistories.TabIndex = 1;
             // 
             // clmDateTime
@@ -251,7 +263,7 @@
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new System.Drawing.Point(0, 73);
             panel3.Name = "panel3";
-            panel3.Size = new Size(948, 504);
+            panel3.Size = new Size(791, 547);
             panel3.TabIndex = 3;
             // 
             // tsPages
@@ -261,9 +273,9 @@
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
             tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, btnReload });
-            tsPages.Location = new System.Drawing.Point(0, 473);
+            tsPages.Location = new System.Drawing.Point(0, 516);
             tsPages.Name = "tsPages";
-            tsPages.Size = new Size(948, 31);
+            tsPages.Size = new Size(791, 31);
             tsPages.TabIndex = 2;
             tsPages.Text = "toolStrip2";
             // 
@@ -376,7 +388,7 @@
             tsMenu.Items.AddRange(new ToolStripItem[] { btnAdd, btnRemove });
             tsMenu.Location = new System.Drawing.Point(0, 42);
             tsMenu.Name = "tsMenu";
-            tsMenu.Size = new Size(1755, 31);
+            tsMenu.Size = new Size(1598, 31);
             tsMenu.TabIndex = 2;
             tsMenu.Text = "toolStrip1";
             // 
@@ -404,7 +416,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1755, 662);
+            ClientSize = new Size(1598, 705);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(pnlSearch);
@@ -415,7 +427,8 @@
             Name = "frmStocks";
             Text = "Stocks";
             WindowState = FormWindowState.Maximized;
-            Load += frmStocks_Load;
+            Activated += frmStocks_Activated;
+            Deactivate += frmStocks_Deactivate;
             ((System.ComponentModel.ISupportInitialize)dgvStocks).EndInit();
             pnlSearch.ResumeLayout(false);
             pnlSearch.PerformLayout();
@@ -438,7 +451,7 @@
         private Label label1;
         private DataGridView dgvStocks;
         private Panel pnlSearch;
-        private TextBox txtSearchItem;
+        private TextBox txtItem;
         private Panel panel2;
         private DataGridView dgvHistories;
         private Label label4;
@@ -467,5 +480,6 @@
         private DataGridViewTextBoxColumn clmChanged;
         private DataGridViewTextBoxColumn clmAfterChange;
         private DataGridViewTextBoxColumn clmRemarks;
+        private Panel panel1;
     }
 }
