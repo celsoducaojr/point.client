@@ -14,6 +14,8 @@ namespace Point.Client.Main.Stocks
     {
         private bool _isFirstLoad;
         private bool _isActive;
+        private bool _hasChanges;
+
         private SearchItemCriteriaDto? _searchItemDto;
 
         private int _currentPage;
@@ -30,6 +32,8 @@ namespace Point.Client.Main.Stocks
 
             _isFirstLoad = true;
             _isActive = false;
+            _hasChanges = false;
+
             _searchItemDto = null;
 
             _currentPage = 1;
@@ -62,6 +66,12 @@ namespace Point.Client.Main.Stocks
 
         private void frmStocks_Deactivate(object sender, EventArgs e)
         {
+            if (_hasChanges)
+            {
+                RecordStatus.Stocks.Updated();
+                _hasChanges = false;
+            }
+
             _isActive = false;
         }
 
@@ -88,6 +98,8 @@ namespace Point.Client.Main.Stocks
                 });
                 dgvStocks.SelectedRows[0].Cells["clmQuantity"].Value = stock.Quantity;
                 dgvStocks_SelectionChanged(null, null);
+
+                _hasChanges = true;
             }
         }
 
@@ -112,6 +124,8 @@ namespace Point.Client.Main.Stocks
                 });
                 dgvStocks.SelectedRows[0].Cells["clmQuantity"].Value = stock.Quantity;
                 dgvStocks_SelectionChanged(null, null);
+
+                _hasChanges = true;
             }
         }
 

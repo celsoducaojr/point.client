@@ -87,8 +87,6 @@ namespace Point.Client.Main.Forms.Stocks
                     Remarks = stockDto.Remarks;
                     this.DialogResult = DialogResult.OK;
                 }));
-
-                RecordStatus.Stocks.Updated();
             }
             catch (HttpRequestException ex)
             {
