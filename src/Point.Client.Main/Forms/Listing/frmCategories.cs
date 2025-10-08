@@ -138,6 +138,7 @@ namespace Point.Client.Main.Listing
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
+                    this.UseWaitCursor = true;
                     FormFactory.ShowLoadingForm(this, message);
                 }));
             }
@@ -145,6 +146,7 @@ namespace Point.Client.Main.Listing
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
+                    this.UseWaitCursor = false;
                     FormFactory.CloseLoadingForm(this);
                 }));
             }

@@ -233,6 +233,7 @@
             MinimizeBox = false;
             Name = "frmOrderItemPrice";
             Padding = new Padding(20);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Select Item Price...";
             Load += frmOrderItemPrice_Load;

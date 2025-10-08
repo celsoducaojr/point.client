@@ -244,6 +244,7 @@
             MinimizeBox = false;
             Name = "frmPayOrder";
             Padding = new Padding(28);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Pay Order";
             Load += frmPayOrder_Load;

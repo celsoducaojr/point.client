@@ -168,6 +168,7 @@
             MinimizeBox = false;
             Name = "frmUpdateStock";
             Padding = new Padding(31);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Update Stock";
             ((System.ComponentModel.ISupportInitialize)numQuantity).EndInit();

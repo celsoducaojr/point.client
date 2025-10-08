@@ -150,6 +150,7 @@
             MinimizeBox = false;
             Name = "frmUnits";
             Padding = new Padding(25);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Units";
             FormClosed += frmUnits_FormClosed;

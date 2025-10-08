@@ -213,6 +213,7 @@
             MinimizeBox = false;
             Name = "frmCustomers";
             Padding = new Padding(25);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Customers";
             FormClosing += frmCustomers_FormClosing;

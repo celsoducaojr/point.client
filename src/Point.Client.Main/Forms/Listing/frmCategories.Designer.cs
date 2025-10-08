@@ -150,6 +150,7 @@
             MinimizeBox = false;
             Name = "frmCategories";
             Padding = new Padding(25);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Categories";
             FormClosed += frmCategories_FormClosed;

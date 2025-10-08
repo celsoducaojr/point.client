@@ -205,6 +205,7 @@
             Margin = new Padding(4);
             Name = "frmItemSearch";
             Padding = new Padding(20);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Search Item";
             Load += frmItemSearch_Load;

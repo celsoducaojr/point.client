@@ -126,6 +126,7 @@
             Margin = new Padding(4);
             Name = "frmDataManager";
             Padding = new Padding(25);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Data Manager";
             tabControl1.ResumeLayout(false);

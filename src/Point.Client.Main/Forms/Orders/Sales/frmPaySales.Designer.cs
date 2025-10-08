@@ -294,6 +294,7 @@
             MinimizeBox = false;
             Name = "frmPaySales";
             Padding = new Padding(25);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Add Payment";
             Load += frmPayment_Load;

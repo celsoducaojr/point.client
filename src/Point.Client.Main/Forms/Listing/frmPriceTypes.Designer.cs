@@ -186,6 +186,7 @@
             MinimizeBox = false;
             Name = "frmPriceTypes";
             Padding = new Padding(20);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Price Types";
             FormClosed += frmPriceTypes_FormClosed;

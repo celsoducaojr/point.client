@@ -165,6 +165,7 @@
             MinimizeBox = false;
             Name = "frmOrderStatusUpdate";
             Padding = new Padding(28);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Order Status Update";
             Load += frmOrderStatusUpdate_Load;

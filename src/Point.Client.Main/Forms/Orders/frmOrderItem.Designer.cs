@@ -115,6 +115,7 @@
             MinimizeBox = false;
             MinimumSize = new Size(1000, 500);
             Name = "frmOrderItem";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Search Item";
             Load += frmOrderItem_Load;
