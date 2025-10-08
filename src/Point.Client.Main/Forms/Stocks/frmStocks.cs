@@ -54,7 +54,6 @@ namespace Point.Client.Main.Stocks
             }
             else if (_listingLastUpdate != RecordStatus.Domain.Listing.LastUpdate)
             {
-
                 cmbPageSize_SelectedIndexChanged(sender, e);
             }
 
@@ -266,7 +265,7 @@ namespace Point.Client.Main.Stocks
 
             if (dgvStocks.Rows.Count == 0)
             {
-                tsMenu.Enabled = false;
+                tsMain.Enabled = false;
             }
 
             if (enable)

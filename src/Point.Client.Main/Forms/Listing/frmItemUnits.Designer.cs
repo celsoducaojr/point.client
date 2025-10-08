@@ -53,13 +53,15 @@
             toolStripLabel1 = new ToolStripLabel();
             btnPrev = new ToolStripButton();
             btnFirst = new ToolStripButton();
-            btnSearch = new ToolStripButton();
-            btnClearFilter = new ToolStripButton();
-            lblSearchCriteria = new ToolStripLabel();
             label1 = new Label();
+            pnlSearch = new Panel();
+            panel1 = new Panel();
+            linkLabel1 = new LinkLabel();
+            txtSearchItem = new TextBox();
             tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             tsPages.SuspendLayout();
+            pnlSearch.SuspendLayout();
             SuspendLayout();
             // 
             // tsMain
@@ -68,9 +70,9 @@
             tsMain.GripStyle = ToolStripGripStyle.Hidden;
             tsMain.ImageScalingSize = new Size(20, 20);
             tsMain.Items.AddRange(new ToolStripItem[] { btnCancel, btnSave, btnEdit, toolStripSeparator3, toolStripDropDownButton1 });
-            tsMain.Location = new System.Drawing.Point(0, 60);
+            tsMain.Location = new System.Drawing.Point(0, 42);
             tsMain.Name = "tsMain";
-            tsMain.Size = new Size(1282, 31);
+            tsMain.Size = new Size(1482, 31);
             tsMain.TabIndex = 0;
             tsMain.Text = "toolStrip1";
             // 
@@ -103,8 +105,8 @@
             btnEdit.Image = Properties.Resources.edit_icon;
             btnEdit.ImageTransparentColor = Color.Magenta;
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(68, 28);
-            btnEdit.Text = "Edit";
+            btnEdit.Size = new Size(166, 28);
+            btnEdit.Text = "Edit Item-units";
             btnEdit.TextAlign = ContentAlignment.MiddleRight;
             btnEdit.Click += btnEdit_Click;
             // 
@@ -137,13 +139,13 @@
             dgvItemUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmUnit, clmCapitalCode });
             dgvItemUnits.Dock = DockStyle.Fill;
-            dgvItemUnits.Location = new System.Drawing.Point(0, 91);
+            dgvItemUnits.Location = new System.Drawing.Point(0, 73);
             dgvItemUnits.Margin = new Padding(4);
             dgvItemUnits.MultiSelect = false;
             dgvItemUnits.Name = "dgvItemUnits";
             dgvItemUnits.ReadOnly = true;
             dgvItemUnits.RowHeadersWidth = 51;
-            dgvItemUnits.Size = new Size(1282, 531);
+            dgvItemUnits.Size = new Size(1482, 464);
             dgvItemUnits.TabIndex = 1;
             dgvItemUnits.CellValidated += dgvItemUnits_CellValidated;
             dgvItemUnits.CellValidating += dgvItemUnits_CellValidating;
@@ -185,11 +187,11 @@
             // 
             lblTitle.BackColor = Color.DeepSkyBlue;
             lblTitle.Dock = DockStyle.Top;
-            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTitle.Font = new Font("Segoe UI", 13.8F);
             lblTitle.Location = new System.Drawing.Point(0, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(1282, 60);
+            lblTitle.Size = new Size(1482, 42);
             lblTitle.TabIndex = 2;
             lblTitle.Text = "Manage Item-units";
             lblTitle.TextAlign = ContentAlignment.MiddleLeft;
@@ -200,10 +202,10 @@
             tsPages.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
-            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, btnSearch, btnClearFilter, lblSearchCriteria });
-            tsPages.Location = new System.Drawing.Point(0, 622);
+            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst });
+            tsPages.Location = new System.Drawing.Point(0, 537);
             tsPages.Name = "tsPages";
-            tsPages.Size = new Size(1282, 31);
+            tsPages.Size = new Size(1482, 31);
             tsPages.TabIndex = 3;
             tsPages.Text = "toolStrip2";
             // 
@@ -299,66 +301,85 @@
             btnFirst.ToolTipText = "first page";
             btnFirst.Click += btnFirst_Click;
             // 
-            // btnSearch
-            // 
-            btnSearch.Image = Properties.Resources.search;
-            btnSearch.ImageTransparentColor = Color.Magenta;
-            btnSearch.Name = "btnSearch";
-            btnSearch.RightToLeft = RightToLeft.No;
-            btnSearch.Size = new Size(94, 28);
-            btnSearch.Text = "Search";
-            btnSearch.Click += btnSearch_Click;
-            // 
-            // btnClearFilter
-            // 
-            btnClearFilter.Image = Properties.Resources.clear_search;
-            btnClearFilter.ImageTransparentColor = Color.Magenta;
-            btnClearFilter.Name = "btnClearFilter";
-            btnClearFilter.Size = new Size(131, 28);
-            btnClearFilter.Text = "Clear Filter";
-            btnClearFilter.ToolTipText = "Clear Filter";
-            btnClearFilter.Click += btnClearFilter_Click;
-            // 
-            // lblSearchCriteria
-            // 
-            lblSearchCriteria.Font = new Font("Tahoma", 10.8F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblSearchCriteria.ForeColor = SystemColors.ControlDarkDark;
-            lblSearchCriteria.Name = "lblSearchCriteria";
-            lblSearchCriteria.Size = new Size(201, 28);
-            lblSearchCriteria.Text = "Loading search criteria...";
-            // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label1.BackColor = Color.DeepSkyBlue;
-            label1.Image = Properties.Resources.products;
-            label1.Location = new System.Drawing.Point(1210, 0);
+            label1.Image = Properties.Resources.products_banner;
+            label1.Location = new System.Drawing.Point(1430, 2);
             label1.Name = "label1";
-            label1.Size = new Size(60, 60);
+            label1.Size = new Size(40, 40);
             label1.TabIndex = 4;
+            // 
+            // pnlSearch
+            // 
+            pnlSearch.Controls.Add(panel1);
+            pnlSearch.Controls.Add(linkLabel1);
+            pnlSearch.Controls.Add(txtSearchItem);
+            pnlSearch.Dock = DockStyle.Bottom;
+            pnlSearch.Location = new System.Drawing.Point(0, 568);
+            pnlSearch.Name = "pnlSearch";
+            pnlSearch.Size = new Size(1482, 85);
+            pnlSearch.TabIndex = 5;
+            pnlSearch.TabStop = true;
+            // 
+            // panel1
+            // 
+            panel1.BackgroundImage = Properties.Resources.search;
+            panel1.BackgroundImageLayout = ImageLayout.Center;
+            panel1.Location = new System.Drawing.Point(13, 14);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(27, 27);
+            panel1.TabIndex = 3;
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.AutoSize = true;
+            linkLabel1.Location = new System.Drawing.Point(13, 45);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(147, 25);
+            linkLabel1.TabIndex = 2;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "Advance search...";
+            // 
+            // txtSearchItem
+            // 
+            txtSearchItem.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtSearchItem.Location = new System.Drawing.Point(47, 10);
+            txtSearchItem.Margin = new Padding(4);
+            txtSearchItem.MaxLength = 100;
+            txtSearchItem.Name = "txtSearchItem";
+            txtSearchItem.PlaceholderText = "Search item...";
+            txtSearchItem.Size = new Size(1422, 31);
+            txtSearchItem.TabIndex = 1;
+            txtSearchItem.KeyDown += txtSearchItem_KeyDown;
             // 
             // frmItemUnits
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1282, 653);
+            ClientSize = new Size(1482, 653);
             Controls.Add(label1);
             Controls.Add(dgvItemUnits);
             Controls.Add(tsPages);
             Controls.Add(tsMain);
             Controls.Add(lblTitle);
+            Controls.Add(pnlSearch);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
-            MinimumSize = new Size(1300, 700);
+            MinimumSize = new Size(1500, 700);
             Name = "frmItemUnits";
             Text = "Item-Units";
             WindowState = FormWindowState.Maximized;
-            Load += frmItemUnits_Load;
+            Activated += frmItemUnits_Activated;
+            Deactivate += frmItemUnits_Deactivate;
             tsMain.ResumeLayout(false);
             tsMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).EndInit();
             tsPages.ResumeLayout(false);
             tsPages.PerformLayout();
+            pnlSearch.ResumeLayout(false);
+            pnlSearch.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -380,11 +401,8 @@
         private ToolStripLabel toolStripLabel1;
         private ToolStripButton btnPrev;
         private ToolStripButton btnFirst;
-        private ToolStripButton btnSearch;
-        private ToolStripButton btnClearFilter;
         private ToolStripButton btnSave;
         private ToolStripButton btnCancel;
-        private ToolStripLabel lblSearchCriteria;
         private DataGridViewTextBoxColumn clmItem;
         private DataGridViewTextBoxColumn clmCategory;
         private DataGridViewTextBoxColumn clmUnit;
@@ -393,5 +411,9 @@
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem addStockToolStripMenuItem;
+        private Panel pnlSearch;
+        private Panel panel1;
+        private LinkLabel linkLabel1;
+        private TextBox txtSearchItem;
     }
 }

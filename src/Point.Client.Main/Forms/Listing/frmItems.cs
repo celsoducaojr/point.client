@@ -4,7 +4,6 @@ using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
-using Point.Client.Main.Forms.Products;
 using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Listing

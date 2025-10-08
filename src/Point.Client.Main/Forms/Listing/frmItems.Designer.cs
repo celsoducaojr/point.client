@@ -441,7 +441,7 @@
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.BackColor = Color.DeepSkyBlue;
             label5.Image = Properties.Resources.products_banner;
-            label5.Location = new System.Drawing.Point(1430, 0);
+            label5.Location = new System.Drawing.Point(1430, 2);
             label5.Name = "label5";
             label5.Size = new Size(40, 40);
             label5.TabIndex = 26;

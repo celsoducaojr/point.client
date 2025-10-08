@@ -5,16 +5,15 @@ using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
-using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Forms.Stocks;
 using Point.Client.Main.Globals;
-using static Point.Client.Main.Globals.RecordStatus;
 
 namespace Point.Client.Main.Listing
 {
     public partial class frmItemUnits : Form
     {
         private bool _isFirstLoad;
+        private bool _isActive;
 
         private SearchItemCriteriaDto? _searchItemDto;
         private int _currentPage;
@@ -22,11 +21,7 @@ namespace Point.Client.Main.Listing
         private int _currentPageSize;
         private List<PriceType>? _currentPriceTypes;
 
-        private DateTime? _categoryLastUpdate;
-        private DateTime? _tagLastUpdate;
-        private DateTime? _unitLastUpdate;
-        private DateTime? _itemLastUpdate;
-        private DateTime? _priceTypeLastUpdate;
+        private DateTime? _listingLastUpdate;
 
         private readonly ItemService _itemService;
         private readonly ItemUnitService _itemUnitService;
@@ -37,6 +32,7 @@ namespace Point.Client.Main.Listing
             InitializeComponent();
 
             _isFirstLoad = true;
+            _isActive = false;
 
             _searchItemDto = null;
             _currentPage = 1;
@@ -44,24 +40,18 @@ namespace Point.Client.Main.Listing
             _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
             _currentPriceTypes = null;
 
-            _categoryLastUpdate = null;
-            _tagLastUpdate = null;
-            _unitLastUpdate = null;
-            _itemLastUpdate = null;
-            _priceTypeLastUpdate = null;
+            _listingLastUpdate = RecordStatus.Domain.Listing.LastUpdate;
+            RecordStatus.Domain.Listing.OnDataUpdated += ReloadData;
 
             _itemService = ServiceFactory.GetService<ItemService>();
             _itemUnitService = ServiceFactory.GetService<ItemUnitService>();
             _priceTypeService = ServiceFactory.GetService<PriceTypeService>();
 
             cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
-            lblSearchCriteria.Text = null;
         }
 
-        private async void frmItemUnits_Load(object sender, EventArgs e)
+        private async void frmItemUnits_Activated(object sender, EventArgs e)
         {
-            EnableControls(false);
-
             if (_isFirstLoad)
             {
                 _isFirstLoad = false;
@@ -70,144 +60,23 @@ namespace Point.Client.Main.Listing
 
                 cmbPageSize.SelectedIndex = 0;
             }
-            else if (_categoryLastUpdate != Categories.LastUpdate
-                || _tagLastUpdate != Tags.LastUpdate
-                || _unitLastUpdate != Units.LastUpdate
-                || _itemLastUpdate != Items.LastUpdate
-                || _priceTypeLastUpdate != PriceTypes.LastUpdate)
+            else if (_listingLastUpdate != RecordStatus.Domain.Listing.LastUpdate)
             {
-                _categoryLastUpdate = Categories.LastUpdate;
-                _tagLastUpdate = Tags.LastUpdate;
-                _unitLastUpdate = Units.LastUpdate;
-                _itemLastUpdate = Items.LastUpdate;
-                _priceTypeLastUpdate = PriceTypes.LastUpdate;
 
                 await Task.Run(LoadPriceTypes);
 
                 cmbPageSize_SelectedIndexChanged(sender, e);
             }
 
-            EnableControls();
+            _isActive = true;
         }
 
-        #region Search and Pagination
-        private async void btnSearch_Click(object sender, EventArgs e)
+        private void frmItemUnits_Deactivate(object sender, EventArgs e)
         {
-            var itemSearchForm = FormFactory.GetFormDialog<frmItemSearch>();
-            if (itemSearchForm.ShowDialog() == DialogResult.OK)
-            {
-                _searchItemDto = itemSearchForm.SearchItemCriteria;
-                lblSearchCriteria.Text = null;
-
-                if (_searchItemDto != null)
-                {
-                    var criteria = new List<string>
-                    {
-                        _searchItemDto?.Name ?? string.Empty,
-                        _searchItemDto?.Category?.Name ?? string.Empty,
-                        string.Join(", ", _searchItemDto?.Tags?.Select(tag => tag.Name)?.ToList() ?? [])
-                    };
-                    lblSearchCriteria.Text = criteria.ToSearchResultLabel();
-                }
-
-                await SearchItemsWithUnits();
-            }
+            _isActive = false;
         }
 
-        private async void btnClearFilter_Click(object sender, EventArgs e)
-        {
-            _searchItemDto = null;
-            lblSearchCriteria.Text = null;
-
-            await SearchItemsWithUnits();
-        }
-
-        private void btnFirst_Click(object sender, EventArgs e)
-        {
-            if (_currentTotalPages > 0 && _currentPage != 1)
-            {
-                _currentPage = 1;
-
-                Task.Run(() => SearchItemsWithUnits());
-            }
-        }
-
-        private void btnPrev_Click(object sender, EventArgs e)
-        {
-            if (_currentTotalPages > 0 && _currentPage > 1)
-            {
-                _currentPage = 1;
-
-                if (int.TryParse(txtPage.Text, out var selectedPage)
-                    && selectedPage > 1)
-                {
-                    _currentPage = selectedPage - 1;
-                }
-
-                Task.Run(() => SearchItemsWithUnits());
-            }
-        }
-
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            if (_currentTotalPages > 0 && _currentPage < _currentTotalPages)
-            {
-                _currentPage = _currentTotalPages;
-                if (int.TryParse(txtPage.Text, out var selectedPage)
-                    && selectedPage < _currentTotalPages)
-                {
-                    _currentPage = selectedPage + 1;
-                }
-
-                Task.Run(() => SearchItemsWithUnits());
-            }
-        }
-
-        private void btnLast_Click(object sender, EventArgs e)
-        {
-            if (_currentTotalPages > 0 && _currentPage != _currentTotalPages)
-            {
-                _currentPage = _currentTotalPages;
-
-                Task.Run(() => SearchItemsWithUnits());
-            }
-
-        }
-
-        private void txtPage_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && _currentTotalPages > 0)
-            {
-                if (int.TryParse(txtPage.Text, out var selectedPage)
-                    && selectedPage > 0 && selectedPage != _currentPage && selectedPage <= _currentTotalPages)
-                {
-                    _currentPage = selectedPage;
-                    Task.Run(() => SearchItemsWithUnits());
-                }
-                else
-                {
-                    txtPage.Text = _currentPage.ToString();
-                }
-            }
-        }
-
-        private async void cmbPageSize_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            await Task.Run(async () =>
-            {
-                this.Invoke((MethodInvoker)(() =>
-                {
-                    _currentPage = 1;
-                    _currentPageSize = FormConstants.Pagination.PageSizes[cmbPageSize.SelectedIndex];
-                }));
-
-                await SearchItemsWithUnits();
-            });
-        }
-
-        #endregion
-
-        #region Edit
+        #region Editing
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -224,7 +93,7 @@ namespace Point.Client.Main.Listing
 
             var selectedRow = dgvItemUnits.SelectedCells[0].OwningRow;
             new frmUpdateStock(
-                StockUpdateType.Addition, 
+                StockUpdateType.Addition,
                 selectedRow.Cells["clmItem"].Value.ToString(),
                 selectedRow.Cells["clmUnit"].Value.ToString(),
                 int.Parse(selectedRow.Tag.ToString()))
@@ -233,8 +102,6 @@ namespace Point.Client.Main.Listing
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            EnableControls(false);
-
             var itemUnits = new List<ItemUnitPatchDto>();
 
             foreach (DataGridViewRow row in dgvItemUnits.Rows)
@@ -265,7 +132,7 @@ namespace Point.Client.Main.Listing
         private void btnCancel_Click(object sender, EventArgs e)
         {
             EnableEditing(false);
-            Task.Run(() => SearchItemsWithUnits());
+            Task.Run(() => SearchItems());
         }
 
         private void dgvItemUnits_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
@@ -301,6 +168,115 @@ namespace Point.Client.Main.Listing
 
         #endregion
 
+        #region Search and Pagination
+
+        private async void ReloadData()
+        {
+            if (_isActive)
+            {
+                await LoadPriceTypes();
+                await SearchItems();
+            }
+        }
+
+        private void btnFirst_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0 && _currentPage != 1)
+            {
+                _currentPage = 1;
+
+                Task.Run(() => SearchItems());
+            }
+        }
+
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0 && _currentPage > 1)
+            {
+                _currentPage = 1;
+
+                if (int.TryParse(txtPage.Text, out var selectedPage)
+                    && selectedPage > 1)
+                {
+                    _currentPage = selectedPage - 1;
+                }
+
+                Task.Run(() => SearchItems());
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0 && _currentPage < _currentTotalPages)
+            {
+                _currentPage = _currentTotalPages;
+                if (int.TryParse(txtPage.Text, out var selectedPage)
+                    && selectedPage < _currentTotalPages)
+                {
+                    _currentPage = selectedPage + 1;
+                }
+
+                Task.Run(() => SearchItems());
+            }
+        }
+
+        private void btnLast_Click(object sender, EventArgs e)
+        {
+            if (_currentTotalPages > 0 && _currentPage != _currentTotalPages)
+            {
+                _currentPage = _currentTotalPages;
+
+                Task.Run(() => SearchItems());
+            }
+
+        }
+
+        private void txtPage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && _currentTotalPages > 0)
+            {
+                if (int.TryParse(txtPage.Text, out var selectedPage)
+                    && selectedPage > 0 && selectedPage != _currentPage && selectedPage <= _currentTotalPages)
+                {
+                    _currentPage = selectedPage;
+                    Task.Run(() => SearchItems());
+                }
+                else
+                {
+                    txtPage.Text = _currentPage.ToString();
+                }
+            }
+        }
+
+        private async void cmbPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            await Task.Run(async () =>
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    _currentPage = 1;
+                    _currentPageSize = FormConstants.Pagination.PageSizes[cmbPageSize.SelectedIndex];
+                }));
+
+                await SearchItems();
+            });
+        }
+
+        private void txtSearchItem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtSearchItem.Text))
+            {
+                _searchItemDto = new SearchItemCriteriaDto
+                {
+                    Name = txtSearchItem.Text.Trim()
+                };
+
+                Task.Run(() => SearchItems());
+            }
+        }
+
+        #endregion
+
         #region Helpers
 
         private void EnableEditing(bool enable = true)
@@ -315,15 +291,34 @@ namespace Point.Client.Main.Listing
             dgvItemUnits.Columns["clmUnit"].ReadOnly = enable;
 
             tsPages.Enabled = !enable;
-
-            EnableControls();
         }
 
-        private void EnableControls(bool enable = true)
+        private void EnableFormLoading(bool enable = true, string? message = null)
         {
-            dgvItemUnits.EndEdit();
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
 
-            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
+            if (dgvItemUnits.Rows.Count == 0)
+            {
+                tsMain.Enabled = false;
+            }
+
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    this.UseWaitCursor = true;
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    this.UseWaitCursor = false;
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
         }
 
         private void UpdateRowValues(Item item, ItemUnit unit, DataGridViewRow row)
@@ -351,38 +346,39 @@ namespace Point.Client.Main.Listing
 
         private async void PatchItemUnits(List<ItemUnitPatchDto> itemUnits)
         {
+            this.Invoke((MethodInvoker)(() =>
+            {
+                EnableEditing(false);
+                EnableFormLoading(true, "Updating Item-units Prices...");
+            }));
+
             try
             {
                 await _itemUnitService.PatchItemUnits(itemUnits);
-
                 this.Invoke((MethodInvoker)(() =>
                 {
+                    EnableFormLoading(false);
                     MessageBox.Show("Item-units has been updated.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    EnableEditing(false);
                 }));
 
-                ItemUnits.Updated();
+                RecordStatus.ItemUnits.Updated();
             }
             catch (HttpRequestException ex)
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     EnableEditing(true);
+                    EnableFormLoading(false);
+                    MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }));
             }
         }
 
-        private async Task SearchItemsWithUnits()
+        private async Task SearchItems()
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
-
-                this.Text = "Loading Items Units...";
+                EnableFormLoading(true,"Loading Item-units...");
             }));
 
             var response = await _itemService.SearchItemsWithUnits(_currentPage, _currentPageSize,
@@ -412,25 +408,25 @@ namespace Point.Client.Main.Listing
                     });
                 }
 
-                this.Text = frmText;
-                EnableControls();
+                EnableFormLoading(false);
             }));
         }
 
         private async Task LoadPriceTypes()
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
-
-                this.Text = "Loading Price Types Columns...";
+                EnableFormLoading(true, "Loading Price Types...");
             }));
 
             _currentPriceTypes = await _priceTypeService.GetPricesTypes();
 
             this.Invoke((MethodInvoker)(() =>
             {
+                dgvItemUnits.Columns.OfType<DataGridViewColumn>()
+                .Where(c => c.Tag != null && c.Tag.ToString() == FormConstants.DataGridView.Tags.Price)
+                .ToList().ForEach(c => dgvItemUnits.Columns.Remove(c));
+
                 _currentPriceTypes?.ForEach(priceType =>
                 {
                     var column = new DataGridViewTextBoxColumn()
@@ -445,8 +441,7 @@ namespace Point.Client.Main.Listing
                     dgvItemUnits.Columns.Add(column);
                 });
 
-                this.Text = frmText;
-                EnableControls();
+                EnableFormLoading(false);
             }));
         }
 

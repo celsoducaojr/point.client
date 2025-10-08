@@ -60,7 +60,7 @@
             btnPrev = new ToolStripButton();
             btnFirst = new ToolStripButton();
             btnReload = new ToolStripButton();
-            tsMenu = new ToolStrip();
+            tsMain = new ToolStrip();
             btnAdd = new ToolStripButton();
             btnRemove = new ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)dgvStocks).BeginInit();
@@ -69,7 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvHistories).BeginInit();
             panel3.SuspendLayout();
             tsPages.SuspendLayout();
-            tsMenu.SuspendLayout();
+            tsMain.SuspendLayout();
             SuspendLayout();
             // 
             // lblTitle
@@ -383,18 +383,18 @@
             btnReload.Text = "Reload All";
             btnReload.Click += btnReload_Click;
             // 
-            // tsMenu
+            // tsMain
             // 
-            tsMenu.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            tsMenu.GripStyle = ToolStripGripStyle.Hidden;
-            tsMenu.ImageScalingSize = new Size(20, 20);
-            tsMenu.Items.AddRange(new ToolStripItem[] { btnAdd, btnRemove });
-            tsMenu.Location = new System.Drawing.Point(0, 42);
-            tsMenu.Name = "tsMenu";
-            tsMenu.Size = new Size(1482, 31);
-            tsMenu.TabIndex = 5;
-            tsMenu.TabStop = true;
-            tsMenu.Text = "toolStrip1";
+            tsMain.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tsMain.GripStyle = ToolStripGripStyle.Hidden;
+            tsMain.ImageScalingSize = new Size(20, 20);
+            tsMain.Items.AddRange(new ToolStripItem[] { btnAdd, btnRemove });
+            tsMain.Location = new System.Drawing.Point(0, 42);
+            tsMain.Name = "tsMain";
+            tsMain.Size = new Size(1482, 31);
+            tsMain.TabIndex = 5;
+            tsMain.TabStop = true;
+            tsMain.Text = "toolStrip1";
             // 
             // btnAdd
             // 
@@ -425,7 +425,7 @@
             Controls.Add(panel2);
             Controls.Add(pnlSearch);
             Controls.Add(label1);
-            Controls.Add(tsMenu);
+            Controls.Add(tsMain);
             Controls.Add(lblTitle);
             MinimumSize = new Size(1500, 700);
             Name = "frmStocks";
@@ -443,8 +443,8 @@
             panel3.PerformLayout();
             tsPages.ResumeLayout(false);
             tsPages.PerformLayout();
-            tsMenu.ResumeLayout(false);
-            tsMenu.PerformLayout();
+            tsMain.ResumeLayout(false);
+            tsMain.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -460,7 +460,7 @@
         private DataGridView dgvHistories;
         private Label label4;
         private Panel panel3;
-        private ToolStrip tsMenu;
+        private ToolStrip tsMain;
         private ToolStripButton btnAdd;
         private ToolStripButton btnRemove;
         private LinkLabel linkLabel1;
