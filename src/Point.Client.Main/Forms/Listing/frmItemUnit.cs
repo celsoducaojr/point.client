@@ -50,7 +50,7 @@ namespace Point.Client.Main.Listing
         {
             _item = item;
 
-            lblItem.Text = _item.Name;
+            txtItem.Text = _item.Name;
 
             this.ShowDialog();
         }

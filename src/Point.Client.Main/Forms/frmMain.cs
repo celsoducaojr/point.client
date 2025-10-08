@@ -39,7 +39,7 @@ namespace Point.Client.Main
 
         private void btnItems_Click(object sender, EventArgs e)
         {
-            FormFactory.GetFormDialog<frmItems>().ShowDialog();
+            OpenChildForm(new frmItems());
         }
 
         private void btnCategories_Click(object sender, EventArgs e)

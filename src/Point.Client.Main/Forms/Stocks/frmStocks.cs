@@ -44,6 +44,28 @@ namespace Point.Client.Main.Stocks
             cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
         }
 
+        private void frmStocks_Activated(object sender, EventArgs e)
+        {
+            if (_isFirstLoad)
+            {
+                _isFirstLoad = false;
+
+                cmbPageSize.SelectedIndex = 0;
+            }
+            else if (_listingLastUpdate != RecordStatus.Domain.Listing.LastUpdate)
+            {
+
+                cmbPageSize_SelectedIndexChanged(sender, e);
+            }
+
+            _isActive = true;
+        }
+
+        private void frmStocks_Deactivate(object sender, EventArgs e)
+        {
+            _isActive = false;
+        }
+
         #region Editing
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -117,11 +139,11 @@ namespace Point.Client.Main.Stocks
 
         #region Search and Pagination
 
-        private void ReloadData()
+        private async void ReloadData()
         {
             if (_isActive)
             {
-                Task.Run(() => SearchStocks());
+                await SearchStocks();
             }
         }
 
@@ -215,40 +237,17 @@ namespace Point.Client.Main.Stocks
             });
         }
 
-        private void txtItem_KeyDown(object sender, KeyEventArgs e)
+        private void txtSearchItem_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtItem.Text))
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtSearchItem.Text))
             {
                 _searchItemDto = new SearchItemCriteriaDto
                 {
-                    Name = txtItem.Text.Trim()
+                    Name = txtSearchItem.Text.Trim()
                 };
 
                 Task.Run(() => SearchStocks());
             }
-        }
-
-        private void frmStocks_Activated(object sender, EventArgs e)
-        {
-            if (_isFirstLoad)
-            {
-                _isFirstLoad = false;
-
-                cmbPageSize.SelectedIndex = 0;
-            }
-            else if (_listingLastUpdate != RecordStatus.Domain.Listing.LastUpdate)
-            {
-                _listingLastUpdate = RecordStatus.Domain.Listing.LastUpdate;
-
-                cmbPageSize_SelectedIndexChanged(sender, e);
-            }
-
-            _isActive = true;
-        }
-
-        private void frmStocks_Deactivate(object sender, EventArgs e)
-        {
-            _isActive = false;
         }
 
         #endregion
@@ -260,18 +259,17 @@ namespace Point.Client.Main.Stocks
             dgvHistories.Rows.Clear();
         }
 
-        private void EnableFormLoading(string? message = null, bool enable = true)
+        private void EnableFormLoading(bool enable = true, string? message = null)
         {
-            this.ControlBox = enable;
-            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
 
             if (dgvStocks.Rows.Count == 0)
             {
                 tsMenu.Enabled = false;
-                pnlSearch.Enabled = false;
             }
 
-            if (!enable)
+            if (enable)
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
@@ -302,10 +300,12 @@ namespace Point.Client.Main.Stocks
 
         private async Task SearchStocks()
         {
+            _listingLastUpdate = RecordStatus.Domain.Listing.LastUpdate;
+
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableFormLoading("Loading Stocks...", false);
+                EnableFormLoading(true, "Loading Stocks...");
             }));
 
             Thread.Sleep(2000);
@@ -338,7 +338,7 @@ namespace Point.Client.Main.Stocks
                 }
 
                 this.Text = frmText;
-                EnableFormLoading();
+                EnableFormLoading(false);
             }));
         }
 

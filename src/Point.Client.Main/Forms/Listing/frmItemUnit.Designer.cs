@@ -30,15 +30,15 @@
         {
             label2 = new Label();
             cmbUnit = new ComboBox();
-            lblItem = new Label();
             btnCancel = new Button();
             btnSave = new Button();
+            txtItem = new RichTextBox();
             SuspendLayout();
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(29, 32);
+            label2.Location = new System.Drawing.Point(29, 126);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(44, 25);
@@ -50,26 +50,15 @@
             cmbUnit.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbUnit.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmbUnit.FormattingEnabled = true;
-            cmbUnit.Location = new System.Drawing.Point(81, 29);
+            cmbUnit.Location = new System.Drawing.Point(81, 123);
             cmbUnit.Margin = new Padding(4);
             cmbUnit.Name = "cmbUnit";
-            cmbUnit.Size = new Size(294, 33);
+            cmbUnit.Size = new Size(248, 33);
             cmbUnit.TabIndex = 1;
-            // 
-            // lblItem
-            // 
-            lblItem.BorderStyle = BorderStyle.FixedSingle;
-            lblItem.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblItem.Location = new System.Drawing.Point(29, 75);
-            lblItem.Margin = new Padding(4, 0, 4, 0);
-            lblItem.Name = "lblItem";
-            lblItem.Size = new Size(570, 92);
-            lblItem.TabIndex = 15;
-            lblItem.Text = "Item";
             // 
             // btnCancel
             // 
-            btnCancel.Location = new System.Drawing.Point(481, 202);
+            btnCancel.Location = new System.Drawing.Point(384, 179);
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 36);
@@ -80,7 +69,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new System.Drawing.Point(293, 202);
+            btnSave.Location = new System.Drawing.Point(196, 179);
             btnSave.Margin = new Padding(4);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(180, 36);
@@ -89,16 +78,25 @@
             btnSave.UseVisualStyleBackColor = true;
             btnSave.Click += btnSave_Click;
             // 
+            // txtItem
+            // 
+            txtItem.Location = new System.Drawing.Point(28, 28);
+            txtItem.Name = "txtItem";
+            txtItem.ReadOnly = true;
+            txtItem.Size = new Size(475, 88);
+            txtItem.TabIndex = 4;
+            txtItem.Text = "";
+            // 
             // frmItemUnit
             // 
             AcceptButton = btnSave;
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new Size(628, 267);
+            ClientSize = new Size(531, 244);
+            Controls.Add(txtItem);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
-            Controls.Add(lblItem);
             Controls.Add(label2);
             Controls.Add(cmbUnit);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -119,8 +117,8 @@
 
         private Label label2;
         private ComboBox cmbUnit;
-        private Label lblItem;
         private Button btnCancel;
         private Button btnSave;
+        private RichTextBox txtItem;
     }
 }

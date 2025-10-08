@@ -209,11 +209,6 @@ namespace Point.Client.Main.Listing
 
         #region Edit
 
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            FormFactory.GetFormDialog<frmItems>().ShowForSelection();
-        }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             EnableEditing();
@@ -310,7 +305,6 @@ namespace Point.Client.Main.Listing
 
         private void EnableEditing(bool enable = true)
         {
-            btnNew.Visible = !enable;
             btnEdit.Visible = !enable;
             btnSave.Visible = enable;
             btnCancel.Visible = enable;

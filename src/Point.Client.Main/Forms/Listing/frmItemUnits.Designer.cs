@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmItemUnits));
             tsMain = new ToolStrip();
-            btnNew = new ToolStripButton();
             btnCancel = new ToolStripButton();
             btnSave = new ToolStripButton();
             btnEdit = new ToolStripButton();
@@ -68,22 +67,12 @@
             tsMain.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsMain.GripStyle = ToolStripGripStyle.Hidden;
             tsMain.ImageScalingSize = new Size(20, 20);
-            tsMain.Items.AddRange(new ToolStripItem[] { btnNew, btnCancel, btnSave, btnEdit, toolStripSeparator3, toolStripDropDownButton1 });
+            tsMain.Items.AddRange(new ToolStripItem[] { btnCancel, btnSave, btnEdit, toolStripSeparator3, toolStripDropDownButton1 });
             tsMain.Location = new System.Drawing.Point(0, 60);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(1282, 31);
             tsMain.TabIndex = 0;
             tsMain.Text = "toolStrip1";
-            // 
-            // btnNew
-            // 
-            btnNew.Image = Properties.Resources.add_items_icon;
-            btnNew.ImageTransparentColor = Color.Magenta;
-            btnNew.Name = "btnNew";
-            btnNew.Size = new Size(113, 28);
-            btnNew.Text = "Add New";
-            btnNew.TextAlign = ContentAlignment.MiddleRight;
-            btnNew.Click += btnNew_Click;
             // 
             // btnCancel
             // 
@@ -137,7 +126,7 @@
             // 
             addStockToolStripMenuItem.Name = "addStockToolStripMenuItem";
             addStockToolStripMenuItem.ShortcutKeys = Keys.F3;
-            addStockToolStripMenuItem.Size = new Size(224, 28);
+            addStockToolStripMenuItem.Size = new Size(222, 28);
             addStockToolStripMenuItem.Text = "Add Stocks";
             addStockToolStripMenuItem.Click += addStockToolStripMenuItem_Click;
             // 
@@ -377,7 +366,6 @@
         #endregion
 
         private ToolStrip tsMain;
-        private ToolStripButton btnNew;
         private ToolStripButton btnEdit;
         private DataGridView dgvItemUnits;
         private Label lblTitle;

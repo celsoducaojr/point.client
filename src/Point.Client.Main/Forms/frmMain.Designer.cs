@@ -32,10 +32,11 @@
             menuStrip1 = new MenuStrip();
             productsToolStripMenuItem = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
+            databaseToolStripMenuItem = new ToolStripMenuItem();
+            dataManagerToolStripMenuItem = new ToolStripMenuItem();
             toolStrip1 = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             btnItemUnits = new ToolStripMenuItem();
-            toolStripSeparator4 = new ToolStripSeparator();
             btnItems = new ToolStripMenuItem();
             toolStripSeparator5 = new ToolStripSeparator();
             btnPriceTypes = new ToolStripMenuItem();
@@ -55,8 +56,6 @@
             toolStripLabel1 = new ToolStripLabel();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripLabel2 = new ToolStripLabel();
-            databaseToolStripMenuItem = new ToolStripMenuItem();
-            dataManagerToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             toolStrip1.SuspendLayout();
             toolStrip2.SuspendLayout();
@@ -83,9 +82,23 @@
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(224, 26);
+            exitToolStripMenuItem.Size = new Size(116, 26);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            // 
+            // databaseToolStripMenuItem
+            // 
+            databaseToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dataManagerToolStripMenuItem });
+            databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
+            databaseToolStripMenuItem.Size = new Size(55, 24);
+            databaseToolStripMenuItem.Text = "Data";
+            // 
+            // dataManagerToolStripMenuItem
+            // 
+            dataManagerToolStripMenuItem.Name = "dataManagerToolStripMenuItem";
+            dataManagerToolStripMenuItem.Size = new Size(187, 26);
+            dataManagerToolStripMenuItem.Text = "Data Manager";
+            dataManagerToolStripMenuItem.Click += dataManagerToolStripMenuItem_Click;
             // 
             // toolStrip1
             // 
@@ -103,7 +116,7 @@
             // 
             // toolStripDropDownButton1
             // 
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnItemUnits, toolStripSeparator4, btnItems, toolStripSeparator5, btnPriceTypes, btnCategories, btnUnits, btnTags });
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { btnItemUnits, btnItems, toolStripSeparator5, btnPriceTypes, btnCategories, btnUnits, btnTags });
             toolStripDropDownButton1.Image = Properties.Resources.products;
             toolStripDropDownButton1.ImageScaling = ToolStripItemImageScaling.None;
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
@@ -121,16 +134,11 @@
             btnItemUnits.Text = "Manage Item-units";
             btnItemUnits.Click += btnItemUnits_Click;
             // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(245, 6);
-            // 
             // btnItems
             // 
             btnItems.Name = "btnItems";
             btnItems.Size = new Size(248, 30);
-            btnItems.Text = "Items";
+            btnItems.Text = "Manage Items";
             btnItems.Click += btnItems_Click;
             // 
             // toolStripSeparator5
@@ -275,20 +283,6 @@
             toolStripLabel2.Size = new Size(83, 22);
             toolStripLabel2.Text = "Connected";
             // 
-            // databaseToolStripMenuItem
-            // 
-            databaseToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { dataManagerToolStripMenuItem });
-            databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            databaseToolStripMenuItem.Size = new Size(55, 24);
-            databaseToolStripMenuItem.Text = "Data";
-            // 
-            // dataManagerToolStripMenuItem
-            // 
-            dataManagerToolStripMenuItem.Name = "dataManagerToolStripMenuItem";
-            dataManagerToolStripMenuItem.Size = new Size(224, 26);
-            dataManagerToolStripMenuItem.Text = "Data Manager";
-            dataManagerToolStripMenuItem.Click += dataManagerToolStripMenuItem_Click;
-            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(9F, 23F);
@@ -332,7 +326,6 @@
         private ToolStripMenuItem btnUnits;
         private ToolStripMenuItem btnTags;
         private ToolStripMenuItem btnItemUnits;
-        private ToolStripSeparator toolStripSeparator4;
         private ToolStripMenuItem btnItems;
         private ToolStripButton btnSales;
         private ToolStripButton toolStripButton2;

@@ -39,6 +39,7 @@ namespace Point.Client.Main.Listing
             if (_hasChanges)
             {
                 RecordStatus.Categories.Updated();
+                _hasChanges = false;
             }
         }
         private void dgvCategories_SelectionChanged(object sender, EventArgs e)

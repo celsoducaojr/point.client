@@ -1,11 +1,9 @@
-﻿using System.Threading.Tasks;
-using Point.Client.Main.Api;
+﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
-using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Forms.Products;
 using Point.Client.Main.Globals;
 
@@ -13,10 +11,9 @@ namespace Point.Client.Main.Listing
 {
     public partial class frmItems : Form
     {
-        private bool _showForSelection;
-
         private bool _isFirstLoad;
         private bool _isAddingNew;
+        private bool _isActive;
 
         private SearchItemCriteriaDto? _searchItemDto;
         private int _currentPage;
@@ -34,10 +31,9 @@ namespace Point.Client.Main.Listing
         {
             InitializeComponent();
 
-            _showForSelection = false;
-
             _isFirstLoad = true;
             _isAddingNew = false;
+            _isActive = false;
 
             _searchItemDto = null;
             _currentPage = 1;
@@ -45,37 +41,32 @@ namespace Point.Client.Main.Listing
             _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
 
             _categoryLastUpdate = null;
+            RecordStatus.Categories.OnDataUpdated += ReloadCategories;
             _tagLastUpdate = null;
+            RecordStatus.Tags.OnDataUpdated += ReloadTags;
 
             _itemService = ServiceFactory.GetService<ItemService>();
             _categoryService = ServiceFactory.GetService<CategoryService>();
             _tagService = ServiceFactory.GetService<TagService>();
 
             cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
-            lblSearchCriteria.Text = null;
         }
 
-        #region Main
-
-        private async void frmItems_Load(object sender, EventArgs e)
+        private async void frmItems_Activated(object sender, EventArgs e)
         {
-            await Task.Run(async () =>
-            {
-                var reloadRequired = false;
-                if (_categoryLastUpdate != RecordStatus.Categories.LastUpdate)
-                {
-                    reloadRequired = true;
-                    await LoadCategories();
-                }
-                if (_tagLastUpdate != RecordStatus.Tags.LastUpdate)
-                {
-                    reloadRequired = true;
-                    await LoadTags();
-                }
+            var reloadRequired = false;
 
-                // Reload Items
-                if (!_isFirstLoad && reloadRequired) cmbPageSize_SelectedIndexChanged(sender, e);
-            });
+            if (_categoryLastUpdate != RecordStatus.Categories.LastUpdate)
+            {
+                reloadRequired = true;
+                await LoadCategories();
+            }
+
+            if (_tagLastUpdate != RecordStatus.Tags.LastUpdate)
+            {
+                reloadRequired = true;
+                await LoadTags();
+            }
 
             if (_isFirstLoad)
             {
@@ -83,20 +74,94 @@ namespace Point.Client.Main.Listing
 
                 cmbPageSize.SelectedIndex = 0;
             }
+            else if (reloadRequired)
+            {
+                cmbPageSize_SelectedIndexChanged(sender, e);
+            }
 
-            // Show Add-button
-            if (_showForSelection) dgvItems_SelectionChanged(sender, e);
+            _isActive = true;
         }
 
-        private void frmItems_FormClosing(object sender, FormClosingEventArgs e)
+        private void frmItems_Deactivate(object sender, EventArgs e)
         {
-            _showForSelection = false;
-            btnAddItemUnit.Visible = false;
+            _isActive = false;
+        }
 
-            if (btnCancel.Visible)
+        #region Editing
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            _isAddingNew = true;
+            ClearEditingFields();
+            EnableEditing();
+            txtItem.Focus();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            _isAddingNew = false;
+            EnableEditing();
+            txtItem.Focus();
+        }
+
+        private void btnAddItemUnit_Click(object sender, EventArgs e)
+        {
+            FormFactory.GetFormDialog<frmItemUnit>().ShowForSelection((Item)dgvItems.SelectedRows[0]?.Tag);
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtItem.Text))
             {
-                btnCancel_Click(sender, e);
+                MessageBox.Show("Item is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtItem.Focus();
+                return;
             }
+
+            if (cmbCategory.SelectedItem == null)
+            {
+                MessageBox.Show("Selected Category is invalid.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmbCategory.Focus();
+                return;
+            }
+
+            var item = new Item
+            {
+                Id = _isAddingNew ? 0 : (int)txtItem.Tag,
+                Name = txtItem.Text.Trim(),
+                Category = cmbCategory.SelectedItem != null
+                    ? new Category
+                    {
+                        Id = (int)cmbCategory.SelectedValue,
+                        Name = cmbCategory.Text
+                    }
+                    : null,
+                Description = !string.IsNullOrWhiteSpace(txtDescription.Text.Trim())
+                    ? txtDescription.Text.Trim()
+                    : null,
+                Tags = dgvTags.Rows.Count > 0
+                    ? dgvTags.Rows.Cast<DataGridViewRow>()
+                    .Select(row => row.Tag as Tag).ToList() as List<Tag>
+                    : null
+            };
+
+            EnableButtons(false);
+
+            if (_isAddingNew)
+            {
+                Task.Run(() => CreateItem(item));
+            }
+            else
+            {
+                Task.Run(() => UpdateItem(item));
+            }
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            dgvItems_SelectionChanged(sender, e);
+
+            EnableEditing(false);
         }
 
         private void dgvItems_SelectionChanged(object sender, EventArgs e)
@@ -118,55 +183,76 @@ namespace Point.Client.Main.Listing
                     dgvTags.Rows.Add(tag.Name, "Remove");
                     dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = tag;
                 });
-
-                btnAddItemUnit.Visible = _showForSelection;
             }
         }
 
-        private void btnAddItemUnit_Click(object sender, EventArgs e)
+        private void dgvTags_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            FormFactory.GetFormDialog<frmItemUnit>().ShowForSelection((Item)dgvItems.SelectedRows[0]?.Tag);
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0
+                && dgvTags.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                dgvTags.Rows.RemoveAt(e.RowIndex);
+            }
         }
 
-        public void ShowForSelection()
+        private void txtTag_KeyDown(object sender, KeyEventArgs e)
         {
-            _showForSelection = true;
-            this.ShowDialog();
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(txtTag.Text))
+            {
+                var selectedTag = ((List<Tag>)txtTag.Tag).FirstOrDefault(tag => tag.Name == txtTag.Text);
+                if (selectedTag != null)
+                {
+                    if (dgvTags.Rows.Cast<DataGridViewRow>().ToList()
+                        .FirstOrDefault(row => ((Tag)row.Tag).Id == selectedTag.Id) == null)
+                    {
+                        dgvTags.Rows.Add(txtTag.Text, "Remove");
+                        dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = selectedTag;
+
+                        txtTag.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tag already added.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Tag not found.", "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         #endregion
 
         #region Search and Pagination
 
-        private async void btnSearch_Click(object sender, EventArgs e)
+        private async void ReloadCategories()
         {
-            var itemSearchForm = FormFactory.GetFormDialog<frmItemSearch>();
-            if (itemSearchForm.ShowDialog() == DialogResult.OK)
+            if (_isActive)
             {
-                _searchItemDto = itemSearchForm.SearchItemCriteria;
-                lblSearchCriteria.Text = null;
+                if (btnCancel.Visible) btnCancel_Click(this, EventArgs.Empty);
 
-                if (_searchItemDto != null)
-                {
-                    var criteria = new List<string>
-                    {
-                        _searchItemDto?.Name ?? string.Empty,
-                        _searchItemDto?.Category?.Name ?? string.Empty,
-                        string.Join(", ", _searchItemDto?.Tags?.Select(tag => tag.Name)?.ToList() ?? [])
-                    };
-                    lblSearchCriteria.Text = criteria.ToSearchResultLabel();
-                }
-
-                await SearchItems();
+                await LoadCategories();
+                await SearchItems(); // Items has categories
             }
         }
 
-        private async void btnClearFilter_Click(object sender, EventArgs e)
+        private async void ReloadTags()
+        {
+            if (_isActive)
+            {
+                if (btnCancel.Visible) btnCancel_Click(this, EventArgs.Empty);
+
+                await LoadTags();
+            }
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
         {
             _searchItemDto = null;
-            lblSearchCriteria.Text = null;
 
-            await SearchItems();
+            Task.Run(() => SearchItems());
         }
 
         private void btnFirst_Click(object sender, EventArgs e)
@@ -237,9 +323,9 @@ namespace Point.Client.Main.Listing
             }
         }
 
-        private async void cmbPageSize_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbPageSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            await Task.Run(async () =>
+            Task.Run(async () =>
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
@@ -251,129 +337,17 @@ namespace Point.Client.Main.Listing
             });
         }
 
-        #endregion
-
-        #region Edit
-
-        private async void lnkManageCategories_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void txtSearchItem_KeyDown(object sender, KeyEventArgs e)
         {
-            FormFactory.GetFormDialog<frmCategories>().ShowDialog();
-
-            await LoadCategories(true);
-        }
-
-        private void dgvTags_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0
-                && dgvTags.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtSearchItem.Text))
             {
-                dgvTags.Rows.RemoveAt(e.RowIndex);
-            }
-        }
-
-        private void txtTag_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(txtTag.Text))
-            {
-                var selectedTag = ((List<Tag>)txtTag.Tag).FirstOrDefault(tag => tag.Name == txtTag.Text);
-                if (selectedTag != null)
+                _searchItemDto = new SearchItemCriteriaDto
                 {
-                    if (dgvTags.Rows.Cast<DataGridViewRow>().ToList()
-                        .FirstOrDefault(row => ((Tag)row.Tag).Id == selectedTag.Id) == null)
-                    {
-                        dgvTags.Rows.Add(txtTag.Text, "Remove");
-                        dgvTags.Rows[dgvTags.Rows.Count - 1].Tag = selectedTag;
+                    Name = txtSearchItem.Text.Trim()
+                };
 
-                        txtTag.Clear();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Tag already added.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-
-                }
-                else
-                {
-                    MessageBox.Show("Tag not found.", "Search Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                Task.Run(() => SearchItems());
             }
-        }
-
-        private async void lnkManageTags_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            FormFactory.GetFormDialog<frmTags>().ShowDialog();
-
-            await LoadTags();
-        }
-
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            _isAddingNew = true;
-            ClearEditingFields();
-            EnableEditing();
-            txtItem.Focus();
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            _isAddingNew = false;
-            EnableEditing();
-            txtItem.Focus();
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtItem.Text))
-            {
-                MessageBox.Show("Item is required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtItem.Focus();
-                return;
-            }
-
-            if (cmbCategory.SelectedItem == null)
-            {
-                MessageBox.Show("Selected Category is invalid.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cmbCategory.Focus();
-                return;
-            }
-
-            var item = new Item
-            {
-                Id = _isAddingNew ? 0 : (int)txtItem.Tag,
-                Name = txtItem.Text.Trim(),
-                Category = cmbCategory.SelectedItem != null
-                    ? new Category
-                    {
-                        Id = (int)cmbCategory.SelectedValue,
-                        Name = cmbCategory.Text
-                    }
-                    : null,
-                Description = !string.IsNullOrWhiteSpace(txtDescription.Text.Trim())
-                    ? txtDescription.Text.Trim()
-                    : null,
-                Tags = dgvTags.Rows.Count > 0
-                    ? dgvTags.Rows.Cast<DataGridViewRow>()
-                    .Select(row => row.Tag as Tag).ToList() as List<Tag>
-                    : null
-            };
-
-            EnableButtons(false);
-
-            if (_isAddingNew)
-            {
-                Task.Run(() => CreateItem(item));
-            }
-            else
-            {
-                Task.Run(() => UpdateItem(item));
-            }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            dgvItems_SelectionChanged(sender, e);
-
-            EnableEditing(false);
         }
 
         #endregion
@@ -388,8 +362,6 @@ namespace Point.Client.Main.Listing
             txtDescription.Clear();
             dgvTags.Rows.Clear();
             txtTag.Clear();
-
-            btnAddItemUnit.Visible = false;
         }
 
         private void EnableEditing(bool enable = true)
@@ -399,14 +371,13 @@ namespace Point.Client.Main.Listing
             txtItem.ReadOnly = !enable;
             txtCategory.Visible = !enable;
             cmbCategory.Visible = enable;
-            lnkManageCategories.Visible = enable;
             txtDescription.ReadOnly = !enable;
             clmRemove.Visible = enable;
             txtTag.Visible = enable;
-            lnkManageTags.Visible = enable;
 
-            btnNew.Visible = !enable;
+            btnAdd.Visible = !enable;
             btnEdit.Visible = !enable;
+            btnAddItemUnit.Visible = !enable;
             btnSave.Visible = enable;
             btnCancel.Visible = enable;
 
@@ -416,6 +387,38 @@ namespace Point.Client.Main.Listing
         private void EnableButtons(bool enable = true)
         {
             pnlEdit.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
+        }
+
+        private void EnableFormLoading(bool enable = true, string? message = null)
+        {
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
+
+            if (dgvItems.Rows.Count == 0)
+            {
+                btnEdit.Enabled = false;
+                btnAddItemUnit.Enabled = false;
+            }
+            else
+            {
+                btnEdit.Enabled = true;
+                btnAddItemUnit.Enabled = true;
+            }
+
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
         }
 
         private void UpdateRowValues(Item item, DataGridViewRow row)
@@ -503,9 +506,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                tlpMain.Enabled = false;
-
-                this.Text = "Loading Items...";
+                EnableFormLoading(true, "Loading Items...");
             }));
 
             var response = await _itemService.SearchItems(_currentPage, _currentPageSize,
@@ -537,7 +538,7 @@ namespace Point.Client.Main.Listing
                 }
 
                 this.Text = frmText;
-                tlpMain.Enabled = true;
+                EnableFormLoading(false);
             }));
         }
 
@@ -549,9 +550,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                tlpMain.Enabled = false;
-
-                this.Text = "Loading Categories...";
+                EnableFormLoading(true, "Loading Categories...");
             }));
 
             var response = await _categoryService.GetCategories();
@@ -568,7 +567,7 @@ namespace Point.Client.Main.Listing
                 }
 
                 this.Text = frmText;
-                tlpMain.Enabled = true;
+                EnableFormLoading(false);
             }));
         }
 
@@ -580,9 +579,7 @@ namespace Point.Client.Main.Listing
             var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                tlpMain.Enabled = false;
-
-                this.Text = "Loading Tags...";
+                EnableFormLoading(true, "Loading Tags...");
             }));
 
             var response = await _tagService.GetTags();
@@ -599,7 +596,7 @@ namespace Point.Client.Main.Listing
                 txtTag.Tag = response;
 
                 this.Text = frmText;
-                tlpMain.Enabled = true;
+                EnableFormLoading(false);
             }));
         }
 
