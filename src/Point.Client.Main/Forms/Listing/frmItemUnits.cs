@@ -14,6 +14,7 @@ namespace Point.Client.Main.Listing
     {
         private bool _isFirstLoad;
         private bool _isActive;
+        private bool _hasChanges;
 
         private SearchItemCriteriaDto? _searchItemDto;
         private int _currentPage;
@@ -33,6 +34,7 @@ namespace Point.Client.Main.Listing
 
             _isFirstLoad = true;
             _isActive = false;
+            _hasChanges = false;
 
             _searchItemDto = null;
             _currentPage = 1;
@@ -62,7 +64,6 @@ namespace Point.Client.Main.Listing
             }
             else if (_listingLastUpdate != RecordStatus.Domain.Listing.LastUpdate)
             {
-
                 await Task.Run(LoadPriceTypes);
 
                 cmbPageSize_SelectedIndexChanged(sender, e);
@@ -73,6 +74,12 @@ namespace Point.Client.Main.Listing
 
         private void frmItemUnits_Deactivate(object sender, EventArgs e)
         {
+            if (_hasChanges)
+            {
+                RecordStatus.ItemUnits.Updated();
+                _hasChanges = false;
+            }
+
             _isActive = false;
         }
 
@@ -361,7 +368,7 @@ namespace Point.Client.Main.Listing
                     MessageBox.Show("Item-units has been updated.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }));
 
-                RecordStatus.ItemUnits.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -376,6 +383,8 @@ namespace Point.Client.Main.Listing
 
         private async Task SearchItems()
         {
+            _listingLastUpdate = RecordStatus.Domain.Listing.LastUpdate;
+
             this.Invoke((MethodInvoker)(() =>
             {
                 EnableFormLoading(true,"Loading Item-units...");

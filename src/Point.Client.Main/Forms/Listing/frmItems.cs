@@ -13,6 +13,7 @@ namespace Point.Client.Main.Listing
         private bool _isFirstLoad;
         private bool _isAddingNew;
         private bool _isActive;
+        private bool _hasChanges;
 
         private SearchItemCriteriaDto? _searchItemDto;
         private int _currentPage;
@@ -33,6 +34,7 @@ namespace Point.Client.Main.Listing
             _isFirstLoad = true;
             _isAddingNew = false;
             _isActive = false;
+            _hasChanges = false;
 
             _searchItemDto = null;
             _currentPage = 1;
@@ -83,6 +85,12 @@ namespace Point.Client.Main.Listing
 
         private void frmItems_Deactivate(object sender, EventArgs e)
         {
+            if (_hasChanges)
+            {
+                RecordStatus.Items.Updated();
+                _hasChanges = false;
+            }
+
             _isActive = false;
         }
 
@@ -457,7 +465,7 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Items.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -489,7 +497,7 @@ namespace Point.Client.Main.Listing
                     EnableEditing(false);
                 }));
 
-                RecordStatus.Items.Updated();
+                _hasChanges = true;
             }
             catch (HttpRequestException ex)
             {
@@ -543,7 +551,6 @@ namespace Point.Client.Main.Listing
 
         private async Task LoadCategories(bool clearSelection = false)
         {
-            if (_categoryLastUpdate == RecordStatus.Categories.LastUpdate) return;
             _categoryLastUpdate = RecordStatus.Categories.LastUpdate;
 
             this.Invoke((MethodInvoker)(() =>
@@ -570,7 +577,6 @@ namespace Point.Client.Main.Listing
 
         private async Task LoadTags()
         {
-            if (_tagLastUpdate == RecordStatus.Tags.LastUpdate) return;
             _tagLastUpdate = RecordStatus.Tags.LastUpdate;
 
             this.Invoke((MethodInvoker)(() =>
