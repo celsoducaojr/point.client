@@ -123,6 +123,32 @@ namespace Point.Client.Main.Listing
             this.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
         }
 
+        private void EnableFormLoading(bool enable = true, string? message = null)
+        {
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
+
+            btnEdit.Enabled = true;
+            if (dgvCategories.Rows.Count == 0)
+            {
+                btnEdit.Enabled = false;
+            }
+
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
+        }
         #endregion
 
         #region Services
@@ -192,12 +218,9 @@ namespace Point.Client.Main.Listing
         }
         private async void LoadCategories()
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
-
-                this.Text = "Loading Categories...";
+                EnableFormLoading(true, "Loading Categories...");
             }));
 
             var response = await _categoryService.GetCategories();
@@ -214,8 +237,7 @@ namespace Point.Client.Main.Listing
                     dgvCategories.Rows.Add(row);
                 });
 
-                this.Text = frmText;
-                EnableButtons(true);
+                EnableFormLoading(false);
             }));
         }
 

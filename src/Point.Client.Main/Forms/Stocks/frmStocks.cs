@@ -302,7 +302,6 @@ namespace Point.Client.Main.Stocks
         {
             _listingLastUpdate = RecordStatus.Domain.Listing.LastUpdate;
 
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
                 EnableFormLoading(true, "Loading Stocks...");
@@ -337,7 +336,6 @@ namespace Point.Client.Main.Stocks
                     });
                 }
 
-                this.Text = frmText;
                 EnableFormLoading(false);
             }));
         }

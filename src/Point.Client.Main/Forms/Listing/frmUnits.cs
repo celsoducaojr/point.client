@@ -126,6 +126,33 @@ namespace Point.Client.Main.Forms.Products
             this.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
         }
 
+        private void EnableFormLoading(bool enable = true, string? message = null)
+        {
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
+
+            btnEdit.Enabled = true;
+            if (dgvUnits.Rows.Count == 0)
+            {
+                btnEdit.Enabled = false;
+            }
+
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
+        }
+
         #endregion
 
         #region Services
@@ -195,12 +222,9 @@ namespace Point.Client.Main.Forms.Products
         }
         private async void LoadUnits()
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
-
-                this.Text = "Loading Units...";
+                EnableFormLoading(true, "Loading Units...");
             }));
 
             var response = await _unitService.GetUnits();
@@ -217,8 +241,7 @@ namespace Point.Client.Main.Forms.Products
                     dgvUnits.Rows.Add(row);
                 });
 
-                this.Text = frmText;
-                EnableButtons(true);
+                EnableFormLoading(false);
             }));
         }
 

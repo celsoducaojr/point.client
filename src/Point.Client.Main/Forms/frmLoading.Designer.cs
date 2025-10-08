@@ -40,7 +40,8 @@
             pboxLoading.Location = new System.Drawing.Point(13, 13);
             pboxLoading.Margin = new Padding(4);
             pboxLoading.Name = "pboxLoading";
-            pboxLoading.Size = new Size(250, 225);
+            pboxLoading.Size = new Size(582, 225);
+            pboxLoading.SizeMode = PictureBoxSizeMode.CenterImage;
             pboxLoading.TabIndex = 0;
             pboxLoading.TabStop = false;
             pboxLoading.UseWaitCursor = true;
@@ -50,7 +51,7 @@
             lblLoading.Location = new System.Drawing.Point(13, 242);
             lblLoading.Margin = new Padding(4, 0, 4, 0);
             lblLoading.Name = "lblLoading";
-            lblLoading.Size = new Size(250, 28);
+            lblLoading.Size = new Size(582, 28);
             lblLoading.TabIndex = 1;
             lblLoading.Text = "Loading...";
             lblLoading.TextAlign = ContentAlignment.MiddleCenter;
@@ -61,7 +62,7 @@
             AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 255, 255);
-            ClientSize = new Size(276, 280);
+            ClientSize = new Size(608, 280);
             Controls.Add(lblLoading);
             Controls.Add(pboxLoading);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);

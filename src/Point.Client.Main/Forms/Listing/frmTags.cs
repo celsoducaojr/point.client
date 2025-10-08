@@ -124,6 +124,33 @@ namespace Point.Client.Main.Forms.Products
             this.Controls.OfType<Button>().ToList().ForEach(c => c.Enabled = enable);
         }
 
+        private void EnableFormLoading(bool enable = true, string? message = null)
+        {
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
+
+            btnEdit.Enabled = true;
+            if (dgvTags.Rows.Count == 0)
+            {
+                btnEdit.Enabled = false;
+            }
+
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
+        }
+
         #endregion
 
         #region Services
@@ -193,12 +220,9 @@ namespace Point.Client.Main.Forms.Products
         }
         private async void LoadTags()
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
-
-                this.Text = "Loading Tags...";
+                EnableFormLoading(true, "Loading Tags...");
             }));
 
             var response = await _tagService.GetTags();
@@ -215,8 +239,7 @@ namespace Point.Client.Main.Forms.Products
                     dgvTags.Rows.Add(row);
                 });
 
-                this.Text = frmText;
-                EnableButtons(true);
+                EnableFormLoading(false);
             }));
         }
 

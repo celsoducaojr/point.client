@@ -152,6 +152,33 @@ namespace Point.Client.Main.Forms.Listing
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
         }
 
+        private void EnableFormLoading(bool enable = true, string? message = null)
+        {
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
+
+            btnEdit.Enabled = true;
+            if (dgvTypes.Rows.Count == 0)
+            {
+                btnEdit.Enabled = false;
+            }
+
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
+        }
+
         #endregion
 
         #region Services
@@ -222,11 +249,9 @@ namespace Point.Client.Main.Forms.Listing
 
         private async void UpdatePriceTypeDisplayIndex(bool moveUp = true)
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                this.Text = "Updating Price Type Column display indexes...";
-                EnableControls(false);
+                EnableFormLoading(true, "Updating Price Type Column display indexes...");
 
                 var sourceRow = dgvTypes.SelectedRows[0];
                 var newRow = (DataGridViewRow)sourceRow.Clone();
@@ -253,19 +278,15 @@ namespace Point.Client.Main.Forms.Listing
 
             this.Invoke((MethodInvoker)(() =>
             {
-                this.Text = frmText;
-                EnableControls();
+                EnableFormLoading(false);
             }));
         }
 
         private async void LoadPriceTypes()
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
-
-                this.Text = "Loading Price Types...";
+                EnableFormLoading(true, "Loading Price Types...");
             }));
 
             var response = await _priceTypeService.GetPricesTypes();
@@ -282,8 +303,7 @@ namespace Point.Client.Main.Forms.Listing
                     dgvTypes.Rows.Add(row);
                 });
 
-                this.Text = frmText;
-                EnableControls();
+                EnableFormLoading(false);
             }));
         }
 

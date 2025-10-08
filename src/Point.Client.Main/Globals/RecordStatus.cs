@@ -11,9 +11,9 @@ namespace Point.Client.Main.Globals
                 public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
 
                 public static event Action OnDataUpdated;
-                public static void Updated()
+                public static void Updated(DateTime? dateTime)
                 {
-                    LastUpdate = DateTime.Now;
+                    LastUpdate = dateTime;
                     OnDataUpdated?.Invoke();
                 }
             }
@@ -60,7 +60,7 @@ namespace Point.Client.Main.Globals
                 LastUpdate = DateTime.Now;
                 OnDataUpdated?.Invoke();
 
-                Domain.Listing.Updated();
+                Domain.Listing.Updated(LastUpdate);
             }
         }
 
@@ -74,7 +74,7 @@ namespace Point.Client.Main.Globals
                 LastUpdate = DateTime.Now;
                 OnDataUpdated?.Invoke();
 
-                Domain.Listing.Updated();
+                Domain.Listing.Updated(LastUpdate);
             }
         }
 
@@ -88,21 +88,7 @@ namespace Point.Client.Main.Globals
                 LastUpdate = DateTime.Now;
                 OnDataUpdated?.Invoke();
 
-                Domain.Listing.Updated();
-            }
-        }
-
-        public static class Tags
-        {
-            public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
-
-            public static event Action OnDataUpdated;
-            public static void Updated()
-            {
-                LastUpdate = DateTime.Now;
-                OnDataUpdated?.Invoke();
-
-                Domain.Listing.Updated();
+                Domain.Listing.Updated(LastUpdate);
             }
         }
 
@@ -116,7 +102,7 @@ namespace Point.Client.Main.Globals
                 LastUpdate = DateTime.Now;
                 OnDataUpdated?.Invoke();
 
-                Domain.Listing.Updated();
+                Domain.Listing.Updated(LastUpdate);
             }
         }
 
@@ -130,7 +116,21 @@ namespace Point.Client.Main.Globals
                 LastUpdate = DateTime.Now;
                 OnDataUpdated?.Invoke();
 
-                Domain.Listing.Updated();
+                Domain.Listing.Updated(LastUpdate);
+            }
+        }
+
+        public static class Tags
+        {
+            public static DateTime? LastUpdate { get; private set; } = DateTime.Now;
+
+            public static event Action OnDataUpdated;
+            public static void Updated()
+            {
+                LastUpdate = DateTime.Now;
+                OnDataUpdated?.Invoke();
+
+                Domain.Listing.Updated(LastUpdate);
             }
         }
 

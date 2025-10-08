@@ -503,7 +503,6 @@ namespace Point.Client.Main.Listing
 
         private async Task SearchItems()
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
                 EnableFormLoading(true, "Loading Items...");
@@ -537,7 +536,6 @@ namespace Point.Client.Main.Listing
                     });
                 }
 
-                this.Text = frmText;
                 EnableFormLoading(false);
             }));
         }
@@ -547,7 +545,6 @@ namespace Point.Client.Main.Listing
             if (_categoryLastUpdate == RecordStatus.Categories.LastUpdate) return;
             _categoryLastUpdate = RecordStatus.Categories.LastUpdate;
 
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
                 EnableFormLoading(true, "Loading Categories...");
@@ -566,7 +563,6 @@ namespace Point.Client.Main.Listing
                     cmbCategory.SelectedItem = null;
                 }
 
-                this.Text = frmText;
                 EnableFormLoading(false);
             }));
         }
@@ -576,7 +572,6 @@ namespace Point.Client.Main.Listing
             if (_tagLastUpdate == RecordStatus.Tags.LastUpdate) return;
             _tagLastUpdate = RecordStatus.Tags.LastUpdate;
 
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
                 EnableFormLoading(true, "Loading Tags...");
@@ -595,7 +590,6 @@ namespace Point.Client.Main.Listing
                 txtTag.AutoCompleteSource = AutoCompleteSource.CustomSource;
                 txtTag.Tag = response;
 
-                this.Text = frmText;
                 EnableFormLoading(false);
             }));
         }
