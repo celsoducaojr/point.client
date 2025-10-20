@@ -186,6 +186,13 @@ namespace Point.Client.Main.Listing
             }
         }
 
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            _searchItemDto = null;
+
+            Task.Run(() => SearchItems());
+        }
+
         private void btnFirst_Click(object sender, EventArgs e)
         {
             if (_currentTotalPages > 0 && _currentPage != 1)
@@ -387,7 +394,7 @@ namespace Point.Client.Main.Listing
 
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableFormLoading(true,"Loading Item-units...");
+                EnableFormLoading(true, "Loading Item-units...");
             }));
 
             var response = await _itemService.SearchItemsWithUnits(_currentPage, _currentPageSize,

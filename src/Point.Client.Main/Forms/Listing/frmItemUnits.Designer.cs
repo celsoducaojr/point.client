@@ -58,6 +58,7 @@
             panel1 = new Panel();
             linkLabel1 = new LinkLabel();
             txtSearchItem = new TextBox();
+            btnReload = new ToolStripButton();
             tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             tsPages.SuspendLayout();
@@ -202,7 +203,7 @@
             tsPages.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
-            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst });
+            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, btnReload });
             tsPages.Location = new System.Drawing.Point(0, 537);
             tsPages.Name = "tsPages";
             tsPages.Size = new Size(1482, 31);
@@ -354,6 +355,15 @@
             txtSearchItem.TabIndex = 1;
             txtSearchItem.KeyDown += txtSearchItem_KeyDown;
             // 
+            // btnReload
+            // 
+            btnReload.Image = Properties.Resources.reload_icon;
+            btnReload.ImageTransparentColor = Color.Magenta;
+            btnReload.Name = "btnReload";
+            btnReload.Size = new Size(95, 28);
+            btnReload.Text = "Reload";
+            btnReload.Click += btnReload_Click;
+            // 
             // frmItemUnits
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -415,5 +425,6 @@
         private Panel panel1;
         private LinkLabel linkLabel1;
         private TextBox txtSearchItem;
+        private ToolStripButton btnReload;
     }
 }

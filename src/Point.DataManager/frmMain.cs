@@ -1,6 +1,7 @@
 using Dapper;
 using MySql.Data.MySqlClient;
 using Point.DataManager.Dto;
+using Microsoft.VisualBasic.FileIO;
 
 namespace Point.DataManager
 {
@@ -47,24 +48,6 @@ namespace Point.DataManager
                     foreach (Control control in this.Controls) control.Enabled = false;
                 });
 
-                var itemDtos = new List<ItemDto>();
-                var lines = File.ReadAllLines(txtFile.Text);
-                foreach (var line in lines.Skip(1))
-                {
-                    var values = line.Split(',');
-                    itemDtos.Add(new ItemDto
-                    {
-                        Name = values[0],
-                        Category = values[1],
-                        Unit = values[2],
-                        Prices = new List<decimal>
-                        {
-                            Math.Round(decimal.Parse(values[3]), 2),
-                            Math.Round(decimal.Parse(values[4]), 2)
-                        }
-                    });
-                }
-
                 var connectionString = Program.Configuration["ConnectionStrings"].ToString();
                 using (var db = new MySqlConnection(connectionString))
                 {
@@ -73,6 +56,32 @@ namespace Point.DataManager
                     {
                         try
                         {
+                            var itemDtos = new List<ItemDto>();
+                            using (TextFieldParser parser = new TextFieldParser(txtFile.Text))
+                            {
+                                parser.TextFieldType = FieldType.Delimited;
+                                parser.SetDelimiters(",");
+                                parser.HasFieldsEnclosedInQuotes = true;
+                                
+                                parser.ReadFields(); // Skip header row
+
+                                while (!parser.EndOfData)
+                                {
+                                    var fields = parser.ReadFields();
+                                    itemDtos.Add(new ItemDto
+                                    {
+                                        Name = fields[0],
+                                        Category = fields[1],
+                                        Unit = fields[2],
+                                        Prices = new List<decimal>
+                                            {
+                                                Math.Round(decimal.Parse(fields[3]), 2),
+                                                Math.Round(decimal.Parse(fields[4]), 2)
+                                            }
+                                    });
+                                }
+                            }
+
                             var categories = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
                             var units = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
                             var items = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
@@ -86,7 +95,7 @@ namespace Point.DataManager
 
                                 if (!categories.ContainsKey(i.Category))
                                 {
-                                    var existingId = db.ExecuteScalar<int?>("SELECT Id FROM categories WHERE Name = @Name", 
+                                    var existingId = db.ExecuteScalar<int?>("SELECT Id FROM categories WHERE Name = @Name",
                                         new { Name = i.Category }, tranx);
                                     if (existingId.HasValue)
                                     {
@@ -94,15 +103,15 @@ namespace Point.DataManager
                                     }
                                     else
                                     {
-                                        var categoryId = db.ExecuteScalar<int>("INSERT INTO categories (Name) VALUES (@Name); SELECT LAST_INSERT_ID();", 
+                                        var categoryId = db.ExecuteScalar<int>("INSERT INTO categories (Name) VALUES (@Name); SELECT LAST_INSERT_ID();",
                                             new { Name = i.Category }, tranx);
                                         categories[i.Category] = categoryId;
-                                    }   
+                                    }
                                 }
 
                                 if (!units.TryGetValue(i.Unit, out int unitId))
                                 {
-                                    var existingId = db.ExecuteScalar<int?>("SELECT Id FROM units WHERE Name = @Name", 
+                                    var existingId = db.ExecuteScalar<int?>("SELECT Id FROM units WHERE Name = @Name",
                                         new { Name = i.Unit }, tranx);
                                     if (existingId.HasValue)
                                     {
@@ -111,15 +120,15 @@ namespace Point.DataManager
                                     }
                                     else
                                     {
-                                        unitId = db.ExecuteScalar<int>("INSERT INTO units (Name) VALUES (@Name); SELECT LAST_INSERT_ID();", 
+                                        unitId = db.ExecuteScalar<int>("INSERT INTO units (Name) VALUES (@Name); SELECT LAST_INSERT_ID();",
                                             new { Name = i.Unit }, tranx);
                                         units[i.Unit] = unitId;
-                                    }  
+                                    }
                                 }
 
                                 if (!items.TryGetValue(i.Name, out int itemId))
                                 {
-                                    var existingId = db.ExecuteScalar<int?>("SELECT Id FROM items WHERE Name = @Name", 
+                                    var existingId = db.ExecuteScalar<int?>("SELECT Id FROM items WHERE Name = @Name",
                                         new { Name = i.Name }, tranx);
                                     if (existingId.HasValue)
                                     {
@@ -143,7 +152,7 @@ namespace Point.DataManager
                                 var itemUniKey = $"{itemId}_{unitId}";
                                 if (!itemUnits.TryGetValue(itemUniKey, out int itemUnitId))
                                 {
-                                    var existingId = db.ExecuteScalar<int?>("SELECT Id FROM itemunits WHERE ItemId = @ItemId AND UnitId = @UnitId", 
+                                    var existingId = db.ExecuteScalar<int?>("SELECT Id FROM itemunits WHERE ItemId = @ItemId AND UnitId = @UnitId",
                                         new { ItemId = itemId, UnitId = unitId }, tranx);
                                     if (existingId.HasValue)
                                     {
@@ -190,10 +199,7 @@ namespace Point.DataManager
 
                             this.Invoke(() =>
                             {
-                                this.Text = formTitle;
-                                this.UseWaitCursor = false;
-
-                                MessageBox.Show($"Import successful! Processed {lines.Length - 1} items.",
+                                MessageBox.Show($"Import successful! Processed {itemDtos.Count} items.",
                                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                                 foreach (Control control in this.Controls) control.Enabled = true;
@@ -205,16 +211,21 @@ namespace Point.DataManager
 
                             this.Invoke(() =>
                             {
-                                this.Text = formTitle;
-                                this.UseWaitCursor = false;
-
-                                MessageBox.Show("An error occurred while processing the data.\n\n" + ex.Message,
+                                MessageBox.Show("An error occurred while processing the data.\n\n" + ex.InnerException?.Message ?? ex.Message,
                                     "Processing Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                                foreach (Control control in this.Controls) control.Enabled = true;
                             });
 
                             return;
+                        }
+                        finally
+                        {
+                            this.Invoke(() =>
+                            {
+                                this.Text = formTitle;
+                                this.UseWaitCursor = false;
+                                foreach (Control control in this.Controls) control.Enabled = true;
+                            });
                         }
                     }
                     db.Close();
