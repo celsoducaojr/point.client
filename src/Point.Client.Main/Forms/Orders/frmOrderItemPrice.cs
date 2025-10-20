@@ -40,7 +40,7 @@ namespace Point.Client.Main.Forms.Orders
         private void txtPrice_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var value = txtPrice.Text;
-            if (!string.IsNullOrWhiteSpace(value) && (!decimal.TryParse(value, out decimal amount) || amount <= 0))
+            if (string.IsNullOrEmpty(value) || (!string.IsNullOrWhiteSpace(value) && (!decimal.TryParse(value, out decimal amount) || amount <= 0)))
             {
                 MessageBox.Show("Invalid Amount value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 e.Cancel = true;
@@ -49,7 +49,6 @@ namespace Point.Client.Main.Forms.Orders
 
         private void txtPrice_Validated(object sender, EventArgs e)
         {
-            var value = txtPrice.Text;
             txtPrice.Text = decimal.Parse(txtPrice.Text).ToAmountString();
             lblTotal.Text = GenerateTotalPrice();
         }

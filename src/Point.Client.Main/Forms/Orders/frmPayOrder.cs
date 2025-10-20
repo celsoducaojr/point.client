@@ -43,17 +43,23 @@ namespace Point.Client.Main.Forms.Orders
             var value = txtTendered.Text;
             if (!string.IsNullOrWhiteSpace(value) && (!decimal.TryParse(value, out decimal amount) || amount < 0))
             {
-                MessageBox.Show("Invalid Amount value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid Payment Amount value.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 e.Cancel = true;
             }
         }
 
         private void txtTendered_Validated(object sender, EventArgs e)
         {
-            var tendered = decimal.Parse(txtTendered.Text);
-            txtTendered.Text = tendered.ToAmountString();
+            if (decimal.TryParse(txtTendered.Text, out decimal tendered))
+            {
+                txtTendered.Text = tendered.ToAmountString();
+            }
+            else
+            {
+                txtTendered.Text = "0.00";
+            }
 
-            var change = (tendered - decimal.Parse(lblTotal.Text));
+                var change = (tendered - decimal.Parse(lblTotal.Text));
             if (change >= 0)
                 lblChange.Text = change.ToAmountString();
             else

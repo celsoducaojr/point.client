@@ -49,7 +49,7 @@ namespace Point.Client.Main.Forms.Orders
                     OrderStatus.New,
                     OrderStatus.Cancelled
                 };
-                cmbStatus.ComboBox.DataSource = orderStatuses.ToList();
+                cmbStatus.DataSource = orderStatuses.ToList();
                 cmbStatus.SelectedIndex = 0;
             }
 
@@ -112,8 +112,6 @@ namespace Point.Client.Main.Forms.Orders
                         item.Total.ToAmountString());
                 });
 
-                lblSubTotal.Text = order.SubTotal.ToAmountString();
-                lblDiscount.Text = order.Discount.ToAmountString();
                 lblTotal.Text = order?.Total.ToAmountString();
 
                 if (order.Status != OrderStatus.Cancelled)
@@ -129,7 +127,7 @@ namespace Point.Client.Main.Forms.Orders
 
         private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _currentOrderStatus = (OrderStatus)cmbStatus.ComboBox.SelectedValue;
+            _currentOrderStatus = (OrderStatus)cmbStatus.SelectedValue;
             if (cmbPageSize.SelectedItem == null)
                 cmbPageSize.SelectedIndex = 0;
             else
@@ -235,8 +233,6 @@ namespace Point.Client.Main.Forms.Orders
             lblDateTime.Text = string.Empty;
             lblCustomer.Text = "-";
             dgvOrderItems.Rows.Clear();
-            lblSubTotal.Text = "0.00";
-            lblDiscount.Text = "0.00";
             lblTotal.Text = "0.00";
 
             btnModify.Enabled = false;
