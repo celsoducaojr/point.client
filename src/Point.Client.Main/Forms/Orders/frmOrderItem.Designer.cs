@@ -41,12 +41,12 @@
             // 
             txtItem.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtItem.Font = new Font("Segoe UI", 16.2F);
-            txtItem.Location = new System.Drawing.Point(13, 13);
+            txtItem.Location = new System.Drawing.Point(14, 14);
             txtItem.Margin = new Padding(4);
             txtItem.MaxLength = 100;
             txtItem.Name = "txtItem";
             txtItem.PlaceholderText = "Search item...";
-            txtItem.Size = new Size(1656, 43);
+            txtItem.Size = new Size(1346, 43);
             txtItem.TabIndex = 1;
             txtItem.KeyDown += txtItem_KeyDown;
             // 
@@ -57,14 +57,14 @@
             dgvItemUnits.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvItemUnits.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvItemUnits.Columns.AddRange(new DataGridViewColumn[] { clmItem, clmCategory, clmUnit, clmCapitalCode });
-            dgvItemUnits.Location = new System.Drawing.Point(13, 64);
+            dgvItemUnits.Location = new System.Drawing.Point(14, 65);
             dgvItemUnits.Margin = new Padding(4);
             dgvItemUnits.MultiSelect = false;
             dgvItemUnits.Name = "dgvItemUnits";
             dgvItemUnits.ReadOnly = true;
             dgvItemUnits.RowHeadersWidth = 51;
             dgvItemUnits.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvItemUnits.Size = new Size(1656, 776);
+            dgvItemUnits.Size = new Size(1346, 681);
             dgvItemUnits.TabIndex = 2;
             dgvItemUnits.CellDoubleClick += dgvItemUnits_CellDoubleClick;
             dgvItemUnits.KeyDown += dgvItemUnits_KeyDown;
@@ -106,7 +106,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1682, 853);
+            ClientSize = new Size(1374, 760);
             Controls.Add(dgvItemUnits);
             Controls.Add(txtItem);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -115,10 +115,12 @@
             MinimizeBox = false;
             MinimumSize = new Size(1000, 500);
             Name = "frmOrderItem";
+            Padding = new Padding(10);
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Search Item";
-            Load += frmOrderItem_Load;
+            Activated += frmOrderItem_Activated;
+            Deactivate += frmOrderItem_Deactivate;
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).EndInit();
             ResumeLayout(false);
             PerformLayout();

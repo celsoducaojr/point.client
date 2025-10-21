@@ -3,7 +3,7 @@ using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
-using static Point.Client.Main.Globals.RecordStatus;
+using Point.Client.Main.Globals;
 
 namespace Point.Client.Main.Forms.Orders
 {
@@ -12,14 +12,12 @@ namespace Point.Client.Main.Forms.Orders
         public OrderItemDto SelectedOrderItem { get; private set; }
 
         private bool _isFirstLoad;
+        private bool _isActive;
 
         private SearchItemCriteriaDto? _searchItemDto;
         private List<PriceType>? _currentPriceTypes;
 
-        private DateTime? _categoryLastUpdate;
-        private DateTime? _tagLastUpdate;
-        private DateTime? _unitLastUpdate;
-        private DateTime? _itemLastUpdate;
+        private DateTime? _listingLastUpdate;
 
         private readonly ItemService _itemService;
         private readonly PriceTypeService _priceTypeService;
@@ -29,47 +27,51 @@ namespace Point.Client.Main.Forms.Orders
             InitializeComponent();
 
             _isFirstLoad = true;
+            _isActive = false;
 
             _searchItemDto = null;
             _currentPriceTypes = null;
 
-            _categoryLastUpdate = null;
-            _tagLastUpdate = null;
-            _unitLastUpdate = null;
-            _itemLastUpdate = null;
+            _listingLastUpdate = RecordStatus.Domain.Listing.LastUpdate;
+            RecordStatus.Domain.Listing.OnDataUpdated += ReloadData;
 
             _itemService = ServiceFactory.GetService<ItemService>();
             _priceTypeService = ServiceFactory.GetService<PriceTypeService>();
         }
 
-        private async void frmOrderItem_Load(object sender, EventArgs e)
+        private async void frmOrderItem_Activated(object sender, EventArgs e)
         {
-            EnableControls(false);
-
             if (_isFirstLoad)
             {
                 _isFirstLoad = false;
 
-                await Task.Run(LoadPriceTypes);
+                await LoadPriceTypes();
 
                 await SearchItemsWithUnits();
             }
-            else if (_categoryLastUpdate != Categories.LastUpdate
-                || _tagLastUpdate != Tags.LastUpdate
-                || _unitLastUpdate != Units.LastUpdate
-                || _itemLastUpdate != Items.LastUpdate)
+            else if (_listingLastUpdate != RecordStatus.Domain.Listing.LastUpdate)
             {
-                _categoryLastUpdate = Categories.LastUpdate;
-                _tagLastUpdate = Tags.LastUpdate;
-                _unitLastUpdate = Units.LastUpdate;
-                _itemLastUpdate = Items.LastUpdate;
-
                 await SearchItemsWithUnits();
             }
-
-            EnableControls();
 
             txtItem.Focus();
+
+            _isActive = true;
+        }
+
+        private void frmOrderItem_Deactivate(object sender, EventArgs e)
+        {
+            _isActive = false;
+        }
+
+        #region Search
+
+        private async void ReloadData()
+        {
+            if (_isActive)
+            {
+                await SearchItemsWithUnits();
+            }
         }
 
         private async void txtItem_KeyDown(object sender, KeyEventArgs e)
@@ -101,6 +103,8 @@ namespace Point.Client.Main.Forms.Orders
                 OpenPriceSelectionDialog();
             }
         }
+
+#endregion
 
         #region Helpers
 
@@ -142,11 +146,27 @@ namespace Point.Client.Main.Forms.Orders
             }
         }
 
-        private void EnableControls(bool enable = true)
+        private void EnableFormLoading(bool enable = true, string? message = null)
         {
-            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
 
-            txtItem.Focus();
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    this.UseWaitCursor = true;
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    this.UseWaitCursor = false;
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
         }
 
         private void UpdateRowValues(Item item, ItemUnit itemUnit, DataGridViewRow row)
@@ -174,12 +194,11 @@ namespace Point.Client.Main.Forms.Orders
 
         private async Task SearchItemsWithUnits()
         {
-            var frmText = this.Text;
+            _listingLastUpdate = RecordStatus.Domain.Listing.LastUpdate;
+
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
-
-                this.Text = "Loading Items Units...";
+                EnableFormLoading(true, "Loading Items-units...");
             }));
 
             var response = await _itemService.SearchItemsWithUnits(1, 100,
@@ -201,19 +220,15 @@ namespace Point.Client.Main.Forms.Orders
                     });
                 }
 
-                this.Text = frmText;
-                EnableControls();
+                EnableFormLoading(false);
             }));
         }
 
         private async Task LoadPriceTypes()
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
-
-                this.Text = "Loading Price Types Columns...";
+                EnableFormLoading(true, "Loading Price Types Columns...");
             }));
 
             _currentPriceTypes = await _priceTypeService.GetPricesTypes();
@@ -234,8 +249,7 @@ namespace Point.Client.Main.Forms.Orders
                     dgvItemUnits.Columns.Add(column);
                 });
 
-                this.Text = frmText;
-                EnableControls();
+                EnableFormLoading(false);
             }));
         }
 
