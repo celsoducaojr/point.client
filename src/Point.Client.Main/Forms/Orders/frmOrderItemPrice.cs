@@ -17,7 +17,8 @@ namespace Point.Client.Main.Forms.Orders
 
         private void frmOrderItemPrice_Load(object sender, EventArgs e)
         {
-            cmbPrice.Focus();
+            txtPrice.Focus();
+            txtPrice.SelectAll();
             numQuantity.Value = 1;
         }
 
@@ -30,7 +31,6 @@ namespace Point.Client.Main.Forms.Orders
         private void cmbPrice_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) btnAddItem.Focus();
-
         }
      
         private void txtPrice_KeyDown(object sender, KeyEventArgs e)
@@ -88,8 +88,8 @@ namespace Point.Client.Main.Forms.Orders
         public void SetItemDetails(Item item, ItemUnit itemUnit)
         {
             lblItem.Text = item.Name;
-            lblUnit.Text = itemUnit.Unit.Name;
-            lblCapitalCode.Text = itemUnit.CostPriceCode;
+            txtUnit.Text = itemUnit.Unit.Name;
+            txtCapitalCode.Text = itemUnit.CostPriceCode;
 
             var prices = itemUnit.Prices?
                 .Where(price => price.Amount > 0)
