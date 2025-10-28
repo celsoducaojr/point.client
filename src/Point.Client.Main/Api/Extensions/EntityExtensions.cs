@@ -6,6 +6,25 @@ namespace Point.Client.Main.Api.Extensions
 {
     public static class EntityExtensions
     {
+        #region  To Entities
+
+        public static Customer ToCustomer(this CustomerDto customerDto, int id)
+        {
+            return new Customer
+            {
+                Id = id,
+                Name = customerDto.Name,
+                MobileNumber = customerDto.MobileNumber,
+                Email = customerDto.Email,
+                Address = customerDto.Address,
+                Remarks = customerDto.Remarks
+            };
+        }
+
+        #endregion
+
+        #region To DTOs
+
         public static ItemDto ToItemDto(this Item item)
         {
             return new ItemDto
@@ -31,5 +50,7 @@ namespace Point.Client.Main.Api.Extensions
                 Total = orderItem.Total
             };
         }
+
+        #endregion
     }
 }

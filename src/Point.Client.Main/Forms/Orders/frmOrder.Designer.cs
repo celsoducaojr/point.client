@@ -39,10 +39,6 @@
             btnSave = new Button();
             btnPay = new Button();
             btnClear = new Button();
-            label11 = new Label();
-            lblDiscount = new Label();
-            lblSubTotal = new Label();
-            label8 = new Label();
             label1 = new Label();
             dgvOrderItems = new DataGridView();
             clmRemove = new DataGridViewButtonColumn();
@@ -82,10 +78,6 @@
             pnlMain.Controls.Add(btnSave);
             pnlMain.Controls.Add(btnPay);
             pnlMain.Controls.Add(btnClear);
-            pnlMain.Controls.Add(label11);
-            pnlMain.Controls.Add(lblDiscount);
-            pnlMain.Controls.Add(lblSubTotal);
-            pnlMain.Controls.Add(label8);
             pnlMain.Controls.Add(label1);
             pnlMain.Controls.Add(dgvOrderItems);
             pnlMain.Controls.Add(txtCustomer);
@@ -104,7 +96,7 @@
             // lnkSelectCustomer
             // 
             lnkSelectCustomer.AutoSize = true;
-            lnkSelectCustomer.Location = new System.Drawing.Point(557, 100);
+            lnkSelectCustomer.Location = new System.Drawing.Point(782, 80);
             lnkSelectCustomer.Name = "lnkSelectCustomer";
             lnkSelectCustomer.Size = new Size(165, 28);
             lnkSelectCustomer.TabIndex = 6;
@@ -116,9 +108,9 @@
             // 
             btnAddItem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnAddItem.Font = new Font("Segoe UI", 13.8F);
-            btnAddItem.Location = new System.Drawing.Point(1231, 60);
+            btnAddItem.Location = new System.Drawing.Point(1181, 71);
             btnAddItem.Name = "btnAddItem";
-            btnAddItem.Size = new Size(227, 72);
+            btnAddItem.Size = new Size(277, 51);
             btnAddItem.TabIndex = 1;
             btnAddItem.Text = "ADD ITEM";
             btnAddItem.UseVisualStyleBackColor = true;
@@ -130,7 +122,7 @@
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(192, 192, 0);
             label7.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
-            label7.Location = new System.Drawing.Point(1057, 651);
+            label7.Location = new System.Drawing.Point(1054, 634);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(95, 46);
@@ -142,10 +134,10 @@
             lblTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblTotal.BackColor = Color.FromArgb(192, 192, 0);
             lblTotal.Font = new Font("Segoe UI Semibold", 19.8000011F, FontStyle.Bold);
-            lblTotal.Location = new System.Drawing.Point(1057, 638);
+            lblTotal.Location = new System.Drawing.Point(1054, 621);
             lblTotal.Margin = new Padding(4, 0, 4, 0);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(401, 70);
+            lblTotal.Size = new Size(404, 70);
             lblTotal.TabIndex = 47;
             lblTotal.Text = "0.00";
             lblTotal.TextAlign = ContentAlignment.MiddleRight;
@@ -155,7 +147,7 @@
             btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnSave.Enabled = false;
             btnSave.Font = new Font("Segoe UI", 13.8F);
-            btnSave.Location = new System.Drawing.Point(170, 595);
+            btnSave.Location = new System.Drawing.Point(169, 610);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(140, 100);
             btnSave.TabIndex = 5;
@@ -169,7 +161,7 @@
             btnPay.BackColor = Color.LimeGreen;
             btnPay.Enabled = false;
             btnPay.Font = new Font("Segoe UI", 13.8F);
-            btnPay.Location = new System.Drawing.Point(24, 595);
+            btnPay.Location = new System.Drawing.Point(23, 610);
             btnPay.Name = "btnPay";
             btnPay.Size = new Size(140, 100);
             btnPay.TabIndex = 3;
@@ -181,7 +173,7 @@
             // 
             btnClear.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnClear.Font = new Font("Segoe UI", 13.8F);
-            btnClear.Location = new System.Drawing.Point(316, 595);
+            btnClear.Location = new System.Drawing.Point(315, 610);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(140, 100);
             btnClear.TabIndex = 6;
@@ -189,58 +181,10 @@
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += btnClear_Click;
             // 
-            // label11
-            // 
-            label11.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new System.Drawing.Point(1057, 596);
-            label11.Margin = new Padding(4, 0, 4, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(126, 38);
-            label11.TabIndex = 41;
-            label11.Text = "Discount";
-            // 
-            // lblDiscount
-            // 
-            lblDiscount.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lblDiscount.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblDiscount.Location = new System.Drawing.Point(1191, 595);
-            lblDiscount.Margin = new Padding(4, 0, 4, 0);
-            lblDiscount.Name = "lblDiscount";
-            lblDiscount.Size = new Size(267, 38);
-            lblDiscount.TabIndex = 40;
-            lblDiscount.Text = "0.00";
-            lblDiscount.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // lblSubTotal
-            // 
-            lblSubTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            lblSubTotal.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblSubTotal.Location = new System.Drawing.Point(1191, 557);
-            lblSubTotal.Margin = new Padding(4, 0, 4, 0);
-            lblSubTotal.Name = "lblSubTotal";
-            lblSubTotal.Size = new Size(267, 38);
-            lblSubTotal.TabIndex = 39;
-            lblSubTotal.Text = "0.00";
-            lblSubTotal.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // label8
-            // 
-            label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new System.Drawing.Point(1053, 558);
-            label8.Margin = new Padding(4, 0, 4, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(130, 38);
-            label8.TabIndex = 38;
-            label8.Text = "Sub Total";
-            // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(24, 100);
+            label1.Location = new System.Drawing.Point(24, 83);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(96, 28);
@@ -254,13 +198,13 @@
             dgvOrderItems.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvOrderItems.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOrderItems.Columns.AddRange(new DataGridViewColumn[] { clmRemove, clmItem, clmUnit, clmQuantity, clmPrice, clmTotal });
-            dgvOrderItems.Location = new System.Drawing.Point(24, 139);
+            dgvOrderItems.Location = new System.Drawing.Point(24, 129);
             dgvOrderItems.Margin = new Padding(4);
             dgvOrderItems.MultiSelect = false;
             dgvOrderItems.Name = "dgvOrderItems";
             dgvOrderItems.RowHeadersWidth = 51;
             dgvOrderItems.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvOrderItems.Size = new Size(1434, 414);
+            dgvOrderItems.Size = new Size(1434, 474);
             dgvOrderItems.TabIndex = 2;
             dgvOrderItems.CellClick += dgvOrderItems_CellClick;
             dgvOrderItems.CellValidated += dgvOrderItems_CellValidated;
@@ -317,12 +261,12 @@
             // 
             // txtCustomer
             // 
-            txtCustomer.Location = new System.Drawing.Point(128, 97);
+            txtCustomer.Location = new System.Drawing.Point(128, 77);
             txtCustomer.Margin = new Padding(4);
             txtCustomer.MaxLength = 100;
             txtCustomer.Name = "txtCustomer";
             txtCustomer.ReadOnly = true;
-            txtCustomer.Size = new Size(422, 34);
+            txtCustomer.Size = new Size(647, 34);
             txtCustomer.TabIndex = 32;
             txtCustomer.TabStop = false;
             // 
@@ -342,7 +286,7 @@
             // 
             lblStatus.AutoSize = true;
             lblStatus.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStatus.Location = new System.Drawing.Point(97, 48);
+            lblStatus.Location = new System.Drawing.Point(128, 48);
             lblStatus.Margin = new Padding(4, 0, 4, 0);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(54, 25);
@@ -352,7 +296,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(24, 45);
+            label4.Location = new System.Drawing.Point(55, 45);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(65, 28);
@@ -401,10 +345,6 @@
         private DataGridView dgvOrderItems;
         private TextBox txtCustomer;
         private Label label1;
-        private Label label11;
-        private Label lblDiscount;
-        private Label lblSubTotal;
-        private Label label8;
         private Button btnSave;
         private Button btnPay;
         private Button btnClear;

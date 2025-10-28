@@ -151,6 +151,7 @@ namespace Point.Client.Main.Listing
                 }));
             }
         }
+
         #endregion
 
         #region Services

@@ -1,13 +1,17 @@
 ﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
-using Point.Client.Main.Api.Entities;
+using Point.Client.Main.Api.Entities.Orders;
+using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Globals;
+using System.Text.RegularExpressions;
 
 namespace Point.Client.Main.Forms.Orders
 {
     public partial class frmCustomers : Form
     {
+        private const string _emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
         public Customer SelectedCustomer { get; set; }
 
         private bool _isFirstLoad;
@@ -33,7 +37,7 @@ namespace Point.Client.Main.Forms.Orders
             {
                 _isFirstLoad = false;
 
-                Task.Run(() => LoadCustomers());
+                Task.Run(() => SearchCustomers());
             }
         }
 
@@ -43,8 +47,8 @@ namespace Point.Client.Main.Forms.Orders
         {
             if (e.KeyCode == Keys.Enter && !string.IsNullOrWhiteSpace(txtSearch.Text))
             {
-                btnSelect.Enabled = false;
-                Task.Run(() => LoadCustomers(txtSearch.Text));
+                ClearFields();
+                Task.Run(() => SearchCustomers(txtSearch.Text));
             }
         }
 
@@ -55,11 +59,6 @@ namespace Point.Client.Main.Forms.Orders
                 SelectedCustomer = (Customer)txtCustomer.Tag;
                 this.DialogResult = DialogResult.OK;
             }
-        }
-
-        private void btnLoadAll_Click(object sender, EventArgs e)
-        {
-            Task.Run(() => LoadCustomers());
         }
 
         #endregion
@@ -78,15 +77,13 @@ namespace Point.Client.Main.Forms.Orders
         {
             if (dgvCustomers.SelectedRows.Count > 0)
             {
-                var row = dgvCustomers.SelectedRows[0];
-                txtCustomer.Tag = row.Tag;
-                txtCustomer.Text = row.Cells[0].Value.ToString();
-
-                btnSelect.Enabled = true;
-            }
-            else
-            {
-                btnSelect.Enabled = false;
+                var customer = (Customer)dgvCustomers.SelectedRows[0].Tag;
+                txtCustomer.Tag = customer;
+                txtCustomer.Text = customer.Name;
+                txtMobile.Text = customer.MobileNumber;
+                txtEmail.Text = customer.Email;
+                txtAddress.Text = customer.Address;
+                txtRemarks.Text = customer.Remarks;
             }
         }
 
@@ -114,9 +111,22 @@ namespace Point.Client.Main.Forms.Orders
                 return;
             }
 
+            Regex regex = new(_emailPattern);
+
+            if (!string.IsNullOrWhiteSpace(txtEmail.Text) && !regex.IsMatch(txtEmail.Text.Trim()))
+            {
+                MessageBox.Show("Please enter a valid email address.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtEmail.Focus();
+                return;
+            }
+
             var customer = new CustomerDto
             {
-                Name = txtCustomer.Text.Trim()
+                Name = txtCustomer.Text.Trim(),
+                MobileNumber = string.IsNullOrWhiteSpace(txtMobile.Text) ? null : txtMobile.Text.Trim(),
+                Email = string.IsNullOrWhiteSpace(txtEmail.Text) ? null : txtEmail.Text.Trim(),
+                Address = string.IsNullOrWhiteSpace(txtAddress.Text) ? null : txtAddress.Text.Trim(),
+                Remarks = string.IsNullOrWhiteSpace(txtRemarks.Text) ? null : txtRemarks.Text.Trim()
             };
 
             EnableButtons(false);
@@ -145,12 +155,15 @@ namespace Point.Client.Main.Forms.Orders
         private void ClearFields()
         {
             txtCustomer.Clear();
+            txtMobile.Clear();
+            txtEmail.Clear();
+            txtAddress.Clear();
+            txtRemarks.Clear();
         }
 
         private void EnableEditing(bool enable)
         {
             txtSearch.Enabled = !enable;
-            btnLoadAll.Visible = !enable;
             btnSelect.Visible = !enable;
 
             btnNew.Visible = !enable;
@@ -160,20 +173,53 @@ namespace Point.Client.Main.Forms.Orders
 
             dgvCustomers.Enabled = !enable;
             txtCustomer.ReadOnly = !enable;
+            txtMobile.ReadOnly = !enable;
+            txtEmail.ReadOnly = !enable;
+            txtAddress.ReadOnly = !enable;
+            txtRemarks.ReadOnly = !enable;
 
             EnableButtons();
         }
 
         private void EnableButtons(bool enable = true)
         {
-            btnLoadAll.Enabled = enable;
-
             btnNew.Enabled = enable;
             btnEdit.Enabled = enable;
             btnSave.Enabled = enable;
             btnCancel.Enabled = enable;
         }
 
+        private void EnableFormLoading(bool enable = true, string? message = null)
+        {
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
+
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    btnEdit.Enabled = false;
+                    btnSelect.Enabled = false;
+
+                    this.UseWaitCursor = true;
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    if (dgvCustomers.Rows.Count > 0)
+                    {
+                        btnSelect.Enabled = true;
+                        btnEdit.Enabled = true;
+                    }
+
+                    this.UseWaitCursor = false;
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
+        }
 
         #endregion
 
@@ -189,16 +235,18 @@ namespace Point.Client.Main.Forms.Orders
                 {
                     MessageBox.Show("New Customer has been added.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    var customer = customerDto.ToCustomer(response.Id);
+
                     dgvCustomers.Rows.Add(customerDto.Name);
                     var rowIndex = dgvCustomers.Rows.Count - 1;
-                    dgvCustomers.Rows[rowIndex].Tag = response?.Id;
+                    dgvCustomers.Rows[rowIndex].Tag = customer;
 
                     dgvCustomers.ClearSelection();
                     dgvCustomers.Rows[rowIndex].Selected = true;
                     dgvCustomers.FirstDisplayedScrollingRowIndex = rowIndex;
 
                     txtCustomer.Text = customerDto.Name;
-                    txtCustomer.Tag = new Customer { Id = response.Id, Name = customerDto.Name};
+                    txtCustomer.Tag = customer;
 
                     EnableEditing(false);
                 }));
@@ -226,9 +274,16 @@ namespace Point.Client.Main.Forms.Orders
                 {
                     MessageBox.Show("Customer has been updated.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    dgvCustomers.Rows[dgvCustomers.SelectedRows[0].Index].Cells[0].Value = customerDto.Name;
+                    var customer = customerDto.ToCustomer(id);
 
-                    txtCustomer.Text = customerDto.Name;
+                    dgvCustomers.Rows[dgvCustomers.SelectedRows[0].Index].Cells[0].Value = customer.Name;
+                    dgvCustomers.Rows[dgvCustomers.SelectedRows[0].Index].Tag = customer;
+
+                    txtCustomer.Text = customer.Name;
+                    txtMobile.Text = customer.MobileNumber;
+                    txtEmail.Text = customer.Email;
+                    txtAddress.Text = customer.Address;
+                    txtRemarks.Text = customer.Remarks;
 
                     EnableEditing(false);
                 }));
@@ -246,19 +301,14 @@ namespace Point.Client.Main.Forms.Orders
             }
         }
 
-        private async void LoadCustomers(string? name = null)
+        private async void SearchCustomers(string? name = null)
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableButtons(false);
-
-                this.Text = "Loading Categories...";
+                EnableFormLoading(true, "Loading Customers...");
             }));
 
-            var response = string.IsNullOrWhiteSpace(name)
-                ? await _customerService.GetCustomers()
-                : await _customerService.SearchCustomers(name);
+            var response = await _customerService.SearchCustomers(name);
 
             this.Invoke((MethodInvoker)(() =>
             {
@@ -274,8 +324,9 @@ namespace Point.Client.Main.Forms.Orders
                     dgvCustomers.Rows.Add(row);
                 });
 
-                this.Text = frmText;
-                EnableButtons(true);
+                EnableFormLoading(false);
+
+                if (name != null) txtSearch.Focus();
             }));
         }
 

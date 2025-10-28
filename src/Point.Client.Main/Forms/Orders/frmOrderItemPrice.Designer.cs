@@ -208,7 +208,6 @@
             // 
             // frmOrderItemPrice
             // 
-            AcceptButton = btnAddItem;
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
@@ -236,7 +235,7 @@
             Padding = new Padding(20);
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Select Item Price...";
+            Text = "Select Item Price";
             Load += frmOrderItemPrice_Load;
             ((System.ComponentModel.ISupportInitialize)numQuantity).EndInit();
             ResumeLayout(false);

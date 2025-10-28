@@ -213,8 +213,6 @@ namespace Point.Client.Main.Forms.Orders
             txtCustomer.Clear();
             txtCustomer.Tag = null;
             dgvOrderItems.Rows.Clear();
-            lblSubTotal.Text = "0.00";
-            lblDiscount.Text = "0.00";
             lblTotal.Text = "0.00";
 
             EnableButtons(false);
@@ -247,7 +245,6 @@ namespace Point.Client.Main.Forms.Orders
             decimal total = 0;
             foreach (DataGridViewRow row in dgvOrderItems.Rows) total += ((OrderItemDto)row.Tag).Total;
 
-            lblSubTotal.Text = total.ToAmountString();
             lblTotal.Text = total.ToAmountString();
         }
 
@@ -286,12 +283,13 @@ namespace Point.Client.Main.Forms.Orders
                 var items = new List<OrderItemDto>();
                 foreach (DataGridViewRow row in dgvOrderItems.Rows) items.Add(row.Tag.Parse<OrderItemDto>());
 
+                var total = decimal.Parse(lblTotal.Text);
                 var orderDto = new OrderDto
                 {
                     CustomerId = !txtCustomer.Tag.IsNull() ? int.Parse(txtCustomer.Tag.ToString()) : null,
-                    SubTotal = decimal.Parse(lblSubTotal.Text),
-                    Discount = decimal.Parse(lblDiscount.Text),
-                    Total = decimal.Parse(lblTotal.Text),
+                    SubTotal = total,
+                    Discount = 0,
+                    Total = total,
                     Items = items,
                     Payment = paymentDto
                 };
@@ -314,7 +312,6 @@ namespace Point.Client.Main.Forms.Orders
                 this.Invoke((MethodInvoker)(() =>
                 {
                     MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                     EnableControls();
                 }));
             }
@@ -330,8 +327,6 @@ namespace Point.Client.Main.Forms.Orders
                 var orderDto = new OrderDto
                 {
                     CustomerId = !txtCustomer.Tag.IsNull() ? int.Parse(txtCustomer.Tag.ToString()) : null,
-                    SubTotal = decimal.Parse(lblSubTotal.Text),
-                    Discount = decimal.Parse(lblDiscount.Text),
                     Total = decimal.Parse(lblTotal.Text),
                     Items = items,
                     Payment = paymentDto

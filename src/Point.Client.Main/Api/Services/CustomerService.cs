@@ -1,10 +1,9 @@
-﻿using System.Drawing.Printing;
-using Point.Client.Main.Api.Contracts;
+﻿using Point.Client.Main.Api.Contracts;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Dtos.Response;
-using Point.Client.Main.Api.Entities;
+using Point.Client.Main.Api.Entities.Orders;
+using Point.Client.Main.Constants;
 using RestSharp;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Point.Client.Main.Api.Services
 {
@@ -27,15 +26,11 @@ namespace Point.Client.Main.Api.Services
         {
             await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}", Method.Put, customerDto);
         }
-        
-        public async Task<List<Customer>?> GetCustomers()
-        {
-            return await _pointApiClient.ExecuteAsync<List<Customer>>(_endPoint, Method.Get);
-        }
 
-        public async Task<List<Customer>?> SearchCustomers(string name)
+        public async Task<List<Customer>?> SearchCustomers(string? name = null)
         {
-            var endPoint = $"{_endPoint}/search?name={name}";
+            var endPoint = $"{_endPoint}/search?page=1&pageSize={FormConstants.Pagination.PageSizes[0]}";
+            if (!string.IsNullOrWhiteSpace(name)) endPoint += $"&name={name}";
             return await _pointApiClient.ExecuteAsync<List<Customer>>(endPoint, Method.Get);
         }
     }
