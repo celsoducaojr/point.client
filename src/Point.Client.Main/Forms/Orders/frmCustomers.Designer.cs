@@ -88,7 +88,7 @@
             // 
             // btnNew
             // 
-            btnNew.Location = new System.Drawing.Point(928, 625);
+            btnNew.Location = new System.Drawing.Point(928, 623);
             btnNew.Margin = new Padding(4);
             btnNew.Name = "btnNew";
             btnNew.Size = new Size(118, 36);
@@ -119,7 +119,7 @@
             // 
             // btnCancel
             // 
-            btnCancel.Location = new System.Drawing.Point(1054, 625);
+            btnCancel.Location = new System.Drawing.Point(1054, 623);
             btnCancel.Margin = new Padding(4);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(118, 36);
@@ -131,7 +131,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new System.Drawing.Point(866, 625);
+            btnSave.Location = new System.Drawing.Point(866, 623);
             btnSave.Margin = new Padding(4);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(180, 36);

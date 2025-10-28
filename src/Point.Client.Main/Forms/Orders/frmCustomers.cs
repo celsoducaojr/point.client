@@ -279,6 +279,7 @@ namespace Point.Client.Main.Forms.Orders
                     dgvCustomers.Rows[dgvCustomers.SelectedRows[0].Index].Cells[0].Value = customer.Name;
                     dgvCustomers.Rows[dgvCustomers.SelectedRows[0].Index].Tag = customer;
 
+                    txtCustomer.Tag = customer;
                     txtCustomer.Text = customer.Name;
                     txtMobile.Text = customer.MobileNumber;
                     txtEmail.Text = customer.Email;
