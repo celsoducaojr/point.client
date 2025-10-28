@@ -401,21 +401,15 @@ namespace Point.Client.Main.Listing
             this.ControlBox = !enable;
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
 
-            if (dgvItems.Rows.Count == 0)
-            {
-                btnEdit.Enabled = false;
-                btnAddItemUnit.Enabled = false;
-            }
-            else
-            {
-                btnEdit.Enabled = true;
-                btnAddItemUnit.Enabled = true;
-            }
+           
 
             if (enable)
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
+                    btnEdit.Enabled = false;
+                    btnAddItemUnit.Enabled = false;
+
                     this.UseWaitCursor = true;
                     FormFactory.ShowLoadingForm(this, message);
                 }));
@@ -424,6 +418,12 @@ namespace Point.Client.Main.Listing
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
+                    if (dgvItems.Rows.Count > 0)
+                    {
+                        btnEdit.Enabled = true;
+                        btnAddItemUnit.Enabled = true;
+                    }
+
                     this.UseWaitCursor = false;
                     FormFactory.CloseLoadingForm(this);
                 }));

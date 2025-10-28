@@ -312,11 +312,6 @@ namespace Point.Client.Main.Listing
             this.ControlBox = !enable;
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
 
-            if (dgvItemUnits.Rows.Count == 0)
-            {
-                tsMain.Enabled = false;
-            }
-
             if (enable)
             {
                 this.Invoke((MethodInvoker)(() =>
@@ -329,6 +324,11 @@ namespace Point.Client.Main.Listing
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
+                    if (dgvItemUnits.Rows.Count == 0)
+                    {
+                        tsMain.Enabled = false;
+                    }
+
                     this.UseWaitCursor = false;
                     FormFactory.CloseLoadingForm(this);
                 }));

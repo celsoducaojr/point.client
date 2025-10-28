@@ -277,11 +277,6 @@ namespace Point.Client.Main.Stocks
             this.ControlBox = !enable;
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
 
-            if (dgvStocks.Rows.Count == 0)
-            {
-                tsMain.Enabled = false;
-            }
-
             if (enable)
             {
                 this.Invoke((MethodInvoker)(() =>
@@ -294,6 +289,11 @@ namespace Point.Client.Main.Stocks
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
+                    if (dgvStocks.Rows.Count == 0)
+                    {
+                        tsMain.Enabled = false;
+                    }
+
                     this.UseWaitCursor = false;
                     FormFactory.CloseLoadingForm(this);
                 }));

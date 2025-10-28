@@ -128,16 +128,14 @@ namespace Point.Client.Main.Listing
             this.ControlBox = !enable;
             this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
 
-            btnEdit.Enabled = true;
-            if (dgvCategories.Rows.Count == 0)
-            {
-                btnEdit.Enabled = false;
-            }
+           
 
             if (enable)
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
+                    btnEdit.Enabled = false;
+
                     this.UseWaitCursor = true;
                     FormFactory.ShowLoadingForm(this, message);
                 }));
@@ -146,6 +144,11 @@ namespace Point.Client.Main.Listing
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
+                    if (dgvCategories.Rows.Count > 0)
+                    {
+                        btnEdit.Enabled = true;
+                    }
+
                     this.UseWaitCursor = false;
                     FormFactory.CloseLoadingForm(this);
                 }));
