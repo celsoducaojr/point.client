@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Point.Client.Main.Api;
+﻿using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities.Orders;
 using Point.Client.Main.Api.Enums;
@@ -13,6 +12,8 @@ namespace Point.Client.Main.Forms.Orders
     public partial class frmOrders : Form
     {
         private bool _isFirstLoad;
+        private bool _isActive;
+        private bool _hasChanges;
 
         private SearchOrderCriteriaDto? _searchOrderDto;
 
@@ -21,6 +22,8 @@ namespace Point.Client.Main.Forms.Orders
         private int _currentPageSize;
         private OrderStatus _currentOrderStatus;
 
+        private DateTime? _orderLastUpdate;
+
         private readonly OrderService _orderService;
 
         public frmOrders()
@@ -28,6 +31,8 @@ namespace Point.Client.Main.Forms.Orders
             InitializeComponent();
 
             _isFirstLoad = true;
+            _isActive = false;
+            _hasChanges = false;
 
             _searchOrderDto = null;
 
@@ -36,19 +41,20 @@ namespace Point.Client.Main.Forms.Orders
             _currentPageSize = FormConstants.Pagination.PageSizes.ElementAtOrDefault(0);
             _currentOrderStatus = OrderStatus.New;
 
+            _orderLastUpdate = RecordStatus.Orders.LastUpdate;
+            RecordStatus.Orders.OnDataUpdated += ReloadData;
+
             _orderService = ServiceFactory.GetService<OrderService>();
 
             cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
         }
-
-        private void frmOrders_Load(object sender, EventArgs e)
+        private void frmOrders_Activated(object sender, EventArgs e)
         {
             if (_isFirstLoad)
             {
-                ClearOrderFields();
-
                 _isFirstLoad = false;
 
+                // Set available Order statuses
                 var orderStatuses = new List<OrderStatus>
                 {
                     OrderStatus.New,
@@ -57,10 +63,20 @@ namespace Point.Client.Main.Forms.Orders
                 cmbStatus.DataSource = orderStatuses.ToList();
                 cmbStatus.SelectedIndex = 0;
             }
+            else if (_orderLastUpdate != RecordStatus.Orders.LastUpdate)
+            {
+                cmbPageSize_SelectedIndexChanged(sender, e);
+            }
 
-            RecordStatus.Orders.OnDataUpdated += ReloadData;
+            _isActive = true;
         }
 
+        private void frmOrders_Deactivate(object sender, EventArgs e)
+        {
+            _isActive = false;
+        }
+
+        #region Editing
         private void btnAddNewOrder_Click(object sender, EventArgs e)
         {
             FormFactory.GetForm<frmOrder>().Show();
@@ -123,8 +139,17 @@ namespace Point.Client.Main.Forms.Orders
             }
         }
 
+        #endregion
+
         #region Search and Pagination
 
+        private async void ReloadData()
+        {
+            if (_isActive)
+            {
+                await SearchOrders();
+            }
+        }
         private void btnReload_Click(object sender, EventArgs e)
         {
             _searchOrderDto = null;
@@ -231,20 +256,13 @@ namespace Point.Client.Main.Forms.Orders
         private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             _currentOrderStatus = (OrderStatus)cmbStatus.SelectedValue;
-            if (cmbPageSize.SelectedItem == null)
-                cmbPageSize.SelectedIndex = 0;
-            else
-                Task.Run(() => SearchOrders());
+            
+            Task.Run(() => SearchOrders());
         }
 
         #endregion
 
         #region Helpers
-
-        private void ReloadData()
-        {
-            cmbPageSize_SelectedIndexChanged(null, null);
-        }
 
         private void ClearOrderFields()
         {
@@ -259,12 +277,28 @@ namespace Point.Client.Main.Forms.Orders
             btnRelease.Enabled = false;
             btnCancel.Enabled = false;
         }
-
-        private void EnableControls(bool enable = true)
+        private void EnableFormLoading(bool enable = true, string? message = null)
         {
-            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
-        }
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
 
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    this.UseWaitCursor = true;
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    this.UseWaitCursor = false;
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
+        }
         private void UpdateRowValues(Order order, DataGridViewRow row)
         {
             row.Cells[0].Value = order.Number;
@@ -281,12 +315,11 @@ namespace Point.Client.Main.Forms.Orders
 
         private async Task SearchOrders()
         {
-            var frmText = this.Text;
+            _orderLastUpdate = RecordStatus.Orders.LastUpdate;
+
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
-
-                this.Text = "Loading Orders...";
+                EnableFormLoading(true, "Loading Orders...");
             }));
 
             var response = await _orderService.SearchOrders(_currentPage, _currentPageSize,
@@ -317,8 +350,7 @@ namespace Point.Client.Main.Forms.Orders
                     });
                 }
 
-                this.Text = frmText;
-                EnableControls();
+                EnableFormLoading(false);
             }));
         }
 

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOrders));
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panel1 = new Panel();
             dgvOrders = new DataGridView();
             clmOrderNumber = new DataGridViewTextBoxColumn();
@@ -147,8 +147,8 @@
             // 
             // clmOrderTotal
             // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
             clmOrderTotal.HeaderText = "Total";
             clmOrderTotal.MinimumWidth = 6;
             clmOrderTotal.Name = "clmOrderTotal";
@@ -379,9 +379,9 @@
             lblCustomer.Location = new System.Drawing.Point(111, 63);
             lblCustomer.Margin = new Padding(4, 0, 4, 0);
             lblCustomer.Name = "lblCustomer";
-            lblCustomer.Size = new Size(50, 25);
+            lblCustomer.Size = new Size(19, 25);
             lblCustomer.TabIndex = 40;
-            lblCustomer.Text = "New";
+            lblCustomer.Text = "-";
             // 
             // label2
             // 
@@ -438,8 +438,8 @@
             // 
             // clmPrice
             // 
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmPrice.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmPrice.DefaultCellStyle = dataGridViewCellStyle2;
             clmPrice.HeaderText = "Price";
             clmPrice.MinimumWidth = 6;
             clmPrice.Name = "clmPrice";
@@ -448,8 +448,8 @@
             // 
             // clmTotal
             // 
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmTotal.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmTotal.DefaultCellStyle = dataGridViewCellStyle3;
             clmTotal.HeaderText = "Total";
             clmTotal.MinimumWidth = 6;
             clmTotal.Name = "clmTotal";
@@ -475,9 +475,9 @@
             lblStatus.Location = new System.Drawing.Point(82, 31);
             lblStatus.Margin = new Padding(4, 0, 4, 0);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(50, 25);
+            lblStatus.Size = new Size(19, 25);
             lblStatus.TabIndex = 28;
-            lblStatus.Text = "New";
+            lblStatus.Text = "-";
             // 
             // label4
             // 
@@ -498,7 +498,7 @@
             lblDateTime.Name = "lblDateTime";
             lblDateTime.Size = new Size(272, 25);
             lblDateTime.TabIndex = 26;
-            lblDateTime.Text = "Jan 1, 2025";
+            lblDateTime.Text = "Date / Time";
             lblDateTime.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblOrderNumber
@@ -508,9 +508,9 @@
             lblOrderNumber.Location = new System.Drawing.Point(0, 0);
             lblOrderNumber.Margin = new Padding(4, 0, 4, 0);
             lblOrderNumber.Name = "lblOrderNumber";
-            lblOrderNumber.Size = new Size(207, 31);
+            lblOrderNumber.Size = new Size(136, 31);
             lblOrderNumber.TabIndex = 23;
-            lblOrderNumber.Text = "ORDER NO. 12345";
+            lblOrderNumber.Text = "ORDER NO.";
             // 
             // label1
             // 
@@ -614,7 +614,8 @@
             Name = "frmOrders";
             Text = "Orders";
             WindowState = FormWindowState.Maximized;
-            Load += frmOrders_Load;
+            Activated += frmOrders_Activated;
+            Deactivate += frmOrders_Deactivate;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvOrders).EndInit();
