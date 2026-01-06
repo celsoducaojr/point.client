@@ -48,10 +48,11 @@ namespace Point.Client.Main.Api.Services
             await _pointApiClient.ExecuteAsync($"{_endPoint}/{id}/{statusAction}", Method.Put);
         }
 
-        public async Task<GetOrdersResponseDto?> SearchOrders(int page, int pageSize, int? customerId = null, List<OrderStatus>? statuses = null)
+        public async Task<GetOrdersResponseDto?> SearchOrders(int page, int pageSize, int? customerId = null, string? customerName = null, List<OrderStatus>? statuses = null)
         {
             var endPoint = $"{_endPoint}/search?page={page}&pageSize={pageSize}";
             if (customerId.HasValue) endPoint += $"&customerId={customerId}";
+            if (!string.IsNullOrEmpty(customerName)) endPoint += $"&customerName={customerName}";
             if (statuses?.Count > 0) endPoint += $"&{string.Join("&", statuses.Select(status => $"statuses={(int)status}"))}";
             return await _pointApiClient.ExecuteAsync<GetOrdersResponseDto>(endPoint, Method.Get);
         }

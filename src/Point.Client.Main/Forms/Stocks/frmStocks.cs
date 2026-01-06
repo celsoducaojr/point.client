@@ -324,7 +324,7 @@ namespace Point.Client.Main.Stocks
 
             Thread.Sleep(2000);
             var response = await _stockService.SearchStocks(_currentPage, _currentPageSize,
-                _searchItemDto != null ? _searchItemDto.Name : null);
+                _searchItemDto?.Name ?? null);
 
             this.Invoke((MethodInvoker)(() =>
             {

@@ -53,12 +53,12 @@
             toolStripLabel1 = new ToolStripLabel();
             btnPrev = new ToolStripButton();
             btnFirst = new ToolStripButton();
+            btnReload = new ToolStripButton();
             label1 = new Label();
             pnlSearch = new Panel();
             panel1 = new Panel();
             linkLabel1 = new LinkLabel();
             txtSearchItem = new TextBox();
-            btnReload = new ToolStripButton();
             tsMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvItemUnits).BeginInit();
             tsPages.SuspendLayout();
@@ -302,6 +302,15 @@
             btnFirst.ToolTipText = "first page";
             btnFirst.Click += btnFirst_Click;
             // 
+            // btnReload
+            // 
+            btnReload.Image = Properties.Resources.reload_icon;
+            btnReload.ImageTransparentColor = Color.Magenta;
+            btnReload.Name = "btnReload";
+            btnReload.Size = new Size(123, 28);
+            btnReload.Text = "Reload All";
+            btnReload.Click += btnReload_Click;
+            // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -354,15 +363,6 @@
             txtSearchItem.Size = new Size(1422, 31);
             txtSearchItem.TabIndex = 1;
             txtSearchItem.KeyDown += txtSearchItem_KeyDown;
-            // 
-            // btnReload
-            // 
-            btnReload.Image = Properties.Resources.reload_icon;
-            btnReload.ImageTransparentColor = Color.Magenta;
-            btnReload.Name = "btnReload";
-            btnReload.Size = new Size(95, 28);
-            btnReload.Text = "Reload";
-            btnReload.Click += btnReload_Click;
             // 
             // frmItemUnits
             // 

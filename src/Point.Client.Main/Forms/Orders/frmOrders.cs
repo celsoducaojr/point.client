@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Point.Client.Main.Api;
+using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities.Orders;
 using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Api.Extensions;
@@ -13,6 +14,8 @@ namespace Point.Client.Main.Forms.Orders
     {
         private bool _isFirstLoad;
 
+        private SearchOrderCriteriaDto? _searchOrderDto;
+
         private int _currentPage;
         private int _currentTotalPages;
         private int _currentPageSize;
@@ -25,6 +28,8 @@ namespace Point.Client.Main.Forms.Orders
             InitializeComponent();
 
             _isFirstLoad = true;
+
+            _searchOrderDto = null;
 
             _currentPage = 1;
             _currentTotalPages = 0;
@@ -84,11 +89,6 @@ namespace Point.Client.Main.Forms.Orders
             }
         }
 
-        private void btnReload_Click(object sender, EventArgs e)
-        {
-            ReloadData();
-        }
-
         private void dgvOrders_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvOrders.SelectedRows.Count > 0)
@@ -125,13 +125,11 @@ namespace Point.Client.Main.Forms.Orders
 
         #region Search and Pagination
 
-        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnReload_Click(object sender, EventArgs e)
         {
-            _currentOrderStatus = (OrderStatus)cmbStatus.SelectedValue;
-            if (cmbPageSize.SelectedItem == null)
-                cmbPageSize.SelectedIndex = 0;
-            else
-                Task.Run(() => SearchOrders());
+            _searchOrderDto = null;
+
+            Task.Run(() => SearchOrders());
         }
 
         private void btnFirst_Click(object sender, EventArgs e)
@@ -217,6 +215,28 @@ namespace Point.Client.Main.Forms.Orders
             });
         }
 
+        private void txtSearchCustomer_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtSearchCustomer.Text))
+            {
+                _searchOrderDto = new SearchOrderCriteriaDto
+                {
+                    CustomerName = txtSearchCustomer.Text.Trim()
+                };
+
+                Task.Run(() => SearchOrders());
+            }
+        }
+
+        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentOrderStatus = (OrderStatus)cmbStatus.SelectedValue;
+            if (cmbPageSize.SelectedItem == null)
+                cmbPageSize.SelectedIndex = 0;
+            else
+                Task.Run(() => SearchOrders());
+        }
+
         #endregion
 
         #region Helpers
@@ -269,8 +289,8 @@ namespace Point.Client.Main.Forms.Orders
                 this.Text = "Loading Orders...";
             }));
 
-            var response = await _orderService.SearchOrders(_currentPage, _currentPageSize, customerId: null,
-                [_currentOrderStatus]);
+            var response = await _orderService.SearchOrders(_currentPage, _currentPageSize,
+                customerId: null, customerName: _searchOrderDto?.CustomerName ?? null, [_currentOrderStatus]);
 
             this.Invoke((MethodInvoker)(() =>
             {
@@ -280,7 +300,7 @@ namespace Point.Client.Main.Forms.Orders
                 ClearOrderFields();
                 txtPage.Clear();
                 lblTotalPage.Text = string.Format(FormConstants.Pagination.TotalPagesCountLabel, 0);
-                
+
                 if (response?.TotalCount > 0)
                 {
                     txtPage.Text = _currentPage.ToString();

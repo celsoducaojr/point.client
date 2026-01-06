@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmOrders));
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             panel1 = new Panel();
             dgvOrders = new DataGridView();
             clmOrderNumber = new DataGridViewTextBoxColumn();
@@ -78,7 +78,7 @@
             lblIcon = new Label();
             pnlSearch = new Panel();
             label3 = new Label();
-            txtCustomer = new TextBox();
+            txtSearchCustomer = new TextBox();
             cmbStatus = new ComboBox();
             panel3 = new Panel();
             panel1.SuspendLayout();
@@ -147,8 +147,8 @@
             // 
             // clmOrderTotal
             // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle4;
             clmOrderTotal.HeaderText = "Total";
             clmOrderTotal.MinimumWidth = 6;
             clmOrderTotal.Name = "clmOrderTotal";
@@ -438,8 +438,8 @@
             // 
             // clmPrice
             // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmPrice.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmPrice.DefaultCellStyle = dataGridViewCellStyle5;
             clmPrice.HeaderText = "Price";
             clmPrice.MinimumWidth = 6;
             clmPrice.Name = "clmPrice";
@@ -448,8 +448,8 @@
             // 
             // clmTotal
             // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmTotal.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmTotal.DefaultCellStyle = dataGridViewCellStyle6;
             clmTotal.HeaderText = "Total";
             clmTotal.MinimumWidth = 6;
             clmTotal.Name = "clmTotal";
@@ -548,7 +548,7 @@
             // pnlSearch
             // 
             pnlSearch.Controls.Add(label3);
-            pnlSearch.Controls.Add(txtCustomer);
+            pnlSearch.Controls.Add(txtSearchCustomer);
             pnlSearch.Controls.Add(cmbStatus);
             pnlSearch.Controls.Add(panel3);
             pnlSearch.Dock = DockStyle.Bottom;
@@ -567,19 +567,21 @@
             label3.TabIndex = 6;
             label3.Text = "Order Status";
             // 
-            // txtCustomer
+            // txtSearchCustomer
             // 
-            txtCustomer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            txtCustomer.Location = new System.Drawing.Point(47, 14);
-            txtCustomer.Margin = new Padding(4);
-            txtCustomer.MaxLength = 100;
-            txtCustomer.Name = "txtCustomer";
-            txtCustomer.PlaceholderText = "Customer name...";
-            txtCustomer.Size = new Size(1708, 31);
-            txtCustomer.TabIndex = 5;
+            txtSearchCustomer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtSearchCustomer.Location = new System.Drawing.Point(47, 14);
+            txtSearchCustomer.Margin = new Padding(4);
+            txtSearchCustomer.MaxLength = 100;
+            txtSearchCustomer.Name = "txtSearchCustomer";
+            txtSearchCustomer.PlaceholderText = "Customer name...";
+            txtSearchCustomer.Size = new Size(1708, 31);
+            txtSearchCustomer.TabIndex = 5;
+            txtSearchCustomer.KeyDown += txtSearchCustomer_KeyDown;
             // 
             // cmbStatus
             // 
+            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.FormattingEnabled = true;
             cmbStatus.Location = new System.Drawing.Point(164, 52);
             cmbStatus.Name = "cmbStatus";
@@ -678,7 +680,7 @@
         private Panel pnlSearch;
         private Panel panel3;
         private ComboBox cmbStatus;
-        private TextBox txtCustomer;
+        private TextBox txtSearchCustomer;
         private Label label3;
         private ToolStripButton btnReload;
     }

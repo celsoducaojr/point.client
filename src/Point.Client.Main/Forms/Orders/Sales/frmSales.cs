@@ -354,8 +354,8 @@ namespace Point.Client.Main.Forms.Sales
                 this.Text = "Loading Orders...";
             }));
 
-            var response = await _orderService.SearchOrders(_currentPage, _currentPageSize, customerId: null,
-                [_currentOrderStatus.Value]);
+            var response = await _orderService.SearchOrders(_currentPage, _currentPageSize, 
+                customerId: null, customerName: null, [_currentOrderStatus.Value]);
 
             this.Invoke((MethodInvoker)(() =>
             {
