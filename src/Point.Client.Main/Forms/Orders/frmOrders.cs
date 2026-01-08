@@ -256,8 +256,13 @@ namespace Point.Client.Main.Forms.Orders
         private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             _currentOrderStatus = (OrderStatus)cmbStatus.SelectedValue;
-            
-            Task.Run(() => SearchOrders());
+
+            if (cmbPageSize.SelectedItem == null)
+            {
+                cmbPageSize.SelectedIndex = 0; // First load: Load with default page size 
+            }
+            else
+                Task.Run(() => SearchOrders());
         }
 
         #endregion

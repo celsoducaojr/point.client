@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSales));
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             btnPay = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -233,8 +233,8 @@
             // 
             // clmOrderTotal
             // 
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmOrderTotal.DefaultCellStyle = dataGridViewCellStyle1;
             clmOrderTotal.HeaderText = "Total";
             clmOrderTotal.MinimumWidth = 6;
             clmOrderTotal.Name = "clmOrderTotal";
@@ -628,10 +628,10 @@
             tabItems.Controls.Add(lblSubTotal);
             tabItems.Controls.Add(label8);
             tabItems.Controls.Add(dgvOrderItems);
-            tabItems.Location = new System.Drawing.Point(4, 34);
+            tabItems.Location = new System.Drawing.Point(4, 29);
             tabItems.Name = "tabItems";
             tabItems.Padding = new Padding(3);
-            tabItems.Size = new Size(1000, 484);
+            tabItems.Size = new Size(1000, 489);
             tabItems.TabIndex = 0;
             tabItems.Text = "Items";
             tabItems.UseVisualStyleBackColor = true;
@@ -751,8 +751,8 @@
             // 
             // clmPrice
             // 
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmPrice.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmPrice.DefaultCellStyle = dataGridViewCellStyle2;
             clmPrice.HeaderText = "Price";
             clmPrice.MinimumWidth = 6;
             clmPrice.Name = "clmPrice";
@@ -761,8 +761,8 @@
             // 
             // clmTotal
             // 
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmTotal.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmTotal.DefaultCellStyle = dataGridViewCellStyle3;
             clmTotal.HeaderText = "Total";
             clmTotal.MinimumWidth = 6;
             clmTotal.Name = "clmTotal";
@@ -774,10 +774,10 @@
             tabPayments.Controls.Add(lblTotalPayments);
             tabPayments.Controls.Add(label13);
             tabPayments.Controls.Add(dgvPayments);
-            tabPayments.Location = new System.Drawing.Point(4, 34);
+            tabPayments.Location = new System.Drawing.Point(4, 29);
             tabPayments.Name = "tabPayments";
             tabPayments.Padding = new Padding(3);
-            tabPayments.Size = new Size(1000, 484);
+            tabPayments.Size = new Size(1000, 489);
             tabPayments.TabIndex = 1;
             tabPayments.Text = "Payments";
             tabPayments.UseVisualStyleBackColor = true;
@@ -825,8 +825,8 @@
             // 
             // clmDateTime
             // 
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            clmDateTime.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            clmDateTime.DefaultCellStyle = dataGridViewCellStyle4;
             clmDateTime.HeaderText = "Date & Time";
             clmDateTime.MinimumWidth = 6;
             clmDateTime.Name = "clmDateTime";
@@ -835,8 +835,8 @@
             // 
             // clmAmount
             // 
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleRight;
-            clmAmount.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleRight;
+            clmAmount.DefaultCellStyle = dataGridViewCellStyle5;
             clmAmount.HeaderText = "Amount";
             clmAmount.MinimumWidth = 6;
             clmAmount.Name = "clmAmount";
@@ -872,10 +872,10 @@
             tabRefunds.Controls.Add(dgvRefunds);
             tabRefunds.Controls.Add(lblTotalRefunds);
             tabRefunds.Controls.Add(label3);
-            tabRefunds.Location = new System.Drawing.Point(4, 34);
+            tabRefunds.Location = new System.Drawing.Point(4, 29);
             tabRefunds.Name = "tabRefunds";
             tabRefunds.Padding = new Padding(3);
-            tabRefunds.Size = new Size(1000, 484);
+            tabRefunds.Size = new Size(1000, 489);
             tabRefunds.TabIndex = 3;
             tabRefunds.Text = "Refunds";
             tabRefunds.UseVisualStyleBackColor = true;
@@ -923,8 +923,8 @@
             // 
             // dataGridViewTextBoxColumn4
             // 
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle6;
             dataGridViewTextBoxColumn4.HeaderText = "Price";
             dataGridViewTextBoxColumn4.MinimumWidth = 6;
             dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
@@ -933,8 +933,8 @@
             // 
             // dataGridViewTextBoxColumn5
             // 
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle7;
             dataGridViewTextBoxColumn5.HeaderText = "Total";
             dataGridViewTextBoxColumn5.MinimumWidth = 6;
             dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
@@ -1153,7 +1153,7 @@
             Name = "frmSales";
             Text = "Sales";
             WindowState = FormWindowState.Maximized;
-            Load += frmSales_Load;
+            Activated += frmSales_Activated;
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

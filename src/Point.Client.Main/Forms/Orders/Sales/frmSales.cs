@@ -23,6 +23,8 @@ namespace Point.Client.Main.Forms.Sales
         private int _currentPageSize;
         private ComboBoxItem<OrderStatus> _currentOrderStatus;
 
+        private DateTime? _orderLastUpdate;
+
         private readonly OrderService _orderService;
 
         public frmSales()
@@ -30,7 +32,9 @@ namespace Point.Client.Main.Forms.Sales
             InitializeComponent();
 
             _isFirstLoad = true;
+
             _currentOrder = null;
+            _searchOrderDto = null;
 
             _currentPage = 1;
             _currentTotalPages = 0;
@@ -41,17 +45,17 @@ namespace Point.Client.Main.Forms.Sales
                 Text = OrderStatus.New.GetDescription()
             };
 
+            _orderLastUpdate = RecordStatus.Orders.LastUpdate;
+
             _orderService = ServiceFactory.GetService<OrderService>();
 
             cmbPageSize.Items.AddRange(FormConstants.Pagination.PageSizes.Cast<object>().ToArray());
         }
 
-        private void frmSales_Load(object sender, EventArgs e)
+        private void frmSales_Activated(object sender, EventArgs e)
         {
             if (_isFirstLoad)
             {
-                ClearSalesFields();
-
                 _isFirstLoad = false;
 
                 var orderStatuses = new List<OrderStatus>
@@ -67,9 +71,15 @@ namespace Point.Client.Main.Forms.Sales
                         Value = e,
                         Text = e.GetDescription()
                     }).ToList();
+                cmbStatus.SelectedIndexChanged -= cmbStatus_SelectedIndexChanged;
                 cmbStatus.DisplayMember = "Text";
                 cmbStatus.ValueMember = "Value";
+                cmbStatus.SelectedIndexChanged += cmbStatus_SelectedIndexChanged;
                 cmbStatus.SelectedIndex = 0;
+            }
+            else if (_orderLastUpdate != RecordStatus.Orders.LastUpdate)
+            {
+                cmbPageSize_SelectedIndexChanged(sender, e);
             }
         }
 
@@ -295,7 +305,9 @@ namespace Point.Client.Main.Forms.Sales
             _currentOrderStatus = (ComboBoxItem<OrderStatus>)cmbStatus.SelectedItem;
 
             if (cmbPageSize.SelectedItem == null)
-                cmbPageSize.SelectedIndex = 0;
+            {
+                cmbPageSize.SelectedIndex = 0; // First load: Load with default page size 
+            }
             else
                 Task.Run(() => SearchOrders());
         }
@@ -379,6 +391,8 @@ namespace Point.Client.Main.Forms.Sales
 
         private async Task SearchOrders()
         {
+            _orderLastUpdate = RecordStatus.Orders.LastUpdate;
+
             this.Invoke((MethodInvoker)(() =>
             {
                 EnableFormLoading(true, "Loading Sales...");
