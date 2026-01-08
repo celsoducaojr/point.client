@@ -340,9 +340,27 @@ namespace Point.Client.Main.Forms.Sales
             btnAddPayment.Visible = false;
         }
 
-        private void EnableControls(bool enable = true)
+        private void EnableFormLoading(bool enable = true, string? message = null)
         {
-            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = enable);
+            this.ControlBox = !enable;
+            this.Controls.OfType<Control>().ToList().ForEach(c => c.Enabled = !enable);
+
+            if (enable)
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    this.UseWaitCursor = true;
+                    FormFactory.ShowLoadingForm(this, message);
+                }));
+            }
+            else
+            {
+                this.Invoke((MethodInvoker)(() =>
+                {
+                    this.UseWaitCursor = false;
+                    FormFactory.CloseLoadingForm(this);
+                }));
+            }
         }
 
         private void UpdateRowValues(Order order, DataGridViewRow row)
@@ -361,12 +379,9 @@ namespace Point.Client.Main.Forms.Sales
 
         private async Task SearchOrders()
         {
-            var frmText = this.Text;
             this.Invoke((MethodInvoker)(() =>
             {
-                EnableControls(false);
-
-                this.Text = "Loading Orders...";
+                EnableFormLoading(true, "Loading Sales...");
             }));
 
             var response = await _orderService.SearchOrders(_currentPage, _currentPageSize,
@@ -397,8 +412,7 @@ namespace Point.Client.Main.Forms.Sales
                     });
                 }
 
-                this.Text = frmText;
-                EnableControls();
+                EnableFormLoading(false);
             }));
         }
 
@@ -408,7 +422,7 @@ namespace Point.Client.Main.Forms.Sales
             {
                 this.Invoke((MethodInvoker)(() =>
                 {
-                    EnableControls(false);
+                    EnableFormLoading(true, "Updating payment...");
                 }));
 
                 var response = await _orderService.AddPayment(_currentOrder.Id, paymentDto);
@@ -445,7 +459,7 @@ namespace Point.Client.Main.Forms.Sales
                         }
                     }
 
-                    EnableControls();
+                    EnableFormLoading(false);
                 }));
             }
             catch (HttpRequestException ex)
@@ -454,7 +468,7 @@ namespace Point.Client.Main.Forms.Sales
                 {
                     MessageBox.Show(ex.Message, "Request Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    EnableControls();
+                    EnableFormLoading(false);
                 }));
             }
         }

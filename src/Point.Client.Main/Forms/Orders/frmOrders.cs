@@ -148,6 +148,7 @@ namespace Point.Client.Main.Forms.Orders
                 await SearchOrders();
             }
         }
+
         private void btnReload_Click(object sender, EventArgs e)
         {
             txtSearchCustomer.Clear();
@@ -298,6 +299,7 @@ namespace Point.Client.Main.Forms.Orders
                 }));
             }
         }
+
         private void UpdateRowValues(Order order, DataGridViewRow row)
         {
             row.Cells[0].Value = order.Number;
