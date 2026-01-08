@@ -257,6 +257,7 @@ namespace Point.Client.Main.Listing
 
         private void btnReload_Click(object sender, EventArgs e)
         {
+            txtSearchItem.Clear();
             _searchItemDto = null;
 
             Task.Run(() => SearchItems());

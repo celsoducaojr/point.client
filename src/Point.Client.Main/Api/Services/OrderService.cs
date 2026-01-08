@@ -1,13 +1,9 @@
-﻿using System.Drawing.Printing;
-using Point.Client.Main.Api.Contracts;
+﻿using Point.Client.Main.Api.Contracts;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Dtos.Response;
-using Point.Client.Main.Api.Entities;
-using Point.Client.Main.Api.Entities.Orders;
 using Point.Client.Main.Api.Enums;
 using Point.Client.Main.Constants;
 using RestSharp;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Point.Client.Main.Api.Services
 {

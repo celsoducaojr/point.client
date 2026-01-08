@@ -563,16 +563,16 @@
             label3.AutoSize = true;
             label3.Location = new System.Drawing.Point(47, 55);
             label3.Name = "label3";
-            label3.Size = new Size(111, 25);
+            label3.Size = new Size(60, 25);
             label3.TabIndex = 6;
-            label3.Text = "Order Status";
+            label3.Text = "Status";
             // 
             // txtSearchCustomer
             // 
             txtSearchCustomer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtSearchCustomer.Location = new System.Drawing.Point(47, 14);
             txtSearchCustomer.Margin = new Padding(4);
-            txtSearchCustomer.MaxLength = 100;
+            txtSearchCustomer.MaxLength = 250;
             txtSearchCustomer.Name = "txtSearchCustomer";
             txtSearchCustomer.PlaceholderText = "Customer name...";
             txtSearchCustomer.Size = new Size(1708, 31);
@@ -583,7 +583,7 @@
             // 
             cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbStatus.FormattingEnabled = true;
-            cmbStatus.Location = new System.Drawing.Point(164, 52);
+            cmbStatus.Location = new System.Drawing.Point(113, 52);
             cmbStatus.Name = "cmbStatus";
             cmbStatus.Size = new Size(277, 33);
             cmbStatus.TabIndex = 4;

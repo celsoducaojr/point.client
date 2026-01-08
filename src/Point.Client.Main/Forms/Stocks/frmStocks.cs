@@ -162,6 +162,7 @@ namespace Point.Client.Main.Stocks
 
         private void btnReload_Click(object sender, EventArgs e)
         {
+            txtSearchItem.Clear();
             _searchItemDto = null;
 
             Task.Run(() => SearchStocks());

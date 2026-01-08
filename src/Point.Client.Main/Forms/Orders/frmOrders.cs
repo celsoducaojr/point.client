@@ -13,7 +13,6 @@ namespace Point.Client.Main.Forms.Orders
     {
         private bool _isFirstLoad;
         private bool _isActive;
-        private bool _hasChanges;
 
         private SearchOrderCriteriaDto? _searchOrderDto;
 
@@ -32,7 +31,6 @@ namespace Point.Client.Main.Forms.Orders
 
             _isFirstLoad = true;
             _isActive = false;
-            _hasChanges = false;
 
             _searchOrderDto = null;
 
@@ -152,6 +150,7 @@ namespace Point.Client.Main.Forms.Orders
         }
         private void btnReload_Click(object sender, EventArgs e)
         {
+            txtSearchCustomer.Clear();
             _searchOrderDto = null;
 
             Task.Run(() => SearchOrders());

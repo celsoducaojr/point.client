@@ -14,7 +14,9 @@ namespace Point.Client.Main.Forms.Sales
     public partial class frmSales : Form
     {
         private bool _isFirstLoad;
+
         private Order? _currentOrder;
+        private SearchOrderCriteriaDto? _searchOrderDto;
 
         private int _currentPage;
         private int _currentTotalPages;
@@ -59,19 +61,19 @@ namespace Point.Client.Main.Forms.Sales
                     OrderStatus.Paid,
                     OrderStatus.Refunded,
                 };
-                cmbStatus.ComboBox.DataSource = orderStatuses
+                cmbStatus.DataSource = orderStatuses
                     .Select(e => new ComboBoxItem<OrderStatus>
                     {
                         Value = e,
                         Text = e.GetDescription()
                     }).ToList();
-                cmbStatus.ComboBox.DisplayMember = "Text";
-                cmbStatus.ComboBox.ValueMember = "Value";
+                cmbStatus.DisplayMember = "Text";
+                cmbStatus.ValueMember = "Value";
                 cmbStatus.SelectedIndex = 0;
             }
-
-            RecordStatus.Orders.OnDataUpdated += ReloadData;
         }
+
+        #region Editing
 
         private void btnPay_Click(object sender, EventArgs e)
         {
@@ -90,11 +92,6 @@ namespace Point.Client.Main.Forms.Sales
         private void btnVoid_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void btnReload_Click(object sender, EventArgs e)
-        {
-            ReloadData();
         }
 
         private void dgvSales_SelectionChanged(object sender, EventArgs e)
@@ -185,16 +182,16 @@ namespace Point.Client.Main.Forms.Sales
             }
         }
 
+        #endregion
+
         #region Search and Pagination
 
-        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnReload_Click(object sender, EventArgs e)
         {
-            _currentOrderStatus = (ComboBoxItem<OrderStatus>)cmbStatus.ComboBox.SelectedItem;
+            txtSearchCustomer.Clear();
+            _searchOrderDto = null;
 
-            if (cmbPageSize.SelectedItem == null)
-                cmbPageSize.SelectedIndex = 0;
-            else
-                Task.Run(() => SearchOrders());
+            Task.Run(() => SearchOrders());
         }
 
         private void btnFirst_Click(object sender, EventArgs e)
@@ -280,14 +277,32 @@ namespace Point.Client.Main.Forms.Sales
             });
         }
 
+        private void txtSearchCustomer_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && !string.IsNullOrEmpty(txtSearchCustomer.Text))
+            {
+                _searchOrderDto = new SearchOrderCriteriaDto
+                {
+                    CustomerName = txtSearchCustomer.Text.Trim()
+                };
+
+                Task.Run(() => SearchOrders());
+            }
+        }
+
+        private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _currentOrderStatus = (ComboBoxItem<OrderStatus>)cmbStatus.SelectedItem;
+
+            if (cmbPageSize.SelectedItem == null)
+                cmbPageSize.SelectedIndex = 0;
+            else
+                Task.Run(() => SearchOrders());
+        }
+
         #endregion
 
         #region Helpers
-
-        private void ReloadData()
-        {
-            cmbPageSize_SelectedIndexChanged(null, null);
-        }
 
         private void ClearSalesFields()
         {
@@ -354,8 +369,8 @@ namespace Point.Client.Main.Forms.Sales
                 this.Text = "Loading Orders...";
             }));
 
-            var response = await _orderService.SearchOrders(_currentPage, _currentPageSize, 
-                customerId: null, customerName: null, [_currentOrderStatus.Value]);
+            var response = await _orderService.SearchOrders(_currentPage, _currentPageSize,
+                 customerId: null, customerName: _searchOrderDto?.CustomerName ?? null, [_currentOrderStatus.Value]);
 
             this.Invoke((MethodInvoker)(() =>
             {
@@ -365,7 +380,7 @@ namespace Point.Client.Main.Forms.Sales
                 ClearSalesFields();
                 txtPage.Clear();
                 lblTotalPage.Text = string.Format(FormConstants.Pagination.TotalPagesCountLabel, 0);
-               
+
                 if (response?.TotalCount > 0)
                 {
                     txtPage.Text = _currentPage.ToString();
@@ -403,7 +418,7 @@ namespace Point.Client.Main.Forms.Sales
                     if (response?.Status == OrderStatus.Paid)
                     {
                         MessageBox.Show($"{_currentOrder.GenerateOrderNumberString()} payment completed.", "Request Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
+
                         cmbStatus_SelectedIndexChanged(null, null);
                     }
                     else // Partially Paid

@@ -38,7 +38,6 @@
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             btnPay = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
-            btnReload = new ToolStripButton();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
             dgvSales = new DataGridView();
@@ -58,8 +57,7 @@
             toolStripLabel1 = new ToolStripLabel();
             btnPrev = new ToolStripButton();
             btnFirst = new ToolStripButton();
-            toolStripLabel3 = new ToolStripLabel();
-            cmbStatus = new ToolStripComboBox();
+            btnReload = new ToolStripButton();
             tsMain = new ToolStrip();
             btnUpdate = new ToolStripDropDownButton();
             toolStripSeparator3 = new ToolStripSeparator();
@@ -125,6 +123,11 @@
             label1 = new Label();
             lblTitle = new Label();
             lblIcon = new Label();
+            pnlSearch = new Panel();
+            label2 = new Label();
+            txtSearchCustomer = new TextBox();
+            cmbStatus = new ComboBox();
+            panel4 = new Panel();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvSales).BeginInit();
@@ -140,6 +143,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvPayments).BeginInit();
             tabRefunds.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRefunds).BeginInit();
+            pnlSearch.SuspendLayout();
             SuspendLayout();
             // 
             // btnPay
@@ -155,15 +159,6 @@
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 31);
             // 
-            // btnReload
-            // 
-            btnReload.Image = Properties.Resources.reload_icon;
-            btnReload.ImageTransparentColor = Color.Magenta;
-            btnReload.Name = "btnReload";
-            btnReload.Size = new Size(95, 28);
-            btnReload.Text = "Reload";
-            btnReload.Click += btnReload_Click;
-            // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.AutoSize = true;
@@ -178,7 +173,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1770, 705);
+            tableLayoutPanel1.Size = new Size(1770, 610);
             tableLayoutPanel1.TabIndex = 10;
             // 
             // panel1
@@ -190,7 +185,7 @@
             panel1.Location = new System.Drawing.Point(4, 4);
             panel1.Margin = new Padding(4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(720, 697);
+            panel1.Size = new Size(720, 602);
             panel1.TabIndex = 0;
             // 
             // dgvSales
@@ -207,7 +202,7 @@
             dgvSales.ReadOnly = true;
             dgvSales.RowHeadersWidth = 51;
             dgvSales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvSales.Size = new Size(720, 635);
+            dgvSales.Size = new Size(720, 540);
             dgvSales.TabIndex = 6;
             dgvSales.SelectionChanged += dgvSales_SelectionChanged;
             // 
@@ -260,8 +255,8 @@
             tsPages.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsPages.GripStyle = ToolStripGripStyle.Hidden;
             tsPages.ImageScalingSize = new Size(20, 20);
-            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, toolStripLabel3, cmbStatus });
-            tsPages.Location = new System.Drawing.Point(0, 666);
+            tsPages.Items.AddRange(new ToolStripItem[] { toolStripLabel2, cmbPageSize, toolStripSeparator2, btnLast, btnNext, lblTotalPage, txtPage, toolStripLabel1, btnPrev, btnFirst, btnReload });
+            tsPages.Location = new System.Drawing.Point(0, 571);
             tsPages.Name = "tsPages";
             tsPages.Size = new Size(720, 31);
             tsPages.TabIndex = 11;
@@ -359,25 +354,21 @@
             btnFirst.ToolTipText = "first page";
             btnFirst.Click += btnFirst_Click;
             // 
-            // toolStripLabel3
+            // btnReload
             // 
-            toolStripLabel3.Name = "toolStripLabel3";
-            toolStripLabel3.Size = new Size(66, 28);
-            toolStripLabel3.Text = "Status";
-            // 
-            // cmbStatus
-            // 
-            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbStatus.Name = "cmbStatus";
-            cmbStatus.Size = new Size(121, 31);
-            cmbStatus.SelectedIndexChanged += cmbStatus_SelectedIndexChanged;
+            btnReload.Image = Properties.Resources.reload_icon;
+            btnReload.ImageTransparentColor = Color.Magenta;
+            btnReload.Name = "btnReload";
+            btnReload.Size = new Size(123, 28);
+            btnReload.Text = "Reload All";
+            btnReload.Click += btnReload_Click;
             // 
             // tsMain
             // 
             tsMain.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tsMain.GripStyle = ToolStripGripStyle.Hidden;
             tsMain.ImageScalingSize = new Size(20, 20);
-            tsMain.Items.AddRange(new ToolStripItem[] { btnUpdate, toolStripSeparator1, btnReload });
+            tsMain.Items.AddRange(new ToolStripItem[] { btnUpdate, toolStripSeparator1 });
             tsMain.Location = new System.Drawing.Point(0, 0);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(720, 31);
@@ -390,8 +381,8 @@
             btnUpdate.Image = Properties.Resources.update_sales_icon;
             btnUpdate.ImageTransparentColor = Color.Magenta;
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(108, 28);
-            btnUpdate.Text = "Update";
+            btnUpdate.Size = new Size(161, 28);
+            btnUpdate.Text = "Update Sales";
             // 
             // toolStripSeparator3
             // 
@@ -426,7 +417,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new System.Drawing.Point(731, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1036, 699);
+            panel2.Size = new Size(1036, 604);
             panel2.TabIndex = 1;
             // 
             // tabControl1
@@ -439,7 +430,7 @@
             tabControl1.Location = new System.Drawing.Point(18, 91);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1008, 599);
+            tabControl1.Size = new Size(1008, 504);
             tabControl1.TabIndex = 1;
             // 
             // tabSummary
@@ -448,7 +439,7 @@
             tabSummary.Location = new System.Drawing.Point(4, 34);
             tabSummary.Name = "tabSummary";
             tabSummary.Padding = new Padding(3);
-            tabSummary.Size = new Size(1000, 561);
+            tabSummary.Size = new Size(1000, 466);
             tabSummary.TabIndex = 2;
             tabSummary.Text = "Summary";
             tabSummary.UseVisualStyleBackColor = true;
@@ -475,7 +466,7 @@
             panel3.Margin = new Padding(25);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(10);
-            panel3.Size = new Size(420, 508);
+            panel3.Size = new Size(420, 413);
             panel3.TabIndex = 56;
             // 
             // txtRefunds
@@ -505,7 +496,7 @@
             btnAddPayment.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnAddPayment.BackColor = Color.LimeGreen;
             btnAddPayment.Font = new Font("Segoe UI", 13.8F);
-            btnAddPayment.Location = new System.Drawing.Point(13, 424);
+            btnAddPayment.Location = new System.Drawing.Point(13, 329);
             btnAddPayment.Name = "btnAddPayment";
             btnAddPayment.Size = new Size(392, 69);
             btnAddPayment.TabIndex = 4;
@@ -640,7 +631,7 @@
             tabItems.Location = new System.Drawing.Point(4, 29);
             tabItems.Name = "tabItems";
             tabItems.Padding = new Padding(3);
-            tabItems.Size = new Size(1000, 566);
+            tabItems.Size = new Size(1000, 471);
             tabItems.TabIndex = 0;
             tabItems.Text = "Items";
             tabItems.UseVisualStyleBackColor = true;
@@ -649,7 +640,7 @@
             // 
             lblTotalItems.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblTotalItems.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            lblTotalItems.Location = new System.Drawing.Point(822, 520);
+            lblTotalItems.Location = new System.Drawing.Point(822, 425);
             lblTotalItems.Margin = new Padding(4, 0, 4, 0);
             lblTotalItems.Name = "lblTotalItems";
             lblTotalItems.Size = new Size(171, 38);
@@ -662,7 +653,7 @@
             label6.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            label6.Location = new System.Drawing.Point(765, 527);
+            label6.Location = new System.Drawing.Point(765, 432);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(54, 25);
@@ -673,7 +664,7 @@
             // 
             lblDiscount.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblDiscount.Font = new Font("Segoe UI", 10.8F);
-            lblDiscount.Location = new System.Drawing.Point(822, 482);
+            lblDiscount.Location = new System.Drawing.Point(822, 387);
             lblDiscount.Margin = new Padding(4, 0, 4, 0);
             lblDiscount.Name = "lblDiscount";
             lblDiscount.Size = new Size(171, 38);
@@ -686,7 +677,7 @@
             label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10.8F);
-            label5.Location = new System.Drawing.Point(732, 489);
+            label5.Location = new System.Drawing.Point(732, 394);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(82, 25);
@@ -697,7 +688,7 @@
             // 
             lblSubTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblSubTotal.Font = new Font("Segoe UI", 10.8F);
-            lblSubTotal.Location = new System.Drawing.Point(822, 444);
+            lblSubTotal.Location = new System.Drawing.Point(822, 349);
             lblSubTotal.Margin = new Padding(4, 0, 4, 0);
             lblSubTotal.Name = "lblSubTotal";
             lblSubTotal.Size = new Size(171, 38);
@@ -710,7 +701,7 @@
             label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 10.8F);
-            label8.Location = new System.Drawing.Point(728, 451);
+            label8.Location = new System.Drawing.Point(728, 356);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new Size(85, 25);
@@ -786,7 +777,7 @@
             tabPayments.Location = new System.Drawing.Point(4, 29);
             tabPayments.Name = "tabPayments";
             tabPayments.Padding = new Padding(3);
-            tabPayments.Size = new Size(1000, 566);
+            tabPayments.Size = new Size(1000, 471);
             tabPayments.TabIndex = 1;
             tabPayments.Text = "Payments";
             tabPayments.UseVisualStyleBackColor = true;
@@ -795,7 +786,7 @@
             // 
             lblTotalPayments.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblTotalPayments.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            lblTotalPayments.Location = new System.Drawing.Point(822, 520);
+            lblTotalPayments.Location = new System.Drawing.Point(822, 425);
             lblTotalPayments.Margin = new Padding(4, 0, 4, 0);
             lblTotalPayments.Name = "lblTotalPayments";
             lblTotalPayments.Size = new Size(171, 38);
@@ -808,7 +799,7 @@
             label13.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            label13.Location = new System.Drawing.Point(765, 527);
+            label13.Location = new System.Drawing.Point(765, 432);
             label13.Margin = new Padding(4, 0, 4, 0);
             label13.Name = "label13";
             label13.Size = new Size(54, 25);
@@ -829,7 +820,7 @@
             dgvPayments.ReadOnly = true;
             dgvPayments.RowHeadersWidth = 51;
             dgvPayments.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvPayments.Size = new Size(986, 509);
+            dgvPayments.Size = new Size(986, 414);
             dgvPayments.TabIndex = 47;
             // 
             // clmDateTime
@@ -884,7 +875,7 @@
             tabRefunds.Location = new System.Drawing.Point(4, 29);
             tabRefunds.Name = "tabRefunds";
             tabRefunds.Padding = new Padding(3);
-            tabRefunds.Size = new Size(1000, 566);
+            tabRefunds.Size = new Size(1000, 471);
             tabRefunds.TabIndex = 3;
             tabRefunds.Text = "Refunds";
             tabRefunds.UseVisualStyleBackColor = true;
@@ -903,7 +894,7 @@
             dgvRefunds.ReadOnly = true;
             dgvRefunds.RowHeadersWidth = 51;
             dgvRefunds.SelectionMode = DataGridViewSelectionMode.CellSelect;
-            dgvRefunds.Size = new Size(986, 509);
+            dgvRefunds.Size = new Size(986, 414);
             dgvRefunds.TabIndex = 59;
             // 
             // dataGridViewTextBoxColumn1
@@ -986,7 +977,7 @@
             // 
             lblTotalRefunds.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             lblTotalRefunds.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            lblTotalRefunds.Location = new System.Drawing.Point(822, 520);
+            lblTotalRefunds.Location = new System.Drawing.Point(822, 425);
             lblTotalRefunds.Margin = new Padding(4, 0, 4, 0);
             lblTotalRefunds.Name = "lblTotalRefunds";
             lblTotalRefunds.Size = new Size(171, 38);
@@ -999,7 +990,7 @@
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
-            label3.Location = new System.Drawing.Point(765, 527);
+            label3.Location = new System.Drawing.Point(765, 432);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(54, 25);
@@ -1015,7 +1006,7 @@
             lblDateTime.Name = "lblDateTime";
             lblDateTime.Size = new Size(245, 25);
             lblDateTime.TabIndex = 47;
-            lblDateTime.Text = "Jan 1, 2025";
+            lblDateTime.Text = "Date / Time";
             lblDateTime.TextAlign = ContentAlignment.MiddleRight;
             // 
             // lblCustomer
@@ -1025,9 +1016,9 @@
             lblCustomer.Location = new System.Drawing.Point(115, 63);
             lblCustomer.Margin = new Padding(4, 0, 4, 0);
             lblCustomer.Name = "lblCustomer";
-            lblCustomer.Size = new Size(50, 25);
+            lblCustomer.Size = new Size(19, 25);
             lblCustomer.TabIndex = 46;
-            lblCustomer.Text = "New";
+            lblCustomer.Text = "-";
             // 
             // lblStatus
             // 
@@ -1036,9 +1027,9 @@
             lblStatus.Location = new System.Drawing.Point(86, 31);
             lblStatus.Margin = new Padding(4, 0, 4, 0);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(50, 25);
+            lblStatus.Size = new Size(19, 25);
             lblStatus.TabIndex = 44;
-            lblStatus.Text = "New";
+            lblStatus.Text = "-";
             // 
             // label4
             // 
@@ -1057,9 +1048,9 @@
             lblOrderNumber.Location = new System.Drawing.Point(4, 0);
             lblOrderNumber.Margin = new Padding(4, 0, 4, 0);
             lblOrderNumber.Name = "lblOrderNumber";
-            lblOrderNumber.Size = new Size(207, 31);
+            lblOrderNumber.Size = new Size(136, 31);
             lblOrderNumber.TabIndex = 42;
-            lblOrderNumber.Text = "ORDER NO. 12345";
+            lblOrderNumber.Text = "ORDER NO.";
             // 
             // label1
             // 
@@ -1094,6 +1085,59 @@
             lblIcon.Size = new Size(60, 60);
             lblIcon.TabIndex = 0;
             // 
+            // pnlSearch
+            // 
+            pnlSearch.Controls.Add(label2);
+            pnlSearch.Controls.Add(txtSearchCustomer);
+            pnlSearch.Controls.Add(cmbStatus);
+            pnlSearch.Controls.Add(panel4);
+            pnlSearch.Dock = DockStyle.Bottom;
+            pnlSearch.Location = new System.Drawing.Point(0, 670);
+            pnlSearch.Name = "pnlSearch";
+            pnlSearch.Size = new Size(1770, 95);
+            pnlSearch.TabIndex = 12;
+            pnlSearch.TabStop = true;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(47, 55);
+            label2.Name = "label2";
+            label2.Size = new Size(60, 25);
+            label2.TabIndex = 6;
+            label2.Text = "Status";
+            // 
+            // txtSearchCustomer
+            // 
+            txtSearchCustomer.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            txtSearchCustomer.Location = new System.Drawing.Point(47, 14);
+            txtSearchCustomer.Margin = new Padding(4);
+            txtSearchCustomer.MaxLength = 250;
+            txtSearchCustomer.Name = "txtSearchCustomer";
+            txtSearchCustomer.PlaceholderText = "Customer name...";
+            txtSearchCustomer.Size = new Size(1710, 31);
+            txtSearchCustomer.TabIndex = 5;
+            txtSearchCustomer.KeyDown += txtSearchCustomer_KeyDown;
+            // 
+            // cmbStatus
+            // 
+            cmbStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbStatus.FormattingEnabled = true;
+            cmbStatus.Location = new System.Drawing.Point(113, 52);
+            cmbStatus.Name = "cmbStatus";
+            cmbStatus.Size = new Size(277, 33);
+            cmbStatus.TabIndex = 4;
+            cmbStatus.SelectedIndexChanged += cmbStatus_SelectedIndexChanged;
+            // 
+            // panel4
+            // 
+            panel4.BackgroundImage = Properties.Resources.search;
+            panel4.BackgroundImageLayout = ImageLayout.Center;
+            panel4.Location = new System.Drawing.Point(13, 14);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(27, 27);
+            panel4.TabIndex = 3;
+            // 
             // frmSales
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -1102,6 +1146,7 @@
             Controls.Add(lblIcon);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(lblTitle);
+            Controls.Add(pnlSearch);
             Font = new Font("Segoe UI", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
             MinimumSize = new Size(1300, 700);
@@ -1132,6 +1177,8 @@
             tabRefunds.ResumeLayout(false);
             tabRefunds.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRefunds).EndInit();
+            pnlSearch.ResumeLayout(false);
+            pnlSearch.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1140,7 +1187,6 @@
 
         private ToolStripMenuItem btnPay;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton btnReload;
         private TableLayoutPanel tableLayoutPanel1;
         private Panel panel1;
         private DataGridView dgvSales;
@@ -1155,7 +1201,6 @@
         private ToolStripLabel toolStripLabel1;
         private ToolStripButton btnPrev;
         private ToolStripButton btnFirst;
-        private ToolStripComboBox cmbStatus;
         private ToolStrip tsMain;
         private ToolStripButton btnAddNewOrder;
         private ToolStripDropDownButton btnUpdate;
@@ -1166,7 +1211,6 @@
         private ToolStripMenuItem btnVoid;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripMenuItem btnRefund;
-        private ToolStripLabel toolStripLabel3;
         private Label lblIcon;
         private Label lblCustomer;
         private Label lblStatus;
@@ -1230,5 +1274,11 @@
         private DataGridViewTextBoxColumn clmRefundRemarks;
         private TextBox txtRefunds;
         private Label label7;
+        private Panel pnlSearch;
+        private Label label2;
+        private TextBox txtSearchCustomer;
+        private ComboBox cmbStatus;
+        private Panel panel4;
+        private ToolStripButton btnReload;
     }
 }
