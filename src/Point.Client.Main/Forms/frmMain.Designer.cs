@@ -248,7 +248,6 @@
             toolStripButton2.Size = new Size(97, 99);
             toolStripButton2.Text = "Reports";
             toolStripButton2.TextImageRelation = TextImageRelation.ImageAboveText;
-            toolStripButton2.Click += toolStripButton2_Click;
             // 
             // toolStrip2
             // 

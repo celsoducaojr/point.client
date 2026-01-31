@@ -376,9 +376,9 @@
             // 
             // btnPrint
             // 
-            btnPrint.Anchor = AnchorStyles.Bottom;
+            btnPrint.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnPrint.Image = Properties.Resources.print;
-            btnPrint.Location = new System.Drawing.Point(13, 429);
+            btnPrint.Location = new System.Drawing.Point(950, 47);
             btnPrint.Name = "btnPrint";
             btnPrint.Size = new Size(72, 45);
             btnPrint.TabIndex = 41;

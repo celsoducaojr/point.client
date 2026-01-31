@@ -1,4 +1,5 @@
-﻿using Point.Client.Main.Api;
+﻿using ClosedXML.Excel;
+using Point.Client.Main.Api;
 using Point.Client.Main.Api.Dtos;
 using Point.Client.Main.Api.Entities.Orders;
 using Point.Client.Main.Api.Enums;
@@ -6,6 +7,8 @@ using Point.Client.Main.Api.Extensions;
 using Point.Client.Main.Api.Services;
 using Point.Client.Main.Constants;
 using Point.Client.Main.Globals;
+using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace Point.Client.Main.Forms.Orders
 {
@@ -364,15 +367,71 @@ namespace Point.Client.Main.Forms.Orders
             }));
         }
 
+        private async Task PrintOrder()
+        {
+            this.Invoke((MethodInvoker)(() =>
+            {
+                EnableFormLoading(true, "Printing...");
+            }));
+
+
+            string orderFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"static\printing\order.xlsx");
+            string outputFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
+            if (!Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
+            string outputFile = Path.Combine(outputFolder, "order.xlsx");
+            File.Copy(orderFile, outputFile, true);
+
+
+            string filePath = outputFile;
+
+            using (var book = new XLWorkbook(filePath))
+            {
+                var worksheet = book.Worksheet(1); // or .Worksheet("Sheet1")
+
+                // Write values
+                worksheet.Cell("A1").Value = "Name";
+                worksheet.Cell("B1").Value = "Score";
+
+                worksheet.Cell("A2").Value = "John";
+                worksheet.Cell("B2").Value = 95;
+
+                worksheet.Cell("A3").Value = "Maria";
+                worksheet.Cell("B3").Value = 88;
+
+                // Save changes to same file
+                book.Save();
+            }
+
+            string psCommand = $@"
+                $excel = New-Object -ComObject Excel.Application
+                $excel.Visible = $false
+                $wb = $excel.Workbooks.Open('{filePath}')
+                $ws = $wb.ActiveSheet
+                $ws.PrintOut()
+                $wb.Close($false)
+                $excel.Quit()
+                ";
+
+            var psi = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{psCommand}\"",
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using var process = new Process { StartInfo = psi };
+            process.Start();
+            await process.WaitForExitAsync();
+
+            EnableFormLoading(false);
+        }
+
         #endregion
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            string orderFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "static\\printing\\order.xlsx" );
-            string outputFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
-            if (!Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
-            string outputFile = Path.Combine(outputFolder, "order_printing.xlsx");
-            File.Copy(orderFile, outputFile, true);
+            Task.Run(() => PrintOrder()); 
         }
     }
 }
