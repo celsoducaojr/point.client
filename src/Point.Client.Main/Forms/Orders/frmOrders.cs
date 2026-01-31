@@ -133,6 +133,8 @@ namespace Point.Client.Main.Forms.Orders
                     btnModify.Enabled = true;
                     btnRelease.Enabled = true;
                     btnCancel.Enabled = true;
+
+                    btnPrint.Enabled = true;
                 }
             }
         }
@@ -281,6 +283,8 @@ namespace Point.Client.Main.Forms.Orders
             btnModify.Enabled = false;
             btnRelease.Enabled = false;
             btnCancel.Enabled = false;
+
+            btnPrint.Enabled = false;
         }
         private void EnableFormLoading(bool enable = true, string? message = null)
         {
@@ -361,5 +365,14 @@ namespace Point.Client.Main.Forms.Orders
         }
 
         #endregion
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            string orderFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "static\\printing\\order.xlsx" );
+            string outputFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
+            if (!Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
+            string outputFile = Path.Combine(outputFolder, "order_printing.xlsx");
+            File.Copy(orderFile, outputFile, true);
+        }
     }
 }

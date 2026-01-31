@@ -1,3 +1,4 @@
+using ClosedXML.Excel;
 using Point.Client.Main.Forms;
 using Point.Client.Main.Forms.Listing;
 using Point.Client.Main.Forms.Orders;
@@ -114,5 +115,35 @@ namespace Point.Client.Main
         }
 
         #endregion
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            string orderFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"static\printing\order.xlsx");
+            string outputFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "temp");
+            if (!Directory.Exists(outputFolder)) Directory.CreateDirectory(outputFolder);
+            string outputFile = Path.Combine(outputFolder, "order_printing.xlsx");
+            File.Copy(orderFile, outputFile, true);
+
+
+            string filePath = outputFile;
+
+            using (var book = new XLWorkbook(filePath))
+            {
+                var worksheet = book.Worksheet(1); // or .Worksheet("Sheet1")
+
+                // Write values
+                worksheet.Cell("A1").Value = "Name";
+                worksheet.Cell("B1").Value = "Score";
+
+                worksheet.Cell("A2").Value = "John";
+                worksheet.Cell("B2").Value = 95;
+
+                worksheet.Cell("A3").Value = "Maria";
+                worksheet.Cell("B3").Value = 88;
+
+                // Save changes to same file
+                book.Save();
+            }
+        }
     }
 }

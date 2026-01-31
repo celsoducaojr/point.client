@@ -60,6 +60,7 @@
             btnCancel = new ToolStripMenuItem();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel2 = new Panel();
+            btnPrint = new Button();
             lblCustomer = new Label();
             label2 = new Label();
             dgvOrderItems = new DataGridView();
@@ -355,6 +356,7 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(btnPrint);
             panel2.Controls.Add(lblCustomer);
             panel2.Controls.Add(label2);
             panel2.Controls.Add(dgvOrderItems);
@@ -371,6 +373,17 @@
             panel2.Padding = new Padding(10);
             panel2.Size = new Size(1036, 477);
             panel2.TabIndex = 1;
+            // 
+            // btnPrint
+            // 
+            btnPrint.Anchor = AnchorStyles.Bottom;
+            btnPrint.Image = Properties.Resources.print;
+            btnPrint.Location = new System.Drawing.Point(13, 429);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(72, 45);
+            btnPrint.TabIndex = 41;
+            btnPrint.UseVisualStyleBackColor = true;
+            btnPrint.Click += btnPrint_Click;
             // 
             // lblCustomer
             // 
@@ -684,5 +697,6 @@
         private TextBox txtSearchCustomer;
         private Label label3;
         private ToolStripButton btnReload;
+        private Button btnPrint;
     }
 }
